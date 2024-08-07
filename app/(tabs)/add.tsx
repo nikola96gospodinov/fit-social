@@ -1,13 +1,17 @@
+import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { SafeAreaView, StyleSheet } from "react-native";
 
-export default function HomeScreen() {
+const AddWorkout = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ThemedText type="title">⏳ Coming Soon...</ThemedText>
+      <ThemedText>Add a workout</ThemedText>
+      <ThemedButton text="Click me" />
     </SafeAreaView>
   );
-}
+};
+
+export default AddWorkout;
 
 const styles = StyleSheet.create({
   container: {

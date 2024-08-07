@@ -1,13 +1,15 @@
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { SafeAreaView, StyleSheet } from "react-native";
 
-export default function HomeScreen() {
+const Profile = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ThemedText type="title">⏳ Coming Soon...</ThemedText>
+      <ThemedText>Your profile</ThemedText>
     </SafeAreaView>
   );
-}
+};
+
+export default Profile;
 
 const styles = StyleSheet.create({
   container: {
