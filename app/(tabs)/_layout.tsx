@@ -1,12 +1,13 @@
 import { Tabs } from "expo-router";
 import React from "react";
-
 import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
 import { colors } from "@/constants/colors.constants";
-import { useColorScheme } from "react-native";
+import { useColorScheme, View } from "react-native";
+import { useStore } from "@/store";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { workout } = useStore();
 
   return (
     <Tabs
@@ -18,10 +19,10 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "Feed",
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? "home" : "home-outline"}
+              name={focused ? "people-circle" : "people-circle-outline"}
               color={color}
             />
           ),
@@ -29,15 +30,26 @@ export default function TabLayout() {
       />
 
       <Tabs.Screen
-        name="add"
+        name="workout"
         options={{
-          title: "Add",
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
-              name={focused ? "add-circle" : "add-circle-outline"}
-              color={color}
-            />
-          ),
+          title: workout ? "Workout" : "Add",
+          tabBarIcon: ({ color, focused }) => {
+            if (workout) {
+              return (
+                <TabBarIcon
+                  name={focused ? "barbell" : "barbell-outline"}
+                  color={color}
+                />
+              );
+            }
+
+            return (
+              <TabBarIcon
+                name={focused ? "add-circle" : "add-circle-outline"}
+                color={color}
+              />
+            );
+          },
         }}
       />
 
