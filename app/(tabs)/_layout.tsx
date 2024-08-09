@@ -1,9 +1,13 @@
 import { Tabs } from "expo-router";
-import React from "react";
 import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
 import { colors } from "@/constants/colors.constants";
-import { useColorScheme, View } from "react-native";
+import { useColorScheme } from "react-native";
 import { useStore } from "@/store";
+import { ThemedText } from "@/components/ui/themed-text.component";
+import { useGetTimer } from "@/hooks/use-get-timer";
+import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { WorkoutTimer } from "@/features/workout/workout-in-progress/workout-timer/workout-timer.component";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -34,22 +38,17 @@ export default function TabLayout() {
         options={{
           title: workout ? "Workout" : "Add",
           tabBarIcon: ({ color, focused }) => {
-            if (workout) {
-              return (
-                <TabBarIcon
-                  name={focused ? "barbell" : "barbell-outline"}
-                  color={color}
-                />
-              );
-            }
+            const icon = workout ? "barbell" : "add-circle";
 
             return (
               <TabBarIcon
-                name={focused ? "add-circle" : "add-circle-outline"}
+                name={focused ? icon : `${icon}-outline`}
                 color={color}
               />
             );
           },
+          headerShown: !!workout,
+          headerRight: () => <WorkoutTimer />,
         }}
       />
 

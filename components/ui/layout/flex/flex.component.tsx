@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 import { View } from "react-native";
 
 type Props = PropsWithChildren<{
-  direction: "row" | "column";
+  direction?: "row" | "column";
   align?: "center" | "flex-start" | "flex-end";
   justify?: "center" | "flex-start" | "flex-end";
   wrap?: "wrap" | "nowrap";
