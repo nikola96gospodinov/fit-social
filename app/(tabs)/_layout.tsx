@@ -3,7 +3,8 @@ import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
 import { colors } from "@/constants/colors.constants";
 import { useColorScheme } from "react-native";
 import { useStore } from "@/store";
-import { WorkoutTimer } from "@/features/workout/workout-in-progress/workout-timer/workout-timer.component";
+import { WorkoutTimer } from "@/features/workout/workout-in-progress/header/workout-timer/workout-timer.component";
+import { FinishWorkout } from "@/features/workout/workout-in-progress/header/finish-workout/finish-workout.component";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
@@ -12,7 +13,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors[colorScheme ?? "light"].tint,
+        tabBarActiveTintColor: colors[colorScheme ?? "light"].tabIconSelected,
         headerShown: false,
       }}
     >
@@ -44,7 +45,8 @@ export default function TabLayout() {
             );
           },
           headerShown: !!workout,
-          headerRight: () => <WorkoutTimer />,
+          headerLeft: () => <WorkoutTimer />,
+          headerRight: () => <FinishWorkout />,
         }}
       />
 
