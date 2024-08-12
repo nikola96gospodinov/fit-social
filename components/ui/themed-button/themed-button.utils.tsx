@@ -1,8 +1,8 @@
 import { colors } from "@/constants/colors.constants";
-import { ColorSchemeName, Pressable, StyleSheet } from "react-native";
+import { ColorSchemeName, StyleSheet } from "react-native";
 import { Size, Variant } from "./themed-button.types";
 
-export const getVariantStyles = ({ variant, theme }: Omit<Props, "size">) => {
+const getVariantStyles = ({ variant, theme }: Omit<Props, "size">) => {
   const themeColors = colors[theme];
 
   switch (variant) {
@@ -65,7 +65,7 @@ export const getVariantStyles = ({ variant, theme }: Omit<Props, "size">) => {
   }
 };
 
-export const getSizeStyles = (size: Size) => {
+const getSizeStyles = (size: Size) => {
   switch (size) {
     case "sm": {
       return StyleSheet.create({

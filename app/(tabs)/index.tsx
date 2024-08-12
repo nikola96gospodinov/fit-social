@@ -1,20 +1,10 @@
+import { FullScreenCenteredView } from "@/components/full-screen-centered-view/full-screen-centered-view.component";
 import { ThemedText } from "@/components/ui/themed-text.component";
-import { SafeAreaView, StyleSheet } from "react-native";
 
 export default function HomeScreen() {
   return (
-    <SafeAreaView style={styles.container}>
+    <FullScreenCenteredView>
       <ThemedText type="title">⏳ Coming Soon...</ThemedText>
-    </SafeAreaView>
+    </FullScreenCenteredView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    height: "100%",
-    width: "100%",
-  },
-});

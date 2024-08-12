@@ -9,6 +9,7 @@ export const colors = {
     fill: "#1e293b",
     fillTextColor: "#f1f5f9",
     fillOnTap: "#020617",
+    destructive: "#b91c1c",
   },
   dark: {
     text: "#f1f5f9",
@@ -20,5 +21,6 @@ export const colors = {
     fill: "#f1f5f9",
     fillTextColor: "#1e293b",
     fillOnTap: "#f8fafc",
+    destructive: "#ef4444",
   },
 };
