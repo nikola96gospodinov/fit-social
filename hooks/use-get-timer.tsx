@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
-type Props = Partial<{
+type Props = {
   startTime?: Date;
-}>;
+};
 
 export const useGetTimer = ({ startTime = new Date() }: Props) => {
   const [elapsedTime, setElapsedTime] = useState(0);
@@ -10,6 +10,8 @@ export const useGetTimer = ({ startTime = new Date() }: Props) => {
   const animationFrameRef = useRef(0);
 
   useEffect(() => {
+    startTimeRef.current = startTime.getTime();
+
     const updateTimer = () => {
       setElapsedTime(Date.now() - startTimeRef.current);
       animationFrameRef.current = requestAnimationFrame(updateTimer);
@@ -18,7 +20,7 @@ export const useGetTimer = ({ startTime = new Date() }: Props) => {
     animationFrameRef.current = requestAnimationFrame(updateTimer);
 
     return () => cancelAnimationFrame(animationFrameRef.current);
-  }, []);
+  }, [startTime]);
 
   return elapsedTime;
 };

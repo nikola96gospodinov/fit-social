@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { colors } from "@/constants/colors.constants";
+import { spacing } from "@/constants/spacing.constants";
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { useStore } from "@/store";
 import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
@@ -18,7 +19,7 @@ export const WorkoutTimer = () => {
   const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
 
   return (
-    <ThemedText style={{ marginLeft: 12 }}>
+    <ThemedText style={{ marginLeft: spacing[4] }}>
       <MaterialCommunityIcons
         name="timer-outline"
         size={16}
