@@ -4,9 +4,16 @@ import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
+import { GetExercisesProps } from "./types";
 
-const getExercisesByTargetMuscle = async (targetMuscle: TargetMuscle) => {
-  const url = URL.EXERCISE.GET_EXERCISES_BY_TARGET_MUSCLE(targetMuscle);
+export type GetExercisesByTargetMuscle = GetExercisesProps & {
+  targetMuscle: TargetMuscle;
+};
+
+const getExercisesByTargetMuscle = async (
+  props: GetExercisesByTargetMuscle
+) => {
+  const url = URL.EXERCISE.GET_EXERCISES_BY_TARGET_MUSCLE(props);
 
   const response = await fetch(url, {
     method: "GET",
@@ -24,9 +31,13 @@ const getExercisesByTargetMuscle = async (targetMuscle: TargetMuscle) => {
   return data;
 };
 
-export const useGetExercisesByTargetMuscle = (targetMuscle: TargetMuscle) => {
+export const useGetExercisesByTargetMuscle = ({
+  targetMuscle,
+  offset = 0,
+  limit = 9999,
+}: GetExercisesByTargetMuscle) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, targetMuscle],
-    queryFn: () => getExercisesByTargetMuscle(targetMuscle),
+    queryKey: [EXERCISES_KEY, targetMuscle, offset, limit],
+    queryFn: () => getExercisesByTargetMuscle({ targetMuscle, offset, limit }),
   });
 };

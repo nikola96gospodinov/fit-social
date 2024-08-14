@@ -4,9 +4,16 @@ import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
+import { GetExercisesProps } from "./types";
 
-const getExercisesByEquipmentType = async (equipmentType: Equipment) => {
-  const url = URL.EXERCISE.GET_EXERCISES_BY_EQUIPMENT_TYPE(equipmentType);
+export type GetExercisesByEquipmentType = GetExercisesProps & {
+  equipmentType: Equipment;
+};
+
+const getExercisesByEquipmentType = async (
+  props: GetExercisesByEquipmentType
+) => {
+  const url = URL.EXERCISE.GET_EXERCISES_BY_EQUIPMENT_TYPE(props);
 
   const response = await fetch(url, {
     method: "GET",
@@ -24,9 +31,14 @@ const getExercisesByEquipmentType = async (equipmentType: Equipment) => {
   return data;
 };
 
-export const useGetExercisesByEquipmentType = (equipmentType: Equipment) => {
+export const useGetExercisesByEquipmentType = ({
+  equipmentType,
+  offset = 0,
+  limit = 9999,
+}: GetExercisesByEquipmentType) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, equipmentType],
-    queryFn: () => getExercisesByEquipmentType(equipmentType),
+    queryKey: [EXERCISES_KEY, equipmentType, offset, limit],
+    queryFn: () =>
+      getExercisesByEquipmentType({ equipmentType, offset, limit }),
   });
 };

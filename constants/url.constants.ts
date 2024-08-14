@@ -1,9 +1,7 @@
-import { GetExercisesProps } from "@/services/exercises/get-all-exercises.service";
-import type {
-  BodyPart,
-  Equipment,
-  TargetMuscle,
-} from "@/types/api/exercise.types";
+import { GetExercisesByBodyPartProps } from "@/services/exercises/get-exercises-by-body-part.service";
+import { GetExercisesByEquipmentType } from "@/services/exercises/get-exercises-by-equipment-type.service";
+import { GetExercisesByTargetMuscle } from "@/services/exercises/get-exercises-by-target-muscle.service";
+import { GetExercisesProps } from "@/services/exercises/types";
 import { addQueryParamsToUrl } from "@/utils/url.utils";
 
 export const URL = {
@@ -18,16 +16,28 @@ export const URL = {
       return `${this.base}/exercise/${id}`;
     },
 
-    GET_EXERCISES_BY_BODY_PART(bodyPart: BodyPart): string {
-      return `${this.base}/bodyPart/${bodyPart}`;
+    GET_EXERCISES_BY_BODY_PART({
+      bodyPart,
+      ...queryParams
+    }: GetExercisesByBodyPartProps): string {
+      const url = `${this.base}/bodyPart/${bodyPart}`;
+      return addQueryParamsToUrl(url, queryParams);
     },
 
-    GET_EXERCISES_BY_EQUIPMENT_TYPE(equipmentType: Equipment): string {
-      return `${this.base}/equipment/${equipmentType}`;
+    GET_EXERCISES_BY_EQUIPMENT_TYPE({
+      equipmentType,
+      ...queryParams
+    }: GetExercisesByEquipmentType): string {
+      const url = `${this.base}/equipment/${equipmentType}`;
+      return addQueryParamsToUrl(url, queryParams);
     },
 
-    GET_EXERCISES_BY_TARGET_MUSCLE(targetMuscle: TargetMuscle): string {
-      return `${this.base}/target/${targetMuscle}`;
+    GET_EXERCISES_BY_TARGET_MUSCLE({
+      targetMuscle,
+      ...queryParams
+    }: GetExercisesByTargetMuscle): string {
+      const url = `${this.base}/target/${targetMuscle}`;
+      return addQueryParamsToUrl(url, queryParams);
     },
   },
 };

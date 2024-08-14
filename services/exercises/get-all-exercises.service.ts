@@ -3,13 +3,9 @@ import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
 import { headers } from "./headers";
+import { GetExercisesProps } from "./types";
 
-export type GetExercisesProps = {
-  limit?: number;
-  offset?: number;
-};
-
-const getExercises = async (props?: GetExercisesProps) => {
+const getExercises = async (props: GetExercisesProps) => {
   const url = URL.EXERCISE.GET_EXERCISES(props);
 
   const response = await fetch(url, {
@@ -28,9 +24,12 @@ const getExercises = async (props?: GetExercisesProps) => {
   return data;
 };
 
-export const useGetExercises = (props?: GetExercisesProps) => {
+export const useGetExercises = ({
+  offset = 0,
+  limit = 9999,
+}: GetExercisesProps) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, props],
-    queryFn: () => getExercises(props),
+    queryKey: [EXERCISES_KEY, offset, limit],
+    queryFn: () => getExercises({ offset, limit }),
   });
 };
