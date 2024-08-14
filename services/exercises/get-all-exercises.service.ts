@@ -1,4 +1,5 @@
 import { URL } from "@/constants/url.constants";
+import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 
 const EXERCISES_KEY = "exercises";
@@ -25,7 +26,9 @@ const getExercises = async ({ limit = 9999, offset }: GetExercisesProps) => {
     throw new Error("Failed to fetch exercises");
   }
 
-  return response.json();
+  const data: Exercise[] = await response.json();
+
+  return data;
 };
 
 export const useGetExercises = (props: GetExercisesProps) => {

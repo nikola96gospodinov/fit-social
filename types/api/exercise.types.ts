@@ -60,3 +60,14 @@ export type BodyPart =
   | "upper arms"
   | "upper legs"
   | "waist";
+
+export type Exercise = {
+  bodyPart: BodyPart;
+  equipment: Equipment;
+  gifUrl: string;
+  id: string;
+  name: string;
+  target: TargetMuscle;
+  secondaryMuscles: Array<TargetMuscle | string>;
+  instructions: string[];
+};
