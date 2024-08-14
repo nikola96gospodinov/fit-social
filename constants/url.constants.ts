@@ -1,4 +1,9 @@
 import { GetExercisesProps } from "@/services/exercises/get-all-exercises.service";
+import type {
+  BodyPart,
+  Equipment,
+  TargetMuscle,
+} from "@/types/api/exercise.types";
 import { addQueryParamsToUrl } from "@/utils/url.utils";
 
 export const URL = {
@@ -9,8 +14,7 @@ export const URL = {
       return addQueryParamsToUrl(this.base, queryParams);
     },
 
-    // TODO: Be more specific with the body part
-    GET_EXERCISES_BY_BODY_PART(bodyPart: string): string {
+    GET_EXERCISES_BY_BODY_PART(bodyPart: BodyPart): string {
       return `${this.base}/bodyPart/${bodyPart}`;
     },
 
@@ -18,8 +22,7 @@ export const URL = {
       return `${this.base}/bodyPartList`;
     },
 
-    // TODO: Be more specific with the equipment type
-    GET_EXERCISE_BY_EQUIPMENT_TYPE(equipmentType: string): string {
+    GET_EXERCISE_BY_EQUIPMENT_TYPE(equipmentType: Equipment): string {
       return `${this.base}/equipment/${equipmentType}`;
     },
 
@@ -27,8 +30,7 @@ export const URL = {
       return `${this.base}/equipmentList`;
     },
 
-    // TODO: Be more specific with the target muscle
-    GET_EXERCISE_BY_TARGET_MUSCLE(targetMuscle: string): string {
+    GET_EXERCISE_BY_TARGET_MUSCLE(targetMuscle: TargetMuscle): string {
       return `${this.base}/target/${targetMuscle}`;
     },
 
