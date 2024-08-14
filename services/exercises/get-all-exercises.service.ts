@@ -2,6 +2,7 @@ import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
+import { headers } from "./headers";
 
 export type GetExercisesProps = {
   limit?: number;
@@ -13,10 +14,7 @@ const getExercises = async (props?: GetExercisesProps) => {
 
   const response = await fetch(url, {
     method: "GET",
-    headers: {
-      "x-rapidapi-host": process.env.RAPID_API_HOST as string,
-      "x-rapidapi-key": process.env.RAPID_API_KEY as string,
-    },
+    headers,
   });
 
   if (!response.ok) {
