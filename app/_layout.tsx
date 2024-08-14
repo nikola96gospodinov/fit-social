@@ -8,6 +8,10 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import "react-native-reanimated";
+import { enableMocking } from "@/mocks";
+
+// MSW is enabled in development mode only
+enableMocking();
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();

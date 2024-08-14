@@ -9,8 +9,8 @@ export type GetExercisesProps = {
   offset?: number;
 };
 
-const getExercises = async ({ limit = 9999, offset }: GetExercisesProps) => {
-  const url = URL.EXERCISE.GET_EXERCISES({ limit, offset });
+const getExercises = async (props?: GetExercisesProps) => {
+  const url = URL.EXERCISE.GET_EXERCISES(props);
 
   const response = await fetch(url, {
     method: "GET",
@@ -31,7 +31,7 @@ const getExercises = async ({ limit = 9999, offset }: GetExercisesProps) => {
   return data;
 };
 
-export const useGetExercises = (props: GetExercisesProps) => {
+export const useGetExercises = (props?: GetExercisesProps) => {
   return useQuery({
     queryKey: [EXERCISES_KEY, props],
     queryFn: () => getExercises(props),
