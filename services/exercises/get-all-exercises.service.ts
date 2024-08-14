@@ -1,8 +1,7 @@
 import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
-
-const EXERCISES_KEY = "exercises";
+import { EXERCISES_KEY } from "./exercise-keys";
 
 export type GetExercisesProps = {
   limit?: number;
