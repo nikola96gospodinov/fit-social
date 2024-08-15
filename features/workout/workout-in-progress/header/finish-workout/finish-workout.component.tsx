@@ -10,7 +10,7 @@ export const FinishWorkout = () => {
   const colorScheme = useColorScheme();
 
   return (
-    <View style={{ marginRight: spacing[4] }}>
+    <View>
       <ThemedButton
         text="Finish"
         variant="flat"

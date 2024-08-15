@@ -7,7 +7,13 @@ export default function WorkoutLayout() {
   const { workout } = useStore();
 
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        headerBackTitleStyle: {
+          fontSize: 16,
+        },
+      }}
+    >
       <Stack.Screen
         name="index"
         options={{

@@ -19,7 +19,7 @@ export const WorkoutTimer = () => {
   const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
 
   return (
-    <ThemedText style={{ marginLeft: spacing[4] }}>
+    <ThemedText>
       <MaterialCommunityIcons
         name="timer-outline"
         size={16}
