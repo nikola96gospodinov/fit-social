@@ -1,5 +1,4 @@
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
-import { spacing } from "@/constants/spacing.constants";
 import { useStore } from "@/store";
 import { useColorScheme, View } from "react-native";
 import { createFinishConfirmationAlert } from "./create-finish-confirmation-alert";

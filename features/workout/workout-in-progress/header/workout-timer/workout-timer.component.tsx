@@ -1,6 +1,5 @@
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { colors } from "@/constants/colors.constants";
-import { spacing } from "@/constants/spacing.constants";
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { useStore } from "@/store";
 import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";

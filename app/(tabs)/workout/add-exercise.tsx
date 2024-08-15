@@ -1,11 +1,28 @@
-import { ThemedText } from "@/components/ui/themed-text.component";
-import { View } from "react-native";
+import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-input.component";
+import { spacing } from "@/constants/spacing.constants";
+import { ScrollView, useColorScheme } from "react-native";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import { Flex } from "@/components/ui/layout/flex/flex.component";
+import { colors } from "@/constants/colors.constants";
 
 const AddExercise = () => {
+  const colorScheme = useColorScheme();
+
   return (
-    <View>
-      <ThemedText>Add exercise</ThemedText>
-    </View>
+    <ScrollView style={{ padding: spacing[2], paddingTop: spacing[4] }}>
+      <Flex align="center" direction="row" gap={spacing[1]}>
+        <ThemedTextInput
+          showRemoveFocusButton
+          icon={{ name: "search", size: 16 }}
+        />
+
+        <MaterialCommunityIcons
+          name="filter"
+          size={24}
+          color={colors[colorScheme ?? "light"].text}
+        />
+      </Flex>
+    </ScrollView>
   );
 };
 

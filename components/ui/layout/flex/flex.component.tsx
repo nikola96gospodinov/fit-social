@@ -1,6 +1,6 @@
 import { Spacing, spacing } from "@/constants/spacing.constants";
 import { PropsWithChildren } from "react";
-import { View } from "react-native";
+import { View, ViewProps } from "react-native";
 
 type Props = PropsWithChildren<{
   direction?: "row" | "column";
@@ -8,6 +8,7 @@ type Props = PropsWithChildren<{
   justify?: "center" | "flex-start" | "flex-end";
   wrap?: "wrap" | "nowrap";
   gap?: Spacing;
+  style?: ViewProps["style"];
 }>;
 
 export const Flex = ({
@@ -17,19 +18,18 @@ export const Flex = ({
   justify,
   wrap,
   gap,
+  style,
 }: Props) => {
-  return (
-    <View
-      style={{
-        flexDirection: direction,
-        alignItems: align,
-        justifyContent: justify,
-        flexWrap: wrap,
-        width: "100%",
-        gap: gap ? spacing[gap] : 0,
-      }}
-    >
-      {children}
-    </View>
-  );
+  const styles = [
+    {
+      flexDirection: direction,
+      alignItems: align,
+      justifyContent: justify,
+      flexWrap: wrap,
+      gap: gap ? spacing[gap] : 0,
+    },
+    style,
+  ];
+
+  return <View style={styles}>{children}</View>;
 };

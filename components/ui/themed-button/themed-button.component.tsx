@@ -8,8 +8,6 @@ import { getButtonStyles } from "./themed-button.utils";
 import { Size, Variant } from "./themed-button.types";
 
 type Props = PressableProps & {
-  lightColor?: string;
-  darkColor?: string;
   text: string;
   variant?: Variant;
   size?: Size;
@@ -17,8 +15,6 @@ type Props = PressableProps & {
 
 export const ThemedButton = ({
   style,
-  lightColor,
-  darkColor,
   text,
   variant = "primary",
   size = "md",

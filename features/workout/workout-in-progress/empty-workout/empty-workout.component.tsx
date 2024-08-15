@@ -18,7 +18,7 @@ export const EmptyWorkout = () => {
     <FullScreenCenteredView>
       <ThemedButton
         text="Add exercise(s)"
-        // TODO: Figure out routing
+        // @ts-ignore
         onPress={() => router.push("/workout/add-exercise")}
       />
 
