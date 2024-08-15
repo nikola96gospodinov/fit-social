@@ -3,13 +3,24 @@ import { OrSeparator } from "@/components/or-separator/or-separator.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { useStore } from "@/store";
+import { useRouter } from "expo-router";
+import { useColorScheme } from "react-native";
+import { createCancelConfirmationAlert } from "./create-cancel-confirmation-alert";
 
 export const EmptyWorkout = () => {
   const { finishWorkout } = useStore();
 
+  const router = useRouter();
+
+  const colorScheme = useColorScheme();
+
   return (
     <FullScreenCenteredView>
-      <ThemedButton text="Add exercise(s)" />
+      <ThemedButton
+        text="Add exercise(s)"
+        // TODO: Figure out routing
+        onPress={() => router.push("/workout/add-exercise")}
+      />
 
       <VerticalSpacing size={4} />
 
@@ -20,7 +31,9 @@ export const EmptyWorkout = () => {
       <ThemedButton
         text="Cancel workout"
         variant="outline"
-        onPress={finishWorkout}
+        onPress={() =>
+          createCancelConfirmationAlert({ colorScheme, finishWorkout })
+        }
       />
     </FullScreenCenteredView>
   );
