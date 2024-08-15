@@ -1,9 +1,9 @@
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { View } from "react-native";
 import { EmptyWorkout } from "./empty-workout/empty-workout.component";
 
 export const WorkoutInProgress = () => {
-  const { workout } = useStore();
+  const { workout } = useActiveWorkoutStore();
 
   if (!workout?.exercises) {
     return <EmptyWorkout />;

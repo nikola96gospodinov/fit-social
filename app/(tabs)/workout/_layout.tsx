@@ -1,10 +1,10 @@
 import { FinishWorkout } from "@/features/workout/workout-in-progress/header/finish-workout/finish-workout.component";
 import { WorkoutTimer } from "@/features/workout/workout-in-progress/header/workout-timer/workout-timer.component";
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { Stack } from "expo-router";
 
 export default function WorkoutLayout() {
-  const { workout } = useStore();
+  const { workout } = useActiveWorkoutStore();
 
   return (
     <Stack

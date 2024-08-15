@@ -1,4 +1,5 @@
 import { colors, indigo } from "@/constants/colors.constants";
+import { ActiveFilter } from "@/types/workout.types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
@@ -10,28 +11,37 @@ import {
 } from "react-native";
 
 type Props = {
-  // TODO: Change the typing
-  filters: any[];
+  filters?: ActiveFilter[];
 };
 
 export const FilterIcon = ({ filters }: Props) => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() ?? "light";
 
   const router = useRouter();
 
-  const numberOfFilters = filters.length > 9 ? "9+" : filters.length;
+  const filterLength = filters?.length ?? 0;
+
+  const numberOfFilters = filterLength > 9 ? "9+" : filterLength;
 
   return (
-    <Pressable onPress={() => router.push("/workout/filters")}>
+    <Pressable
+      onPress={() => router.push("/workout/filters")}
+      style={[
+        styles.filterContainer,
+        {
+          backgroundColor: colors[colorScheme].icon,
+        },
+      ]}
+    >
       <MaterialCommunityIcons
         name="filter"
-        size={24}
-        color={colors[colorScheme ?? "light"].text}
+        size={22}
+        color={colors[colorScheme ?? "light"].background}
       />
 
-      {filters.length > 0 && (
-        <View style={styles.filterContainer}>
-          <Text style={styles.filterText}>{numberOfFilters}</Text>
+      {filterLength > 0 && (
+        <View style={styles.numContainer}>
+          <Text style={styles.numText}>{numberOfFilters}</Text>
         </View>
       )}
     </Pressable>
@@ -40,6 +50,12 @@ export const FilterIcon = ({ filters }: Props) => {
 
 const styles = StyleSheet.create({
   filterContainer: {
+    backgroundColor: "red",
+    borderRadius: 100,
+    padding: 6,
+  },
+
+  numContainer: {
     backgroundColor: indigo[600],
     display: "flex",
     justifyContent: "center",
@@ -48,11 +64,11 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
     position: "absolute",
-    right: -6,
-    top: -6,
+    right: -4,
+    top: -4,
   },
 
-  filterText: {
+  numText: {
     color: "white",
     fontSize: 10,
     textAlign: "center",

@@ -10,7 +10,7 @@ type Action = {
   finishWorkout: () => void;
 };
 
-export const useStore = create<State & Action>((set) => ({
+export const useActiveWorkoutStore = create<State & Action>((set) => ({
   workout: undefined,
   startWorkout: (started) => set({ workout: { started } }),
   finishWorkout: () => set({ workout: undefined }),

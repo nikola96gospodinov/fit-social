@@ -1,5 +1,5 @@
 import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 
 type Props = {
   color: string;
@@ -7,7 +7,7 @@ type Props = {
 };
 
 export const WorkoutIcon = ({ color, focused }: Props) => {
-  const { workout } = useStore();
+  const { workout } = useActiveWorkoutStore();
 
   const icon = workout ? "barbell" : "add-circle";
 

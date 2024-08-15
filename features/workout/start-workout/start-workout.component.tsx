@@ -1,11 +1,11 @@
 import { OrSeparator } from "@/components/or-separator/or-separator.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { SafeAreaView, StyleSheet } from "react-native";
 
 export const StartWorkout = () => {
-  const { startWorkout } = useStore();
+  const { startWorkout } = useActiveWorkoutStore();
 
   return (
     <SafeAreaView style={styles.container}>

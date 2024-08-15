@@ -1,10 +1,10 @@
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { useColorScheme, View } from "react-native";
 import { createFinishConfirmationAlert } from "./create-finish-confirmation-alert";
 
 export const FinishWorkout = () => {
-  const { finishWorkout } = useStore();
+  const { finishWorkout } = useActiveWorkoutStore();
 
   const colorScheme = useColorScheme();
 

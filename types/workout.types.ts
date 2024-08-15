@@ -13,3 +13,8 @@ export type Workout = {
   started: Date;
   exercises?: Exercise[];
 };
+
+export type ActiveFilter = {
+  type: "equipment" | "bodyPart" | "targetMuscle";
+  value: string;
+};

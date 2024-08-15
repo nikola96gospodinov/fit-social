@@ -2,13 +2,13 @@ import { FullScreenCenteredView } from "@/components/full-screen-centered-view/f
 import { OrSeparator } from "@/components/or-separator/or-separator.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
-import { useStore } from "@/store";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { useRouter } from "expo-router";
 import { useColorScheme } from "react-native";
 import { createCancelConfirmationAlert } from "./create-cancel-confirmation-alert";
 
 export const EmptyWorkout = () => {
-  const { finishWorkout } = useStore();
+  const { finishWorkout } = useActiveWorkoutStore();
 
   const router = useRouter();
 
