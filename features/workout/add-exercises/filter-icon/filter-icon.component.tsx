@@ -1,5 +1,6 @@
 import { colors, indigo } from "@/constants/colors.constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import {
   Text,
   useColorScheme,
@@ -16,10 +17,12 @@ type Props = {
 export const FilterIcon = ({ filters }: Props) => {
   const colorScheme = useColorScheme();
 
+  const router = useRouter();
+
   const numberOfFilters = filters.length > 9 ? "9+" : filters.length;
 
   return (
-    <Pressable>
+    <Pressable onPress={() => router.push("/workout/filters")}>
       <MaterialCommunityIcons
         name="filter"
         size={24}

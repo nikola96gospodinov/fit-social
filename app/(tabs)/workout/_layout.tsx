@@ -31,6 +31,14 @@ export default function WorkoutLayout() {
           title: "Add exercise(s)",
         }}
       />
+
+      <Stack.Screen
+        name="filters"
+        options={{
+          title: "Filters",
+          presentation: "modal",
+        }}
+      />
     </Stack>
   );
 }
