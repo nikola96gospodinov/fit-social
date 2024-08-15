@@ -1,7 +1,6 @@
 export const targetMuscles = [
   "abductors",
   "abs",
-  "adductors",
   "biceps",
   "calves",
   "cardiovascular system",

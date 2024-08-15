@@ -1,17 +1,22 @@
 import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-input.component";
 import { spacing } from "@/constants/spacing.constants";
-import { ScrollView } from "react-native";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { FilterIcon } from "@/features/workout/add-exercises/filter-icon/filter-icon.component";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
+import { PaddedScrollView } from "@/components/padded-scroll-view/padded-scroll-view.component";
 
 const AddExercise = () => {
   const { activeFilters, activeSearch, setActiveSearch } =
     useExerciseFilterStore();
 
   return (
-    <ScrollView style={{ padding: spacing[2], paddingTop: spacing[4] }}>
-      <Flex align="center" direction="row" gap={spacing[0.5]}>
+    <PaddedScrollView>
+      <Flex
+        align="center"
+        direction="row"
+        gap={spacing[0.5]}
+        style={{ paddingTop: spacing[2] }}
+      >
         <ThemedTextInput
           icon={{ name: "search", size: 16 }}
           value={activeSearch}
@@ -20,7 +25,7 @@ const AddExercise = () => {
 
         <FilterIcon filters={activeFilters} />
       </Flex>
-    </ScrollView>
+    </PaddedScrollView>
   );
 };
 

@@ -35,7 +35,7 @@ export default function WorkoutLayout() {
       <Stack.Screen
         name="filters"
         options={{
-          title: "Filters",
+          title: "Exercise filters",
           presentation: "modal",
         }}
       />
