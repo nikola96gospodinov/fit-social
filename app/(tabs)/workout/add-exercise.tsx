@@ -10,11 +10,8 @@ const AddExercise = () => {
 
   return (
     <ScrollView style={{ padding: spacing[2], paddingTop: spacing[4] }}>
-      <Flex align="center" direction="row" gap={spacing[1]}>
-        <ThemedTextInput
-          showRemoveFocusButton
-          icon={{ name: "search", size: 16 }}
-        />
+      <Flex align="center" direction="row" gap={spacing[0.5]}>
+        <ThemedTextInput icon={{ name: "search", size: 16 }} />
 
         <MaterialCommunityIcons
           name="filter"

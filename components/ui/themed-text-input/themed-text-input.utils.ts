@@ -18,23 +18,31 @@ export const getModeStyles = ({
   switch (mode) {
     case "error":
       return StyleSheet.create({
-        input: {
+        container: {
           backgroundColor: themeColors.destructiveBackground,
-          color: themeColors.text,
           borderColor: themeColors.destructive,
           borderWidth: 1,
+        },
+
+        input: {
+          color: themeColors.text,
         },
       });
 
     default:
+      const borderColor = isFocused
+        ? themeColors.borderFocused
+        : themeColors.border;
+
       return StyleSheet.create({
-        input: {
+        container: {
           backgroundColor: themeColors.background,
-          color: themeColors.text,
-          borderColor: isFocused
-            ? themeColors.borderFocused
-            : themeColors.border,
+          borderColor,
           borderWidth: 1,
+        },
+
+        input: {
+          color: themeColors.text,
         },
       });
   }

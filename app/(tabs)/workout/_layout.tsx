@@ -9,6 +9,7 @@ export default function WorkoutLayout() {
   return (
     <Stack
       screenOptions={{
+        headerTitleAlign: "center",
         headerBackTitleStyle: {
           fontSize: 16,
         },
@@ -23,6 +24,7 @@ export default function WorkoutLayout() {
           headerRight: () => <FinishWorkout />,
         }}
       />
+
       <Stack.Screen
         name="add-exercise"
         options={{
