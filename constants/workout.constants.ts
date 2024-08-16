@@ -1,19 +1,16 @@
 export const targetMuscles = [
   "abductors",
   "abs",
+  "adductors",
   "biceps",
   "calves",
-  "cardiovascular system",
   "delts",
   "forearms",
   "glutes",
   "hamstrings",
   "lats",
-  "levator scapulae",
   "pectorals",
   "quads",
-  "serratus anterior",
-  "spine",
   "traps",
   "triceps",
   "upper back",
@@ -64,6 +61,7 @@ export const bodyParts = [
   "shoulders",
   "upper arms",
   "upper legs",
+  "waist",
 ] as const;
 
 export type BodyPart = (typeof bodyParts)[number];

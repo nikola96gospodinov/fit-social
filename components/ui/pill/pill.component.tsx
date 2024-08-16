@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   pill: {
     alignSelf: "flex-start",
     borderRadius: 20,
-    paddingVertical: spacing[0.5],
-    paddingHorizontal: spacing[2],
+    paddingVertical: spacing[1],
+    paddingHorizontal: spacing[3],
   },
 });

@@ -1,5 +1,5 @@
 import { colors, indigo } from "@/constants/colors.constants";
-import { ActiveFilter } from "@/types/workout.types";
+import { ActiveFilters } from "@/store/exercise-filter-store";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 type Props = {
-  filters?: ActiveFilter[];
+  filters: ActiveFilters;
 };
 
 export const FilterIcon = ({ filters }: Props) => {
