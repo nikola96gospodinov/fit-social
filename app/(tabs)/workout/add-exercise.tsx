@@ -6,10 +6,13 @@ import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { Platform, View } from "react-native";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ActiveExercises } from "@/features/workout/add-exercises/active-excercises/active-excercises.component";
+import { useDebounce } from "@/hooks/use-debounce";
 
 const AddExercise = () => {
   const { getTotalNumberOfFilters, activeSearch, setActiveSearch } =
     useExerciseFilterStore();
+
+  const debouncedActiveSearch = useDebounce<string>({ value: activeSearch });
 
   return (
     <View style={{ padding: spacing[4] }}>
@@ -34,7 +37,7 @@ const AddExercise = () => {
 
       <VerticalSpacing size={8} />
 
-      <ActiveExercises />
+      <ActiveExercises search={debouncedActiveSearch} />
     </View>
   );
 };

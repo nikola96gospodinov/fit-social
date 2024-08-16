@@ -10,20 +10,20 @@ import { colors } from "@/constants/colors.constants";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 
-export const ActiveExercises = () => {
+type Props = {
+  search: string;
+};
+
+export const ActiveExercises = ({ search }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const {
-    activeSearch,
-    bodyPartFilters,
-    equipmentFilters,
-    targetMuscleFilters,
-  } = useExerciseFilterStore();
+  const { bodyPartFilters, equipmentFilters, targetMuscleFilters } =
+    useExerciseFilterStore();
 
   const { data: exercises } = useGetExercises({});
 
   const filteredExercises = exercises?.filter((exercise) => {
-    if (!exercise.name.includes(activeSearch.toLowerCase())) return false;
+    if (!exercise.name.includes(search.toLowerCase())) return false;
 
     if (bodyPartFilters.length && !bodyPartFilters.includes(exercise.bodyPart))
       return false;
