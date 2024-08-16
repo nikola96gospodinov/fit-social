@@ -11,17 +11,15 @@ import {
 } from "react-native";
 
 type Props = {
-  filters?: ActiveFilters;
+  numberOfFilters: number;
 };
 
-export const FilterIcon = ({ filters }: Props) => {
+export const FilterIcon = ({ numberOfFilters }: Props) => {
   const colorScheme = useColorScheme() ?? "light";
 
   const router = useRouter();
 
-  const filterLength = filters?.length ?? 0;
-
-  const numberOfFilters = filterLength > 9 ? "9+" : filterLength;
+  const count = numberOfFilters > 9 ? "9+" : numberOfFilters;
 
   return (
     <Pressable
@@ -39,9 +37,9 @@ export const FilterIcon = ({ filters }: Props) => {
         color={colors[colorScheme ?? "light"].background}
       />
 
-      {filterLength > 0 && (
+      {numberOfFilters > 0 && (
         <View style={styles.numContainer}>
-          <Text style={styles.numText}>{numberOfFilters}</Text>
+          <Text style={styles.numText}>{count}</Text>
         </View>
       )}
     </Pressable>

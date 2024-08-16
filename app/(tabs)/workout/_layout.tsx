@@ -1,4 +1,3 @@
-import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { FinishWorkout } from "@/features/workout/workout-in-progress/header/finish-workout/finish-workout.component";
 import { WorkoutTimer } from "@/features/workout/workout-in-progress/header/workout-timer/workout-timer.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
@@ -7,10 +6,9 @@ import { Stack } from "expo-router";
 
 export default function WorkoutLayout() {
   const { workout } = useActiveWorkoutStore();
-  const {
-    activeFilters: { length },
-    setActiveFilters,
-  } = useExerciseFilterStore();
+  const { getTotalNumberOfFilters } = useExerciseFilterStore();
+
+  const totalNumberOfFilters = getTotalNumberOfFilters();
 
   return (
     <Stack
@@ -41,15 +39,10 @@ export default function WorkoutLayout() {
       <Stack.Screen
         name="filters"
         options={{
-          title: `Exercise filters${length ? ` (${length})` : ""}`,
+          title: `Exercise filters${
+            totalNumberOfFilters ? ` (${totalNumberOfFilters})` : ""
+          }`,
           presentation: "modal",
-          headerRight: () => (
-            <ThemedButton
-              text="Clear"
-              variant="flat"
-              onPress={() => setActiveFilters([])}
-            />
-          ),
         }}
       />
     </Stack>

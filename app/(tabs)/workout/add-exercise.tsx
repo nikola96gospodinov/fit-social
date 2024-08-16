@@ -7,7 +7,7 @@ import { PaddedScrollView } from "@/components/padded-scroll-view/padded-scroll-
 import { Platform } from "react-native";
 
 const AddExercise = () => {
-  const { activeFilters, activeSearch, setActiveSearch } =
+  const { getTotalNumberOfFilters, activeSearch, setActiveSearch } =
     useExerciseFilterStore();
 
   return (
@@ -28,7 +28,7 @@ const AddExercise = () => {
           onChangeText={setActiveSearch}
         />
 
-        <FilterIcon filters={activeFilters} />
+        <FilterIcon numberOfFilters={getTotalNumberOfFilters()} />
       </Flex>
     </PaddedScrollView>
   );
