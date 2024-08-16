@@ -11,6 +11,7 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "small";
+  color?: "default" | "supporting";
 };
 
 export function ThemedText({
@@ -18,14 +19,22 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = "default",
+  color,
   ...rest
 }: ThemedTextProps) {
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, "text");
+  const defaultColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "text"
+  );
+  const supportingColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "supportingText"
+  );
 
   return (
     <Text
       style={[
-        { color },
+        { color: color === "supporting" ? supportingColor : defaultColor },
         type === "default" ? styles.default : undefined,
         type === "title" ? styles.title : undefined,
         type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,

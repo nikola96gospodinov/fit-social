@@ -3,15 +3,16 @@ import { spacing } from "@/constants/spacing.constants";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { FilterIcon } from "@/features/workout/add-exercises/filter-icon/filter-icon.component";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
-import { PaddedScrollView } from "@/components/padded-scroll-view/padded-scroll-view.component";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
+import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ActiveExercises } from "@/features/workout/add-exercises/active-excercises/active-excercises.component";
 
 const AddExercise = () => {
   const { getTotalNumberOfFilters, activeSearch, setActiveSearch } =
     useExerciseFilterStore();
 
   return (
-    <PaddedScrollView>
+    <View style={{ padding: spacing[4] }}>
       <Flex
         align="center"
         direction="row"
@@ -30,7 +31,11 @@ const AddExercise = () => {
 
         <FilterIcon numberOfFilters={getTotalNumberOfFilters()} />
       </Flex>
-    </PaddedScrollView>
+
+      <VerticalSpacing size={8} />
+
+      <ActiveExercises />
+    </View>
   );
 };
 

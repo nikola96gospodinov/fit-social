@@ -43,6 +43,7 @@ export const red = {
 export const colors = {
   light: {
     text: slate[900],
+    supportingText: slate[600],
     background: slate[50],
     tint: indigo[700],
     icon: slate[500],
@@ -57,6 +58,7 @@ export const colors = {
   },
   dark: {
     text: slate[100],
+    supportingText: slate[400],
     background: slate[800],
     tint: indigo[300],
     icon: slate[400],
