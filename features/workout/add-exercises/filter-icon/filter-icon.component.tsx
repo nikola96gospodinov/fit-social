@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 type Props = {
-  filters: ActiveFilters;
+  filters?: ActiveFilters;
 };
 
 export const FilterIcon = ({ filters }: Props) => {
@@ -50,7 +50,6 @@ export const FilterIcon = ({ filters }: Props) => {
 
 const styles = StyleSheet.create({
   filterContainer: {
-    backgroundColor: "red",
     borderRadius: 100,
     padding: 6,
   },

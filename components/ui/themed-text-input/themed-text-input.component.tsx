@@ -44,7 +44,7 @@ export const ThemedTextInput = ({
           {...rest}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          style={[{ flex: 1 }, input]}
+          style={[{ flex: 1, maxHeight: 20 }, input]}
         />
       </Flex>
     </Flex>
