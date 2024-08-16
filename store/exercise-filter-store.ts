@@ -13,13 +13,13 @@ type State = {
 };
 
 type Action = {
-  setActiveFilter: (filters: ActiveFilters) => void;
+  setActiveFilters: (filters: ActiveFilters) => void;
   setActiveSearch: (search: string) => void;
 };
 
 export const useExerciseFilterStore = create<State & Action>((set) => ({
   activeFilters: [],
   activeSearch: "",
-  setActiveFilter: (filters) => set({ activeFilters: filters }),
+  setActiveFilters: (filters) => set({ activeFilters: filters }),
   setActiveSearch: (search) => set({ activeSearch: search }),
 }));

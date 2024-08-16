@@ -14,15 +14,15 @@ import {
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 
 const Filters = () => {
-  const { activeFilters, setActiveFilter } = useExerciseFilterStore();
+  const { activeFilters, setActiveFilters } = useExerciseFilterStore();
 
   const onPillPress = (filter: BodyPart | Equipment | TargetMuscle) => {
     if (activeFilters.includes(filter)) {
-      setActiveFilter(
+      setActiveFilters(
         activeFilters.filter((activeFilter) => activeFilter !== filter)
       );
     } else {
-      setActiveFilter([...activeFilters, filter]);
+      setActiveFilters([...activeFilters, filter]);
     }
   };
 
