@@ -1,10 +1,10 @@
-import { Equipment } from "@/types/api/exercise.types";
 import { headers } from "./headers";
 import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
 import { GetExercisesProps } from "./types";
+import { Equipment } from "@/constants/workout.constants";
 
 export type GetExercisesByEquipmentType = GetExercisesProps & {
   equipmentType: Equipment;

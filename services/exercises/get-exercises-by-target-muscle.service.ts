@@ -1,10 +1,10 @@
-import { TargetMuscle } from "@/types/api/exercise.types";
 import { headers } from "./headers";
 import { URL } from "@/constants/url.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
 import { GetExercisesProps } from "./types";
+import { TargetMuscle } from "@/constants/workout.constants";
 
 export type GetExercisesByTargetMuscle = GetExercisesProps & {
   targetMuscle: TargetMuscle;
