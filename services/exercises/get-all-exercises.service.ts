@@ -37,7 +37,7 @@ const getExercises = async (props: GetExercisesProps) => {
 
 export const useGetExercises = (props: GetExercisesProps) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, JSON.stringify(props)],
+    queryKey: [EXERCISES_KEY, props],
     queryFn: () => getExercises(props),
   });
 };

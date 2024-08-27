@@ -5,7 +5,7 @@ import { View, ViewProps } from "react-native";
 type Props = PropsWithChildren<{
   direction?: "row" | "column";
   align?: "center" | "flex-start" | "flex-end";
-  justify?: "center" | "flex-start" | "flex-end";
+  justify?: "center" | "flex-start" | "flex-end" | "space-between";
   wrap?: "wrap" | "nowrap";
   gap?: Spacing;
   style?: ViewProps["style"];

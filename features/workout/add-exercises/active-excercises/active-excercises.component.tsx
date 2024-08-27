@@ -2,13 +2,14 @@ import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertica
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { useGetExercises } from "@/services/exercises/get-all-exercises.service";
 import { groupBy, capitalize } from "lodash";
-import { FlatList, useColorScheme, View } from "react-native";
+import { FlatList, useColorScheme } from "react-native";
 import { Image } from "expo-image";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { spacing } from "@/constants/spacing.constants";
 import { colors } from "@/constants/colors.constants";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Props = {
   search: string;
@@ -16,6 +17,8 @@ type Props = {
 
 export const ActiveExercises = ({ search }: Props) => {
   const theme = useColorScheme() ?? "light";
+
+  const insets = useSafeAreaInsets();
 
   const { bodyPartFilters, equipmentFilters, targetFilters } =
     useExerciseFilterStore();
@@ -38,6 +41,7 @@ export const ActiveExercises = ({ search }: Props) => {
         key,
         value,
       }))}
+      style={{ marginBottom: insets.bottom }}
       renderItem={({ item }) => {
         return (
           <>
@@ -55,23 +59,30 @@ export const ActiveExercises = ({ search }: Props) => {
                     <Flex
                       direction="row"
                       align="center"
+                      justify="space-between"
                       gap={spacing[1]}
-                      style={{ paddingVertical: spacing[2] }}
+                      style={{ paddingVertical: spacing[3] }}
                     >
-                      <Image
-                        source={{ uri: exercise.gifUrl }}
-                        style={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: 100,
-                        }}
-                      />
+                      <Flex
+                        direction="row"
+                        gap={spacing[1]}
+                        style={{ flexShrink: 1 }}
+                      >
+                        <Image
+                          source={{ uri: exercise.gifUrl }}
+                          style={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: 100,
+                          }}
+                        />
 
-                      <Flex>
-                        <ThemedText>{capitalize(exercise.name)}</ThemedText>
-                        <ThemedText type="small" color="supporting">
-                          {exercise.target}
-                        </ThemedText>
+                        <Flex style={{ flexShrink: 1 }}>
+                          <ThemedText>{capitalize(exercise.name)}</ThemedText>
+                          <ThemedText type="small" color="supporting">
+                            {exercise.target}
+                          </ThemedText>
+                        </Flex>
                       </Flex>
 
                       <FontAwesome6
@@ -85,7 +96,7 @@ export const ActiveExercises = ({ search }: Props) => {
               }}
             />
 
-            <VerticalSpacing size={4} />
+            <VerticalSpacing size={6} />
           </>
         );
       }}
