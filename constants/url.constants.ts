@@ -3,7 +3,7 @@ import { addQueryParamsToUrl } from "@/utils/url.utils";
 
 export const URL = {
   EXERCISE: {
-    base: "localhost:3000/exercises", // TODO: Change this to the actual URL once deployed
+    base: "http://localhost:3000/exercises", // TODO: Change this to the actual URL once deployed
 
     GET_EXERCISES(queryParams?: GetExercisesProps["query"]): string {
       return addQueryParamsToUrl(this.base, queryParams);

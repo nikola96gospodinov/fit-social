@@ -25,7 +25,7 @@ const getExercises = async ({ query, body }: GetExercisesProps) => {
   const url = URL.EXERCISE.GET_EXERCISES(query);
 
   const response = await fetch(url, {
-    method: "GET",
+    method: "POST",
     body: JSON.stringify(body),
   });
 
@@ -40,14 +40,9 @@ const getExercises = async ({ query, body }: GetExercisesProps) => {
   return data;
 };
 
-export const useGetExercises = ({
-  query: { limit = 25, offset = 0, search } = {},
-  body,
-}: GetExercisesProps) => {
-  const query = { limit, offset, search };
-
+export const useGetExercises = ({ query, body }: GetExercisesProps) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, offset, limit, search, body],
+    queryKey: [EXERCISES_KEY, query, body],
     queryFn: () => getExercises({ query, body }),
   });
 };
