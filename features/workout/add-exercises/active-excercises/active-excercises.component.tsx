@@ -17,33 +17,22 @@ type Props = {
 export const ActiveExercises = ({ search }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { bodyPartFilters, equipmentFilters, targetMuscleFilters } =
+  const { bodyPartFilters, equipmentFilters, targetFilters } =
     useExerciseFilterStore();
 
-  const { data: exercises } = useGetExercises({});
-
-  const filteredExercises = exercises?.filter((exercise) => {
-    if (!exercise.name.includes(search.toLowerCase())) return false;
-
-    if (bodyPartFilters.length && !bodyPartFilters.includes(exercise.bodyPart))
-      return false;
-
-    if (
-      equipmentFilters.length &&
-      !equipmentFilters.includes(exercise.equipment)
-    )
-      return false;
-
-    if (
-      targetMuscleFilters.length &&
-      !targetMuscleFilters.includes(exercise.target)
-    )
-      return false;
-
-    return true;
+  const { data: exercises } = useGetExercises({
+    query: {
+      search,
+    },
+    body: {
+      bodyPartFilters,
+      equipmentFilters,
+      targetFilters,
+    },
   });
 
-  const groupedAlphabetically = groupBy(filteredExercises, (exercise) =>
+  // TODO: Might have to move on server level
+  const groupedAlphabetically = groupBy(exercises, (exercise) =>
     exercise.name[0].toUpperCase()
   );
 

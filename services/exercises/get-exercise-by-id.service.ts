@@ -1,5 +1,4 @@
 import { URL } from "@/constants/url.constants";
-import { headers } from "./headers";
 import { Exercise } from "@/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
@@ -9,7 +8,6 @@ const getExerciseById = async (id: string) => {
 
   const response = await fetch(url, {
     method: "GET",
-    headers,
   });
 
   if (!response.ok) {

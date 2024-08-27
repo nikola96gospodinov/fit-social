@@ -6,8 +6,10 @@ import { TargetMuscle, targetMuscles } from "@/constants/workout.constants";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 
 export const TargetMuscleFilters = () => {
-  const { targetMuscleFilters, setTargetMuscleFilters } =
-    useExerciseFilterStore();
+  const {
+    targetFilters: targetMuscleFilters,
+    setTargetFilters: setTargetMuscleFilters,
+  } = useExerciseFilterStore();
 
   const onPillPress = (targetMuscle: TargetMuscle) => {
     if (targetMuscleFilters.includes(targetMuscle)) {

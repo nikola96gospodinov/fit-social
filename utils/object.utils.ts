@@ -3,7 +3,15 @@ import { omitBy, isUndefined, cloneDeepWith } from "lodash";
 export const turnAllObjectValuesToString = (
   obj: Record<string, unknown>
 ): Record<string, string> => {
-  return cloneDeepWith(obj, (value) => String(value));
+  function replace(myObj: Record<string, unknown>) {
+    Object.keys(myObj).forEach(function (key) {
+      typeof myObj[key] == "object"
+        ? replace(myObj[key] as Record<string, unknown>)
+        : (myObj[key] = String(myObj[key]));
+    });
+  }
+
+  return cloneDeepWith(obj, (value) => replace(value));
 };
 
 export const removeEmptyValues = (

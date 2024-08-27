@@ -10,14 +10,14 @@ export type ActiveFilters = Array<BodyPart | Equipment | TargetMuscle>;
 type State = {
   bodyPartFilters: BodyPart[];
   equipmentFilters: Equipment[];
-  targetMuscleFilters: TargetMuscle[];
+  targetFilters: TargetMuscle[];
   activeSearch: string;
 };
 
 type Action = {
   setBodyPartFilters: (filters: BodyPart[]) => void;
   setEquipmentFilters: (filters: Equipment[]) => void;
-  setTargetMuscleFilters: (filters: TargetMuscle[]) => void;
+  setTargetFilters: (filters: TargetMuscle[]) => void;
   setActiveSearch: (search: string) => void;
   getTotalNumberOfFilters: () => number;
 };
@@ -27,12 +27,12 @@ export const useExerciseFilterStore = create<State & Action>((set, get) => ({
   setBodyPartFilters: (filters) => set({ bodyPartFilters: filters }),
   equipmentFilters: [],
   setEquipmentFilters: (filters) => set({ equipmentFilters: filters }),
-  targetMuscleFilters: [],
-  setTargetMuscleFilters: (filters) => set({ targetMuscleFilters: filters }),
+  targetFilters: [],
+  setTargetFilters: (filters) => set({ targetFilters: filters }),
   activeSearch: "",
   setActiveSearch: (search) => set({ activeSearch: search }),
   getTotalNumberOfFilters: () =>
     get().bodyPartFilters.length +
     get().equipmentFilters.length +
-    get().targetMuscleFilters.length,
+    get().targetFilters.length,
 }));
