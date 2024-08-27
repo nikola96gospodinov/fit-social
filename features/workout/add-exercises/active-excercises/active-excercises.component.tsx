@@ -10,6 +10,8 @@ import { colors } from "@/constants/colors.constants";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useState } from "react";
+import { Exercise } from "@/types/api/exercise.types";
 
 type Props = {
   search: string;
@@ -19,6 +21,20 @@ export const ActiveExercises = ({ search }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const insets = useSafeAreaInsets();
+
+  const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
+
+  const onExercisePress = (exercise: Exercise) => {
+    const isSelected = selectedExercises.find(({ id }) => id === exercise.id);
+
+    if (isSelected) {
+      setSelectedExercises(
+        selectedExercises.filter(({ id }) => id !== exercise.id)
+      );
+    } else {
+      setSelectedExercises([...selectedExercises, exercise]);
+    }
+  };
 
   const { bodyPartFilters, equipmentFilters, targetFilters } =
     useExerciseFilterStore();
@@ -53,11 +69,25 @@ export const ActiveExercises = ({ search }: Props) => {
             <FlatList
               data={item.value}
               renderItem={({ item: exercise }) => {
+                const isSelected = !!selectedExercises.find(
+                  ({ id }) => id === exercise.id
+                );
+
                 return (
-                  <>
+                  <Pressable
+                    onPress={() => onExercisePress(exercise)}
+                    style={{
+                      backgroundColor: isSelected
+                        ? colors[theme].background
+                        : "transparent",
+                      borderRadius: 16,
+                      paddingLeft: spacing[3],
+                    }}
+                  >
                     <Flex
                       direction="row"
                       justify="space-between"
+                      align="center"
                       gap={spacing[1]}
                       style={{ paddingVertical: spacing[3] }}
                     >
@@ -86,7 +116,9 @@ export const ActiveExercises = ({ search }: Props) => {
                       <Pressable
                         style={{
                           marginRight: spacing[3],
-                          backgroundColor: colors[theme].background,
+                          backgroundColor: isSelected
+                            ? colors[theme].border
+                            : colors[theme].background,
                           width: 32,
                           height: 32,
                           alignItems: "center",
@@ -101,7 +133,7 @@ export const ActiveExercises = ({ search }: Props) => {
                         />
                       </Pressable>
                     </Flex>
-                  </>
+                  </Pressable>
                 );
               }}
             />
