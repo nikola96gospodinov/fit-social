@@ -42,7 +42,7 @@ const getExercises = async ({ query, body }: GetExercisesProps) => {
 
 export const useGetExercises = ({ query, body }: GetExercisesProps) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, query, body],
+    queryKey: [EXERCISES_KEY, JSON.stringify(query), JSON.stringify(body)],
     queryFn: () => getExercises({ query, body }),
   });
 };

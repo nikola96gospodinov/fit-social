@@ -8,10 +8,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import "react-native-reanimated";
-import { enableMocking } from "@/mocks";
-
-// MSW is enabled in development mode only
-enableMocking();
+import { DevToolsBubble } from "react-native-react-query-devtools";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -39,6 +36,7 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name="+not-found" />
         </Stack>
+        <DevToolsBubble />
       </QueryClientProvider>
     </ThemeProvider>
   );
