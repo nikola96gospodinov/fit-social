@@ -2,7 +2,7 @@ import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertica
 import { ThemedText } from "@/components/ui/themed-text.component";
 import { useGetExercises } from "@/services/exercises/get-all-exercises.service";
 import { groupBy, capitalize } from "lodash";
-import { FlatList, useColorScheme } from "react-native";
+import { FlatList, Pressable, useColorScheme } from "react-native";
 import { Image } from "expo-image";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { spacing } from "@/constants/spacing.constants";
@@ -30,7 +30,6 @@ export const ActiveExercises = ({ search }: Props) => {
     targetFilters,
   });
 
-  // TODO: Might have to move on server level
   const groupedAlphabetically = groupBy(exercises, (exercise) =>
     exercise.name[0].toUpperCase()
   );
@@ -58,7 +57,6 @@ export const ActiveExercises = ({ search }: Props) => {
                   <>
                     <Flex
                       direction="row"
-                      align="center"
                       justify="space-between"
                       gap={spacing[1]}
                       style={{ paddingVertical: spacing[3] }}
@@ -77,7 +75,7 @@ export const ActiveExercises = ({ search }: Props) => {
                           }}
                         />
 
-                        <Flex style={{ flexShrink: 1 }}>
+                        <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
                           <ThemedText>{capitalize(exercise.name)}</ThemedText>
                           <ThemedText type="small" color="supporting">
                             {exercise.target}
@@ -85,11 +83,23 @@ export const ActiveExercises = ({ search }: Props) => {
                         </Flex>
                       </Flex>
 
-                      <FontAwesome6
-                        name="question"
-                        size={20}
-                        color={colors[theme].icon}
-                      />
+                      <Pressable
+                        style={{
+                          marginRight: spacing[3],
+                          backgroundColor: colors[theme].background,
+                          width: 32,
+                          height: 32,
+                          alignItems: "center",
+                          justifyContent: "center",
+                          borderRadius: 100,
+                        }}
+                      >
+                        <FontAwesome6
+                          name="question"
+                          size={18}
+                          color={colors[theme].icon}
+                        />
+                      </Pressable>
                     </Flex>
                   </>
                 );
