@@ -21,14 +21,10 @@ export const ActiveExercises = ({ search }: Props) => {
     useExerciseFilterStore();
 
   const { data: exercises } = useGetExercises({
-    query: {
-      search,
-    },
-    body: {
-      bodyPartFilters,
-      equipmentFilters,
-      targetFilters,
-    },
+    search,
+    bodyPartFilters,
+    equipmentFilters,
+    targetFilters,
   });
 
   // TODO: Might have to move on server level

@@ -9,24 +9,19 @@ import {
 } from "@/constants/workout.constants";
 
 export type GetExercisesProps = {
-  query?: {
-    limit?: number;
-    offset?: number;
-    search?: string;
-  };
-  body?: {
-    targetFilters?: TargetMuscle[];
-    bodyPartFilters?: BodyPart[];
-    equipmentFilters?: Equipment[];
-  };
+  limit?: number;
+  offset?: number;
+  search?: string;
+  targetFilters?: TargetMuscle[];
+  bodyPartFilters?: BodyPart[];
+  equipmentFilters?: Equipment[];
 };
 
-const getExercises = async ({ query, body }: GetExercisesProps) => {
-  const url = URL.EXERCISE.GET_EXERCISES(query);
+const getExercises = async (props: GetExercisesProps) => {
+  const url = URL.EXERCISE.GET_EXERCISES(props);
 
   const response = await fetch(url, {
-    method: "POST",
-    body: JSON.stringify(body),
+    method: "GET",
   });
 
   if (!response.ok) {
@@ -40,9 +35,9 @@ const getExercises = async ({ query, body }: GetExercisesProps) => {
   return data;
 };
 
-export const useGetExercises = ({ query, body }: GetExercisesProps) => {
+export const useGetExercises = (props: GetExercisesProps) => {
   return useQuery({
-    queryKey: [EXERCISES_KEY, JSON.stringify(query), JSON.stringify(body)],
-    queryFn: () => getExercises({ query, body }),
+    queryKey: [EXERCISES_KEY, JSON.stringify(props)],
+    queryFn: () => getExercises(props),
   });
 };

@@ -5,9 +5,15 @@ export const turnAllObjectValuesToString = (
 ): Record<string, string> => {
   function replace(myObj: Record<string, unknown>) {
     Object.keys(myObj).forEach(function (key) {
-      typeof myObj[key] == "object"
-        ? replace(myObj[key] as Record<string, unknown>)
-        : (myObj[key] = String(myObj[key]));
+      if (Array.isArray(myObj[key])) {
+        myObj[key] = JSON.stringify(myObj[key]);
+      }
+
+      if (typeof myObj[key] === "object") {
+        replace(myObj[key] as Record<string, unknown>);
+      }
+
+      myObj[key] = String(myObj[key]);
     });
   }
 
