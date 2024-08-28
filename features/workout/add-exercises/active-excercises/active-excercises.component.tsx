@@ -81,7 +81,7 @@ export const ActiveExercises = ({ search }: Props) => {
                         ? colors[theme].background
                         : "transparent",
                       borderRadius: 16,
-                      paddingLeft: spacing[3],
+                      padding: spacing[3],
                     }}
                   >
                     <Flex
@@ -89,7 +89,6 @@ export const ActiveExercises = ({ search }: Props) => {
                       justify="space-between"
                       align="center"
                       gap={spacing[1]}
-                      style={{ paddingVertical: spacing[3] }}
                     >
                       <Flex
                         direction="row"
@@ -115,7 +114,6 @@ export const ActiveExercises = ({ search }: Props) => {
 
                       <Pressable
                         style={{
-                          marginRight: spacing[3],
                           backgroundColor: isSelected
                             ? colors[theme].border
                             : colors[theme].background,
