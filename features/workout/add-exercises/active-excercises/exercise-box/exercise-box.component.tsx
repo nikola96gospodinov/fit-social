@@ -6,7 +6,7 @@ import { Exercise } from "@/types/api/exercise.types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { capitalize } from "lodash";
 import { useState } from "react";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable, useColorScheme, View } from "react-native";
 import { Image } from "expo-image";
 
 type Props = {
@@ -48,14 +48,33 @@ export const ExerciseBox = ({ exercise }: Props) => {
         gap={spacing[1]}
       >
         <Flex direction="row" gap={spacing[1]} style={{ flexShrink: 1 }}>
-          <Image
-            source={{ uri: exercise.gifUrl }}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 100,
-            }}
-          />
+          {isSelected ? (
+            <View
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 100,
+                backgroundColor: colors[theme].tint,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <FontAwesome6
+                name="check"
+                size={20}
+                color={colors[theme].fillTextColor}
+              />
+            </View>
+          ) : (
+            <Image
+              source={{ uri: exercise.gifUrl }}
+              style={{
+                width: 40,
+                height: 40,
+                borderRadius: 100,
+              }}
+            />
+          )}
 
           <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
             <ThemedText>{capitalize(exercise.name)}</ThemedText>
