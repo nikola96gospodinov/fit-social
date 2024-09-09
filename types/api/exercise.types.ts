@@ -14,3 +14,10 @@ export type Exercise = {
   secondaryMuscles: Array<TargetMuscle | string>;
   instructions: string[];
 };
+
+export type ExerciseResponse = {
+  data: Exercise[];
+  total: number;
+  limit: number;
+  offset: number;
+};

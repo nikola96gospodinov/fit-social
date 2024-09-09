@@ -24,7 +24,7 @@ export const ActiveExercises = ({ search }: Props) => {
     targetFilters,
   });
 
-  const groupedAlphabetically = groupBy(exercises, (exercise) =>
+  const groupedAlphabetically = groupBy(exercises?.data, (exercise) =>
     exercise.name[0].toUpperCase()
   );
 

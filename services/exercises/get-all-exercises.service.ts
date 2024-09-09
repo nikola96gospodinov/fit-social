@@ -1,6 +1,6 @@
 import { URL } from "@/constants/url.constants";
-import { Exercise } from "@/types/api/exercise.types";
-import { useQuery } from "@tanstack/react-query";
+import { ExerciseResponse } from "@/types/api/exercise.types";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
 import {
   BodyPart,
@@ -30,7 +30,7 @@ const getExercises = async (props: GetExercisesProps) => {
     throw new Error("Failed to fetch exercises");
   }
 
-  const data: Exercise[] = await response.json();
+  const data: ExerciseResponse = await response.json();
 
   return data;
 };
@@ -39,5 +39,18 @@ export const useGetExercises = (props: GetExercisesProps) => {
   return useQuery({
     queryKey: [EXERCISES_KEY, props],
     queryFn: () => getExercises(props),
+  });
+};
+
+export const useGetInfiniteExercises = (props: GetExercisesProps) => {
+  return useInfiniteQuery({
+    queryKey: [EXERCISES_KEY, props],
+    queryFn: ({ pageParam }) => getExercises({ ...props, offset: pageParam }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => {
+      if (lastPage.offset + lastPage.limit < lastPage.total) {
+        return lastPage.offset + lastPage.limit;
+      }
+    },
   });
 };
