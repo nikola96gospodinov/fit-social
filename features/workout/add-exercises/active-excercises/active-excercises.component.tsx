@@ -1,6 +1,6 @@
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/components/ui/themed-text.component";
-import { useGetExercises } from "@/services/exercises/get-all-exercises.service";
+import { useGetInfiniteExercises } from "@/services/exercises/get-all-exercises.service";
 import { groupBy } from "lodash";
 import { FlatList } from "react-native";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
@@ -17,14 +17,20 @@ export const ActiveExercises = ({ search }: Props) => {
   const { bodyPartFilters, equipmentFilters, targetFilters } =
     useExerciseFilterStore();
 
-  const { data: exercises } = useGetExercises({
+  const {
+    data: exercises,
+    hasNextPage,
+    fetchNextPage,
+  } = useGetInfiniteExercises({
     search,
     bodyPartFilters,
     equipmentFilters,
     targetFilters,
   });
 
-  const groupedAlphabetically = groupBy(exercises?.data, (exercise) =>
+  const allExercises = exercises?.pages.flatMap((page) => page.data) || [];
+
+  const groupedAlphabetically = groupBy(allExercises, (exercise) =>
     exercise.name[0].toUpperCase()
   );
 
@@ -54,6 +60,9 @@ export const ActiveExercises = ({ search }: Props) => {
             <VerticalSpacing size={6} />
           </>
         );
+      }}
+      onEndReached={() => {
+        if (hasNextPage) fetchNextPage();
       }}
     />
   );
