@@ -6,6 +6,7 @@ import { FlatList } from "react-native";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseBox } from "./exercise-box/exercise-box.component";
+import { ThemedActivityIndicator } from "@/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 
 type Props = {
   search: string;
@@ -21,6 +22,7 @@ export const ActiveExercises = ({ search }: Props) => {
     data: exercises,
     hasNextPage,
     fetchNextPage,
+    isFetchingNextPage,
   } = useGetInfiniteExercises({
     search,
     bodyPartFilters,
@@ -41,6 +43,7 @@ export const ActiveExercises = ({ search }: Props) => {
         value,
       }))}
       style={{ marginBottom: insets.bottom }}
+      onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) => {
         return (
           <>
@@ -57,12 +60,19 @@ export const ActiveExercises = ({ search }: Props) => {
               }}
             />
 
-            <VerticalSpacing size={6} />
+            {!isFetchingNextPage && <VerticalSpacing size={6} />}
           </>
         );
       }}
-      onEndReached={() => {
-        if (hasNextPage) fetchNextPage();
+      ListFooterComponent={() => {
+        return (
+          isFetchingNextPage && (
+            <>
+              <ThemedActivityIndicator />
+              <VerticalSpacing size={10} />
+            </>
+          )
+        );
       }}
     />
   );
