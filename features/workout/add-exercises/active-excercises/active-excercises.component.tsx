@@ -79,30 +79,36 @@ export const ActiveExercises = ({ search }: Props) => {
           </>
         );
       }}
-      ListFooterComponent={() => {
-        if (isFetchNextPageError) {
-          return (
-            <>
-              <NetworkError
-                message="Failed to fetch more exercises"
-                refetch={fetchNextPage}
-              />
-
-              <VerticalSpacing size={10} />
-            </>
-          );
-        }
-
-        return (
-          isFetchingNextPage && (
-            <>
-              <ThemedActivityIndicator />
-
-              <VerticalSpacing size={10} />
-            </>
-          )
-        );
-      }}
+      ListFooterComponent={ListFooterComponent}
     />
   );
+};
+
+const ListFooterComponent: React.FC<{
+  isFetchNextPageError: boolean;
+  isFetchingNextPage: boolean;
+  fetchNextPage: () => void;
+}> = ({ isFetchNextPageError, isFetchingNextPage, fetchNextPage }) => {
+  if (isFetchNextPageError) {
+    return (
+      <>
+        <NetworkError
+          message="Failed to fetch more exercises"
+          refetch={fetchNextPage}
+        />
+        <VerticalSpacing size={10} />
+      </>
+    );
+  }
+
+  if (isFetchingNextPage) {
+    return (
+      <>
+        <ThemedActivityIndicator />
+        <VerticalSpacing size={10} />
+      </>
+    );
+  }
+
+  return null;
 };
