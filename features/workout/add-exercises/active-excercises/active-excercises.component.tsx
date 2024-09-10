@@ -7,6 +7,7 @@ import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseBox } from "./exercise-box/exercise-box.component";
 import { ThemedActivityIndicator } from "@/components/ui/themed-activity-indicator/themed-activity-indicator.component";
+import { NetworkError } from "@/components/error/network-error/network-error.component";
 
 type Props = {
   search: string;
@@ -23,6 +24,10 @@ export const ActiveExercises = ({ search }: Props) => {
     hasNextPage,
     fetchNextPage,
     isFetchingNextPage,
+    isLoadingError,
+    refetch,
+    isFetchNextPageError,
+    isLoading,
   } = useGetInfiniteExercises({
     search,
     bodyPartFilters,
@@ -35,6 +40,16 @@ export const ActiveExercises = ({ search }: Props) => {
   const groupedAlphabetically = groupBy(allExercises, (exercise) =>
     exercise.name[0].toUpperCase()
   );
+
+  if (isLoading) {
+    return <ThemedActivityIndicator />;
+  }
+
+  if (isLoadingError) {
+    return (
+      <NetworkError message="Failed to fetch exercises" refetch={refetch} />
+    );
+  }
 
   return (
     <FlatList
@@ -65,10 +80,24 @@ export const ActiveExercises = ({ search }: Props) => {
         );
       }}
       ListFooterComponent={() => {
+        if (isFetchNextPageError) {
+          return (
+            <>
+              <NetworkError
+                message="Failed to fetch more exercises"
+                refetch={fetchNextPage}
+              />
+
+              <VerticalSpacing size={10} />
+            </>
+          );
+        }
+
         return (
           isFetchingNextPage && (
             <>
               <ThemedActivityIndicator />
+
               <VerticalSpacing size={10} />
             </>
           )

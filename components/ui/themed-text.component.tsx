@@ -11,7 +11,7 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "small";
-  color?: "default" | "supporting";
+  color?: "default" | "supporting" | "error";
 };
 
 export function ThemedText({
@@ -30,11 +30,28 @@ export function ThemedText({
     { light: lightColor, dark: darkColor },
     "supportingText"
   );
+  const errorColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "destructiveText"
+  );
+
+  const colorValue = (() => {
+    switch (color) {
+      case "default":
+        return defaultColor;
+      case "supporting":
+        return supportingColor;
+      case "error":
+        return errorColor;
+      default:
+        return defaultColor;
+    }
+  })();
 
   return (
     <Text
       style={[
-        { color: color === "supporting" ? supportingColor : defaultColor },
+        { color: colorValue },
         type === "default" ? styles.default : undefined,
         type === "title" ? styles.title : undefined,
         type === "defaultSemiBold" ? styles.defaultSemiBold : undefined,
