@@ -1,5 +1,5 @@
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { ThemedText } from "@/components/ui/themed-text.component";
+import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { useGetInfiniteExercises } from "@/services/exercises/get-all-exercises.service";
 import { groupBy } from "lodash";
 import { FlatList } from "react-native";

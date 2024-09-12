@@ -1,4 +1,4 @@
-import { ThemedText } from "@/components/ui/themed-text.component";
+import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { colors } from "@/constants/colors.constants";
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";

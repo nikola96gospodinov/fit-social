@@ -4,7 +4,7 @@ import {
   StyleSheet,
   useColorScheme,
 } from "react-native";
-import { ThemedText } from "../themed-text.component";
+import { ThemedText } from "../themed-text/themed-text.component";
 import { spacing } from "@/constants/spacing.constants";
 import { colors } from "@/constants/colors.constants";
 
@@ -21,7 +21,7 @@ export const Pill = ({ label, isActive, ...rest }: Props) => {
     : colors[colorScheme].background;
 
   const textColor =
-    colorScheme === "light" && isActive ? "reversed" : "default";
+    colorScheme === "light" && isActive ? "tintText" : "default";
 
   return (
     <Pressable {...rest} style={[styles.pill, { backgroundColor }]}>

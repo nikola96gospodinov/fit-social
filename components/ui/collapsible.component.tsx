@@ -2,7 +2,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { PropsWithChildren, useState } from "react";
 import { StyleSheet, TouchableOpacity, useColorScheme } from "react-native";
 
-import { ThemedText } from "@/components/ui/themed-text.component";
+import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { ThemedView } from "@/components/ui/themed-view.component";
 import { colors } from "@/constants/colors.constants";
 

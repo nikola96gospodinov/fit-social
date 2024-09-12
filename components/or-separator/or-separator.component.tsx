@@ -1,7 +1,7 @@
 import { Divider } from "../ui/divider/divider.component";
 import { Box } from "../ui/layout/box/box.component";
 import { Flex } from "../ui/layout/flex/flex.component";
-import { ThemedText } from "../ui/themed-text.component";
+import { ThemedText } from "../ui/themed-text/themed-text.component";
 
 export const OrSeparator = () => {
   return (

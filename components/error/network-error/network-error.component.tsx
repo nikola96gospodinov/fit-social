@@ -1,5 +1,5 @@
 import { Flex } from "@/components/ui/layout/flex/flex.component";
-import { ThemedText } from "@/components/ui/themed-text.component";
+import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { colors } from "@/constants/colors.constants";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, useColorScheme, View } from "react-native";

@@ -17,8 +17,8 @@ export const DefaultTheme: Theme = {
   dark: false,
   colors: {
     primary: indigo[800],
-    background: slate[100],
-    card: slate[50],
+    background: slate[50],
+    card: slate[100],
     text: slate[800],
     border: slate[300],
     notification: red[600],
