@@ -65,7 +65,7 @@ export const colors = {
     icon: slate[400],
     tabIconSelected: indigo[500],
     fill: slate[100],
-    fillTextColor: slate[800],
+    fillTextColor: slate[900],
     fillOnTap: slate[50],
     destructiveText: red[300],
     destructive: red[600],

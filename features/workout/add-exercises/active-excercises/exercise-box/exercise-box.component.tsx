@@ -54,16 +54,12 @@ export const ExerciseBox = ({ exercise }: Props) => {
                 width: 40,
                 height: 40,
                 borderRadius: 100,
-                backgroundColor: colors[theme].tint,
+                backgroundColor: colors[theme].fillTextColor,
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
-              <FontAwesome6
-                name="check"
-                size={20}
-                color={colors[theme].fillTextColor}
-              />
+              <FontAwesome6 name="check" size={20} color={colors[theme].tint} />
             </View>
           ) : (
             <Image
