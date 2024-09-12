@@ -3,9 +3,9 @@ import { WorkoutInProgress } from "@/features/workout/workout-in-progress/workou
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 
 const AddWorkout = () => {
-  const { workout } = useActiveWorkoutStore();
+  const { started } = useActiveWorkoutStore();
 
-  if (workout) {
+  if (started) {
     return <WorkoutInProgress />;
   }
 

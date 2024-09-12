@@ -9,10 +9,10 @@ import { useColorScheme } from "react-native";
 export const WorkoutTimer = () => {
   const colorScheme = useColorScheme();
 
-  const { workout } = useActiveWorkoutStore();
+  const { started } = useActiveWorkoutStore();
 
   const timeSinceStarted = useGetTimer({
-    startTime: workout?.started,
+    startTime: started,
   });
 
   const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);

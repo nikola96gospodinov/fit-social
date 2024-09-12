@@ -13,12 +13,12 @@ export default function TabLayout() {
 
   const insets = useSafeAreaInsets();
 
-  const { workout } = useActiveWorkoutStore();
+  const { started } = useActiveWorkoutStore();
 
   const pathname = usePathname();
 
   const timeSinceStarted = useGetTimer({
-    startTime: workout?.started,
+    startTime: started,
   });
 
   const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
@@ -26,9 +26,9 @@ export default function TabLayout() {
   const workoutTabTitle = (() => {
     const isPathnameWorkout = pathname.includes("/workout");
 
-    if (workout && isPathnameWorkout) return "Workout";
+    if (started && isPathnameWorkout) return "Workout";
 
-    return workout ? formattedTime : "Add";
+    return started ? formattedTime : "Add";
   })();
 
   return (

@@ -5,7 +5,7 @@ import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { Stack } from "expo-router";
 
 export default function WorkoutLayout() {
-  const { workout } = useActiveWorkoutStore();
+  const { started } = useActiveWorkoutStore();
   const { getTotalNumberOfFilters } = useExerciseFilterStore();
 
   const totalNumberOfFilters = getTotalNumberOfFilters();
@@ -22,7 +22,7 @@ export default function WorkoutLayout() {
         name="index"
         options={{
           title: "Workout",
-          headerShown: !!workout,
+          headerShown: !!started,
           headerLeft: () => <WorkoutTimer />,
           headerRight: () => <FinishWorkout />,
         }}

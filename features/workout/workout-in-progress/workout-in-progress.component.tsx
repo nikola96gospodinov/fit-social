@@ -1,11 +1,12 @@
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { View } from "react-native";
 import { EmptyWorkout } from "./empty-workout/empty-workout.component";
+import { isEmpty } from "lodash";
 
 export const WorkoutInProgress = () => {
-  const { workout } = useActiveWorkoutStore();
+  const { exercises } = useActiveWorkoutStore();
 
-  if (!workout?.exercises) {
+  if (isEmpty(exercises)) {
     return <EmptyWorkout />;
   }
 
