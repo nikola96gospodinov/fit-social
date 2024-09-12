@@ -79,7 +79,13 @@ export const ActiveExercises = ({ search }: Props) => {
           </>
         );
       }}
-      ListFooterComponent={ListFooterComponent}
+      ListFooterComponent={() => (
+        <ListFooterComponent
+          isFetchNextPageError={isFetchNextPageError}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      )}
     />
   );
 };
