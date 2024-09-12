@@ -3,13 +3,8 @@ type Set = {
   weight: number;
 };
 
-type Exercise = {
+export type ActiveExercise = {
   id: string;
   name: string;
   sets?: Set[];
-};
-
-export type Workout = {
-  started: Date;
-  exercises?: Exercise[];
 };

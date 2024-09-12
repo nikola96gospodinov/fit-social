@@ -1,17 +1,29 @@
-import { Workout } from "@/types/workout.types";
+import { Exercise } from "@/types/api/exercise.types";
+import { ActiveExercise } from "@/types/workout.types";
 import { create } from "zustand";
 
 type State = {
-  workout?: Workout;
+  started?: Date;
+  exercises: ActiveExercise[];
 };
 
 type Action = {
   startWorkout: (started: Date) => void;
   finishWorkout: () => void;
+  addExercises: (exercise: Exercise[]) => void;
 };
 
 export const useActiveWorkoutStore = create<State & Action>((set) => ({
-  workout: undefined,
-  startWorkout: (started) => set({ workout: { started } }),
-  finishWorkout: () => set({ workout: undefined }),
+  exercises: [],
+  startWorkout: (started) => set({ started }),
+  finishWorkout: () => set({ started: undefined, exercises: [] }),
+  addExercises: (exercises) => {
+    const activeExercises = exercises.map(({ id, name }) => ({
+      id,
+      name,
+      sets: [],
+    }));
+
+    set((state) => ({ exercises: [...state.exercises, ...activeExercises] }));
+  },
 }));
