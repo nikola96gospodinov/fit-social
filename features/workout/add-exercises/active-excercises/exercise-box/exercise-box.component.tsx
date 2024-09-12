@@ -23,7 +23,7 @@ export const ExerciseBox = ({ exercise }: Props) => {
 
     if (isSelected) {
       setSelectedExercises(
-        selectedExercises.filter(({ id }) => id !== exercise.id)
+        selectedExercises.filter(({ id }) => id !== exercise.id),
       );
     } else {
       setSelectedExercises([...selectedExercises, exercise]);
@@ -39,14 +39,12 @@ export const ExerciseBox = ({ exercise }: Props) => {
         backgroundColor: isSelected ? colors[theme].background : "transparent",
         borderRadius: 16,
         padding: spacing[3],
-      }}
-    >
+      }}>
       <Flex
         direction="row"
         justify="space-between"
         align="center"
-        gap={spacing[1]}
-      >
+        gap={spacing[1]}>
         <Flex direction="row" gap={spacing[1]} style={{ flexShrink: 1 }}>
           {isSelected ? (
             <View
@@ -57,8 +55,7 @@ export const ExerciseBox = ({ exercise }: Props) => {
                 backgroundColor: colors[theme].fillTextColor,
                 alignItems: "center",
                 justifyContent: "center",
-              }}
-            >
+              }}>
               <FontAwesome6 name="check" size={20} color={colors[theme].tint} />
             </View>
           ) : (
@@ -90,8 +87,7 @@ export const ExerciseBox = ({ exercise }: Props) => {
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 100,
-          }}
-        >
+          }}>
           <FontAwesome6 name="question" size={18} color={colors[theme].icon} />
         </Pressable>
       </Flex>

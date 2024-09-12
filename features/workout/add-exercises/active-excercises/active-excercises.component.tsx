@@ -38,7 +38,7 @@ export const ActiveExercises = ({ search }: Props) => {
   const allExercises = exercises?.pages.flatMap((page) => page.data) || [];
 
   const groupedAlphabetically = groupBy(allExercises, (exercise) =>
-    exercise.name[0].toUpperCase()
+    exercise.name[0].toUpperCase(),
   );
 
   if (isLoading) {

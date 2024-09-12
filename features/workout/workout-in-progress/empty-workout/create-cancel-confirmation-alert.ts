@@ -27,6 +27,6 @@ export const createCancelConfirmationAlert = ({
     {
       cancelable: true,
       userInterfaceStyle: colorScheme ?? "light",
-    }
+    },
   );
 };

@@ -3,7 +3,7 @@ import { removeEmptyValues, turnAllObjectValuesToString } from "./object.utils";
 
 export const addQueryParamsToUrl = (
   url: string,
-  queryParams?: Record<string, unknown>
+  queryParams?: Record<string, unknown>,
 ) => {
   if (!queryParams) return url;
 
@@ -12,7 +12,7 @@ export const addQueryParamsToUrl = (
   if (isEmpty(queryParamsWithoutEmptyValues)) return url;
 
   const sanitizedQueryParams = turnAllObjectValuesToString(
-    queryParamsWithoutEmptyValues
+    queryParamsWithoutEmptyValues,
   );
 
   const urlSearchParams = new URLSearchParams(sanitizedQueryParams);

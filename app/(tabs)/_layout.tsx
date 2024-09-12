@@ -41,8 +41,7 @@ export default function TabLayout() {
           paddingBottom: Platform.OS === "android" ? 12 : insets.bottom,
           height: Platform.OS === "android" ? 56 : 80,
         },
-      }}
-    >
+      }}>
       <Tabs.Screen
         name="index"
         options={{

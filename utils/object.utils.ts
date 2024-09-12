@@ -1,7 +1,7 @@
 import { omitBy, isUndefined, cloneDeepWith } from "lodash";
 
 export const turnAllObjectValuesToString = (
-  obj: Record<string, unknown>
+  obj: Record<string, unknown>,
 ): Record<string, string> => {
   function replace(myObj: Record<string, unknown>) {
     Object.keys(myObj).forEach(function (key) {
@@ -21,7 +21,7 @@ export const turnAllObjectValuesToString = (
 };
 
 export const removeEmptyValues = (
-  data: Record<string, unknown>
+  data: Record<string, unknown>,
 ): Record<string, unknown> | undefined => {
   return omitBy(data, (value) => isUndefined(value) || value === "");
 };

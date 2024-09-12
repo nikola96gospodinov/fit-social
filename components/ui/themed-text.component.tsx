@@ -24,19 +24,19 @@ export function ThemedText({
 }: ThemedTextProps) {
   const defaultColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "text"
+    "text",
   );
   const reversedColor = useThemeColor(
     { light: darkColor, dark: lightColor },
-    "background"
+    "background",
   );
   const supportingColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "supportingText"
+    "supportingText",
   );
   const errorColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "destructiveText"
+    "destructiveText",
   );
 
   const colorValue = (() => {

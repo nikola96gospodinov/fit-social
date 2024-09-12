@@ -36,8 +36,7 @@ export const ThemedTextInput = ({
         direction="row"
         gap={spacing[0.5]}
         align="center"
-        style={[styles.defaultContainer, container, { flex: 1 }]}
-      >
+        style={[styles.defaultContainer, container, { flex: 1 }]}>
         {icon && <Ionicons color={colors[theme].icon} {...icon} />}
 
         <TextInput

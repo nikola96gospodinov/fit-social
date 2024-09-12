@@ -28,8 +28,7 @@ export const FilterIcon = ({ numberOfFilters }: Props) => {
         {
           backgroundColor: colors[colorScheme].icon,
         },
-      ]}
-    >
+      ]}>
       <MaterialCommunityIcons
         name="filter"
         size={22}

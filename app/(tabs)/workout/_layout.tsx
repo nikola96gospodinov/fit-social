@@ -17,8 +17,7 @@ export default function WorkoutLayout() {
         headerBackTitleStyle: {
           fontSize: 16,
         },
-      }}
-    >
+      }}>
       <Stack.Screen
         name="index"
         options={{

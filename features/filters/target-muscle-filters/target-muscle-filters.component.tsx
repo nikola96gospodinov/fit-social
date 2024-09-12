@@ -14,7 +14,7 @@ export const TargetMuscleFilters = () => {
   const onPillPress = (targetMuscle: TargetMuscle) => {
     if (targetMuscleFilters.includes(targetMuscle)) {
       setTargetMuscleFilters(
-        targetMuscleFilters.filter((target) => target !== targetMuscle)
+        targetMuscleFilters.filter((target) => target !== targetMuscle),
       );
     } else {
       setTargetMuscleFilters([...targetMuscleFilters, targetMuscle]);

@@ -26,6 +26,6 @@ export const createFinishConfirmationAlert = ({
     {
       cancelable: true,
       userInterfaceStyle: colorScheme ?? "light",
-    }
+    },
   );
 };

@@ -19,8 +19,7 @@ export const NetworkError = ({ message, refetch }: Props) => {
         backgroundColor: colors[theme].destructiveBackground,
         padding: 12,
         borderRadius: 12,
-      }}
-    >
+      }}>
       <Flex direction="row" justify="space-between" align="center">
         <Flex direction="row" gap={2} align="center">
           <MaterialIcons

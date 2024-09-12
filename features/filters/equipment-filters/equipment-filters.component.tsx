@@ -11,7 +11,7 @@ export const EquipmentFilters = () => {
   const onPillPress = (equipment: Equipment) => {
     if (equipmentFilters.includes(equipment)) {
       setEquipmentFilters(
-        equipmentFilters.filter((equip) => equip !== equipment)
+        equipmentFilters.filter((equip) => equip !== equipment),
       );
     } else {
       setEquipmentFilters([...equipmentFilters, equipment]);

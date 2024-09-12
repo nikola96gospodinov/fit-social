@@ -10,7 +10,7 @@ type Props = {
 export const Divider = ({ color, lightColor, darkColor }: Props) => {
   const themeColor = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "text"
+    "text",
   );
   const dividerColor = color ?? themeColor;
 

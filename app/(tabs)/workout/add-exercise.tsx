@@ -24,8 +24,7 @@ const AddExercise = () => {
           paddingTop: spacing[2],
           paddingRight: Platform.OS === "android" ? spacing[1] : 0,
           overflow: "visible",
-        }}
-      >
+        }}>
         <ThemedTextInput
           icon={{ name: "search", size: 16 }}
           value={activeSearch}
