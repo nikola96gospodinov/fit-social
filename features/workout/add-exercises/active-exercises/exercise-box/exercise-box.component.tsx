@@ -5,18 +5,21 @@ import { spacing } from "@/constants/spacing.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { capitalize } from "lodash";
-import { useState } from "react";
 import { Pressable, useColorScheme, View } from "react-native";
 import { Image } from "expo-image";
 
 type Props = {
   exercise: Exercise;
+  selectedExercises: Exercise[];
+  setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 };
 
-export const ExerciseBox = ({ exercise }: Props) => {
+export const ExerciseBox = ({
+  exercise,
+  selectedExercises,
+  setSelectedExercises,
+}: Props) => {
   const theme = useColorScheme() ?? "light";
-
-  const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
 
   const onExercisePress = (exercise: Exercise) => {
     const isSelected = selectedExercises.find(({ id }) => id === exercise.id);

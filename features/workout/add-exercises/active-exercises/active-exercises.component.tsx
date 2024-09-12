@@ -4,18 +4,22 @@ import { useGetInfiniteExercises } from "@/services/exercises/get-all-exercises.
 import { groupBy } from "lodash";
 import { FlatList } from "react-native";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ExerciseBox } from "./exercise-box/exercise-box.component";
 import { ThemedActivityIndicator } from "@/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { NetworkError } from "@/components/error/network-error/network-error.component";
+import { Exercise } from "@/types/api/exercise.types";
 
 type Props = {
   search: string;
+  selectedExercises: Exercise[];
+  setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 };
 
-export const ActiveExercises = ({ search }: Props) => {
-  const insets = useSafeAreaInsets();
-
+export const ActiveExercises = ({
+  search,
+  selectedExercises,
+  setSelectedExercises,
+}: Props) => {
   const { bodyPartFilters, equipmentFilters, targetFilters } =
     useExerciseFilterStore();
 
@@ -57,7 +61,6 @@ export const ActiveExercises = ({ search }: Props) => {
         key,
         value,
       }))}
-      style={{ marginBottom: insets.bottom }}
       onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) => {
         return (
@@ -71,7 +74,13 @@ export const ActiveExercises = ({ search }: Props) => {
             <FlatList
               data={item.value}
               renderItem={({ item: exercise }) => {
-                return <ExerciseBox exercise={exercise} />;
+                return (
+                  <ExerciseBox
+                    exercise={exercise}
+                    selectedExercises={selectedExercises}
+                    setSelectedExercises={setSelectedExercises}
+                  />
+                );
               }}
             />
 
@@ -102,7 +111,7 @@ const ListFooterComponent: React.FC<{
           message="Failed to fetch more exercises"
           refetch={fetchNextPage}
         />
-        <VerticalSpacing size={10} />
+        <VerticalSpacing size={4} />
       </>
     );
   }
@@ -111,7 +120,7 @@ const ListFooterComponent: React.FC<{
     return (
       <>
         <ThemedActivityIndicator />
-        <VerticalSpacing size={10} />
+        <VerticalSpacing size={4} />
       </>
     );
   }
