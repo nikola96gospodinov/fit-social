@@ -1,5 +1,4 @@
 import { colors, indigo } from "@/constants/colors.constants";
-import { ActiveFilters } from "@/store/exercise-filter-store";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {

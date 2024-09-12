@@ -5,7 +5,7 @@ import {
 } from "@/constants/workout.constants";
 import { create } from "zustand";
 
-export type ActiveFilters = Array<BodyPart | Equipment | TargetMuscle>;
+export type ActiveFilters = (BodyPart | Equipment | TargetMuscle)[];
 
 type State = {
   bodyPartFilters: BodyPart[];

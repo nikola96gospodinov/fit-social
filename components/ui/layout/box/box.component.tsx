@@ -1,4 +1,4 @@
-import { Spacing, spacing } from "@/constants/spacing.constants";
+import { Spacing } from "@/constants/spacing.constants";
 import { PropsWithChildren } from "react";
 import { View } from "react-native";
 

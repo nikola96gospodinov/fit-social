@@ -11,7 +11,7 @@ export type Exercise = {
   id: string;
   name: string;
   target: TargetMuscle;
-  secondaryMuscles: Array<TargetMuscle | string>;
+  secondaryMuscles: (TargetMuscle | string)[];
   instructions: string[];
 };
 
