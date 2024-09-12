@@ -7,6 +7,7 @@ import { FontAwesome6 } from "@expo/vector-icons";
 import { capitalize } from "lodash";
 import { Pressable, useColorScheme, View } from "react-native";
 import { Image } from "expo-image";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 
 type Props = {
   exercise: Exercise;
@@ -21,6 +22,8 @@ export const ExerciseBox = ({
 }: Props) => {
   const theme = useColorScheme() ?? "light";
 
+  const { exercises } = useActiveWorkoutStore();
+
   const onExercisePress = (exercise: Exercise) => {
     const isSelected = selectedExercises.find(({ id }) => id === exercise.id);
 
@@ -34,6 +37,7 @@ export const ExerciseBox = ({
   };
 
   const isSelected = !!selectedExercises.find(({ id }) => id === exercise.id);
+  const isDisabled = !!exercises.find(({ id }) => id === exercise.id);
 
   return (
     <Pressable
@@ -42,14 +46,16 @@ export const ExerciseBox = ({
         backgroundColor: isSelected ? colors[theme].background : "transparent",
         borderRadius: 16,
         padding: spacing[3],
-      }}>
+        opacity: isDisabled ? 0.5 : 1,
+      }}
+      disabled={isDisabled}>
       <Flex
         direction="row"
         justify="space-between"
         align="center"
         gap={spacing[1]}>
         <Flex direction="row" gap={spacing[1]} style={{ flexShrink: 1 }}>
-          {isSelected ? (
+          {isSelected || isDisabled ? (
             <View
               style={{
                 width: 40,
