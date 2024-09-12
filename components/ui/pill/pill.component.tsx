@@ -20,9 +20,14 @@ export const Pill = ({ label, isActive, ...rest }: Props) => {
     ? colors[colorScheme].tabIconSelected
     : colors[colorScheme].background;
 
+  const textColor =
+    colorScheme === "light" && isActive ? "reversed" : "default";
+
   return (
     <Pressable {...rest} style={[styles.pill, { backgroundColor }]}>
-      <ThemedText type="small">{label}</ThemedText>
+      <ThemedText type="small" color={textColor}>
+        {label}
+      </ThemedText>
     </Pressable>
   );
 };

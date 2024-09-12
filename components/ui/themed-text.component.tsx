@@ -11,7 +11,7 @@ export type ThemedTextProps = TextProps & {
     | "subtitle"
     | "link"
     | "small";
-  color?: "default" | "supporting" | "error";
+  color?: "default" | "supporting" | "error" | "reversed";
 };
 
 export function ThemedText({
@@ -26,6 +26,10 @@ export function ThemedText({
     { light: lightColor, dark: darkColor },
     "text"
   );
+  const reversedColor = useThemeColor(
+    { light: darkColor, dark: lightColor },
+    "background"
+  );
   const supportingColor = useThemeColor(
     { light: lightColor, dark: darkColor },
     "supportingText"
@@ -39,6 +43,8 @@ export function ThemedText({
     switch (color) {
       case "default":
         return defaultColor;
+      case "reversed":
+        return reversedColor;
       case "supporting":
         return supportingColor;
       case "error":

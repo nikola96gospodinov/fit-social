@@ -44,7 +44,7 @@ export const colors = {
   light: {
     text: slate[900],
     supportingText: slate[600],
-    background: slate[50],
+    background: slate[200],
     tint: indigo[700],
     icon: slate[500],
     tabIconSelected: indigo[800],

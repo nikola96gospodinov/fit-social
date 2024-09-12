@@ -79,7 +79,7 @@ export const ExerciseBox = ({ exercise }: Props) => {
           <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
             <ThemedText>{capitalize(exercise.name)}</ThemedText>
             <ThemedText type="small" color="supporting">
-              {exercise.target}
+              {exercise.bodyPart}
             </ThemedText>
           </Flex>
         </Flex>
