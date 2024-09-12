@@ -11,7 +11,7 @@
     "test": "jest --watchAll",
     "lint": "expo lint",
     "prettier-all": "prettier --write .",
-    "prettier-pre-commit": "npx prettier -u --write $(git diff --name-only --diff-filter=d HEAD | grep '.tsx?$' | xargs)",
+    "prettier-pre-commit": "prettier -u --write $(git diff --name-only --diff-filter=d HEAD | grep -E '\\.(tsx|ts)$' | xargs)",
     "prepare": "husky"
   },
   "jest": {
