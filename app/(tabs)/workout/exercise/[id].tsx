@@ -69,7 +69,7 @@ const Exercise = () => {
           style={[
             styles.equipmentContainer,
             {
-              backgroundColor: colors[theme].background,
+              backgroundColor: colors[theme].border,
             },
           ]}>
           <ThemedText type="small">{exercise.equipment}</ThemedText>
@@ -110,7 +110,7 @@ const Exercise = () => {
         />
       </View>
 
-      <VerticalSpacing size={8} />
+      <VerticalSpacing size={10} />
     </PaddedScrollView>
   );
 };
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
 
   flatListContainer: {
     paddingHorizontal: 12,
-    paddingBottom: 6,
+    paddingBottom: 4,
   },
 
   equipmentContainer: {
