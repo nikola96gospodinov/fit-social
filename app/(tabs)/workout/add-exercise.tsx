@@ -31,6 +31,7 @@ const AddExercise = () => {
           overflow: "visible",
         }}>
         <ThemedTextInput
+          clearButton
           icon={{ name: "search", size: 16 }}
           value={activeSearch}
           onChangeText={setActiveSearch}
