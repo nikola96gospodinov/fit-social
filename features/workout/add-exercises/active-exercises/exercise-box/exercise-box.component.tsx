@@ -8,6 +8,7 @@ import { capitalize } from "lodash";
 import { Pressable, useColorScheme, View } from "react-native";
 import { Image } from "expo-image";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { useRouter } from "expo-router";
 
 type Props = {
   exercise: Exercise;
@@ -21,6 +22,8 @@ export const ExerciseBox = ({
   setSelectedExercises,
 }: Props) => {
   const theme = useColorScheme() ?? "light";
+
+  const router = useRouter();
 
   const { exercises } = useActiveWorkoutStore();
 
@@ -96,6 +99,9 @@ export const ExerciseBox = ({
             alignItems: "center",
             justifyContent: "center",
             borderRadius: 100,
+          }}
+          onPress={() => {
+            router.push(`/workout/exercise/${exercise.id}`);
           }}>
           <FontAwesome6 name="question" size={18} color={colors[theme].icon} />
         </Pressable>

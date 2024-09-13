@@ -10,7 +10,7 @@ export const URL = {
     },
 
     GET_EXERCISE_BY_ID(id: string): string {
-      return `${this.base}/exercises/${id}`;
+      return `${this.base}/${id}`;
     },
 
     GET_EXERCISES_BY_IDS(): string {

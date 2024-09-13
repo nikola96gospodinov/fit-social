@@ -1,8 +1,19 @@
 import { colors } from "@/constants/colors.constants";
-import { ActivityIndicator, useColorScheme } from "react-native";
+import { ActivityIndicator, useColorScheme, View } from "react-native";
+import { ThemedText } from "../themed-text/themed-text.component";
 
-export const ThemedActivityIndicator = () => {
+type Props = {
+  loadingMessage?: string;
+};
+
+export const ThemedActivityIndicator = ({ loadingMessage }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  return <ActivityIndicator size="large" color={colors[theme].fill} />;
+  return (
+    <View>
+      <ActivityIndicator size="large" color={colors[theme].fill} />
+
+      {loadingMessage && <ThemedText>{loadingMessage}</ThemedText>}
+    </View>
+  );
 };

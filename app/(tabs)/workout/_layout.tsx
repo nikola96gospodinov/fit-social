@@ -44,6 +44,14 @@ export default function WorkoutLayout() {
           presentation: "modal",
         }}
       />
+
+      <Stack.Screen
+        name="exercise/[id]"
+        options={{
+          presentation: "modal",
+          title: "Loading...", // Title is being set in the route file once fetch is complete
+        }}
+      />
     </Stack>
   );
 }
