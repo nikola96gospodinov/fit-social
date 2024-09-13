@@ -1,45 +1,48 @@
 import {
+  BODY_PART,
+  EQUIPMENT,
+  TARGET_MUSCLE,
+} from "@/constants/workout.constants";
+import {
   BodyPart,
   Equipment,
   TargetMuscle,
 } from "@/constants/workout.constants";
 import { create } from "zustand";
 
-export type ActiveFilters = (BodyPart | Equipment | TargetMuscle)[];
+export type Filter =
+  | { type: typeof BODY_PART; value: BodyPart }
+  | { type: typeof EQUIPMENT; value: Equipment }
+  | { type: typeof TARGET_MUSCLE; value: TargetMuscle };
 
 type State = {
-  bodyPartFilters: BodyPart[];
-  equipmentFilters: Equipment[];
-  targetFilters: TargetMuscle[];
+  filters: Filter[];
   activeSearch: string;
 };
 
 type Action = {
-  setBodyPartFilters: (filters: BodyPart[]) => void;
-  setEquipmentFilters: (filters: Equipment[]) => void;
-  setTargetFilters: (filters: TargetMuscle[]) => void;
   setActiveSearch: (search: string) => void;
   clearFilters: () => void;
-  getTotalNumberOfFilters: () => number;
+  addFilter: (filter: Filter) => void;
+  removeFilter: (filter: Filter) => void;
+  getFilterValues: <T extends Filter["type"]>(
+    filterType: T,
+  ) => Extract<Filter, { type: T }>["value"][];
 };
 
 export const useExerciseFilterStore = create<State & Action>((set, get) => ({
-  bodyPartFilters: [],
-  setBodyPartFilters: (filters) => set({ bodyPartFilters: filters }),
-  equipmentFilters: [],
-  setEquipmentFilters: (filters) => set({ equipmentFilters: filters }),
-  targetFilters: [],
-  setTargetFilters: (filters) => set({ targetFilters: filters }),
+  filters: [],
+  addFilter: (filter) =>
+    set((state) => ({ filters: [...state.filters, filter] })),
+  removeFilter: (filter) =>
+    set((state) => ({
+      filters: state.filters.filter((f) => f !== filter),
+    })),
+  clearFilters: () => set({ filters: [] }),
   activeSearch: "",
   setActiveSearch: (search) => set({ activeSearch: search }),
-  clearFilters: () =>
-    set({
-      bodyPartFilters: [],
-      equipmentFilters: [],
-      targetFilters: [],
-    }),
-  getTotalNumberOfFilters: () =>
-    get().bodyPartFilters.length +
-    get().equipmentFilters.length +
-    get().targetFilters.length,
+  getFilterValues: <T extends Filter["type"]>(filterType: T) =>
+    get()
+      .filters.filter((f) => f.type === filterType)
+      .map((f) => f.value) as any[], // Zustand doesn't support all generics with create https://github.com/pmndrs/zustand/discussions/2566, Type safety is still maintained though
 }));

@@ -3,21 +3,25 @@ import { spacing } from "@/constants/spacing.constants";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { FilterIcon } from "@/features/workout/add-exercises/filter-icon/filter-icon.component";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
-import { Platform, View } from "react-native";
+import { FlatList, Platform, View } from "react-native";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ActiveExercises } from "@/features/workout/add-exercises/active-exercises/active-exercises.component";
 import { useDebounce } from "@/hooks/use-debounce";
 import { AddIcon } from "@/features/workout/add-exercises/add-icon/add-icon.component";
 import { Exercise } from "@/types/api/exercise.types";
 import { useState } from "react";
+import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
+import { Pill } from "@/components/ui/pill/pill.component";
 
 const AddExercise = () => {
   const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
 
-  const { getTotalNumberOfFilters, activeSearch, setActiveSearch } =
+  const { activeSearch, setActiveSearch, clearFilters, filters, removeFilter } =
     useExerciseFilterStore();
 
   const debouncedActiveSearch = useDebounce<string>({ value: activeSearch });
+
+  const numberOfFilters = filters.length;
 
   return (
     <View style={{ padding: spacing[4], flex: 1, paddingBottom: 0 }}>
@@ -37,8 +41,37 @@ const AddExercise = () => {
           onChangeText={setActiveSearch}
         />
 
-        <FilterIcon numberOfFilters={getTotalNumberOfFilters()} />
+        <FilterIcon numberOfFilters={numberOfFilters} />
       </Flex>
+
+      {numberOfFilters > 0 && (
+        <>
+          <VerticalSpacing size={2} />
+
+          <Flex direction="row" gap={spacing[1]} align="center">
+            <FlatList
+              data={filters}
+              renderItem={({ item: filter }) => (
+                <Pill
+                  label={filter.value}
+                  isActive={false}
+                  onDelete={() => removeFilter(filter)}
+                />
+              )}
+              horizontal
+              ItemSeparatorComponent={() => (
+                <VerticalSpacing size={1} isHorizontal />
+              )}
+            />
+
+            <ThemedButton
+              text="Clear filters"
+              variant="flat"
+              onPress={() => clearFilters()}
+            />
+          </Flex>
+        </>
+      )}
 
       <VerticalSpacing size={8} />
 

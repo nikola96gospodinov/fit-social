@@ -8,6 +8,11 @@ import { ExerciseBox } from "./exercise-box/exercise-box.component";
 import { ThemedActivityIndicator } from "@/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { NetworkError } from "@/components/error/network-error/network-error.component";
 import { Exercise } from "@/types/api/exercise.types";
+import {
+  BODY_PART,
+  EQUIPMENT,
+  TARGET_MUSCLE,
+} from "@/constants/workout.constants";
 
 type Props = {
   search: string;
@@ -20,8 +25,7 @@ export const ActiveExercises = ({
   selectedExercises,
   setSelectedExercises,
 }: Props) => {
-  const { bodyPartFilters, equipmentFilters, targetFilters } =
-    useExerciseFilterStore();
+  const { getFilterValues } = useExerciseFilterStore();
 
   const {
     data: exercises,
@@ -34,9 +38,9 @@ export const ActiveExercises = ({
     isLoading,
   } = useGetInfiniteExercises({
     search,
-    bodyPartFilters,
-    equipmentFilters,
-    targetFilters,
+    bodyPartFilters: getFilterValues(BODY_PART),
+    equipmentFilters: getFilterValues(EQUIPMENT),
+    targetFilters: getFilterValues(TARGET_MUSCLE),
   });
 
   const allExercises = exercises?.pages.flatMap((page) => page.data) || [];

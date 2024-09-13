@@ -7,9 +7,9 @@ import { Stack } from "expo-router";
 
 export default function WorkoutLayout() {
   const { started } = useActiveWorkoutStore();
-  const { getTotalNumberOfFilters } = useExerciseFilterStore();
+  const { filters } = useExerciseFilterStore();
 
-  const totalNumberOfFilters = getTotalNumberOfFilters();
+  const totalNumberOfFilters = filters.length;
 
   return (
     <Stack

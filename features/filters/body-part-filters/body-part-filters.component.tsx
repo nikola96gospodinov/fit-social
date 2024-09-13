@@ -2,17 +2,17 @@ import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertica
 import { PillWrapper } from "@/components/ui/pill/pill-wrapper.component";
 import { Pill } from "@/components/ui/pill/pill.component";
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
-import { BodyPart, bodyParts } from "@/constants/workout.constants";
-import { useExerciseFilterStore } from "@/store/exercise-filter-store";
+import { BODY_PART, BodyPart, bodyParts } from "@/constants/workout.constants";
+import { Filter, useExerciseFilterStore } from "@/store/exercise-filter-store";
 
 export const BodyPartFilters = () => {
-  const { bodyPartFilters, setBodyPartFilters } = useExerciseFilterStore();
+  const { filters, addFilter, removeFilter } = useExerciseFilterStore();
 
-  const onPillPress = (bodyPart: BodyPart) => {
-    if (bodyPartFilters.includes(bodyPart)) {
-      setBodyPartFilters(bodyPartFilters.filter((part) => part !== bodyPart));
+  const onPillPress = (bodyPart: BodyPart, filter: Filter | undefined) => {
+    if (filter) {
+      removeFilter(filter);
     } else {
-      setBodyPartFilters([...bodyPartFilters, bodyPart]);
+      addFilter({ type: BODY_PART, value: bodyPart });
     }
   };
 
@@ -23,14 +23,20 @@ export const BodyPartFilters = () => {
       <VerticalSpacing size={4} />
 
       <PillWrapper>
-        {bodyParts.map((bodyPart) => (
-          <Pill
-            key={bodyPart}
-            label={bodyPart}
-            isActive={bodyPartFilters.includes(bodyPart)}
-            onPress={() => onPillPress(bodyPart)}
-          />
-        ))}
+        {bodyParts.map((bodyPart) => {
+          const filter = filters.find(
+            (f) => f.type === BODY_PART && f.value === bodyPart,
+          );
+
+          return (
+            <Pill
+              key={bodyPart}
+              label={bodyPart}
+              isActive={!!filter}
+              onPress={() => onPillPress(bodyPart, filter)}
+            />
+          );
+        })}
       </PillWrapper>
     </>
   );

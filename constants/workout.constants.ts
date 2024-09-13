@@ -18,6 +18,8 @@ export const targetMuscles = [
 
 export type TargetMuscle = (typeof targetMuscles)[number];
 
+export const TARGET_MUSCLE = "target" as const;
+
 export const equipment = [
   "assisted",
   "band",
@@ -51,6 +53,8 @@ export const equipment = [
 
 export type Equipment = (typeof equipment)[number];
 
+export const EQUIPMENT = "equipment" as const;
+
 export const bodyParts = [
   "back",
   "cardio",
@@ -65,3 +69,5 @@ export const bodyParts = [
 ] as const;
 
 export type BodyPart = (typeof bodyParts)[number];
+
+export const BODY_PART = "bodyPart" as const;

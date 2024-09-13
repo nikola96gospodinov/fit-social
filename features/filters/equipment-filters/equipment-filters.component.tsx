@@ -2,19 +2,17 @@ import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertica
 import { PillWrapper } from "@/components/ui/pill/pill-wrapper.component";
 import { Pill } from "@/components/ui/pill/pill.component";
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
-import { Equipment, equipment } from "@/constants/workout.constants";
-import { useExerciseFilterStore } from "@/store/exercise-filter-store";
+import { EQUIPMENT, Equipment, equipment } from "@/constants/workout.constants";
+import { Filter, useExerciseFilterStore } from "@/store/exercise-filter-store";
 
 export const EquipmentFilters = () => {
-  const { equipmentFilters, setEquipmentFilters } = useExerciseFilterStore();
+  const { filters, addFilter, removeFilter } = useExerciseFilterStore();
 
-  const onPillPress = (equipment: Equipment) => {
-    if (equipmentFilters.includes(equipment)) {
-      setEquipmentFilters(
-        equipmentFilters.filter((equip) => equip !== equipment),
-      );
+  const onPillPress = (equipment: Equipment, filter: Filter | undefined) => {
+    if (filter) {
+      removeFilter(filter);
     } else {
-      setEquipmentFilters([...equipmentFilters, equipment]);
+      addFilter({ type: EQUIPMENT, value: equipment });
     }
   };
 
@@ -25,14 +23,20 @@ export const EquipmentFilters = () => {
       <VerticalSpacing size={4} />
 
       <PillWrapper>
-        {equipment.map((equipment) => (
-          <Pill
-            key={equipment}
-            label={equipment}
-            isActive={equipmentFilters.includes(equipment)}
-            onPress={() => onPillPress(equipment)}
-          />
-        ))}
+        {equipment.map((equipment) => {
+          const filter = filters.find(
+            (f) => f.type === EQUIPMENT && f.value === equipment,
+          );
+
+          return (
+            <Pill
+              key={equipment}
+              label={equipment}
+              isActive={!!filter}
+              onPress={() => onPillPress(equipment, filter)}
+            />
+          );
+        })}
       </PillWrapper>
     </>
   );
