@@ -55,6 +55,14 @@ export const ActiveExercises = ({
     );
   }
 
+  if (allExercises.length === 0) {
+    return (
+      <ThemedText color="supporting" style={{ textAlign: "center" }}>
+        No exercises found based on your filters
+      </ThemedText>
+    );
+  }
+
   return (
     <FlatList
       data={Object.entries(groupedAlphabetically).map(([key, value]) => ({
