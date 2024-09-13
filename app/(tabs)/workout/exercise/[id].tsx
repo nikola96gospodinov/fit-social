@@ -53,13 +53,18 @@ const Exercise = () => {
 
   return (
     <PaddedScrollView>
-      <View>
+      <View
+        style={[
+          styles.imageContainer,
+          {
+            borderColor: colors[theme].border,
+          },
+        ]}>
         <Image
           source={{ uri: exercise.gifUrl }}
           style={[
             styles.image,
             {
-              borderColor: colors[theme].border,
               height: windowWidth - spacing[4] * 2,
             },
           ]}
@@ -126,8 +131,12 @@ const styles = StyleSheet.create({
 
   image: {
     width: "100%",
+  },
+
+  imageContainer: {
     borderWidth: 1,
     borderRadius: 8,
+    overflow: "hidden",
   },
 
   flatListContainer: {
@@ -142,6 +151,5 @@ const styles = StyleSheet.create({
     paddingVertical: spacing[1],
     paddingHorizontal: spacing[3],
     borderTopLeftRadius: 8,
-    borderBottomRightRadius: 8,
   },
 });
