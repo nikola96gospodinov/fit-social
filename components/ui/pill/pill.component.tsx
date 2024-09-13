@@ -15,7 +15,13 @@ type Props = {
   onDelete?: () => void;
 } & PressableProps;
 
-export const Pill = ({ label, isActive, onDelete, ...rest }: Props) => {
+export const Pill = ({
+  label,
+  isActive,
+  onDelete,
+  onPress,
+  ...rest
+}: Props) => {
   const colorScheme = useColorScheme() ?? "light";
 
   const backgroundColor = isActive
@@ -26,13 +32,19 @@ export const Pill = ({ label, isActive, onDelete, ...rest }: Props) => {
     colorScheme === "light" && isActive ? "tintText" : "default";
 
   return (
-    <Pressable {...rest} style={[styles.pill, { backgroundColor }]}>
+    <Pressable
+      {...rest}
+      style={[styles.pill, { backgroundColor }]}
+      onPress={(e) => {
+        onPress?.(e);
+        onDelete?.();
+      }}>
       <ThemedText type="small" color={textColor}>
         {label}
       </ThemedText>
 
       {onDelete && (
-        <Pressable onPress={onDelete}>
+        <Pressable>
           <Ionicons
             name="close-circle"
             size={12}
