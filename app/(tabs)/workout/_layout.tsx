@@ -1,3 +1,4 @@
+import { ClearFilter } from "@/features/filters/header/clear-filters/clear-filter.component";
 import { FinishWorkout } from "@/features/workout/workout-in-progress/header/finish-workout/finish-workout.component";
 import { WorkoutTimer } from "@/features/workout/workout-in-progress/header/workout-timer/workout-timer.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
@@ -42,6 +43,7 @@ export default function WorkoutLayout() {
             totalNumberOfFilters ? ` (${totalNumberOfFilters})` : ""
           }`,
           presentation: "modal",
+          headerRight: () => <ClearFilter />,
         }}
       />
 
@@ -49,7 +51,7 @@ export default function WorkoutLayout() {
         name="exercise/[id]"
         options={{
           presentation: "modal",
-          title: "Loading...", // Title is being set in the route file once fetch is complete
+          title: "Loading...", // Title is being re-set in the route file once fetch is complete
         }}
       />
     </Stack>
