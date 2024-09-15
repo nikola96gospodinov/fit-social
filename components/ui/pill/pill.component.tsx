@@ -3,6 +3,7 @@ import {
   PressableProps,
   StyleSheet,
   useColorScheme,
+  View,
 } from "react-native";
 import { ThemedText } from "../themed-text/themed-text.component";
 import { spacing } from "@/constants/spacing.constants";
@@ -44,14 +45,14 @@ export const Pill = ({
       </ThemedText>
 
       {onDelete && (
-        <Pressable>
+        <View>
           <Ionicons
             name="close-circle"
             size={12}
             color={colors[colorScheme].supportingText}
             style={{ marginTop: 1 }}
           />
-        </Pressable>
+        </View>
       )}
     </Pressable>
   );
