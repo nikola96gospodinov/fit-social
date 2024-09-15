@@ -1,41 +1,27 @@
-export const targetMuscles = [
-  "abductors",
-  "abs",
-  "adductors",
-  "biceps",
-  "calves",
-  "delts",
-  "forearms",
-  "glutes",
-  "hamstrings",
-  "lats",
-  "pectorals",
-  "quads",
-  "traps",
-  "triceps",
-  "upper back",
-] as const;
-
 export const TARGET_MUSCLE = "target" as const;
-
 export const BODY_PART = "bodyPart" as const;
+export const EQUIPMENT = "equipment" as const;
 
-export const equipment = [
+export const primaryEquipment = [
   "assisted",
   "band",
   "barbell",
   "body weight",
-  "bosu ball",
   "cable",
   "dumbbell",
+  "kettlebell",
+  "resistance band",
+  "weighted",
+] as const;
+
+export const secondaryEquipment = [
+  "bosu ball",
   "elliptical machine",
   "ez barbell",
   "hammer",
-  "kettlebell",
   "leverage machine",
   "medicine ball",
   "olympic barbell",
-  "resistance band",
   "roller",
   "rope",
   "skierg machine",
@@ -47,13 +33,12 @@ export const equipment = [
   "tire",
   "trap bar",
   "upper body ergometer",
-  "weighted",
   "wheel roller",
 ] as const;
 
-export type Equipment = (typeof equipment)[number];
+export const allEquipment = [...primaryEquipment, ...secondaryEquipment];
 
-export const EQUIPMENT = "equipment" as const;
+export type Equipment = (typeof allEquipment)[number];
 
 export const primaryBodyPartsAndTargetMuscles = [
   {
