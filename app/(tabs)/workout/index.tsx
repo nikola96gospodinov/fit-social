@@ -1,15 +1,7 @@
-import { StartWorkout } from "@/features/workout/start-workout/start-workout.component";
-import { WorkoutInProgress } from "@/features/workout/workout-in-progress/workout-in-progress.component";
-import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { WorkoutIndexContent } from "@/screens/workout/index/workout-index-content.component";
 
-const AddWorkout = () => {
-  const { started } = useActiveWorkoutStore();
-
-  if (started) {
-    return <WorkoutInProgress />;
-  }
-
-  return <StartWorkout />;
+const WorkoutIndexScreen = () => {
+  return <WorkoutIndexContent />;
 };
 
-export default AddWorkout;
+export default WorkoutIndexScreen;

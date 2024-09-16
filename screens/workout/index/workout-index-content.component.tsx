@@ -1,0 +1,13 @@
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { StartWorkout } from "./start-workout/start-workout.component";
+import { WorkoutInProgress } from "./workout-in-progress/workout-in-progress.component";
+
+export const WorkoutIndexContent = () => {
+  const { started } = useActiveWorkoutStore();
+
+  if (started) {
+    return <WorkoutInProgress />;
+  }
+
+  return <StartWorkout />;
+};

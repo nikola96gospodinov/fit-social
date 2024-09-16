@@ -3,7 +3,7 @@ import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
 import { colors } from "@/constants/colors.constants";
 import { Platform, useColorScheme } from "react-native";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
-import { WorkoutIcon } from "@/features/workout/workout-in-progress/header/workout-icon/workout-icon.component";
+import { WorkoutIcon } from "@/screens/workout/index/header/workout-icon/workout-icon.component";
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

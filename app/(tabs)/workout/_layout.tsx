@@ -1,6 +1,6 @@
-import { ClearFilter } from "@/features/filters/header/clear-filters/clear-filter.component";
-import { FinishWorkout } from "@/features/workout/workout-in-progress/header/finish-workout/finish-workout.component";
-import { WorkoutTimer } from "@/features/workout/workout-in-progress/header/workout-timer/workout-timer.component";
+import { ClearFilter } from "@/screens/workout/filters/header/clear-filters/clear-filter.component";
+import { FinishWorkout } from "@/screens/workout/index/header/finish-workout/finish-workout.component";
+import { WorkoutTimer } from "@/screens/workout/index/header/workout-timer/workout-timer.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { Stack } from "expo-router";
