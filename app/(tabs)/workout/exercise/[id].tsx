@@ -1,4 +1,4 @@
-import { PaddedScrollView } from "@/components/padded-scroll-view/padded-scroll-view.component";
+import { PaddedScrollView } from "@/components/ui/layout/padded-scroll-view/padded-scroll-view.component";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { Pill } from "@/components/ui/pill/pill.component";
