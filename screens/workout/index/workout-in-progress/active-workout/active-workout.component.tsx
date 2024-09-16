@@ -13,7 +13,7 @@ export const ActiveWorkout = () => {
   const router = useRouter();
 
   return (
-    <View style={{ padding: spacing[4], flex: 1, paddingBottom: 0 }}>
+    <View style={styles.container}>
       <FlatList
         data={exercises}
         renderItem={({ item: exercise }) => (
@@ -42,6 +42,12 @@ export const ActiveWorkout = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: spacing[4],
+    flex: 1,
+    paddingBottom: 0,
+  },
+
   ctaContainer: {
     marginTop: spacing[4],
     justifyContent: "center",

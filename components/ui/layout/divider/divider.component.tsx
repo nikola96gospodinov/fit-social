@@ -16,11 +16,19 @@ export const Divider = ({ color, lightColor, darkColor }: Props) => {
 
   return (
     <View
-      style={{
-        height: StyleSheet.hairlineWidth,
-        backgroundColor: dividerColor,
-        flex: 1,
-      }}
+      style={[
+        styles.divider,
+        {
+          backgroundColor: dividerColor,
+        },
+      ]}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  divider: {
+    height: StyleSheet.hairlineWidth,
+    flex: 1,
+  },
+});

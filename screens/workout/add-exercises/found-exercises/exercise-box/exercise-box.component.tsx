@@ -5,7 +5,7 @@ import { spacing } from "@/constants/spacing.constants";
 import { Exercise } from "@/types/api/exercise.types";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { capitalize } from "lodash";
-import { Pressable, useColorScheme, View } from "react-native";
+import { Pressable, useColorScheme, View, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { useRouter } from "expo-router";
@@ -50,12 +50,15 @@ export const ExerciseBox = ({
     <Pressable
       onPress={() => onExercisePress(exercise)}
       onLongPress={() => onExerciseLongPress(exercise)}
-      style={{
-        backgroundColor: isSelected ? colors[theme].background : "transparent",
-        borderRadius: 16,
-        padding: spacing[3],
-        opacity: isDisabled ? 0.5 : 1,
-      }}
+      style={[
+        {
+          backgroundColor: isSelected
+            ? colors[theme].background
+            : "transparent",
+          opacity: isDisabled ? 0.5 : 1,
+        },
+        styles.container,
+      ]}
       disabled={isDisabled}>
       <Flex
         direction="row"
@@ -65,25 +68,16 @@ export const ExerciseBox = ({
         <Flex direction="row" gap={spacing[1]} style={{ flexShrink: 1 }}>
           {isSelected || isDisabled ? (
             <View
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 100,
-                backgroundColor: colors[theme].fillTextColor,
-                alignItems: "center",
-                justifyContent: "center",
-              }}>
+              style={[
+                {
+                  backgroundColor: colors[theme].fillTextColor,
+                },
+                styles.checkIconContainer,
+              ]}>
               <FontAwesome6 name="check" size={20} color={colors[theme].tint} />
             </View>
           ) : (
-            <Image
-              source={{ uri: exercise.gifUrl }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 100,
-              }}
-            />
+            <Image source={{ uri: exercise.gifUrl }} style={styles.image} />
           )}
 
           <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
@@ -95,16 +89,14 @@ export const ExerciseBox = ({
         </Flex>
 
         <Pressable
-          style={{
-            backgroundColor: isSelected
-              ? colors[theme].border
-              : colors[theme].background,
-            width: 32,
-            height: 32,
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 100,
-          }}
+          style={[
+            {
+              backgroundColor: isSelected
+                ? colors[theme].border
+                : colors[theme].background,
+            },
+            styles.questionIconContainer,
+          ]}
           onPress={() => onExerciseLongPress(exercise)}>
           <FontAwesome6 name="question" size={18} color={colors[theme].icon} />
         </Pressable>
@@ -112,3 +104,32 @@ export const ExerciseBox = ({
     </Pressable>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: 16,
+    padding: spacing[3],
+  },
+
+  checkIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  image: {
+    width: 40,
+    height: 40,
+    borderRadius: 100,
+  },
+
+  questionIconContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
