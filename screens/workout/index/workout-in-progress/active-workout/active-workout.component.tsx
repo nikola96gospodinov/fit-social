@@ -5,9 +5,14 @@ import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { spacing } from "@/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { useRouter } from "expo-router";
-import { View, FlatList, StyleSheet } from "react-native";
+import { capitalize, isEmpty } from "lodash";
+import { View, FlatList, StyleSheet, useColorScheme } from "react-native";
+import { colors } from "@/constants/colors.constants";
+import { Flex } from "@/components/ui/layout/flex/flex.component";
 
 export const ActiveWorkout = () => {
+  const theme = useColorScheme() ?? "light";
+
   const { exercises } = useActiveWorkoutStore();
 
   const router = useRouter();
@@ -16,8 +21,60 @@ export const ActiveWorkout = () => {
     <View style={styles.container}>
       <FlatList
         data={exercises}
+        keyExtractor={(item) => item.id}
         renderItem={({ item: exercise }) => (
-          <ThemedText>{exercise.name}</ThemedText>
+          <View
+            style={{
+              backgroundColor: colors[theme].fillTextColor,
+              padding: spacing[3],
+              paddingTop: 0,
+              borderRadius: spacing[3],
+              borderWidth: 1,
+              borderColor: colors[theme].border,
+            }}>
+            <Flex
+              direction="row"
+              justify="space-between"
+              align="center"
+              gap={2}
+              style={{ flex: 1 }}>
+              <View
+                style={{
+                  backgroundColor: colors[theme].borderFocused,
+                  marginLeft: -(spacing[3] + 1),
+                  marginTop: -1,
+                  paddingHorizontal: spacing[3],
+                  paddingVertical: spacing[1],
+                  borderTopLeftRadius: spacing[3],
+                  borderBottomRightRadius: spacing[3],
+                }}>
+                <ThemedText
+                  color={theme === "light" ? "defaultInverted" : "default"}
+                  style={{ fontWeight: "bold" }}>
+                  {capitalize(exercise.name)}
+                </ThemedText>
+              </View>
+            </Flex>
+
+            <VerticalSpacing size={4} />
+
+            {isEmpty(exercise.sets) && (
+              <ThemedText
+                type="small"
+                color="supporting"
+                style={{ alignSelf: "center" }}>
+                No sets added yet
+              </ThemedText>
+            )}
+
+            <VerticalSpacing size={4} />
+
+            <ThemedButton
+              text="Add a set"
+              variant="flat"
+              style={{ alignSelf: "center" }}
+            />
+          </View>
         )}
         ListFooterComponent={() => (
           <View style={styles.ctaContainer}>

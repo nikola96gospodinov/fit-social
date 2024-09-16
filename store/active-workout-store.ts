@@ -11,6 +11,7 @@ type Action = {
   startWorkout: (started: Date) => void;
   finishWorkout: () => void;
   addExercises: (exercise: Exercise[]) => void;
+  removeExercise: (id: string) => void;
 };
 
 export const useActiveWorkoutStore = create<State & Action>((set) => ({
@@ -25,5 +26,10 @@ export const useActiveWorkoutStore = create<State & Action>((set) => ({
     }));
 
     set((state) => ({ exercises: [...state.exercises, ...activeExercises] }));
+  },
+  removeExercise: (id) => {
+    set((state) => ({
+      exercises: state.exercises.filter((exercise) => exercise.id !== id),
+    }));
   },
 }));

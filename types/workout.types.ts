@@ -1,6 +1,7 @@
 type Set = {
   reps: number;
   weight: number;
+  isDone: boolean;
 };
 
 export type ActiveExercise = {

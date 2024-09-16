@@ -31,7 +31,7 @@ export const ThemedButton = ({
 
   return (
     <Pressable
-      style={({ pressed }) => [pressable, pressed && pressableTap]}
+      style={({ pressed }) => [pressable, pressed && pressableTap, style]}
       {...rest}
       children={({ pressed }) => (
         <Text style={[textStyle, pressed && textTap]}>{text}</Text>

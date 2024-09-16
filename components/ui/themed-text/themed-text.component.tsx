@@ -4,8 +4,8 @@ import { Text, type TextProps, StyleSheet } from "react-native";
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "subtitle" | "small";
-  color?: "default" | "supporting" | "error" | "tintText";
+  type?: "default" | "title" | "subtitle" | "small" | "big";
+  color?: "default" | "supporting" | "error" | "tintText" | "defaultInverted";
 };
 
 export function ThemedText({
@@ -32,6 +32,10 @@ export function ThemedText({
     { light: lightColor, dark: darkColor },
     "destructiveText",
   );
+  const defaultInvertedColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "textInverted",
+  );
 
   const colorValue = (() => {
     switch (color) {
@@ -39,6 +43,8 @@ export function ThemedText({
         return tintTextColor;
       case "supporting":
         return supportingColor;
+      case "defaultInverted":
+        return defaultInvertedColor;
       case "error":
         return errorColor;
       default:
@@ -54,6 +60,7 @@ export function ThemedText({
         type === "title" ? styles.title : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
         type === "small" ? styles.small : undefined,
+        type === "big" ? styles.big : undefined,
         style,
       ]}
       {...rest}
@@ -65,6 +72,11 @@ const styles = StyleSheet.create({
   default: {
     fontSize: 16,
     lineHeight: 22,
+  },
+
+  big: {
+    fontSize: 18,
+    lineHeight: 24,
   },
 
   title: {
