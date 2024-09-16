@@ -1,4 +1,4 @@
-import { Divider } from "../ui/divider/divider.component";
+import { Divider } from "../ui/layout/divider/divider.component";
 import { Box } from "../ui/layout/box/box.component";
 import { Flex } from "../ui/layout/flex/flex.component";
 import {
