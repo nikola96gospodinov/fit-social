@@ -11,6 +11,7 @@ type Props = PressableProps & {
   text: string;
   variant?: Variant;
   size?: Size;
+  isCentered?: boolean;
 };
 
 export const ThemedButton = ({
@@ -18,6 +19,7 @@ export const ThemedButton = ({
   text,
   variant = "primary",
   size = "md",
+  isCentered = false,
   ...rest
 }: Props) => {
   const theme = useColorScheme() ?? "light";
@@ -34,7 +36,16 @@ export const ThemedButton = ({
       style={({ pressed }) => [pressable, pressed && pressableTap, style]}
       {...rest}
       children={({ pressed }) => (
-        <Text style={[textStyle, pressed && textTap]}>{text}</Text>
+        <Text
+          style={[
+            textStyle,
+            pressed && textTap,
+            {
+              alignSelf: isCentered ? "center" : "auto",
+            },
+          ]}>
+          {text}
+        </Text>
       )}
     />
   );

@@ -6,6 +6,7 @@ export type ThemedTextProps = TextProps & {
   darkColor?: string;
   type?: "default" | "title" | "subtitle" | "small" | "big";
   color?: "default" | "supporting" | "error" | "tintText" | "defaultInverted";
+  isCentered?: boolean;
 };
 
 export function ThemedText({
@@ -14,6 +15,7 @@ export function ThemedText({
   darkColor,
   type = "default",
   color = "default",
+  isCentered = false,
   ...rest
 }: ThemedTextProps) {
   const defaultColor = useThemeColor(
@@ -55,7 +57,7 @@ export function ThemedText({
   return (
     <Text
       style={[
-        { color: colorValue },
+        { color: colorValue, alignSelf: isCentered ? "center" : "auto" },
         type === "default" ? styles.default : undefined,
         type === "title" ? styles.title : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
