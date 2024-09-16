@@ -2,12 +2,12 @@ import { Alert, ColorSchemeName } from "react-native";
 
 type Props = {
   finishWorkout: () => void;
-  colorScheme: ColorSchemeName;
+  theme: ColorSchemeName;
 };
 
 export const createFinishConfirmationAlert = ({
   finishWorkout,
-  colorScheme,
+  theme,
 }: Props) => {
   Alert.alert(
     "Finish workout",
@@ -25,7 +25,7 @@ export const createFinishConfirmationAlert = ({
     ],
     {
       cancelable: true,
-      userInterfaceStyle: colorScheme ?? "light",
+      userInterfaceStyle: theme ?? "light",
     },
   );
 };

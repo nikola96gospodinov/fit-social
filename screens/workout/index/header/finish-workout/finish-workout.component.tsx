@@ -6,16 +6,14 @@ import { createFinishConfirmationAlert } from "./create-finish-confirmation-aler
 export const FinishWorkout = () => {
   const { finishWorkout } = useActiveWorkoutStore();
 
-  const colorScheme = useColorScheme();
+  const theme = useColorScheme() ?? "light";
 
   return (
     <View>
       <ThemedButton
         text="Finish"
         variant="flat"
-        onPress={() =>
-          createFinishConfirmationAlert({ finishWorkout, colorScheme })
-        }
+        onPress={() => createFinishConfirmationAlert({ finishWorkout, theme })}
       />
     </View>
   );

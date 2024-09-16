@@ -6,9 +6,8 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { ActiveExercise } from "@/types/workout.types";
 import { capitalize, isEmpty } from "lodash";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { StyleSheet, useColorScheme, View } from "react-native";
+import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
 
 type Props = {
   exercise: ActiveExercise;
@@ -16,8 +15,6 @@ type Props = {
 
 export const ActiveExerciseBox = ({ exercise }: Props) => {
   const theme = useColorScheme() ?? "light";
-
-  const { removeExercise } = useActiveWorkoutStore();
 
   return (
     <View
@@ -61,15 +58,7 @@ export const ActiveExerciseBox = ({ exercise }: Props) => {
 
       <ThemedButton text="Add a set" variant="flat" isCentered />
 
-      <Pressable
-        style={styles.trashIconContainer}
-        onPress={() => removeExercise(exercise.id)}>
-        <FontAwesome6
-          name="trash"
-          size={16}
-          color={colors[theme].destructiveIcon}
-        />
-      </Pressable>
+      <DiscardExercise id={exercise.id} />
     </View>
   );
 };
@@ -89,11 +78,5 @@ const styles = StyleSheet.create({
     paddingVertical: spacing[1],
     borderTopLeftRadius: spacing[3],
     borderBottomRightRadius: spacing[3],
-  },
-
-  trashIconContainer: {
-    position: "absolute",
-    right: spacing[3],
-    bottom: spacing[3],
   },
 });
