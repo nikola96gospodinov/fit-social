@@ -39,12 +39,17 @@ export const ExerciseBox = ({
     }
   };
 
+  const onExerciseLongPress = (exercise: Exercise) => {
+    router.push(`/workout/exercise/${exercise.id}`);
+  };
+
   const isSelected = !!selectedExercises.find(({ id }) => id === exercise.id);
   const isDisabled = !!exercises.find(({ id }) => id === exercise.id);
 
   return (
     <Pressable
       onPress={() => onExercisePress(exercise)}
+      onLongPress={() => onExerciseLongPress(exercise)}
       style={{
         backgroundColor: isSelected ? colors[theme].background : "transparent",
         borderRadius: 16,
@@ -100,9 +105,7 @@ export const ExerciseBox = ({
             justifyContent: "center",
             borderRadius: 100,
           }}
-          onPress={() => {
-            router.push(`/workout/exercise/${exercise.id}`);
-          }}>
+          onPress={() => onExerciseLongPress(exercise)}>
           <FontAwesome6 name="question" size={18} color={colors[theme].icon} />
         </Pressable>
       </Flex>

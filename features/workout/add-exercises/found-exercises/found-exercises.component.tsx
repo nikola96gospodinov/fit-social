@@ -20,7 +20,7 @@ type Props = {
   setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 };
 
-export const ActiveExercises = ({
+export const FoundExercises = ({
   search,
   selectedExercises,
   setSelectedExercises,
@@ -77,14 +77,9 @@ export const ActiveExercises = ({
       renderItem={({ item }) => {
         return (
           <>
-            <ThemedText type="small" color="supporting">
-              {item.key} {/* this is the letter */}
-            </ThemedText>
-
-            <VerticalSpacing size={0.5} />
-
             <FlatList
               data={item.value}
+              keyExtractor={(item) => item.id}
               renderItem={({ item: exercise }) => {
                 return (
                   <ExerciseBox
@@ -92,6 +87,17 @@ export const ActiveExercises = ({
                     selectedExercises={selectedExercises}
                     setSelectedExercises={setSelectedExercises}
                   />
+                );
+              }}
+              ListHeaderComponent={() => {
+                return (
+                  <>
+                    <ThemedText type="small" color="supporting">
+                      {item.key} {/* this is the letter */}
+                    </ThemedText>
+
+                    <VerticalSpacing size={0.5} />
+                  </>
                 );
               }}
             />

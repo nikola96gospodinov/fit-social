@@ -5,7 +5,7 @@ import { FilterIcon } from "@/features/workout/add-exercises/filter-icon/filter-
 import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { FlatList, Platform, View } from "react-native";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { ActiveExercises } from "@/features/workout/add-exercises/active-exercises/active-exercises.component";
+import { FoundExercises } from "@/features/workout/add-exercises/found-exercises/found-exercises.component";
 import { useDebounce } from "@/hooks/use-debounce";
 import { AddIcon } from "@/features/workout/add-exercises/add-icon/add-icon.component";
 import { Exercise } from "@/types/api/exercise.types";
@@ -34,12 +34,14 @@ const AddExercise = () => {
           paddingRight: Platform.OS === "android" ? spacing[1] : 0,
           overflow: "visible",
         }}>
-        <ThemedTextInput
-          clearButton
-          icon={{ name: "search", size: 16 }}
-          value={activeSearch}
-          onChangeText={setActiveSearch}
-        />
+        <View style={{ flex: 1 }}>
+          <ThemedTextInput
+            clearButton
+            icon={{ name: "search", size: 16 }}
+            value={activeSearch}
+            onChangeText={setActiveSearch}
+          />
+        </View>
 
         <FilterIcon numberOfFilters={numberOfFilters} />
       </Flex>
@@ -75,7 +77,7 @@ const AddExercise = () => {
 
       <VerticalSpacing size={8} />
 
-      <ActiveExercises
+      <FoundExercises
         search={debouncedActiveSearch}
         selectedExercises={selectedExercises}
         setSelectedExercises={setSelectedExercises}

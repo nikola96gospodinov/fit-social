@@ -1,2 +1,2 @@
-export type Variant = "primary" | "outline" | "flat";
+export type Variant = "primary" | "outline" | "flat" | "error";
 export type Size = "sm" | "md" | "lg";

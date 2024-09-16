@@ -2,7 +2,10 @@ import { colors } from "@/constants/colors.constants";
 import { ColorSchemeName, StyleSheet } from "react-native";
 import { Size, Variant } from "./themed-button.types";
 
-const getVariantStyles = ({ variant, theme }: Omit<Props, "size">) => {
+const getVariantStyles = ({
+  variant,
+  theme,
+}: Pick<Props, "theme" | "variant">) => {
   const themeColors = colors[theme];
 
   switch (variant) {
@@ -38,6 +41,22 @@ const getVariantStyles = ({ variant, theme }: Omit<Props, "size">) => {
 
         text: {
           color: themeColors.tint,
+        },
+
+        textTap: {},
+      });
+    }
+
+    case "error": {
+      return StyleSheet.create({
+        pressable: {
+          backgroundColor: themeColors.destructiveBackground,
+        },
+
+        pressableTap: {},
+
+        text: {
+          color: themeColors.destructiveText,
         },
 
         textTap: {},

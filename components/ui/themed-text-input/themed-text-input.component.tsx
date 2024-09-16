@@ -36,7 +36,7 @@ export const ThemedTextInput = ({
   const showClearButton = clearButton && Number(rest.value?.length) > 0;
 
   return (
-    <Flex direction="row" gap={spacing[0.5]} align="center" style={{ flex: 1 }}>
+    <Flex direction="row" gap={spacing[0.5]} align="center">
       <Flex
         direction="row"
         gap={spacing[0.5]}
