@@ -9,10 +9,14 @@ type State = {
 };
 
 type Action = {
+  // This is for reordering exercises
+  setExercises: (exercises: ActiveExercise[]) => void;
   startWorkout: (started: Date) => void;
   finishWorkout: () => void;
   addExercises: (exercise: Exercise[]) => void;
   removeExercise: (id: string) => void;
+  // This is for reordering sets
+  setSets: (exerciseId: string, sets: ActiveExercise["sets"]) => void;
   addSet: (exerciseId: string) => void;
   updateSet: ({
     exerciseId,
@@ -27,10 +31,18 @@ type Action = {
     weight?: number;
     isDone?: boolean;
   }) => void;
+  removeSet: ({
+    exerciseId,
+    setId,
+  }: {
+    exerciseId: string;
+    setId: string;
+  }) => void;
 };
 
 export const useActiveWorkoutStore = create<State & Action>((set) => ({
   exercises: [],
+  setExercises: (exercises) => set({ exercises }),
   startWorkout: (started) => set({ started }),
   finishWorkout: () => set({ started: undefined, exercises: [] }),
   addExercises: (exercises) => {
@@ -46,6 +58,15 @@ export const useActiveWorkoutStore = create<State & Action>((set) => ({
     set((state) => ({
       exercises: state.exercises.filter((exercise) => exercise.id !== id),
     }));
+  },
+  setSets: (exerciseId, sets) => {
+    set((state) => {
+      return {
+        exercises: state.exercises.map((exercise) =>
+          exercise.id === exerciseId ? { ...exercise, sets } : exercise,
+        ),
+      };
+    });
   },
   addSet: (exerciseId) => {
     set((state) => {
@@ -104,10 +125,32 @@ export const useActiveWorkoutStore = create<State & Action>((set) => ({
                         ...set,
                         reps: reps === undefined ? set.reps : reps,
                         weight: weight === undefined ? set.weight : weight,
-                        isDone: isDone ?? false,
+                        isDone: isDone ?? set.isDone,
                       }
                     : set,
                 ),
+              }
+            : exercise,
+        ),
+      };
+    });
+  },
+  removeSet: ({ exerciseId, setId }) => {
+    set((state) => {
+      const exercise = state.exercises.find(
+        (exercise) => exercise.id === exerciseId,
+      );
+
+      if (!exercise) {
+        return state;
+      }
+
+      return {
+        exercises: state.exercises.map((exercise) =>
+          exercise.id === exerciseId
+            ? {
+                ...exercise,
+                sets: exercise.sets?.filter((set) => set.id !== setId),
               }
             : exercise,
         ),

@@ -32,7 +32,7 @@ export const FilterIcon = ({ numberOfFilters }: Props) => {
       <MaterialCommunityIcons
         name="filter"
         size={22}
-        color={colors[colorScheme].tintText}
+        color={colors[colorScheme].fillTextColor}
       />
 
       {numberOfFilters > 0 && (

@@ -1,25 +1,35 @@
 import { spacing } from "@/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
-import { View, FlatList, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ActiveExercisesFooter } from "./active-exercises-footer/active-exercises-footer.component";
 import { ActiveExerciseBox } from "./active-exercise-box/active-exercise-box.component";
-import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import {
+  NestableDraggableFlatList,
+  NestableScrollContainer,
+} from "react-native-draggable-flatlist";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export const ActiveWorkout = () => {
-  const { exercises } = useActiveWorkoutStore();
+  const { exercises, setExercises } = useActiveWorkoutStore();
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={exercises}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item: exercise }) => (
-          <ActiveExerciseBox exercise={exercise} />
-        )}
-        ListFooterComponent={() => <ActiveExercisesFooter />}
-        ItemSeparatorComponent={() => <VerticalSpacing size={4} />}
-      />
-    </View>
+    <GestureHandlerRootView>
+      <NestableScrollContainer style={styles.container}>
+        <NestableDraggableFlatList
+          data={exercises}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item: exercise, drag, isActive }) => (
+            <ActiveExerciseBox
+              exercise={exercise}
+              drag={drag}
+              isActive={isActive}
+            />
+          )}
+          ListFooterComponent={() => <ActiveExercisesFooter />}
+          onDragEnd={({ data }) => setExercises(data)}
+        />
+      </NestableScrollContainer>
+    </GestureHandlerRootView>
   );
 };
 
