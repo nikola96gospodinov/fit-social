@@ -1,4 +1,3 @@
-import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
@@ -6,11 +5,12 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { ActiveExercise } from "@/types/workout.types";
 import { capitalize } from "lodash";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
+import { Pressable, StyleSheet, useColorScheme } from "react-native";
 import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { router } from "expo-router";
 
 type Props = {
   exercise: ActiveExercise;
@@ -47,26 +47,20 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           />
         </Pressable>
 
-        <Flex
-          direction="row"
-          justify="space-between"
-          align="center"
-          gap={2}
-          style={{ flex: 1 }}>
-          <View
-            style={[
-              {
-                backgroundColor: colors[theme].borderFocused,
-              },
-              styles.exerciseNameContainer,
-            ]}>
-            <ThemedText
-              color={theme === "light" ? "defaultInverted" : "default"}
-              style={{ fontWeight: "bold" }}>
-              {capitalize(exercise.name)}
-            </ThemedText>
-          </View>
-        </Flex>
+        <Pressable
+          onPress={() => router.push(`/workout/exercise/${exercise.id}`)}
+          style={[
+            {
+              backgroundColor: colors[theme].borderFocused,
+            },
+            styles.exerciseNameContainer,
+          ]}>
+          <ThemedText
+            color={theme === "light" ? "defaultInverted" : "default"}
+            style={{ fontWeight: "bold" }}>
+            {capitalize(exercise.name)}
+          </ThemedText>
+        </Pressable>
 
         <VerticalSpacing size={4} />
 
@@ -104,12 +98,13 @@ const styles = StyleSheet.create({
     paddingVertical: spacing[1],
     borderTopLeftRadius: spacing[3],
     borderBottomRightRadius: spacing[3],
+    alignSelf: "flex-start",
   },
 
   dragIndicator: {
     position: "absolute",
     top: 0,
     right: 0,
-    padding: spacing[3],
+    padding: spacing[2],
   },
 });
