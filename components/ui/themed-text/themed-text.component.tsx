@@ -4,7 +4,7 @@ import { Text, type TextProps, StyleSheet } from "react-native";
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "subtitle" | "small" | "big";
+  type?: "default" | "title" | "subtitle" | "small";
   color?: "default" | "supporting" | "error" | "tintText" | "defaultInverted";
   isCentered?: boolean;
 };
@@ -62,7 +62,6 @@ export function ThemedText({
         type === "title" ? styles.title : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
         type === "small" ? styles.small : undefined,
-        type === "big" ? styles.big : undefined,
         style,
       ]}
       {...rest}
@@ -74,11 +73,6 @@ const styles = StyleSheet.create({
   default: {
     fontSize: 16,
     lineHeight: 22,
-  },
-
-  big: {
-    fontSize: 18,
-    lineHeight: 24,
   },
 
   title: {
