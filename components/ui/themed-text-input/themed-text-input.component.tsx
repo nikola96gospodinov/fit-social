@@ -18,6 +18,7 @@ type Props = TextInputProps & {
   mode?: Mode;
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
   clearButton?: boolean;
+  width?: number;
 };
 
 export const ThemedTextInput = ({
@@ -25,6 +26,7 @@ export const ThemedTextInput = ({
   mode = "default",
   icon,
   clearButton,
+  width,
   ...rest
 }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -35,13 +37,19 @@ export const ThemedTextInput = ({
 
   const showClearButton = clearButton && Number(rest.value?.length) > 0;
 
+  const isBasicStyle = !icon && !clearButton;
+
   return (
-    <Flex direction="row" gap={spacing[0.5]} align="center">
+    <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
       <Flex
         direction="row"
         gap={spacing[0.5]}
         align="center"
-        style={[styles.defaultContainer, container, { flex: 1 }]}>
+        style={[
+          styles.defaultContainer,
+          container,
+          isBasicStyle && { paddingVertical: 4, borderRadius: 12 },
+        ]}>
         {icon && <Ionicons color={colors[theme].icon} {...icon} />}
 
         <TextInput
@@ -70,5 +78,6 @@ const styles = StyleSheet.create({
   defaultContainer: {
     padding: 8,
     borderRadius: 24,
+    flex: 1,
   },
 });

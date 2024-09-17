@@ -5,9 +5,11 @@ import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { ActiveExercise } from "@/types/workout.types";
-import { capitalize, isEmpty } from "lodash";
+import { capitalize } from "lodash";
 import { StyleSheet, useColorScheme, View } from "react-native";
 import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { Sets } from "./sets/sets.component";
 
 type Props = {
   exercise: ActiveExercise;
@@ -15,6 +17,8 @@ type Props = {
 
 export const ActiveExerciseBox = ({ exercise }: Props) => {
   const theme = useColorScheme() ?? "light";
+
+  const { addSet } = useActiveWorkoutStore();
 
   return (
     <View
@@ -48,15 +52,16 @@ export const ActiveExerciseBox = ({ exercise }: Props) => {
 
       <VerticalSpacing size={4} />
 
-      {isEmpty(exercise.sets) && (
-        <ThemedText type="small" color="supporting" isCentered>
-          No sets added yet
-        </ThemedText>
-      )}
+      <Sets exercise={exercise} />
 
       <VerticalSpacing size={4} />
 
-      <ThemedButton text="Add a set" variant="flat" isCentered />
+      <ThemedButton
+        text="Add a set"
+        variant="flat"
+        isCentered
+        onPress={() => addSet(exercise.id)}
+      />
 
       <DiscardExercise id={exercise.id} />
     </View>
