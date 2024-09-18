@@ -62,11 +62,11 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           </ThemedText>
         </Pressable>
 
-        <VerticalSpacing size={4} />
+        <VerticalSpacing size={6} />
 
         <Sets exercise={exercise} />
 
-        <VerticalSpacing size={4} />
+        <VerticalSpacing size={6} />
 
         <ThemedButton
           text="Add a set"

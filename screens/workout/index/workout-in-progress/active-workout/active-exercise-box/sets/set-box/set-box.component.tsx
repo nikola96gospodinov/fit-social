@@ -1,10 +1,11 @@
 import { Flex } from "@/components/ui/layout/flex/flex.component";
 import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-input.component";
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
+import { colors } from "@/constants/colors.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { ExerciseSet } from "@/types/workout.types";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Pressable } from "react-native";
+import { Pressable, useColorScheme } from "react-native";
 
 type Props = {
   set: ExerciseSet;
@@ -14,6 +15,8 @@ type Props = {
 
 export const SetBox = ({ set, index, exerciseId }: Props) => {
   const { updateSet } = useActiveWorkoutStore();
+
+  const theme = useColorScheme() ?? "light";
 
   return (
     <Flex direction="row" align="center" gap={4}>
@@ -47,9 +50,13 @@ export const SetBox = ({ set, index, exerciseId }: Props) => {
         }>
         {/* For some reason dynamically changing the name and color of one icon is causing huge performance issues */}
         {set.isDone ? (
-          <FontAwesome name="check-square-o" size={24} color="green" />
+          <FontAwesome
+            name="check-square"
+            size={24}
+            color={colors[theme].success}
+          />
         ) : (
-          <FontAwesome name="square-o" size={24} color="black" />
+          <FontAwesome name="square-o" size={24} color={colors[theme].icon} />
         )}
       </Pressable>
     </Flex>
