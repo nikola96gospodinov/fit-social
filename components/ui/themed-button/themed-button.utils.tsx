@@ -37,7 +37,9 @@ const getVariantStyles = ({
           backgroundColor: "transparent",
         },
 
-        pressableTap: {},
+        pressableTap: {
+          backgroundColor: themeColors.background,
+        },
 
         text: {
           color: themeColors.tintBackground,
@@ -146,10 +148,18 @@ export const getButtonStyles = ({ variant, size, theme }: Props) => {
   return {
     pressable: [
       variantStyles.pressable,
-      ...(isFlat ? [] : [sizeStyles.pressable]),
+      ...(isFlat ? [styles.flatButtonContainer] : [sizeStyles.pressable]),
     ],
     pressableTap: variantStyles.pressableTap,
     text: [variantStyles.text, sizeStyles.text],
     textTap: variantStyles.textTap,
   };
 };
+
+const styles = StyleSheet.create({
+  flatButtonContainer: {
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+  },
+});

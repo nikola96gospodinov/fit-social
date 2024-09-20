@@ -45,7 +45,7 @@ export const SetBox = ({ set, index, exerciseId, drag, isActive }: Props) => {
           <Pressable
             onPress={() => {
               itemRef.current?.close();
-              delay(() => removeSet({ exerciseId, setId: set.id }), 100);
+              delay(() => removeSet({ exerciseId, setId: set.id }), 50);
             }}>
             <MaterialIcons
               name="delete"

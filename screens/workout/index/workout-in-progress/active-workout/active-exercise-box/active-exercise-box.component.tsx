@@ -5,7 +5,7 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { ActiveExercise } from "@/types/workout.types";
 import { capitalize } from "lodash";
-import { Pressable, StyleSheet, useColorScheme } from "react-native";
+import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
 import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
@@ -68,12 +68,13 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
         <VerticalSpacing size={6} />
 
-        <ThemedButton
-          text="Add a set"
-          variant="flat"
-          isCentered
-          onPress={() => addSet(exercise.id)}
-        />
+        <View style={{ alignSelf: "center" }}>
+          <ThemedButton
+            text="Add a set"
+            variant="flat"
+            onPress={() => addSet(exercise.id)}
+          />
+        </View>
 
         <DiscardExercise id={exercise.id} />
       </Pressable>
