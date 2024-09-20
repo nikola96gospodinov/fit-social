@@ -6,7 +6,7 @@ import { spacing } from "@/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { ExerciseSet } from "@/types/workout.types";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { Pressable, useColorScheme, StyleSheet } from "react-native";
+import { Pressable, useColorScheme, StyleSheet, View } from "react-native";
 
 type Props = {
   set: ExerciseSet;
@@ -26,26 +26,19 @@ export const SetBox = ({ set, index, exerciseId, drag, isActive }: Props) => {
       style={[
         styles.container,
         {
-          backgroundColor: isActive ? colors[theme].tintText : "transparent",
+          backgroundColor: isActive
+            ? colors[theme].tintBackgroundText
+            : "transparent",
           borderColor: isActive ? colors[theme].borderFocused : "transparent",
         },
       ]}
       onLongPress={drag}
       disabled={isActive}>
-      <ThemedText>{index + 1}.</ThemedText>
+      <View style={{ width: 32 }}>
+        <ThemedText color="tintText">{index + 1}.</ThemedText>
+      </View>
 
       <Flex direction="row" align="center" gap={2} style={{ flex: 1 }}>
-        <ThemedTextInput
-          value={set.reps ? set.reps.toString() : ""}
-          keyboardType="numeric"
-          width={60}
-          onChangeText={(text) =>
-            updateSet({ exerciseId, setId: set.id, reps: Number(text) })
-          }
-        />
-
-        <ThemedText>x</ThemedText>
-
         <ThemedTextInput
           value={set.weight ? set.weight.toString() : ""}
           keyboardType="numeric"
@@ -53,6 +46,19 @@ export const SetBox = ({ set, index, exerciseId, drag, isActive }: Props) => {
           onChangeText={(text) =>
             updateSet({ exerciseId, setId: set.id, weight: Number(text) })
           }
+          centerContent
+        />
+
+        <ThemedText>x</ThemedText>
+
+        <ThemedTextInput
+          value={set.reps ? set.reps.toString() : ""}
+          keyboardType="numeric"
+          width={60}
+          onChangeText={(text) =>
+            updateSet({ exerciseId, setId: set.id, reps: Number(text) })
+          }
+          centerContent
         />
       </Flex>
 
@@ -79,8 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: spacing[4],
-    paddingVertical: spacing[1],
+    paddingVertical: 6,
     paddingHorizontal: spacing[3],
     borderBottomWidth: 1,
     borderTopWidth: 1,

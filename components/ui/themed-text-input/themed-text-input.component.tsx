@@ -19,6 +19,7 @@ type Props = TextInputProps & {
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
   clearButton?: boolean;
   width?: number;
+  centerContent?: boolean;
 };
 
 export const ThemedTextInput = ({
@@ -27,6 +28,7 @@ export const ThemedTextInput = ({
   icon,
   clearButton,
   width,
+  centerContent,
   ...rest
 }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -56,7 +58,14 @@ export const ThemedTextInput = ({
           {...rest}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
-          style={[{ flex: 1, maxHeight: 20 }, input]}
+          style={[
+            {
+              flex: 1,
+              maxHeight: 20,
+              textAlign: centerContent ? "center" : "auto",
+            },
+            input,
+          ]}
         />
 
         {showClearButton && (

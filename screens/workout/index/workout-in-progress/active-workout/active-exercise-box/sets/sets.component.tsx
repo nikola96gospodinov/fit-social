@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { SetBox } from "./set-box/set-box.component";
 import { NestableDraggableFlatList } from "react-native-draggable-flatlist";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
+import { SetsListHeader } from "./sets-list-header/sets-list-header.component";
 
 type Props = {
   exercise: ActiveExercise;
@@ -37,6 +38,7 @@ export const Sets = ({ exercise }: Props) => {
           />
         )}
         onDragEnd={({ data }) => setSets(exercise.id, data)}
+        ListHeaderComponent={SetsListHeader}
       />
     </View>
   );

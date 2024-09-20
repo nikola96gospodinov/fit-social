@@ -74,7 +74,11 @@ export const ExerciseBox = ({
                 },
                 styles.checkIconContainer,
               ]}>
-              <FontAwesome6 name="check" size={20} color={colors[theme].tint} />
+              <FontAwesome6
+                name="check"
+                size={20}
+                color={colors[theme].tintBackground}
+              />
             </View>
           ) : (
             <Image source={{ uri: exercise.gifUrl }} style={styles.image} />

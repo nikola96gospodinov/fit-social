@@ -59,42 +59,58 @@ export const colors = {
     text: slate[900],
     textInverted: slate[50],
     supportingText: slate[600],
+    tintText: indigo[700],
+
     background: slate[200],
-    tint: indigo[700],
-    tintText: indigo[50],
+    tintBackground: indigo[700],
+    tintBackgroundText: indigo[50],
+
     icon: slate[500],
     tabIconSelected: indigo[800],
+
     fill: slate[800],
     fillTextColor: slate[100],
     fillOnTap: slate[950],
+
     destructiveText: red[800],
     destructiveBackground: red[100],
     destructiveIcon: red[700],
+
     border: slate[300],
     borderFocused: indigo[500],
+
     neutralEnd: slate[50],
     neutralStart: slate[950],
+
     success: green[600],
   },
   dark: {
     text: slate[100],
     textInverted: slate[900],
     supportingText: slate[400],
+    tintText: indigo[300],
+
     background: slate[800],
-    tint: indigo[300],
-    tintText: indigo[950],
+    tintBackground: indigo[300],
+    tintBackgroundText: indigo[950],
+
     icon: slate[400],
     tabIconSelected: indigo[500],
+
     fill: slate[100],
     fillTextColor: slate[900],
     fillOnTap: slate[50],
+
     destructiveText: red[100],
     destructiveBackground: red[950],
     destructiveIcon: red[400],
+
     border: slate[700],
     borderFocused: indigo[500],
+
     neutralEnd: slate[950],
     neutralStart: slate[50],
+
     success: green[500],
   },
 };

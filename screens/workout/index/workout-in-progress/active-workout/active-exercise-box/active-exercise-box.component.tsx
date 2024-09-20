@@ -31,7 +31,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
         style={[
           {
             backgroundColor: isActive
-              ? colors[theme].tintText
+              ? colors[theme].tintBackgroundText
               : colors[theme].fillTextColor,
             borderColor: isActive
               ? colors[theme].borderFocused

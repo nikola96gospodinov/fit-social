@@ -30,7 +30,7 @@ export const Pill = ({
     : colors[colorScheme].background;
 
   const textColor =
-    colorScheme === "light" && isActive ? "tintText" : "default";
+    colorScheme === "light" && isActive ? "tintBackgroundText" : "default";
 
   return (
     <Pressable

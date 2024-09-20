@@ -40,7 +40,7 @@ const getVariantStyles = ({
         pressableTap: {},
 
         text: {
-          color: themeColors.tint,
+          color: themeColors.tintBackground,
         },
 
         textTap: {},

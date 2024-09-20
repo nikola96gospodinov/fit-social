@@ -26,7 +26,7 @@ export const AddIcon = ({ selectedExercises }: Props) => {
     <Pressable
       style={[
         {
-          backgroundColor: colors[theme].tint,
+          backgroundColor: colors[theme].tintBackground,
         },
         styles.container,
       ]}
@@ -34,7 +34,7 @@ export const AddIcon = ({ selectedExercises }: Props) => {
       <MaterialCommunityIcons
         name="plus"
         size={32}
-        color={colors[theme].tintText}
+        color={colors[theme].tintBackgroundText}
       />
     </Pressable>
   );
