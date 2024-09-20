@@ -5,6 +5,7 @@ import { ThemedButton } from "@/components/ui/themed-button/themed-button.compon
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import {
   allBodyPartsAndTargetMuscles,
+  secondaryBodyPartsAndTargetMuscles,
   primaryBodyPartsAndTargetMuscles,
 } from "@/constants/workout.constants";
 import { Filter, useExerciseFilterStore } from "@/store/exercise-filter-store";
@@ -24,9 +25,17 @@ export const BodyPartAndTargetMuscleFilters = () => {
     }
   };
 
+  const activeSecondaryBodyPartsAndTargetMuscles =
+    secondaryBodyPartsAndTargetMuscles.filter((filter) =>
+      filters.some((f) => isEqual(f, filter)),
+    );
+
   const pills = showMore
     ? allBodyPartsAndTargetMuscles
-    : primaryBodyPartsAndTargetMuscles;
+    : [
+        ...primaryBodyPartsAndTargetMuscles,
+        ...activeSecondaryBodyPartsAndTargetMuscles,
+      ];
 
   return (
     <>

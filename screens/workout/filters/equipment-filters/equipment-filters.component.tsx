@@ -8,6 +8,7 @@ import {
   EQUIPMENT,
   Equipment,
   primaryEquipment,
+  secondaryEquipment,
 } from "@/constants/workout.constants";
 import { Filter, useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useState } from "react";
@@ -25,7 +26,13 @@ export const EquipmentFilters = () => {
     }
   };
 
-  const pills = showMore ? allEquipment : primaryEquipment;
+  const activeSecondaryEquipment = secondaryEquipment.filter((equipment) =>
+    filters.some((f) => f.type === EQUIPMENT && f.value === equipment),
+  );
+
+  const pills = showMore
+    ? allEquipment
+    : [...primaryEquipment, ...activeSecondaryEquipment];
 
   return (
     <>
