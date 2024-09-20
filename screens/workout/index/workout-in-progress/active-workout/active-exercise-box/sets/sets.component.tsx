@@ -1,15 +1,18 @@
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { ActiveExercise } from "@/types/workout.types";
 import { isEmpty } from "lodash";
-import { View, FlatList } from "react-native";
+import { View } from "react-native";
 import { SetBox } from "./set-box/set-box.component";
-import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { NestableDraggableFlatList } from "react-native-draggable-flatlist";
+import { useActiveWorkoutStore } from "@/store/active-workout-store";
 
 type Props = {
   exercise: ActiveExercise;
 };
 
 export const Sets = ({ exercise }: Props) => {
+  const { setSets } = useActiveWorkoutStore();
+
   if (isEmpty(exercise.sets)) {
     return (
       <ThemedText type="small" color="supporting" isCentered>
@@ -20,18 +23,20 @@ export const Sets = ({ exercise }: Props) => {
 
   return (
     <View>
-      <FlatList
-        data={exercise.sets}
+      <NestableDraggableFlatList
+        data={exercise.sets ?? []}
         keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <VerticalSpacing size={2} />}
-        renderItem={({ item, index }) => (
+        renderItem={({ item, drag, isActive }) => (
           <SetBox
             key={item.id}
             set={item}
-            index={index}
+            drag={drag}
+            isActive={isActive}
+            index={exercise.sets?.indexOf(item) ?? 0}
             exerciseId={exercise.id}
           />
         )}
+        onDragEnd={({ data }) => setSets(exercise.id, data)}
       />
     </View>
   );

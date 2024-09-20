@@ -85,14 +85,14 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing[3],
     paddingTop: 0,
     borderRadius: spacing[3],
     borderWidth: 1,
+    paddingBottom: spacing[3],
   },
 
   exerciseNameContainer: {
-    marginLeft: -(spacing[3] + 1),
+    marginLeft: -1,
     marginTop: -1,
     paddingHorizontal: spacing[3],
     paddingVertical: spacing[1],
