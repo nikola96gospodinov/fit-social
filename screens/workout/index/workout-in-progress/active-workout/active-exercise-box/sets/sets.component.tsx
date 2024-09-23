@@ -17,6 +17,9 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
 
   return (
     <View>
+      {/* For some reason, when I pass this as a ListHeaderComponent, there is an error */}
+      {!isEmpty(exercise.sets) && <SetsListHeader />}
+
       <NestableDraggableFlatList
         data={exercise.sets ?? []}
         keyExtractor={(item) => item.id}
@@ -32,7 +35,6 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
           />
         )}
         onDragEnd={({ data }) => setSets(exercise.id, data)}
-        ListHeaderComponent={isEmpty(exercise.sets) ? null : <SetsListHeader />}
         ListEmptyComponent={() => (
           <ThemedText type="small" color="supporting" isCentered>
             No sets added yet
