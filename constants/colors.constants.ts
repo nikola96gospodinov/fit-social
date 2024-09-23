@@ -83,6 +83,7 @@ export const colors = {
     neutralStart: slate[950],
 
     success: green[600],
+    successBackground: green[100],
   },
   dark: {
     text: slate[100],
@@ -112,5 +113,6 @@ export const colors = {
     neutralStart: slate[50],
 
     success: green[500],
+    successBackground: green[950],
   },
 };
