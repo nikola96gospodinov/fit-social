@@ -11,8 +11,7 @@ import { Pressable, useColorScheme, StyleSheet, View } from "react-native";
 import SwipeableItem, {
   SwipeableItemImperativeRef,
 } from "react-native-swipeable-item";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { delay } from "lodash";
+import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 
 type Props = {
   set: ExerciseSet;
@@ -20,40 +19,42 @@ type Props = {
   exerciseId: string;
   drag: () => void;
   isActive: boolean;
+  isBoxActive: boolean;
 };
 
-export const SetBox = ({ set, index, exerciseId, drag, isActive }: Props) => {
-  const { updateSet, removeSet } = useActiveWorkoutStore();
+export const SetBox = ({
+  set,
+  index,
+  exerciseId,
+  drag,
+  isActive,
+  isBoxActive,
+}: Props) => {
+  const { updateSet } = useActiveWorkoutStore();
 
   const itemRef = useRef<SwipeableItemImperativeRef>(null);
 
   const theme = useColorScheme() ?? "light";
 
+  const setBackgroundColor = (() => {
+    if (isBoxActive) {
+      return colors[theme].tintBackgroundText;
+    }
+
+    return isActive
+      ? colors[theme].tintBackgroundText
+      : colors[theme].fillTextColor;
+  })();
+
   return (
     <SwipeableItem
       item={set}
       renderUnderlayLeft={() => (
-        <Flex
-          align="flex-end"
-          justify="center"
-          style={{
-            backgroundColor: colors[theme].destructiveBackground,
-            padding: spacing[2],
-            width: 40,
-            alignSelf: "flex-end",
-          }}>
-          <Pressable
-            onPress={() => {
-              itemRef.current?.close();
-              delay(() => removeSet({ exerciseId, setId: set.id }), 50);
-            }}>
-            <MaterialIcons
-              name="delete"
-              size={24}
-              color={colors[theme].destructiveText}
-            />
-          </Pressable>
-        </Flex>
+        <SetUnderlayLeft
+          itemRef={itemRef}
+          exerciseId={exerciseId}
+          setId={set.id}
+        />
       )}
       snapPointsLeft={[40]}
       overSwipe={100}
@@ -62,9 +63,7 @@ export const SetBox = ({ set, index, exerciseId, drag, isActive }: Props) => {
         style={[
           styles.container,
           {
-            backgroundColor: isActive
-              ? colors[theme].tintBackgroundText
-              : colors[theme].fillTextColor,
+            backgroundColor: setBackgroundColor,
             borderColor: isActive ? colors[theme].borderFocused : "transparent",
           },
         ]}

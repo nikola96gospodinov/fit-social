@@ -64,7 +64,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
         <VerticalSpacing size={6} />
 
-        <Sets exercise={exercise} />
+        <Sets exercise={exercise} isBoxActive={isActive} />
 
         <VerticalSpacing size={6} />
 

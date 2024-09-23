@@ -9,9 +9,10 @@ import { isEmpty } from "lodash";
 
 type Props = {
   exercise: ActiveExercise;
+  isBoxActive: boolean;
 };
 
-export const Sets = ({ exercise }: Props) => {
+export const Sets = ({ exercise, isBoxActive }: Props) => {
   const { setSets } = useActiveWorkoutStore();
 
   return (
@@ -27,6 +28,7 @@ export const Sets = ({ exercise }: Props) => {
             isActive={isActive}
             index={exercise.sets?.indexOf(item) ?? 0}
             exerciseId={exercise.id}
+            isBoxActive={isBoxActive}
           />
         )}
         onDragEnd={({ data }) => setSets(exercise.id, data)}
