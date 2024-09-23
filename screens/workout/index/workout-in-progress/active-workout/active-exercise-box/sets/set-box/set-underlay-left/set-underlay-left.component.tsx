@@ -3,17 +3,14 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { MaterialIcons } from "@expo/vector-icons";
-import { delay } from "lodash";
-import { Pressable, useColorScheme } from "react-native";
-import { SwipeableItemImperativeRef } from "react-native-swipeable-item";
+import { LayoutAnimation, Pressable, useColorScheme } from "react-native";
 
 type Props = {
-  itemRef: React.RefObject<SwipeableItemImperativeRef>;
   exerciseId: string;
   setId: string;
 };
 
-export const SetUnderlayLeft = ({ itemRef, exerciseId, setId }: Props) => {
+export const SetUnderlayLeft = ({ exerciseId, setId }: Props) => {
   const { removeSet } = useActiveWorkoutStore();
 
   const theme = useColorScheme() ?? "light";
@@ -30,8 +27,8 @@ export const SetUnderlayLeft = ({ itemRef, exerciseId, setId }: Props) => {
       }}>
       <Pressable
         onPress={() => {
-          itemRef.current?.close();
-          delay(() => removeSet({ exerciseId, setId }), 50);
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+          removeSet({ exerciseId, setId });
         }}>
         <MaterialIcons
           name="delete"

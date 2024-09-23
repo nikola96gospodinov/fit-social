@@ -5,7 +5,13 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { ActiveExercise } from "@/types/workout.types";
 import { capitalize } from "lodash";
-import { Pressable, StyleSheet, useColorScheme, View } from "react-native";
+import {
+  LayoutAnimation,
+  Pressable,
+  StyleSheet,
+  useColorScheme,
+  View,
+} from "react-native";
 import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
@@ -22,6 +28,11 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const { addSet } = useActiveWorkoutStore();
+
+  const handleAddSet = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    addSet(exercise.id);
+  };
 
   return (
     <>
@@ -72,7 +83,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           <ThemedButton
             text="Add a set"
             variant="flat"
-            onPress={() => addSet(exercise.id)}
+            onPress={handleAddSet}
           />
         </View>
 

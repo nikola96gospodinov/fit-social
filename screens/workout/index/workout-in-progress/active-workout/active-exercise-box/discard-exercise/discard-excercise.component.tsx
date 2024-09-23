@@ -2,7 +2,12 @@ import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/store/active-workout-store";
 import { FontAwesome6 } from "@expo/vector-icons";
-import { Pressable, useColorScheme, StyleSheet } from "react-native";
+import {
+  Pressable,
+  useColorScheme,
+  StyleSheet,
+  LayoutAnimation,
+} from "react-native";
 import { createDiscardExerciseAlert } from "./create-discard-exercie-alert";
 
 type Props = {
@@ -14,12 +19,17 @@ export const DiscardExercise = ({ id }: Props) => {
 
   const { removeExercise } = useActiveWorkoutStore();
 
+  const handleDiscardExercise = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    removeExercise(id);
+  };
+
   return (
     <Pressable
       style={styles.trashIconContainer}
       onPress={() =>
         createDiscardExerciseAlert({
-          discardExercise: () => removeExercise(id),
+          discardExercise: handleDiscardExercise,
           colorScheme: theme,
         })
       }>

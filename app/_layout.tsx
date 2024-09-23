@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import "react-native-reanimated";
 import { DevToolsBubble } from "react-native-react-query-devtools";
+import { useEnableLayoutAnimation } from "@/hooks/use-enable-layout-animation";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -24,6 +25,8 @@ export default function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+
+  useEnableLayoutAnimation();
 
   if (!loaded) {
     return null;

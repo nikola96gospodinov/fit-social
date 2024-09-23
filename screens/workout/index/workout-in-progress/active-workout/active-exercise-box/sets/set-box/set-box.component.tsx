@@ -50,11 +50,7 @@ export const SetBox = ({
     <SwipeableItem
       item={set}
       renderUnderlayLeft={() => (
-        <SetUnderlayLeft
-          itemRef={itemRef}
-          exerciseId={exerciseId}
-          setId={set.id}
-        />
+        <SetUnderlayLeft exerciseId={exerciseId} setId={set.id} />
       )}
       snapPointsLeft={[40]}
       overSwipe={100}
