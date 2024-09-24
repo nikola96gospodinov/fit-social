@@ -46,19 +46,17 @@ export const SetBox = ({
   const { animate, color } = useAnimateColor({
     duration: 150,
     colors: [
-      colors[theme].fillTextColor, // Default
-      colors[theme].fillTextColor, // isActive
-      colors[theme].tintBackgroundText, // isBoxActive
+      colors[theme].cardBackground, // Default
+      colors[theme].tintActiveBackground, // isActive || isBoxActive
       colors[theme].successBackground, // set.isDone
     ],
-    inputRange: [0, 1, 2, 3],
+    inputRange: [0, 1, 2],
   });
 
   useEffect(() => {
     const targetValue = (() => {
-      if (isBoxActive) return 2;
-      if (isActive) return 1;
-      if (set.isDone) return 3;
+      if (isBoxActive || isActive) return 1;
+      if (set.isDone) return 2;
       return 0;
     })();
 

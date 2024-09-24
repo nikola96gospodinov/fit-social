@@ -26,8 +26,8 @@ export const Pill = ({
   const colorScheme = useColorScheme() ?? "light";
 
   const backgroundColor = isActive
-    ? colors[colorScheme].tabIconSelected
-    : colors[colorScheme].background;
+    ? colors[colorScheme].tintBackground
+    : colors[colorScheme].sectionBackground;
 
   const textColor =
     colorScheme === "light" && isActive ? "tintBackgroundText" : "default";
@@ -49,7 +49,7 @@ export const Pill = ({
           <Ionicons
             name="close-circle"
             size={12}
-            color={colors[colorScheme].supportingText}
+            color={colors[colorScheme].icon}
             style={{ marginTop: 1 }}
           />
         </View>

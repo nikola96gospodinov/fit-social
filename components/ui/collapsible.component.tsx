@@ -21,7 +21,7 @@ export function Collapsible({
       style={[
         styles.container,
         {
-          backgroundColor: colors[theme].background,
+          backgroundColor: colors[theme].sectionBackground,
           borderColor: colors[theme].border,
         },
       ]}>

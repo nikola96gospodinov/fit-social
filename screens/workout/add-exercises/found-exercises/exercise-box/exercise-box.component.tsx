@@ -53,7 +53,7 @@ export const ExerciseBox = ({
       style={[
         {
           backgroundColor: isSelected
-            ? colors[theme].background
+            ? colors[theme].sectionBackground
             : "transparent",
           opacity: isDisabled ? 0.5 : 1,
         },
@@ -70,14 +70,14 @@ export const ExerciseBox = ({
             <View
               style={[
                 {
-                  backgroundColor: colors[theme].fillTextColor,
+                  backgroundColor: colors[theme].cardBackground,
                 },
                 styles.checkIconContainer,
               ]}>
               <FontAwesome6
                 name="check"
                 size={20}
-                color={colors[theme].tintBackground}
+                color={colors[theme].activeIcon}
               />
             </View>
           ) : (
@@ -96,8 +96,8 @@ export const ExerciseBox = ({
           style={[
             {
               backgroundColor: isSelected
-                ? colors[theme].border
-                : colors[theme].background,
+                ? colors[theme].tintActiveBackground
+                : colors[theme].sectionBackground,
             },
             styles.questionIconContainer,
           ]}

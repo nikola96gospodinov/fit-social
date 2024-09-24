@@ -13,20 +13,20 @@ const getVariantStyles = ({
       return StyleSheet.create({
         pressable: {
           backgroundColor: "transparent",
-          borderColor: themeColors.fill,
+          borderColor: themeColors.buttonFill,
           borderWidth: 1,
         },
 
         pressableTap: {
-          backgroundColor: themeColors.fillOnTap,
+          backgroundColor: themeColors.buttonFillOnTap,
         },
 
         text: {
-          color: themeColors.fill,
+          color: themeColors.buttonFill,
         },
 
         textTap: {
-          color: themeColors.background,
+          color: themeColors.invertedText,
         },
       });
     }
@@ -38,11 +38,11 @@ const getVariantStyles = ({
         },
 
         pressableTap: {
-          backgroundColor: themeColors.background,
+          backgroundColor: themeColors.sectionBackground,
         },
 
         text: {
-          color: themeColors.tintBackground,
+          color: themeColors.tintText,
         },
 
         textTap: {},
@@ -69,15 +69,15 @@ const getVariantStyles = ({
     default: {
       return StyleSheet.create({
         pressable: {
-          backgroundColor: themeColors.fill,
+          backgroundColor: themeColors.buttonFill,
         },
 
         pressableTap: {
-          backgroundColor: themeColors.fillOnTap,
+          backgroundColor: themeColors.buttonFillOnTap,
         },
 
         text: {
-          color: themeColors.fillTextColor,
+          color: themeColors.buttonTextColor,
         },
 
         textTap: {},

@@ -33,7 +33,7 @@ export const SetUnderlayLeft = ({ exerciseId, setId }: Props) => {
         <MaterialIcons
           name="delete"
           size={24}
-          color={colors[theme].destructiveText}
+          color={colors[theme].destructiveIcon}
         />
       </Pressable>
     </Flex>

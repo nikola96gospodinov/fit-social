@@ -34,7 +34,7 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: colors[colorScheme].tabIconSelected,
+        tabBarActiveTintColor: colors[colorScheme].activeIcon,
         headerShown: false,
         headerTitleAlign: "center",
         tabBarStyle: {

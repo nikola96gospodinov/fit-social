@@ -5,11 +5,11 @@ export type ThemedTextProps = TextProps & {
   type?: "default" | "title" | "subtitle" | "small";
   color?:
     | "default"
+    | "inverted"
     | "supporting"
     | "error"
     | "tintText"
-    | "tintBackgroundText"
-    | "defaultInverted";
+    | "tintBackgroundText";
   isCentered?: boolean;
 };
 
@@ -27,7 +27,7 @@ export function ThemedText({
   const tintBackgroundTextColor = colors[theme].tintBackgroundText;
   const supportingColor = colors[theme].supportingText;
   const errorColor = colors[theme].destructiveText;
-  const defaultInvertedColor = colors[theme].textInverted;
+  const invertedColor = colors[theme].invertedText;
 
   const colorValue = (() => {
     switch (color) {
@@ -37,10 +37,10 @@ export function ThemedText({
         return tintBackgroundTextColor;
       case "supporting":
         return supportingColor;
-      case "defaultInverted":
-        return defaultInvertedColor;
       case "error":
         return errorColor;
+      case "inverted":
+        return invertedColor;
       default:
         return defaultColor;
     }

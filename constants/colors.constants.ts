@@ -57,60 +57,64 @@ const green = {
 export const colors = {
   light: {
     text: slate[900],
-    textInverted: slate[50],
+    invertedText: slate[100],
     supportingText: slate[600],
     tintText: indigo[700],
-
-    background: slate[200],
-    tintBackground: indigo[700],
     tintBackgroundText: indigo[50],
 
-    icon: slate[500],
-    tabIconSelected: indigo[800],
+    background: slate[50],
+    cardBackground: slate[100],
+    sectionBackground: slate[200],
+    tintBackground: indigo[700],
+    tintActiveBackground: indigo[50],
 
-    fill: slate[800],
-    fillTextColor: slate[100],
-    fillOnTap: slate[950],
+    icon: slate[500],
+    textIcon: slate[950],
+    activeIcon: indigo[800],
+
+    buttonFill: slate[800],
+    buttonTextColor: slate[100],
+    buttonFillOnTap: slate[950],
 
     destructiveText: red[800],
     destructiveBackground: red[100],
     destructiveIcon: red[700],
+    destructiveBorder: red[700],
 
     border: slate[300],
     borderFocused: indigo[500],
-
-    neutralEnd: slate[50],
-    neutralStart: slate[950],
 
     success: green[600],
     successBackground: green[100],
   },
   dark: {
     text: slate[100],
-    textInverted: slate[900],
+    invertedText: slate[900],
     supportingText: slate[400],
     tintText: indigo[300],
-
-    background: slate[800],
-    tintBackground: indigo[300],
     tintBackgroundText: indigo[950],
 
-    icon: slate[400],
-    tabIconSelected: indigo[500],
+    background: slate[950],
+    cardBackground: slate[900],
+    sectionBackground: slate[800],
+    tintBackground: indigo[300],
+    tintActiveBackground: indigo[950],
 
-    fill: slate[100],
-    fillTextColor: slate[900],
-    fillOnTap: slate[50],
+    icon: slate[400],
+    textIcon: slate[50],
+    activeIcon: indigo[500],
+
+    buttonFill: slate[100],
+    buttonTextColor: slate[900],
+    buttonFillOnTap: slate[50],
 
     destructiveText: red[100],
     destructiveBackground: red[950],
     destructiveIcon: red[400],
+    destructiveBorder: red[400],
 
     border: slate[700],
     borderFocused: indigo[500],
-
-    neutralEnd: slate[950],
-    neutralStart: slate[50],
 
     success: green[500],
     successBackground: green[950],

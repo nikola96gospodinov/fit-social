@@ -1,4 +1,4 @@
-import { colors } from "@/constants/colors.constants";
+import { slate } from "@/constants/colors.constants";
 import { View, StyleSheet, useColorScheme } from "react-native";
 
 export const Divider = () => {
@@ -9,7 +9,7 @@ export const Divider = () => {
       style={[
         styles.divider,
         {
-          backgroundColor: colors[theme].text,
+          backgroundColor: theme === "light" ? slate[800] : slate[200],
         },
       ]}
     />

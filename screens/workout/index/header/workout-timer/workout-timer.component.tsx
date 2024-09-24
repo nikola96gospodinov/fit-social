@@ -22,7 +22,7 @@ export const WorkoutTimer = () => {
       <MaterialCommunityIcons
         name="timer-outline"
         size={16}
-        color={colors[colorScheme].text}
+        color={colors[colorScheme].textIcon}
       />{" "}
       {formattedTime}
     </ThemedText>

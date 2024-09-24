@@ -42,8 +42,8 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
         style={[
           {
             backgroundColor: isActive
-              ? colors[theme].tintBackgroundText
-              : colors[theme].fillTextColor,
+              ? colors[theme].tintActiveBackground
+              : colors[theme].cardBackground,
             borderColor: isActive
               ? colors[theme].borderFocused
               : colors[theme].border,
@@ -54,7 +54,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           <MaterialIcons
             name="drag-indicator"
             size={20}
-            color={colors[theme].text}
+            color={colors[theme].textIcon}
           />
         </Pressable>
 
@@ -62,12 +62,12 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           onPress={() => router.push(`/workout/exercise/${exercise.id}`)}
           style={[
             {
-              backgroundColor: colors[theme].borderFocused,
+              backgroundColor: colors[theme].tintBackground,
             },
             styles.exerciseNameContainer,
           ]}>
           <ThemedText
-            color={theme === "light" ? "defaultInverted" : "default"}
+            color={theme === "light" ? "inverted" : "default"}
             style={{ fontWeight: "bold" }}>
             {capitalize(exercise.name)}
           </ThemedText>

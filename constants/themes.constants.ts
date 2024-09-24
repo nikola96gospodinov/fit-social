@@ -1,14 +1,14 @@
 import { Theme } from "@react-navigation/native";
-import { red, slate, indigo } from "./colors.constants";
+import { red, colors } from "./colors.constants";
 
 export const DarkTheme: Theme = {
   dark: true,
   colors: {
-    primary: indigo[300],
-    background: slate[950],
-    card: slate[900],
-    text: slate[200],
-    border: slate[700],
+    primary: colors.dark.tintText,
+    background: colors.dark.background,
+    card: colors.dark.cardBackground,
+    text: colors.dark.text,
+    border: colors.dark.border,
     notification: red[700],
   },
 };
@@ -16,11 +16,11 @@ export const DarkTheme: Theme = {
 export const DefaultTheme: Theme = {
   dark: false,
   colors: {
-    primary: indigo[800],
-    background: slate[50],
-    card: slate[100],
-    text: slate[800],
-    border: slate[300],
+    primary: colors.light.tintText,
+    background: colors.light.background,
+    card: colors.light.cardBackground,
+    text: colors.light.text,
+    border: colors.light.border,
     notification: red[600],
   },
 };

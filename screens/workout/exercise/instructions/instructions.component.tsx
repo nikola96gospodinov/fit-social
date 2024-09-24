@@ -18,7 +18,7 @@ export const Instructions = ({ exercise }: Props) => {
         styles.instructionsContainer,
         {
           borderColor: colors[theme].border,
-          backgroundColor: colors[theme].background,
+          backgroundColor: colors[theme].sectionBackground,
         },
       ]}>
       <ThemedText style={{ fontWeight: "bold" }}>Instructions:</ThemedText>

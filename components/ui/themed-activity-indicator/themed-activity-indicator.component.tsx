@@ -11,7 +11,7 @@ export const ThemedActivityIndicator = ({ loadingMessage }: Props) => {
 
   return (
     <View>
-      <ActivityIndicator size="large" color={colors[theme].fill} />
+      <ActivityIndicator size="large" color={colors[theme].activeIcon} />
 
       {loadingMessage && <ThemedText>{loadingMessage}</ThemedText>}
     </View>

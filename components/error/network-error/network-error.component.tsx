@@ -26,7 +26,7 @@ export const NetworkError = ({ message, refetch }: Props) => {
           <MaterialIcons
             name="error-outline"
             size={20}
-            color={colors[theme].destructiveText}
+            color={colors[theme].destructiveIcon}
           />
 
           <ThemedText type="small" color="error">
@@ -39,7 +39,7 @@ export const NetworkError = ({ message, refetch }: Props) => {
             <FontAwesome
               name="repeat"
               size={18}
-              color={colors[theme].destructiveText}
+              color={colors[theme].destructiveIcon}
             />
           </Pressable>
         )}

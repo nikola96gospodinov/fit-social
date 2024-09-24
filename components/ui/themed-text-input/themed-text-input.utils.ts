@@ -20,7 +20,7 @@ export const getModeStyles = ({
       return StyleSheet.create({
         container: {
           backgroundColor: themeColors.destructiveBackground,
-          borderColor: themeColors.destructive,
+          borderColor: themeColors.destructiveBorder,
           borderWidth: 1,
         },
 
@@ -36,7 +36,7 @@ export const getModeStyles = ({
 
       return StyleSheet.create({
         container: {
-          backgroundColor: themeColors.background,
+          backgroundColor: themeColors.sectionBackground,
           borderColor,
           borderWidth: 1,
         },
