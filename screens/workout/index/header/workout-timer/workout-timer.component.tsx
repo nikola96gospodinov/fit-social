@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useColorScheme } from "react-native";
 
 export const WorkoutTimer = () => {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() ?? "light";
 
   const { started } = useActiveWorkoutStore();
 
@@ -22,7 +22,7 @@ export const WorkoutTimer = () => {
       <MaterialCommunityIcons
         name="timer-outline"
         size={16}
-        color={colors[colorScheme ?? "light"].text}
+        color={colors[colorScheme].text}
       />{" "}
       {formattedTime}
     </ThemedText>

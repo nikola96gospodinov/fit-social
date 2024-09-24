@@ -1,25 +1,15 @@
-import { useThemeColor } from "@/hooks/use-theme-color";
-import { View, StyleSheet } from "react-native";
+import { colors } from "@/constants/colors.constants";
+import { View, StyleSheet, useColorScheme } from "react-native";
 
-type Props = {
-  lightColor?: string;
-  darkColor?: string;
-  color?: "dark" | "light";
-};
-
-export const Divider = ({ color, lightColor, darkColor }: Props) => {
-  const themeColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "text",
-  );
-  const dividerColor = color ?? themeColor;
+export const Divider = () => {
+  const theme = useColorScheme() ?? "light";
 
   return (
     <View
       style={[
         styles.divider,
         {
-          backgroundColor: dividerColor,
+          backgroundColor: colors[theme].text,
         },
       ]}
     />

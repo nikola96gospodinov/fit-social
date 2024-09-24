@@ -1,9 +1,7 @@
-import { useThemeColor } from "@/hooks/use-theme-color";
-import { Text, type TextProps, StyleSheet } from "react-native";
+import { colors } from "@/constants/colors.constants";
+import { Text, type TextProps, StyleSheet, useColorScheme } from "react-native";
 
 export type ThemedTextProps = TextProps & {
-  lightColor?: string;
-  darkColor?: string;
   type?: "default" | "title" | "subtitle" | "small";
   color?:
     | "default"
@@ -17,37 +15,19 @@ export type ThemedTextProps = TextProps & {
 
 export function ThemedText({
   style,
-  lightColor,
-  darkColor,
   type = "default",
   color = "default",
   isCentered = false,
   ...rest
 }: ThemedTextProps) {
-  const defaultColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "text",
-  );
-  const tintTextColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "tintText",
-  );
-  const tintBackgroundTextColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "tintBackgroundText",
-  );
-  const supportingColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "supportingText",
-  );
-  const errorColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "destructiveText",
-  );
-  const defaultInvertedColor = useThemeColor(
-    { light: lightColor, dark: darkColor },
-    "textInverted",
-  );
+  const theme = useColorScheme() ?? "light";
+
+  const defaultColor = colors[theme].text;
+  const tintTextColor = colors[theme].tintText;
+  const tintBackgroundTextColor = colors[theme].tintBackgroundText;
+  const supportingColor = colors[theme].supportingText;
+  const errorColor = colors[theme].destructiveText;
+  const defaultInvertedColor = colors[theme].textInverted;
 
   const colorValue = (() => {
     switch (color) {
