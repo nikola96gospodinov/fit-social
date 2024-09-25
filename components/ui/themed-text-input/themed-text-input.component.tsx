@@ -4,9 +4,10 @@ import {
   type TextInputProps,
   StyleSheet,
   Pressable,
+  DimensionValue,
 } from "react-native";
-import { Mode } from "./themed-text-input.types";
-import { getModeStyles } from "./themed-text-input.utils";
+import { Mode, Size } from "./themed-text-input.types";
+import { getModeStyles, getSizeStyles } from "./themed-text-input.utils";
 import { ComponentProps, useState } from "react";
 import { Flex } from "../layout/flex/flex.component";
 import { spacing } from "@/constants/spacing.constants";
@@ -16,15 +17,17 @@ import { colors } from "@/constants/colors.constants";
 
 type Props = TextInputProps & {
   mode?: Mode;
+  size?: Size;
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
   clearButton?: boolean;
-  width?: number;
+  width?: DimensionValue;
   centerContent?: boolean;
 };
 
 export const ThemedTextInput = ({
   style,
   mode = "default",
+  size = "default",
   icon,
   clearButton,
   width,
@@ -36,10 +39,9 @@ export const ThemedTextInput = ({
   const theme = useColorScheme() ?? "light";
 
   const { input, container } = getModeStyles({ mode, theme, isFocused });
+  const { container: sizeContainer } = getSizeStyles({ size, isIcon: !!icon });
 
   const showClearButton = clearButton && Number(rest.value?.length) > 0;
-
-  const isBasicStyle = !icon && !clearButton;
 
   return (
     <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
@@ -47,11 +49,7 @@ export const ThemedTextInput = ({
         direction="row"
         gap={spacing[0.5]}
         align="center"
-        style={[
-          styles.defaultContainer,
-          container,
-          isBasicStyle && { paddingVertical: 4, borderRadius: 12 },
-        ]}>
+        style={[styles.defaultContainer, container, sizeContainer]}>
         {icon && <Ionicons color={colors[theme].icon} {...icon} />}
 
         <TextInput
@@ -60,11 +58,10 @@ export const ThemedTextInput = ({
           onBlur={() => setIsFocused(false)}
           style={[
             {
-              flex: 1,
-              maxHeight: 20,
               textAlign: centerContent ? "center" : "auto",
             },
             input,
+            styles.defaultInput,
           ]}
         />
 
@@ -85,8 +82,11 @@ export const ThemedTextInput = ({
 
 const styles = StyleSheet.create({
   defaultContainer: {
-    padding: 8,
-    borderRadius: 24,
     flex: 1,
+  },
+
+  defaultInput: {
+    flex: 1,
+    maxHeight: 20,
   },
 });

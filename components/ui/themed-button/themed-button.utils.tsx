@@ -65,6 +65,22 @@ const getVariantStyles = ({
       });
     }
 
+    case "link": {
+      return StyleSheet.create({
+        pressable: {
+          backgroundColor: "transparent",
+        },
+
+        pressableTap: {},
+
+        text: {
+          color: themeColors.tintText,
+        },
+
+        textTap: {},
+      });
+    }
+
     // case "primary"
     default: {
       return StyleSheet.create({
@@ -144,12 +160,22 @@ export const getButtonStyles = ({ variant, size, theme }: Props) => {
   const sizeStyles = getSizeStyles(size);
 
   const isFlat = variant === "flat";
+  const isLink = variant === "link";
+
+  const pressableSizeStyles = (() => {
+    if (isLink) {
+      return [];
+    }
+
+    if (isFlat) {
+      return [styles.flatButtonContainer];
+    }
+
+    return [sizeStyles.pressable];
+  })();
 
   return {
-    pressable: [
-      variantStyles.pressable,
-      ...(isFlat ? [styles.flatButtonContainer] : [sizeStyles.pressable]),
-    ],
+    pressable: [variantStyles.pressable, ...pressableSizeStyles],
     pressableTap: variantStyles.pressableTap,
     text: [variantStyles.text, sizeStyles.text],
     textTap: variantStyles.textTap,

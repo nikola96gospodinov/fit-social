@@ -1,3 +1,4 @@
+import { spacing } from "@/constants/spacing.constants";
 import { PropsWithChildren } from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 
@@ -11,5 +12,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     height: "100%",
+    marginHorizontal: spacing[4],
   },
 });

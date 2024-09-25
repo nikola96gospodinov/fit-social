@@ -1,5 +1,5 @@
 import { ColorSchemeName, StyleSheet } from "react-native";
-import { Mode } from "./themed-text-input.types";
+import { Mode, Size } from "./themed-text-input.types";
 import { colors } from "@/constants/colors.constants";
 
 type GetModeStylesProps = {
@@ -43,6 +43,33 @@ export const getModeStyles = ({
 
         input: {
           color: themeColors.text,
+        },
+      });
+  }
+};
+
+type GetSizeStylesProps = {
+  size: Size;
+  isIcon?: boolean;
+};
+
+export const getSizeStyles = ({ size, isIcon }: GetSizeStylesProps) => {
+  switch (size) {
+    case "small":
+      return StyleSheet.create({
+        container: {
+          paddingVertical: 4,
+          borderRadius: 12,
+          ...(!isIcon && { paddingHorizontal: 12 }),
+        },
+      });
+
+    default:
+      return StyleSheet.create({
+        container: {
+          padding: 8,
+          borderRadius: 24,
+          ...(!isIcon && { paddingHorizontal: 12 }),
         },
       });
   }

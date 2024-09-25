@@ -96,6 +96,7 @@ export const SetBox = ({
                 updateSet({ exerciseId, setId: set.id, weight: Number(text) })
               }
               centerContent
+              size="small"
             />
 
             <ThemedText>x</ThemedText>
@@ -108,6 +109,7 @@ export const SetBox = ({
                 updateSet({ exerciseId, setId: set.id, reps: Number(text) })
               }
               centerContent
+              size="small"
             />
           </Flex>
 
