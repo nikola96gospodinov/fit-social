@@ -3,6 +3,7 @@ import {
   type PressableProps,
   Text,
   useColorScheme,
+  StyleSheet,
 } from "react-native";
 import { getButtonStyles } from "./themed-button.utils";
 import { Size, Variant } from "./themed-button.types";
@@ -12,6 +13,7 @@ type Props = PressableProps & {
   variant?: Variant;
   size?: Size;
   isCentered?: boolean;
+  isFullWidth?: boolean;
 };
 
 export const ThemedButton = ({
@@ -20,6 +22,7 @@ export const ThemedButton = ({
   variant = "primary",
   size = "md",
   isCentered = false,
+  isFullWidth = false,
   ...rest
 }: Props) => {
   const theme = useColorScheme() ?? "light";
@@ -33,20 +36,25 @@ export const ThemedButton = ({
 
   return (
     <Pressable
-      style={({ pressed }) => [pressable, pressed && pressableTap, style]}
+      style={({ pressed }) => [
+        pressable,
+        pressed && pressableTap,
+        {
+          alignSelf: isCentered ? "center" : "auto",
+          width: isFullWidth ? "100%" : "auto",
+        },
+        style,
+      ]}
       {...rest}
       children={({ pressed }) => (
-        <Text
-          style={[
-            textStyle,
-            pressed && textTap,
-            {
-              alignSelf: isCentered ? "center" : "auto",
-            },
-          ]}>
-          {text}
-        </Text>
+        <Text style={[textStyle, pressed && textTap, styles.text]}>{text}</Text>
       )}
     />
   );
 };
+
+const styles = StyleSheet.create({
+  text: {
+    textAlign: "center",
+  },
+});

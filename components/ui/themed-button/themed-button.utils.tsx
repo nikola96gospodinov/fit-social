@@ -138,7 +138,7 @@ const getSizeStyles = (size: Size) => {
         pressable: {
           borderRadius: 8,
           paddingHorizontal: 16,
-          paddingVertical: 12,
+          paddingVertical: 10,
         },
 
         text: {
@@ -153,6 +153,7 @@ type Props = {
   variant: Variant;
   theme: NonNullable<ColorSchemeName>;
   size: Size;
+  isFullWidth?: boolean;
 };
 
 export const getButtonStyles = ({ variant, size, theme }: Props) => {

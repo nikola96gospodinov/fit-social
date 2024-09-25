@@ -13,9 +13,9 @@ export const LoginContent = () => {
 
   return (
     <FullScreenCenteredView>
-      <ThemedText type="subtitle">Welcome Back!</ThemedText>
+      <ThemedText type="title">Welcome Back!</ThemedText>
 
-      <VerticalSpacing size={6} />
+      <VerticalSpacing size={10} />
 
       <ThemedTextInput
         value={email}
@@ -44,6 +44,9 @@ export const LoginContent = () => {
         onPress={() => {
           router.push("/(tabs)");
         }}
+        style={{ alignSelf: "flex-start", borderRadius: 24 }}
+        isFullWidth
+        isCentered
       />
 
       <VerticalSpacing size={6} />
