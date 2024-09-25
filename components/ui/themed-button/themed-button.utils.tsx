@@ -163,14 +163,8 @@ export const getButtonStyles = ({ variant, size, theme }: Props) => {
   const isLink = variant === "link";
 
   const pressableSizeStyles = (() => {
-    if (isLink) {
-      return [];
-    }
-
-    if (isFlat) {
-      return [styles.flatButtonContainer];
-    }
-
+    if (isLink) return [];
+    if (isFlat) return [styles.flatButtonContainer];
     return [sizeStyles.pressable];
   })();
 

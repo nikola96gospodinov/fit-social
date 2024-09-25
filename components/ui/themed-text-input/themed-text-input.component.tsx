@@ -32,16 +32,24 @@ export const ThemedTextInput = ({
   clearButton,
   width,
   centerContent,
+  secureTextEntry: defaultSecureTextEntry,
   ...rest
 }: Props) => {
   const [isFocused, setIsFocused] = useState(false);
+  const [secureTextEntry, setSecureTextEntry] = useState(
+    defaultSecureTextEntry,
+  );
 
   const theme = useColorScheme() ?? "light";
 
   const { input, container } = getModeStyles({ mode, theme, isFocused });
   const { container: sizeContainer } = getSizeStyles({ size, isIcon: !!icon });
 
-  const showClearButton = clearButton && Number(rest.value?.length) > 0;
+  const isValue = Number(rest.value?.length) > 0;
+
+  const showClearButton = !defaultSecureTextEntry && clearButton && isValue;
+
+  const showPasswordToggleButton = defaultSecureTextEntry && isValue;
 
   return (
     <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
@@ -54,6 +62,7 @@ export const ThemedTextInput = ({
 
         <TextInput
           {...rest}
+          secureTextEntry={secureTextEntry}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           style={[
@@ -65,15 +74,13 @@ export const ThemedTextInput = ({
           ]}
         />
 
-        {showClearButton && (
-          <Pressable onPress={() => rest.onChangeText?.("")}>
-            <Ionicons
-              name="close-circle"
-              size={20}
-              color={colors[theme].icon}
-              style={{ marginVertical: -2 }}
-            />
-          </Pressable>
+        {showClearButton && <ClearButton onChangeText={rest.onChangeText} />}
+
+        {showPasswordToggleButton && (
+          <PasswordToggleButton
+            secureTextEntry={secureTextEntry}
+            setSecureTextEntry={setSecureTextEntry}
+          />
         )}
       </Flex>
     </Flex>
@@ -90,3 +97,39 @@ const styles = StyleSheet.create({
     maxHeight: 20,
   },
 });
+
+type ClearButtonProps = {
+  onChangeText: TextInputProps["onChangeText"];
+};
+
+const ClearButton = ({ onChangeText }: ClearButtonProps) => {
+  const theme = useColorScheme() ?? "light";
+
+  return (
+    <Pressable onPress={() => onChangeText?.("")}>
+      <Ionicons name="close-circle" size={20} color={colors[theme].icon} />
+    </Pressable>
+  );
+};
+
+type PasswordToggleButtonProps = {
+  secureTextEntry: boolean | undefined;
+  setSecureTextEntry: React.Dispatch<React.SetStateAction<boolean | undefined>>;
+};
+
+const PasswordToggleButton = ({
+  secureTextEntry,
+  setSecureTextEntry,
+}: PasswordToggleButtonProps) => {
+  const theme = useColorScheme() ?? "light";
+
+  return (
+    <Pressable onPress={() => setSecureTextEntry((prev) => !prev)}>
+      <Ionicons
+        name={secureTextEntry ? "eye" : "eye-off"}
+        size={20}
+        color={colors[theme].icon}
+      />
+    </Pressable>
+  );
+};
