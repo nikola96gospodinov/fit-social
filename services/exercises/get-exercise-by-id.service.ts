@@ -25,5 +25,6 @@ export const useGetExerciseById = (id: string) => {
   return useQuery({
     queryKey: [EXERCISES_KEY, id],
     queryFn: () => getExerciseById(id),
+    staleTime: Number.POSITIVE_INFINITY,
   });
 };

@@ -39,6 +39,7 @@ export const useGetExercises = (props: GetExercisesProps) => {
   return useQuery({
     queryKey: [EXERCISES_KEY, props],
     queryFn: () => getExercises(props),
+    staleTime: Number.POSITIVE_INFINITY,
   });
 };
 
@@ -52,5 +53,6 @@ export const useGetInfiniteExercises = (props: GetExercisesProps) => {
         return lastPage.offset + lastPage.limit;
       }
     },
+    staleTime: Number.POSITIVE_INFINITY,
   });
 };
