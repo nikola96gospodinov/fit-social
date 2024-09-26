@@ -2,9 +2,14 @@ import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertica
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-input.component";
 import { router } from "expo-router";
+import { capitalize } from "lodash";
 import { useState } from "react";
 
-export const LoginForm = () => {
+type Props = {
+  activeAction: "Login" | "Register";
+};
+
+export const AuthForm = ({ activeAction }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,7 +38,7 @@ export const LoginForm = () => {
       <VerticalSpacing size={6} />
 
       <ThemedButton
-        text="Login"
+        text={capitalize(activeAction)}
         onPress={() => {
           router.push("/(tabs)");
         }}

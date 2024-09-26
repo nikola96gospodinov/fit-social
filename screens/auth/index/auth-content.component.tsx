@@ -2,16 +2,24 @@ import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
-import { LoginForm } from "./login-form/login-form.component";
+import { AuthForm } from "./auth-form/auth-form.component";
 import { ActionToggler } from "@/components/ui/action-toggler/action-toggler.component";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { View } from "react-native";
 import { spacing } from "@/constants/spacing.constants";
 import { OrSeparator } from "@/components/or-separator/or-separator.component";
 import { SocialLoginButtons } from "./social-login-buttons/social-login-buttons.component";
+import { useState } from "react";
+import { LOGIN, REGISTER, type LoginAction } from "./auth-content.constants";
+import { router } from "expo-router";
 
-export const LoginContent = () => {
+export const AuthContent = () => {
   const insets = useSafeAreaInsets();
+
+  const [activeAction, setActiveAction] = useState<LoginAction>(LOGIN);
+
+  const title =
+    activeAction === LOGIN ? "Welcome Back! 👋" : "Let's register 💪";
 
   return (
     <View
@@ -21,14 +29,19 @@ export const LoginContent = () => {
         paddingHorizontal: spacing[4],
         flex: 1,
       }}>
-      <ActionToggler leftText="Login" rightText="Register" />
+      <ActionToggler
+        leftText={LOGIN}
+        rightText={REGISTER}
+        activeAction={activeAction}
+        setActiveAction={setActiveAction}
+      />
 
       <Flex align="center" justify="center" style={{ flex: 1 }}>
-        <ThemedText type="title">Welcome Back!</ThemedText>
+        <ThemedText type="title">{title}</ThemedText>
 
         <VerticalSpacing size={8} />
 
-        <LoginForm />
+        <AuthForm activeAction={activeAction} />
 
         <VerticalSpacing size={6} />
 
@@ -37,6 +50,9 @@ export const LoginContent = () => {
           variant="link"
           size="sm"
           style={{ alignSelf: "flex-end" }}
+          onPress={() => {
+            router.push("/(auth)/forgot-password");
+          }}
         />
 
         <VerticalSpacing size={6} />

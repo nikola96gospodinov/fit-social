@@ -3,17 +3,21 @@ import { Flex } from "../layout/flex/flex.component";
 import { StyleSheet, useColorScheme, Pressable } from "react-native";
 import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
-import { useState } from "react";
 
-type Props = {
-  leftText: string;
-  rightText: string;
+type Props<Left extends string, Right extends string> = {
+  leftText: Left;
+  rightText: Right;
+  activeAction: Left | Right;
+  setActiveAction: React.Dispatch<React.SetStateAction<Left | Right>>;
 };
 
-export const ActionToggler = ({ leftText, rightText }: Props) => {
+export const ActionToggler = <Left extends string, Right extends string>({
+  leftText,
+  rightText,
+  activeAction,
+  setActiveAction,
+}: Props<Left, Right>) => {
   const theme = useColorScheme() ?? "light";
-
-  const [activeAction, setActiveAction] = useState<"left" | "right">("left");
 
   return (
     <Flex
@@ -28,29 +32,29 @@ export const ActionToggler = ({ leftText, rightText }: Props) => {
         },
       ]}>
       <Pressable
-        onPress={() => setActiveAction("left")}
+        onPress={() => setActiveAction(leftText)}
         style={[
           styles.action,
           styles.leftAction,
-          activeAction === "left" && {
+          activeAction === leftText && {
             backgroundColor: colors[theme].oppositeBackground,
           },
         ]}>
-        <ThemedText color={activeAction === "left" ? "inverted" : "default"}>
+        <ThemedText color={activeAction === leftText ? "inverted" : "default"}>
           {leftText}
         </ThemedText>
       </Pressable>
 
       <Pressable
-        onPress={() => setActiveAction("right")}
+        onPress={() => setActiveAction(rightText)}
         style={[
           styles.action,
           styles.rightAction,
-          activeAction === "right" && {
+          activeAction === rightText && {
             backgroundColor: colors[theme].oppositeBackground,
           },
         ]}>
-        <ThemedText color={activeAction === "right" ? "inverted" : "default"}>
+        <ThemedText color={activeAction === rightText ? "inverted" : "default"}>
           {rightText}
         </ThemedText>
       </Pressable>
