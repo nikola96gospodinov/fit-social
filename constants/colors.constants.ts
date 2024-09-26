@@ -65,6 +65,7 @@ export const colors = {
     background: slate[50],
     cardBackground: slate[100],
     sectionBackground: slate[200],
+    oppositeBackground: slate[950],
     tintBackground: indigo[700],
     tintActiveBackground: indigo[50],
 
@@ -97,6 +98,7 @@ export const colors = {
     background: slate[950],
     cardBackground: slate[900],
     sectionBackground: slate[800],
+    oppositeBackground: slate[50],
     tintBackground: indigo[300],
     tintActiveBackground: indigo[950],
 
