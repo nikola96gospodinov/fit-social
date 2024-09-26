@@ -12,6 +12,7 @@ import {
 } from "@/constants/workout.constants";
 import { Filter, useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useState } from "react";
+import { View } from "react-native";
 
 export const EquipmentFilters = () => {
   const [showMore, setShowMore] = useState(false);
@@ -59,12 +60,14 @@ export const EquipmentFilters = () => {
 
       <VerticalSpacing size={2} />
 
-      <ThemedButton
-        variant="flat"
-        size="sm"
-        text={showMore ? "Show less" : "Show more"}
-        onPress={() => setShowMore(!showMore)}
-      />
+      <View style={{ alignSelf: "flex-start" }}>
+        <ThemedButton
+          variant="flat"
+          size="sm"
+          text={showMore ? "Show less" : "Show more"}
+          onPress={() => setShowMore(!showMore)}
+        />
+      </View>
     </>
   );
 };
