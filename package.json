@@ -20,6 +20,7 @@
   "dependencies": {
     "@expo/vector-icons": "^14.0.2",
     "@react-navigation/native": "^6.0.2",
+    "@supabase/supabase-js": "^2.45.4",
     "@tanstack/react-query": "^5.51.23",
     "date-fns": "^3.6.0",
     "expo": "~51.0.28",
@@ -47,7 +48,8 @@
     "react-native-swipeable-item": "^2.0.9",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.10",
-    "zustand": "^4.5.4"
+    "zustand": "^4.5.4",
+    "expo-secure-store": "~13.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

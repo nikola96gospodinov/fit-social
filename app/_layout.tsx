@@ -10,6 +10,7 @@ import { useColorScheme } from "react-native";
 import "react-native-reanimated";
 import { DevToolsBubble } from "react-native-react-query-devtools";
 import { useEnableLayoutAnimation } from "@/hooks/use-enable-layout-animation";
+import { supabase } from "@/lib/supabase";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
