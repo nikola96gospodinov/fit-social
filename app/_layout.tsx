@@ -10,7 +10,7 @@ import { useColorScheme } from "react-native";
 import "react-native-reanimated";
 import { DevToolsBubble } from "react-native-react-query-devtools";
 import { useEnableLayoutAnimation } from "@/hooks/use-enable-layout-animation";
-import { supabase } from "@/lib/supabase";
+import { useGetSession } from "@/services/session/get-session.service";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -36,13 +36,24 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
+        <MainStack />
         {/* <DevToolsBubble /> */}
       </QueryClientProvider>
     </ThemeProvider>
   );
 }
+
+const MainStack = () => {
+  const { data: session } = useGetSession();
+
+  return (
+    <Stack>
+      {session ? (
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      ) : (
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+      )}
+      <Stack.Screen name="+not-found" />
+    </Stack>
+  );
+};
