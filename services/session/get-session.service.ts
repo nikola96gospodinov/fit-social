@@ -10,7 +10,7 @@ const getSession = async () => {
     throw new Error(error.message);
   }
 
-  return data;
+  return data.session;
 };
 
 export const useGetSession = () => {

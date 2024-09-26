@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
-import { Stack } from "expo-router";
+import { useGetSession } from "@/services/session/get-session.service";
+import { Redirect, Stack } from "expo-router";
 import { AppState } from "react-native";
 
 AppState.addEventListener("change", (state) => {
@@ -11,6 +12,12 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function AuthLayout() {
+  const { data: session } = useGetSession();
+
+  if (session) {
+    return <Redirect href="/(tabs)" />;
+  }
+
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" />

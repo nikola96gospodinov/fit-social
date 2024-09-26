@@ -1,4 +1,4 @@
-import { Tabs, usePathname } from "expo-router";
+import { Redirect, Tabs, usePathname } from "expo-router";
 import { TabBarIcon } from "@/components/navigation/tab-bar-icon.component";
 import { colors } from "@/constants/colors.constants";
 import { Platform, useColorScheme } from "react-native";
@@ -7,29 +7,20 @@ import { WorkoutIcon } from "@/screens/workout/index/header/workout-icon/workout
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useGetSession } from "@/services/session/get-session.service";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme() ?? "light";
 
   const insets = useSafeAreaInsets();
 
-  const { started } = useActiveWorkoutStore();
+  const workoutTabTitle = useGetWorkoutTabTitle();
 
-  const pathname = usePathname();
+  const { data: session } = useGetSession();
 
-  const timeSinceStarted = useGetTimer({
-    startTime: started,
-  });
-
-  const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
-
-  const workoutTabTitle = (() => {
-    const isPathnameWorkout = pathname.includes("/workout");
-
-    if (started && isPathnameWorkout) return "Workout";
-
-    return started ? formattedTime : "Add";
-  })();
+  if (!session) {
+    return <Redirect href="/(auth)" />;
+  }
 
   return (
     <Tabs
@@ -81,3 +72,25 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const useGetWorkoutTabTitle = () => {
+  const { started } = useActiveWorkoutStore();
+
+  const pathname = usePathname();
+
+  const timeSinceStarted = useGetTimer({
+    startTime: started,
+  });
+
+  const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
+
+  const workoutTabTitle = (() => {
+    const isPathnameWorkout = pathname.includes("/workout");
+
+    if (started && isPathnameWorkout) return "Workout";
+
+    return started ? formattedTime : "Add";
+  })();
+
+  return workoutTabTitle;
+};
