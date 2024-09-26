@@ -4,14 +4,25 @@ import { ThemedText } from "../themed-text/themed-text.component";
 
 type Props = {
   loadingMessage?: string;
+  size?: "small" | "large";
+  isNeutral?: boolean;
 };
 
-export const ThemedActivityIndicator = ({ loadingMessage }: Props) => {
+export const ThemedActivityIndicator = ({
+  loadingMessage,
+  size = "large",
+  isNeutral = false,
+}: Props) => {
   const theme = useColorScheme() ?? "light";
 
   return (
     <View>
-      <ActivityIndicator size="large" color={colors[theme].activeIcon} />
+      <ActivityIndicator
+        size={size}
+        color={
+          isNeutral ? colors[theme].invertedText : colors[theme].activeIcon
+        }
+      />
 
       {loadingMessage && <ThemedText>{loadingMessage}</ThemedText>}
     </View>

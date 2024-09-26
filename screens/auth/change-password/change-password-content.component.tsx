@@ -6,51 +6,54 @@ import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
 import { router } from "expo-router";
 import { useState } from "react";
 
-export const ForgotPasswordContent = () => {
-  const [email, setEmail] = useState("");
+export const ChangePasswordContent = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <FullScreenCenteredView>
       <ThemedText type="title" style={{ alignSelf: "flex-start" }}>
-        Forgot password?
+        Change Password
       </ThemedText>
 
       <VerticalSpacing size={2} />
 
-      <ThemedText>
-        Enter your email address and we will send you a link to reset your
-        password.
+      <ThemedText style={{ alignSelf: "flex-start" }}>
+        Enter your new password below.
       </ThemedText>
 
       <VerticalSpacing size={8} />
 
       <ThemedTextInput
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
         autoCapitalize="none"
         clearButton
-        icon={{ name: "at", size: 20 }}
+        icon={{ name: "lock-closed-outline", size: 20 }}
+      />
+
+      <VerticalSpacing size={4} />
+
+      <ThemedTextInput
+        value={confirmPassword}
+        onChangeText={setConfirmPassword}
+        secureTextEntry
+        autoCapitalize="none"
+        clearButton
+        icon={{ name: "lock-closed", size: 20 }}
       />
 
       <VerticalSpacing size={6} />
 
-      <ThemedButton text="Send reset link" isFullWidth />
+      <ThemedButton text="Change password" isFullWidth />
 
       <VerticalSpacing size={6} />
 
       <ThemedButton
         text="Back to login"
         variant="link"
-        onPress={() => router.back()}
-      />
-
-      <VerticalSpacing size={12} />
-
-      <ThemedButton
-        text="Change password"
-        variant="link"
-        onPress={() => router.push("/change-password")}
+        onPress={() => router.push("/(auth)")}
       />
     </FullScreenCenteredView>
   );

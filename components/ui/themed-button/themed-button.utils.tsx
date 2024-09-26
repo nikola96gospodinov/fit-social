@@ -5,8 +5,23 @@ import { Size, Variant } from "./themed-button.types";
 const getVariantStyles = ({
   variant,
   theme,
-}: Pick<Props, "theme" | "variant">) => {
+  isDisabled,
+}: Pick<Props, "theme" | "variant" | "isDisabled">) => {
   const themeColors = colors[theme];
+
+  if (isDisabled) {
+    return StyleSheet.create({
+      pressable: {
+        backgroundColor: themeColors.buttonFillDisabled,
+      },
+
+      pressableTap: {},
+
+      text: {},
+
+      textTap: {},
+    });
+  }
 
   switch (variant) {
     case "outline": {
@@ -153,11 +168,16 @@ type Props = {
   variant: Variant;
   theme: NonNullable<ColorSchemeName>;
   size: Size;
-  isFullWidth?: boolean;
+  isDisabled?: boolean | null;
 };
 
-export const getButtonStyles = ({ variant, size, theme }: Props) => {
-  const variantStyles = getVariantStyles({ variant, theme });
+export const getButtonStyles = ({
+  variant,
+  size,
+  theme,
+  isDisabled,
+}: Props) => {
+  const variantStyles = getVariantStyles({ variant, theme, isDisabled });
   const sizeStyles = getSizeStyles(size);
 
   const isFlat = variant === "flat";

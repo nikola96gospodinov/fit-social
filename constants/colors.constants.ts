@@ -57,7 +57,7 @@ const green = {
 export const colors = {
   light: {
     text: slate[900],
-    invertedText: slate[100],
+    invertedText: slate[50],
     supportingText: slate[600],
     tintText: indigo[700],
     tintBackgroundText: indigo[50],
@@ -74,6 +74,7 @@ export const colors = {
     activeIcon: indigo[800],
 
     buttonFill: slate[800],
+    buttonFillDisabled: slate[500],
     buttonTextColor: slate[100],
     buttonFillOnTap: slate[950],
 
@@ -90,7 +91,7 @@ export const colors = {
   },
   dark: {
     text: slate[100],
-    invertedText: slate[900],
+    invertedText: slate[950],
     supportingText: slate[400],
     tintText: indigo[300],
     tintBackgroundText: indigo[950],
@@ -107,6 +108,7 @@ export const colors = {
     activeIcon: indigo[500],
 
     buttonFill: slate[100],
+    buttonFillDisabled: slate[400],
     buttonTextColor: slate[900],
     buttonFillOnTap: slate[50],
 

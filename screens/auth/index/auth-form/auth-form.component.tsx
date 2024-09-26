@@ -4,6 +4,7 @@ import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-i
 import { router } from "expo-router";
 import { capitalize } from "lodash";
 import { useState } from "react";
+import { REGISTER } from "../auth-content.constants";
 
 type Props = {
   activeAction: "Login" | "Register";
@@ -12,6 +13,7 @@ type Props = {
 export const AuthForm = ({ activeAction }: Props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <>
@@ -35,6 +37,21 @@ export const AuthForm = ({ activeAction }: Props) => {
         icon={{ name: "lock-closed-outline", size: 20 }}
       />
 
+      {activeAction === REGISTER && (
+        <>
+          <VerticalSpacing size={4} />
+
+          <ThemedTextInput
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
+            secureTextEntry
+            autoCapitalize="none"
+            clearButton
+            icon={{ name: "lock-closed", size: 20 }}
+          />
+        </>
+      )}
+
       <VerticalSpacing size={6} />
 
       <ThemedButton
@@ -42,7 +59,6 @@ export const AuthForm = ({ activeAction }: Props) => {
         onPress={() => {
           router.push("/(tabs)");
         }}
-        style={{ alignSelf: "flex-start", borderRadius: 24 }}
         isFullWidth
         isCentered
       />
