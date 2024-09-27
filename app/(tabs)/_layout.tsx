@@ -7,7 +7,7 @@ import { WorkoutIcon } from "@/screens/workout/index/header/workout-icon/workout
 import { useGetTimer } from "@/hooks/use-get-timer";
 import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useGetSession } from "@/services/session/get-session.service";
+import { useGetSession } from "@/services/auth/get-session.service";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme() ?? "light";

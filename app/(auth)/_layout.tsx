@@ -1,5 +1,5 @@
 import { supabase } from "@/lib/supabase";
-import { useGetSession } from "@/services/session/get-session.service";
+import { useGetSession } from "@/services/auth/get-session.service";
 import { Redirect, Stack } from "expo-router";
 import { AppState } from "react-native";
 

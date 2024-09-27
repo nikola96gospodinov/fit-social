@@ -49,5 +49,5 @@ export const NetworkError = ({ message, refetch }: Props) => {
 };
 
 const styles = StyleSheet.create({
-  container: { padding: 12, borderRadius: 12 },
+  container: { padding: 12, borderRadius: 12, width: "100%" },
 });

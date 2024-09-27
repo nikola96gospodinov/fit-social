@@ -1,51 +1,49 @@
 import { ColorSchemeName, StyleSheet } from "react-native";
-import { Mode, Size } from "./themed-text-input.types";
+import { Size } from "./themed-text-input.types";
 import { colors } from "@/constants/colors.constants";
 
 type GetModeStylesProps = {
-  mode: Mode;
   theme: NonNullable<ColorSchemeName>;
   isFocused?: boolean;
+  isError?: boolean;
 };
 
 export const getModeStyles = ({
-  mode,
+  isError,
   theme,
   isFocused,
 }: GetModeStylesProps) => {
   const themeColors = colors[theme];
 
-  switch (mode) {
-    case "error":
-      return StyleSheet.create({
-        container: {
-          backgroundColor: themeColors.destructiveBackground,
-          borderColor: themeColors.destructiveBorder,
-          borderWidth: 1,
-        },
+  if (isError) {
+    return StyleSheet.create({
+      container: {
+        backgroundColor: themeColors.destructiveBackground,
+        borderColor: themeColors.destructiveBorder,
+        borderWidth: 1,
+      },
 
-        input: {
-          color: themeColors.text,
-        },
-      });
-
-    default:
-      const borderColor = isFocused
-        ? themeColors.borderFocused
-        : themeColors.border;
-
-      return StyleSheet.create({
-        container: {
-          backgroundColor: themeColors.sectionBackground,
-          borderColor,
-          borderWidth: 1,
-        },
-
-        input: {
-          color: themeColors.text,
-        },
-      });
+      input: {
+        color: themeColors.text,
+      },
+    });
   }
+
+  const borderColor = isFocused
+    ? themeColors.borderFocused
+    : themeColors.border;
+
+  return StyleSheet.create({
+    container: {
+      backgroundColor: themeColors.sectionBackground,
+      borderColor,
+      borderWidth: 1,
+    },
+
+    input: {
+      color: themeColors.text,
+    },
+  });
 };
 
 type GetSizeStylesProps = {

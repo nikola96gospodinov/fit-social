@@ -6,7 +6,7 @@ import {
   Pressable,
   DimensionValue,
 } from "react-native";
-import { Mode, Size } from "./themed-text-input.types";
+import { Size } from "./themed-text-input.types";
 import { getModeStyles, getSizeStyles } from "./themed-text-input.utils";
 import { ComponentProps, useState } from "react";
 import { Flex } from "../layout/flex/flex.component";
@@ -14,27 +14,29 @@ import { spacing } from "@/constants/spacing.constants";
 import { Ionicons } from "@expo/vector-icons";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { colors } from "@/constants/colors.constants";
+import { FormError } from "@/components/error/form-error/form-error.component";
+import { VerticalSpacing } from "../layout/vertical-spacing/vertical-spacing.component";
 
-type Props = TextInputProps & {
-  mode?: Mode;
+export type ThemedTextInputProps = TextInputProps & {
   size?: Size;
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
   clearButton?: boolean;
   width?: DimensionValue;
   centerContent?: boolean;
+  error?: string;
 };
 
 export const ThemedTextInput = ({
   style,
-  mode = "default",
   size = "default",
   icon,
   clearButton,
   width,
   centerContent,
   secureTextEntry: defaultSecureTextEntry,
+  error,
   ...rest
-}: Props) => {
+}: ThemedTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(
     defaultSecureTextEntry,
@@ -42,7 +44,11 @@ export const ThemedTextInput = ({
 
   const theme = useColorScheme() ?? "light";
 
-  const { input, container } = getModeStyles({ mode, theme, isFocused });
+  const { input, container } = getModeStyles({
+    isError: !!error,
+    theme,
+    isFocused,
+  });
   const { container: sizeContainer } = getSizeStyles({ size, isIcon: !!icon });
 
   const isValue = Number(rest.value?.length) > 0;
@@ -52,38 +58,51 @@ export const ThemedTextInput = ({
   const showPasswordToggleButton = defaultSecureTextEntry && isValue;
 
   return (
-    <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
-      <Flex
-        direction="row"
-        gap={spacing[0.5]}
-        align="center"
-        style={[styles.defaultContainer, container, sizeContainer]}>
-        {icon && <Ionicons color={colors[theme].icon} {...icon} />}
+    <>
+      <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
+        <Flex
+          direction="row"
+          gap={spacing[0.5]}
+          align="center"
+          style={[styles.defaultContainer, container, sizeContainer]}>
+          {icon && <Ionicons color={colors[theme].icon} {...icon} />}
 
-        <TextInput
-          {...rest}
-          secureTextEntry={secureTextEntry}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          style={[
-            {
-              textAlign: centerContent ? "center" : "auto",
-            },
-            input,
-            styles.defaultInput,
-          ]}
-        />
-
-        {showClearButton && <ClearButton onChangeText={rest.onChangeText} />}
-
-        {showPasswordToggleButton && (
-          <PasswordToggleButton
+          <TextInput
+            {...rest}
             secureTextEntry={secureTextEntry}
-            setSecureTextEntry={setSecureTextEntry}
+            onFocus={() => setIsFocused(true)}
+            onBlur={(e) => {
+              setIsFocused(false);
+              rest.onBlur?.(e);
+            }}
+            style={[
+              {
+                textAlign: centerContent ? "center" : "auto",
+              },
+              input,
+              styles.defaultInput,
+            ]}
           />
-        )}
+
+          {showClearButton && <ClearButton onChangeText={rest.onChangeText} />}
+
+          {showPasswordToggleButton && (
+            <PasswordToggleButton
+              secureTextEntry={secureTextEntry}
+              setSecureTextEntry={setSecureTextEntry}
+            />
+          )}
+        </Flex>
       </Flex>
-    </Flex>
+
+      {error && (
+        <>
+          <VerticalSpacing size={spacing[0.5]} />
+
+          <FormError error={error} />
+        </>
+      )}
+    </>
   );
 };
 
