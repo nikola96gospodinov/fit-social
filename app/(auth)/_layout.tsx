@@ -1,3 +1,4 @@
+import { FullScreenLoader } from "@/components/ui/full-screen-loader/full-screen-loader.component";
 import { supabase } from "@/lib/supabase";
 import { useGetSession } from "@/services/auth/get-session.service";
 import { Redirect, Stack } from "expo-router";
@@ -12,7 +13,11 @@ AppState.addEventListener("change", (state) => {
 });
 
 export default function AuthLayout() {
-  const { data: session } = useGetSession();
+  const { data: session, isLoading } = useGetSession();
+
+  if (isLoading) {
+    return <FullScreenLoader />;
+  }
 
   if (session) {
     return <Redirect href="/(tabs)" />;

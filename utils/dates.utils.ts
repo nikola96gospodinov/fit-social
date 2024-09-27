@@ -1,4 +1,4 @@
-import { intervalToDuration } from "date-fns";
+import { intervalToDuration, format } from "date-fns";
 
 export const getFormattedTimeFromMilliseconds = (milliseconds: number) => {
   const { hours, minutes, seconds } = intervalToDuration({
@@ -16,4 +16,8 @@ export const getFormattedTimeFromMilliseconds = (milliseconds: number) => {
   formatted.push(seconds);
 
   return formatted.map(zeroPad).join(":");
+};
+
+export const getFormattedDate = (date: string | Date) => {
+  return format(new Date(date), "dd MMMM yyyy");
 };
