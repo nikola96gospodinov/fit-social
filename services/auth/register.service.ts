@@ -2,8 +2,8 @@ import { supabase } from "@/lib/supabase";
 import { AuthFormValues } from "@/screens/auth/index/auth-form/auth-form.schema";
 import { useMutation } from "@tanstack/react-query";
 
-const login = async ({ email, password }: AuthFormValues) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+const register = async ({ email, password }: AuthFormValues) => {
+  const { data, error } = await supabase.auth.signUp({
     email,
     password,
   });
@@ -15,8 +15,8 @@ const login = async ({ email, password }: AuthFormValues) => {
   return data;
 };
 
-export const useLogin = () => {
+export const useRegister = () => {
   return useMutation({
-    mutationFn: login,
+    mutationFn: register,
   });
 };

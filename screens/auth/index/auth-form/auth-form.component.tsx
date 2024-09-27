@@ -10,6 +10,7 @@ import { AuthFormValues, authFormSchema } from "./auth-form.schema";
 import { useLogin } from "@/services/auth/login.service";
 import { useEffect } from "react";
 import { NetworkError } from "@/components/error/network-error/network-error.component";
+import { useRegister } from "@/services/auth/register.service";
 
 type Props = {
   activeAction: LoginAction;
@@ -22,19 +23,31 @@ export const AuthForm = ({ activeAction }: Props) => {
     reValidateMode: "onChange",
   });
 
-  useEffect(() => {
-    reset();
-  }, [activeAction, reset]);
+  const onSubmitSuccess = () => router.push("/(tabs)");
 
   const {
     mutate: login,
     error: loginError,
     isPending: isLoginPending,
+    reset: resetLogin,
   } = useLogin();
 
+  const {
+    mutate: register,
+    error: registerError,
+    isPending: isRegisterPending,
+    reset: resetRegister,
+  } = useRegister();
+
+  useEffect(() => {
+    resetLogin();
+    resetRegister();
+    reset();
+  }, [activeAction, resetLogin, resetRegister, reset]);
+
   const onSubmit = (data: AuthFormValues) => {
-    if (activeAction === LOGIN)
-      login(data, { onSuccess: () => router.push("/(tabs)") });
+    if (activeAction === LOGIN) login(data, { onSuccess: onSubmitSuccess });
+    else register(data, { onSuccess: onSubmitSuccess });
   };
 
   const isLoginError = loginError && activeAction === LOGIN;
@@ -68,7 +81,7 @@ export const AuthForm = ({ activeAction }: Props) => {
         onPress={handleSubmit(onSubmit)}
         isFullWidth
         isCentered
-        isLoading={isLoginPending}
+        isLoading={isLoginPending || isRegisterPending}
       />
 
       {isLoginError && (
@@ -76,6 +89,14 @@ export const AuthForm = ({ activeAction }: Props) => {
           <VerticalSpacing size={4} />
 
           <NetworkError message={loginError.message} />
+        </>
+      )}
+
+      {registerError && (
+        <>
+          <VerticalSpacing size={4} />
+
+          <NetworkError message={registerError.message} />
         </>
       )}
     </>
