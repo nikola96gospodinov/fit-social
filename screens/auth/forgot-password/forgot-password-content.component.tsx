@@ -1,13 +1,35 @@
 import { FullScreenCenteredView } from "@/components/ui/layout/full-screen-centered-view/full-screen-centered-view.component";
 import { VerticalSpacing } from "@/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/components/ui/themed-button/themed-button.component";
-import { ThemedTextInput } from "@/components/ui/themed-text-input/themed-text-input.component";
 import { ThemedText } from "@/components/ui/themed-text/themed-text.component";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import {
+  ForgotPasswordSchema,
+  forgotPasswordSchema,
+} from "./forgot-password.schema";
+import { ControlledThemedTextInput } from "@/components/ui/themed-text-input/controlled-themed-text-input.component";
+import { useResetPassword } from "@/services/auth/reset-password.service";
+import { ConfirmationBox } from "@/components/confirmation-box/confirmation-box.component";
+import { SlideContent } from "@/components/animation/slide-content.component";
+import { NetworkError } from "@/components/error/network-error/network-error.component";
 
 export const ForgotPasswordContent = () => {
-  const [email, setEmail] = useState("");
+  const { control, handleSubmit } = useForm<ForgotPasswordSchema>({
+    resolver: zodResolver(forgotPasswordSchema),
+  });
+
+  const {
+    mutate: resetPassword,
+    isPending,
+    isSuccess,
+    error,
+  } = useResetPassword();
+
+  const onSubmit = (data: ForgotPasswordSchema) => {
+    resetPassword(data.email);
+  };
 
   return (
     <FullScreenCenteredView>
@@ -24,9 +46,9 @@ export const ForgotPasswordContent = () => {
 
       <VerticalSpacing size={8} />
 
-      <ThemedTextInput
-        value={email}
-        onChangeText={setEmail}
+      <ControlledThemedTextInput
+        control={control}
+        name="email"
         keyboardType="email-address"
         autoCapitalize="none"
         clearButton
@@ -35,7 +57,24 @@ export const ForgotPasswordContent = () => {
 
       <VerticalSpacing size={6} />
 
-      <ThemedButton text="Send reset link" isFullWidth />
+      <ThemedButton
+        text="Send reset link"
+        isFullWidth
+        onPress={handleSubmit(onSubmit)}
+        isLoading={isPending}
+      />
+
+      <SlideContent isVisible={!!error}>
+        <VerticalSpacing size={6} />
+
+        <NetworkError message={error?.message ?? ""} />
+      </SlideContent>
+
+      <SlideContent isVisible={isSuccess}>
+        <VerticalSpacing size={6} />
+
+        <ConfirmationBox text="A reset link has been sent to your email." />
+      </SlideContent>
 
       <VerticalSpacing size={6} />
 
@@ -43,14 +82,6 @@ export const ForgotPasswordContent = () => {
         text="Back to login"
         variant="link"
         onPress={() => router.back()}
-      />
-
-      <VerticalSpacing size={12} />
-
-      <ThemedButton
-        text="Change password"
-        variant="link"
-        onPress={() => router.push("/change-password")}
       />
     </FullScreenCenteredView>
   );

@@ -6,7 +6,7 @@ import { Pressable, useColorScheme, View, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type Props = {
-  message: string;
+  message?: string;
   refetch?: (...args: any) => void;
 };
 
@@ -30,7 +30,7 @@ export const NetworkError = ({ message, refetch }: Props) => {
           />
 
           <ThemedText type="small" color="error">
-            {message}
+            {message || "Something went wrong"}
           </ThemedText>
         </Flex>
 

@@ -100,7 +100,7 @@ export const colors = {
     cardBackground: slate[900],
     sectionBackground: slate[800],
     oppositeBackground: slate[50],
-    tintBackground: indigo[300],
+    tintBackground: indigo[500],
     tintActiveBackground: indigo[950],
 
     icon: slate[400],
