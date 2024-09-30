@@ -1,8 +1,15 @@
 import { ThemedText } from "../themed-text/themed-text.component";
 import { Flex } from "../layout/flex/flex.component";
-import { StyleSheet, useColorScheme, Pressable } from "react-native";
+import {
+  StyleSheet,
+  useColorScheme,
+  Pressable,
+  View,
+  LayoutAnimation,
+} from "react-native";
 import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
+import { useEffect } from "react";
 
 type Props<Left extends string, Right extends string> = {
   leftText: Left;
@@ -19,6 +26,10 @@ export const ActionToggler = <Left extends string, Right extends string>({
 }: Props<Left, Right>) => {
   const theme = useColorScheme() ?? "light";
 
+  useEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+  }, [activeAction]);
+
   return (
     <Flex
       direction="row"
@@ -31,15 +42,20 @@ export const ActionToggler = <Left extends string, Right extends string>({
           borderColor: colors[theme].border,
         },
       ]}>
+      <View
+        style={[
+          styles.bubble,
+          {
+            backgroundColor: colors[theme].oppositeBackground,
+            left: activeAction === leftText ? 3 : "50%",
+            right: activeAction === rightText ? 3 : "50%",
+          },
+        ]}
+      />
+
       <Pressable
         onPress={() => setActiveAction(leftText)}
-        style={[
-          styles.action,
-          styles.leftAction,
-          activeAction === leftText && {
-            backgroundColor: colors[theme].oppositeBackground,
-          },
-        ]}>
+        style={[styles.action, styles.leftAction]}>
         <ThemedText color={activeAction === leftText ? "inverted" : "default"}>
           {leftText}
         </ThemedText>
@@ -47,13 +63,7 @@ export const ActionToggler = <Left extends string, Right extends string>({
 
       <Pressable
         onPress={() => setActiveAction(rightText)}
-        style={[
-          styles.action,
-          styles.rightAction,
-          activeAction === rightText && {
-            backgroundColor: colors[theme].oppositeBackground,
-          },
-        ]}>
+        style={[styles.action, styles.rightAction]}>
         <ThemedText color={activeAction === rightText ? "inverted" : "default"}>
           {rightText}
         </ThemedText>
@@ -91,5 +101,13 @@ const styles = StyleSheet.create({
 
   inactiveAction: {
     backgroundColor: "transparent",
+  },
+
+  bubble: {
+    width: "50%",
+    backgroundColor: "red",
+    height: "100%",
+    borderRadius: 24,
+    position: "absolute",
   },
 });
