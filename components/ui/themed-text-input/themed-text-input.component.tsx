@@ -24,6 +24,7 @@ export type ThemedTextInputProps = TextInputProps & {
   width?: DimensionValue;
   centerContent?: boolean;
   error?: string;
+  ref?: React.Ref<TextInput>;
 };
 
 export const ThemedTextInput = ({
@@ -35,6 +36,7 @@ export const ThemedTextInput = ({
   centerContent,
   secureTextEntry: defaultSecureTextEntry,
   error,
+  ref,
   ...rest
 }: ThemedTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -82,6 +84,7 @@ export const ThemedTextInput = ({
               input,
               styles.defaultInput,
             ]}
+            ref={ref}
           />
 
           {showClearButton && <ClearButton onChangeText={rest.onChangeText} />}
