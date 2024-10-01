@@ -26,10 +26,6 @@ export const ActionToggler = <Left extends string, Right extends string>({
 }: Props<Left, Right>) => {
   const theme = useColorScheme() ?? "light";
 
-  useEffect(() => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-  }, [activeAction]);
-
   return (
     <Flex
       direction="row"
@@ -54,7 +50,10 @@ export const ActionToggler = <Left extends string, Right extends string>({
       />
 
       <Pressable
-        onPress={() => setActiveAction(leftText)}
+        onPress={() => {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+          setActiveAction(leftText);
+        }}
         style={[styles.action, styles.leftAction]}>
         <ThemedText color={activeAction === leftText ? "inverted" : "default"}>
           {leftText}
@@ -62,7 +61,10 @@ export const ActionToggler = <Left extends string, Right extends string>({
       </Pressable>
 
       <Pressable
-        onPress={() => setActiveAction(rightText)}
+        onPress={() => {
+          LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
+          setActiveAction(rightText);
+        }}
         style={[styles.action, styles.rightAction]}>
         <ThemedText color={activeAction === rightText ? "inverted" : "default"}>
           {rightText}
