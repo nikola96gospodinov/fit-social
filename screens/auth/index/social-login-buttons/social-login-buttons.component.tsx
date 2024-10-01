@@ -1,19 +1,31 @@
+import { SlideContent } from "@/components/animation/slide-content.component";
+import { NetworkError } from "@/components/error/network-error/network-error.component";
 import { Flex } from "@/components/ui/layout/flex/flex.component";
+import { ThemedActivityIndicator } from "@/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { slate } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
+import { useGoogleLogin } from "@/services/auth/google-login.service";
 import { Image } from "expo-image";
-import { Pressable, StyleSheet } from "react-native";
+import { Platform, Pressable, StyleSheet } from "react-native";
 
 export const SocialLoginButtons = () => {
+  const { mutate: googleSignIn, isPending, error } = useGoogleLogin();
+
   return (
     <Flex gap={4} direction="row" align="center" justify="center">
-      <Pressable style={styles.imageContainer}>
-        <Image
-          source={require("@/assets/images/google.webp")}
-          style={styles.image}
-          contentFit="contain"
-        />
-      </Pressable>
+      {Platform.OS === "android" && (
+        <Pressable style={styles.imageContainer} onPress={() => googleSignIn()}>
+          {isPending ? (
+            <ThemedActivityIndicator size={24} />
+          ) : (
+            <Image
+              source={require("@/assets/images/google.webp")}
+              style={styles.image}
+              contentFit="contain"
+            />
+          )}
+        </Pressable>
+      )}
 
       <Pressable style={styles.imageContainer}>
         <Image
@@ -30,6 +42,10 @@ export const SocialLoginButtons = () => {
           contentFit="contain"
         />
       </Pressable>
+
+      <SlideContent isVisible={!!error}>
+        <NetworkError message={error?.message} />
+      </SlideContent>
     </Flex>
   );
 };

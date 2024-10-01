@@ -4,7 +4,7 @@ import { ThemedText } from "../themed-text/themed-text.component";
 
 type Props = {
   loadingMessage?: string;
-  size?: "small" | "large";
+  size?: "small" | "large" | number;
   isNeutral?: boolean;
 };
 
