@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { colors } from "@/constants/colors.constants";
 import { spacing } from "@/constants/spacing.constants";
-import { useEffect } from "react";
 
 type Props<Left extends string, Right extends string> = {
   leftText: Left;

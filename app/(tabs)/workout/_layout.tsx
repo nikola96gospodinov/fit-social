@@ -43,7 +43,7 @@ export default function WorkoutLayout() {
             totalNumberOfFilters ? ` (${totalNumberOfFilters})` : ""
           }`,
           presentation: "modal",
-          headerRight: () => <ClearFilter />,
+          headerRight: ClearFilter,
         }}
       />
 

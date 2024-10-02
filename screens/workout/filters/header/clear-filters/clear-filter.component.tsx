@@ -3,7 +3,7 @@ import { useExerciseFilterStore } from "@/store/exercise-filter-store";
 import { useRouter } from "expo-router";
 
 export const ClearFilter = () => {
-  const { clearFilters } = useExerciseFilterStore();
+  const { clearFilters, filters } = useExerciseFilterStore();
 
   const router = useRouter();
 
@@ -15,5 +15,7 @@ export const ClearFilter = () => {
     }
   };
 
-  return <ThemedButton text="Clear" variant="flat" onPress={onPress} />;
+  const buttonText = filters.length > 0 ? "Clear" : "Close";
+
+  return <ThemedButton text={buttonText} variant="flat" onPress={onPress} />;
 };
