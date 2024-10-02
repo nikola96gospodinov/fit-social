@@ -9,6 +9,7 @@ import { useAppleLogin } from "@/src/services/auth/apple-login.service";
 import { Image } from "expo-image";
 import { Platform, Pressable, StyleSheet } from "react-native";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 
 export const SocialLoginButtons = () => {
   const {
@@ -33,11 +34,15 @@ export const SocialLoginButtons = () => {
             {isGoogleSignInPending ? (
               <ThemedActivityIndicator size={24} />
             ) : (
-              <Image
-                source={require("@/assets/images/google.webp")}
-                style={styles.image}
-                contentFit="contain"
-              />
+              <Flex direction="row" align="center" justify="center" gap={3}>
+                <Image
+                  source={require("@/assets/images/google.webp")}
+                  style={styles.image}
+                  contentFit="contain"
+                />
+
+                <ThemedText style={styles.buttonText}>Google Login</ThemedText>
+              </Flex>
             )}
           </Pressable>
         )}
@@ -49,11 +54,15 @@ export const SocialLoginButtons = () => {
             {isAppleSignInPending ? (
               <ThemedActivityIndicator size={24} />
             ) : (
-              <Image
-                source={require("@/assets/images/apple.png")}
-                style={styles.image}
-                contentFit="contain"
-              />
+              <Flex direction="row" align="center" justify="center" gap={3}>
+                <Image
+                  source={require("@/assets/images/apple.png")}
+                  style={styles.image}
+                  contentFit="contain"
+                />
+
+                <ThemedText style={styles.buttonText}>Apple Login</ThemedText>
+              </Flex>
             )}
           </Pressable>
         )}
@@ -81,10 +90,20 @@ const styles = StyleSheet.create({
     borderColor: slate[500],
     padding: spacing[2],
     borderRadius: 100,
+    width: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 
   image: {
     width: 24,
     height: 24,
+  },
+
+  buttonText: {
+    color: slate[900],
+    fontWeight: "500",
+    marginTop: 1,
   },
 });
