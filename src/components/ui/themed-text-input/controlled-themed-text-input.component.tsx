@@ -6,10 +6,19 @@ import {
 import { Controller, FieldValues, UseControllerProps } from "react-hook-form";
 import { TextInput } from "react-native";
 
+type WithForwardRefType = React.FC<Props<FieldValues>> & {
+  <T extends FieldValues>(props: Props<T>): ReturnType<React.FC<Props<T>>>;
+};
+
 type Props<T extends FieldValues> = Omit<UseControllerProps<T>, "render"> &
   ThemedTextInputProps;
 
-export const ControlledThemedTextInput = forwardRef(
+// We get all the type safety necessary despite the ts-ignore
+// @ts-ignore
+export const ControlledThemedTextInput: WithForwardRefType = forwardRef<
+  TextInput,
+  Props<FieldValues>
+>(
   <T extends FieldValues>(
     { control, name, rules, defaultValue, shouldUnregister, ...rest }: Props<T>,
     ref: React.Ref<TextInput>,
