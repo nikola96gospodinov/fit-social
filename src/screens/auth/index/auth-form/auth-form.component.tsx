@@ -86,13 +86,13 @@ export const AuthForm = ({ activeAction }: Props) => {
         isLoading={isLoginPending || isRegisterPending}
       />
 
-      <SlideContent isVisible={!!isLoginError}>
+      <SlideContent isVisible={!!isLoginError} isFullWidth>
         <VerticalSpacing size={4} />
 
         <NetworkError message={loginError?.message} />
       </SlideContent>
 
-      <SlideContent isVisible={!!isRegisterError}>
+      <SlideContent isVisible={!!isRegisterError} isFullWidth>
         <VerticalSpacing size={4} />
 
         <NetworkError message={registerError?.message} />
