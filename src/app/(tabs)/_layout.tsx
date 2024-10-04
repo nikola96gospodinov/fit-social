@@ -5,7 +5,7 @@ import { Platform, useColorScheme } from "react-native";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { WorkoutIcon } from "@/src/screens/workout/index/header/workout-icon/workout-icon.component";
 import { useGetTimer } from "@/src/hooks/use-get-timer";
-import { getFormattedTimeFromMilliseconds } from "@/utils/dates.utils";
+import { getFormattedTimeFromMilliseconds } from "@/src/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useGetSession } from "@/src/services/auth/get-session.service";
 

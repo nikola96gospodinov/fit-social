@@ -4,7 +4,7 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { useGetProfile } from "@/src/services/auth/get-profile.service";
 import { useLogout } from "@/src/services/auth/logout.service";
-import { getFormattedDate } from "@/utils/dates.utils";
+import { getFormattedDate } from "@/src/utils/dates.utils";
 
 export const ProfileContent = () => {
   const { data: profile } = useGetProfile();

@@ -12,7 +12,8 @@
     "lint": "expo lint",
     "prettier-all": "prettier --write .",
     "prettier-pre-commit": "prettier -u --write $(git diff --name-only --diff-filter=d HEAD | grep -E '\\.(tsx|ts)$' | xargs)",
-    "prepare": "husky"
+    "prepare": "husky",
+    "generate-types": "npx supabase gen types --lang=typescript --project-id \"cpvgwqvfrvuzvddcprum\" --schema public > src/types/database.types.ts"
   },
   "jest": {
     "preset": "jest-expo"

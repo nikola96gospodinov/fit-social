@@ -1,5 +1,5 @@
 import { GetExercisesProps } from "@/src/services/exercises/get-all-exercises.service";
-import { addQueryParamsToUrl } from "@/utils/url.utils";
+import { addQueryParamsToUrl } from "@/src/utils/url.utils";
 
 export const URL = {
   EXERCISE: {
