@@ -26,18 +26,19 @@ export const ProfileContent = () => {
     <View>
       <ProfileHeader />
 
-      <VerticalSpacing size={2} />
+      <VerticalSpacing size={8} />
 
-      <ThemedText type="subtitle">
+      <ThemedText>
         Member since: {getFormattedDate(profile.created_at)}
       </ThemedText>
 
-      <VerticalSpacing size={6} />
+      <VerticalSpacing size={2} />
 
       <ThemedButton
         text="Sign out"
         onPress={() => logout()}
         isLoading={isPending}
+        size="sm"
       />
     </View>
   );

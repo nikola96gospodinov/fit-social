@@ -1,51 +1,38 @@
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { Avatar } from "./avatar/avatar.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { colors } from "@/src/constants/colors.constants";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { ProfileGradient } from "./profile-gradient/profile-gradient.component";
+import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ProfileAction } from "./profile-action/profile-action.component";
+import { Bio } from "../bio/bio.component";
 
 export const ProfileHeader = () => {
-  const theme = useColorScheme() ?? "light";
-
   const { data: profile } = useGetProfile();
 
-  if (!profile) {
-    return null;
-  }
+  if (!profile) return null;
 
   return (
     <View>
       <ProfileGradient />
 
       <View style={styles.container}>
-        <Flex direction="row" justify="space-between">
-          <Flex direction="row" gap={2}>
+        <Flex direction="row" justify="space-between" align="center">
+          <Flex direction="row" gap={2} align="center">
             <Avatar avatarUrl={profile.avatar_url} />
-
-            <View style={styles.userInfo}>
-              <ThemedText type="subtitle">
-                {/* TODO: Change */}
-                {profile.full_name ?? "Nik Gospodinov"}
-              </ThemedText>
-
-              {/* TODO: Change */}
-              <ThemedText type="small">
-                @{profile.username ?? "nikgospodinov"}
-              </ThemedText>
-            </View>
+            <ThemedText type="small" color="default">
+              @{profile.username}
+            </ThemedText>
           </Flex>
 
-          <FontAwesome6
-            name="user-gear"
-            size={20}
-            color={colors[theme].icon}
-            style={{ marginTop: -spacing[2], marginRight: -spacing[1] }}
-          />
+          <ProfileAction />
         </Flex>
+
+        <VerticalSpacing size={2} />
+
+        <Bio />
       </View>
     </View>
   );

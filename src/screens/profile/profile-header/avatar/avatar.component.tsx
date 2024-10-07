@@ -12,6 +12,9 @@ type Props = {
 export const Avatar = ({ avatarUrl }: Props) => {
   const theme = useColorScheme() ?? "light";
 
+  // TODO: Determine later
+  const isYourProfile = true;
+
   return (
     <View
       style={[
@@ -22,29 +25,31 @@ export const Avatar = ({ avatarUrl }: Props) => {
         },
       ]}>
       {avatarUrl ? (
-        <Image source={{ uri: avatarUrl }} />
+        <Image source={{ uri: avatarUrl }} style={{ width: 70, height: 70 }} />
       ) : (
-        <FontAwesome name="user-circle" size={90} color={colors[theme].icon} />
+        <FontAwesome name="user-circle" size={60} color={colors[theme].icon} />
       )}
 
-      <View
-        style={[
-          styles.avatarEdit,
-          {
-            backgroundColor: colors[theme].background,
-            borderColor: colors[theme].border,
-          },
-        ]}>
-        <FontAwesome6 name="pencil" size={14} color={colors[theme].icon} />
-      </View>
+      {isYourProfile && (
+        <View
+          style={[
+            styles.avatarEdit,
+            {
+              backgroundColor: colors[theme].background,
+              borderColor: colors[theme].border,
+            },
+          ]}>
+          <FontAwesome6 name="pencil" size={12} color={colors[theme].icon} />
+        </View>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   avatar: {
-    width: 100,
-    height: 100,
+    width: 70,
+    height: 70,
     borderRadius: 50,
     borderWidth: 5,
     marginTop: -spacing[8],

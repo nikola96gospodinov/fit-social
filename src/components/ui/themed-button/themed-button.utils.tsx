@@ -119,6 +119,20 @@ const getVariantStyles = ({
 
 const getSizeStyles = (size: Size) => {
   switch (size) {
+    case "xs": {
+      return StyleSheet.create({
+        pressable: {
+          borderRadius: 8,
+          paddingHorizontal: 10,
+          paddingVertical: 6,
+        },
+
+        text: {
+          fontSize: 12,
+        },
+      });
+    }
+
     case "sm": {
       return StyleSheet.create({
         pressable: {
