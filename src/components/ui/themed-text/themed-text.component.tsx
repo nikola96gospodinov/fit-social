@@ -2,7 +2,7 @@ import { colors } from "@/src/constants/colors.constants";
 import { Text, type TextProps, StyleSheet, useColorScheme } from "react-native";
 
 export type ThemedTextProps = TextProps & {
-  type?: "default" | "title" | "subtitle" | "small";
+  type?: "default" | "title" | "subtitle" | "small" | "extraSmall";
   color?:
     | "default"
     | "inverted"
@@ -54,6 +54,7 @@ export function ThemedText({
         type === "title" ? styles.title : undefined,
         type === "subtitle" ? styles.subtitle : undefined,
         type === "small" ? styles.small : undefined,
+        type === "extraSmall" ? styles.extraSmall : undefined,
         style,
       ]}
       {...rest}
@@ -81,5 +82,10 @@ const styles = StyleSheet.create({
   small: {
     fontSize: 14,
     lineHeight: 20,
+  },
+
+  extraSmall: {
+    fontSize: 13,
+    lineHeight: 16,
   },
 });

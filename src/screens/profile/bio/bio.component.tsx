@@ -17,7 +17,7 @@ export const Bio = () => {
 
       <VerticalSpacing size={0.5} />
 
-      <ThemedText type="small" style={styles.bio}>
+      <ThemedText type="extraSmall">
         {profile.bio ??
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien. Sed ut purus eget sapien."}
       </ThemedText>
@@ -28,10 +28,5 @@ export const Bio = () => {
 const styles = StyleSheet.create({
   fullName: {
     fontWeight: "600",
-  },
-
-  bio: {
-    lineHeight: 16,
-    fontSize: 13,
   },
 });
