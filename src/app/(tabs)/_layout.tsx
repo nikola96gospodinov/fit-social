@@ -26,7 +26,6 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: colors[colorScheme].activeIcon,
-        headerShown: false,
         headerTitleAlign: "center",
         tabBarStyle: {
           paddingBottom: Platform.OS === "android" ? 12 : insets.bottom,
@@ -37,6 +36,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Feed",
+          headerShown: false,
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
               name={focused ? "people-circle" : "people-circle-outline"}
@@ -61,6 +61,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
+          headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <TabBarIcon
               name={focused ? "person" : "person-outline"}
