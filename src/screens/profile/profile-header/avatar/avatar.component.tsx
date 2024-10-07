@@ -25,7 +25,12 @@ export const Avatar = ({ avatarUrl }: Props) => {
         },
       ]}>
       {avatarUrl ? (
-        <Image source={{ uri: avatarUrl }} style={{ width: 70, height: 70 }} />
+        <Image
+          source={{
+            uri: avatarUrl,
+          }}
+          style={styles.image}
+        />
       ) : (
         <FontAwesome name="user-circle" size={60} color={colors[theme].icon} />
       )}
@@ -48,10 +53,10 @@ export const Avatar = ({ avatarUrl }: Props) => {
 
 const styles = StyleSheet.create({
   avatar: {
-    width: 70,
-    height: 70,
+    width: 68,
+    height: 68,
     borderRadius: 50,
-    borderWidth: 5,
+    borderWidth: 4,
     marginTop: -spacing[8],
     alignItems: "center",
     justifyContent: "center",
@@ -64,5 +69,11 @@ const styles = StyleSheet.create({
     padding: spacing[1],
     borderRadius: 100,
     borderWidth: 1,
+  },
+
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
   },
 });
