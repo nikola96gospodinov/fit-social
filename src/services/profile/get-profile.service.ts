@@ -1,7 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
-
-const GET_PROFILE_QUERY_KEY = "profile";
+import { PROFILE_QUERY_KEY } from "./profile-keys";
+import { useGetSessionFromQueryClient } from "@/src/hooks/use-get-session-from-query-client";
 
 const getProfile = async () => {
   const { data: user, error: userError } = await supabase.auth.getUser();
@@ -27,8 +27,10 @@ const getProfile = async () => {
 };
 
 export const useGetProfile = () => {
+  const session = useGetSessionFromQueryClient();
+
   return useQuery({
-    queryKey: [GET_PROFILE_QUERY_KEY],
+    queryKey: [PROFILE_QUERY_KEY, session?.user.id],
     queryFn: () => getProfile(),
   });
 };

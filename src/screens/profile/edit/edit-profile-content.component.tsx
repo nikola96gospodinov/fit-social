@@ -7,11 +7,28 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { useForm } from "react-hook-form";
 import { ControlledThemedTextInput } from "@/src/components/ui/form/themed-text-input/controlled-themed-text-input.component";
 import { ControlledThemedSwitch } from "@/src/components/ui/form/themed-switch/controlled-themed-switch.component";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const editProfileSchema = z.object({
+  full_name: z.string().optional(),
+  username: z.string(),
+  is_public: z.boolean(),
+});
+
+type EditProfileForm = z.infer<typeof editProfileSchema>;
 
 export const EditProfileContent = () => {
   const { data: profile, isLoading } = useGetProfile();
 
-  const { control } = useForm();
+  const { control } = useForm<EditProfileForm>({
+    defaultValues: {
+      full_name: profile?.full_name ?? undefined,
+      username: profile?.username,
+      is_public: profile?.privacy === true,
+    },
+    resolver: zodResolver(editProfileSchema),
+  });
 
   if (isLoading || !profile) return <ThemedActivityIndicator />;
 
@@ -37,7 +54,11 @@ export const EditProfileContent = () => {
 
       <VerticalSpacing size={4} />
 
-      <ControlledThemedSwitch control={control} name="is_public" size="small" />
+      <ControlledThemedSwitch
+        control={control}
+        name="is_public"
+        label="Public profile"
+      />
     </View>
   );
 };
