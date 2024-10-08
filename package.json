@@ -58,7 +58,8 @@
     "zod": "^3.23.8",
     "zustand": "^4.5.4",
     "expo-apple-authentication": "~6.4.2",
-    "expo-linear-gradient": "~13.0.2"
+    "expo-linear-gradient": "~13.0.2",
+    "expo-image-picker": "~15.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

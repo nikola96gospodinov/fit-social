@@ -1,12 +1,7 @@
-import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { View } from "react-native";
+import { EditProfileContent } from "@/src/screens/profile/edit/edit-profile-content.component";
 
 const EditProfileScreen = () => {
-  return (
-    <View>
-      <ThemedText>Edit profile</ThemedText>
-    </View>
-  );
+  return <EditProfileContent />;
 };
 
 export default EditProfileScreen;
