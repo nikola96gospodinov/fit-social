@@ -4,7 +4,7 @@ import { router } from "expo-router";
 import { capitalize } from "lodash";
 import { LOGIN, LoginAction, REGISTER } from "../auth-content.constants";
 import { useForm } from "react-hook-form";
-import { ControlledThemedTextInput } from "@/src/components/ui/themed-text-input/controlled-themed-text-input.component";
+import { ControlledThemedTextInput } from "@/src/components/ui/form/themed-text-input/controlled-themed-text-input.component";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthFormValues, authFormSchema } from "./auth-form.schema";
 import { useLogin } from "@/src/services/auth/login.service";

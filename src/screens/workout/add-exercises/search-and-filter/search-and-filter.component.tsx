@@ -1,5 +1,5 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { ThemedTextInput } from "@/src/components/ui/themed-text-input/themed-text-input.component";
+import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/themed-text-input.component";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Platform, View, StyleSheet } from "react-native";
 import { FilterIcon } from "./filter-icon/filter-icon.component";

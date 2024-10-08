@@ -1,5 +1,5 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { ThemedTextInput } from "@/src/components/ui/themed-text-input/themed-text-input.component";
+import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/themed-text-input.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";

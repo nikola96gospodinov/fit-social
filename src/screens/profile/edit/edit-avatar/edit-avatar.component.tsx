@@ -6,11 +6,12 @@ import { Pressable, useColorScheme, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
+import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 
 export const EditAvatar = () => {
   const theme = useColorScheme() ?? "light";
 
-  const { mutate: pickImage, data: imageUrl } = usePickImage();
+  const { mutate: pickImage, data: imageUrl, isPending } = usePickImage();
 
   const { data: profile } = useGetProfile();
 
@@ -46,7 +47,11 @@ export const EditAvatar = () => {
           },
         ]}
         onPress={() => pickImage()}>
-        <FontAwesome6 name="pencil" size={18} color={colors[theme].icon} />
+        {isPending ? (
+          <ThemedActivityIndicator size={18} />
+        ) : (
+          <FontAwesome6 name="pencil" size={18} color={colors[theme].icon} />
+        )}
       </Pressable>
     </Flex>
   );

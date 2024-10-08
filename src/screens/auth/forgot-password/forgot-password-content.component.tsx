@@ -9,11 +9,11 @@ import {
   ForgotPasswordSchema,
   forgotPasswordSchema,
 } from "./forgot-password.schema";
-import { ControlledThemedTextInput } from "@/src/components/ui/themed-text-input/controlled-themed-text-input.component";
 import { useResetPassword } from "@/src/services/auth/reset-password.service";
 import { ConfirmationBox } from "@/src/components/confirmation-box/confirmation-box.component";
 import { SlideContent } from "@/src/components/animation/slide-content.component";
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
+import { ControlledThemedTextInput } from "@/src/components/ui/form/themed-text-input/controlled-themed-text-input.component";
 
 export const ForgotPasswordContent = () => {
   const { control, handleSubmit } = useForm<ForgotPasswordSchema>({

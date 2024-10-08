@@ -9,14 +9,13 @@ import {
 import { Size } from "./themed-text-input.types";
 import { getModeStyles, getSizeStyles } from "./themed-text-input.utils";
 import { ComponentProps, useState } from "react";
-import { Flex } from "../layout/flex/flex.component";
+import { Flex } from "../../layout/flex/flex.component";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Ionicons } from "@expo/vector-icons";
 import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { colors } from "@/src/constants/colors.constants";
 import { FormError } from "@/src/components/error/form-error/form-error.component";
-import { VerticalSpacing } from "../layout/vertical-spacing/vertical-spacing.component";
-
+import { VerticalSpacing } from "../../layout/vertical-spacing/vertical-spacing.component";
 export type ThemedTextInputProps = TextInputProps & {
   size?: Size;
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
