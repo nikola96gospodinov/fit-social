@@ -4,7 +4,7 @@ import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { usePickImage } from "@/src/services/camera/pick-image.service";
+import { router } from "expo-router";
 
 type Props = {
   avatarUrl: string | null;
@@ -16,10 +16,6 @@ export const Avatar = ({ avatarUrl }: Props) => {
   // TODO: Determine later
   const isYourProfile = true;
 
-  const { mutate: pickImage, data: imageUrl } = usePickImage();
-
-  const image = avatarUrl ?? imageUrl;
-
   return (
     <View
       style={[
@@ -29,10 +25,10 @@ export const Avatar = ({ avatarUrl }: Props) => {
           backgroundColor: colors[theme].background,
         },
       ]}>
-      {image ? (
+      {avatarUrl ? (
         <Image
           source={{
-            uri: image,
+            uri: avatarUrl,
           }}
           style={styles.image}
         />
@@ -43,13 +39,13 @@ export const Avatar = ({ avatarUrl }: Props) => {
       {isYourProfile && (
         <Pressable
           style={[
-            styles.avatarEdit,
+            styles.avatarIcon,
             {
               backgroundColor: colors[theme].background,
               borderColor: colors[theme].border,
             },
           ]}
-          onPress={() => pickImage()}>
+          onPress={() => router.push("/profile/edit")}>
           <FontAwesome6 name="pencil" size={12} color={colors[theme].icon} />
         </Pressable>
       )}
@@ -68,7 +64,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
-  avatarEdit: {
+  avatarIcon: {
     position: "absolute",
     bottom: 0,
     right: 0,
