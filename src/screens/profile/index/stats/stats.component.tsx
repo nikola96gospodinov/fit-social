@@ -2,6 +2,7 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { spacing } from "@/src/constants/spacing.constants";
 import { StyleSheet } from "react-native";
+
 export const Stats = () => {
   return (
     <Flex direction="row" gap={2} style={styles.container}>

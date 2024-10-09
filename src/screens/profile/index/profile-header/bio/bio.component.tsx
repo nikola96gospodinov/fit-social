@@ -6,21 +6,21 @@ import { useGetProfile } from "@/src/services/profile/get-profile.service";
 export const Bio = () => {
   const { data: profile } = useGetProfile();
 
-  if (!profile) return null;
+  if (!profile?.full_name && !profile?.bio) return null;
+
+  const showSpacing = profile.full_name && profile.bio;
 
   return (
     <>
-      {/* TODO: Fix */}
-      <ThemedText type="small" style={styles.fullName}>
-        {profile.full_name ?? "Nik Gospodinov"}
-      </ThemedText>
+      {profile.full_name && (
+        <ThemedText type="small" style={styles.fullName}>
+          {profile.full_name}
+        </ThemedText>
+      )}
 
-      <VerticalSpacing size={0.5} />
+      {showSpacing && <VerticalSpacing size={0.5} />}
 
-      <ThemedText type="extraSmall">
-        {profile.bio ??
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut purus eget sapien. Sed ut purus eget sapien."}
-      </ThemedText>
+      {profile.bio && <ThemedText type="extraSmall">{profile.bio}</ThemedText>}
     </>
   );
 };

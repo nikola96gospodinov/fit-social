@@ -7,12 +7,14 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { ProfileGradient } from "./profile-gradient/profile-gradient.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ProfileAction } from "./profile-action/profile-action.component";
-import { Bio } from "../bio/bio.component";
+import { Bio } from "./bio/bio.component";
 
 export const ProfileHeader = () => {
   const { data: profile } = useGetProfile();
 
   if (!profile) return null;
+
+  const showBio = profile.bio || profile.full_name;
 
   return (
     <View>
@@ -30,9 +32,13 @@ export const ProfileHeader = () => {
           <ProfileAction />
         </Flex>
 
-        <VerticalSpacing size={2} />
+        {showBio && (
+          <>
+            <VerticalSpacing size={2} />
 
-        <Bio />
+            <Bio />
+          </>
+        )}
       </View>
     </View>
   );
