@@ -16,6 +16,8 @@ import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { colors } from "@/src/constants/colors.constants";
 import { FormError } from "@/src/components/error/form-error/form-error.component";
 import { VerticalSpacing } from "../../layout/vertical-spacing/vertical-spacing.component";
+import { ThemedText } from "../../themed-text/themed-text.component";
+
 export type ThemedTextInputProps = TextInputProps & {
   size?: Size;
   icon?: IconProps<ComponentProps<typeof Ionicons>["name"]>;
@@ -24,6 +26,7 @@ export type ThemedTextInputProps = TextInputProps & {
   centerContent?: boolean;
   error?: string;
   ref?: React.Ref<TextInput>;
+  label?: string;
 };
 
 export const ThemedTextInput = ({
@@ -36,6 +39,7 @@ export const ThemedTextInput = ({
   secureTextEntry: defaultSecureTextEntry,
   error,
   ref,
+  label,
   ...rest
 }: ThemedTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -60,6 +64,16 @@ export const ThemedTextInput = ({
 
   return (
     <>
+      {label && (
+        <>
+          <ThemedText type="small" color="supporting">
+            {label}
+          </ThemedText>
+
+          <VerticalSpacing size={spacing[0.5]} />
+        </>
+      )}
+
       <Flex direction="row" gap={spacing[0.5]} align="center" style={{ width }}>
         <Flex
           direction="row"
@@ -82,6 +96,7 @@ export const ThemedTextInput = ({
               },
               input,
               styles.defaultInput,
+              rest.multiline && styles.textArea,
             ]}
             ref={ref}
           />
@@ -116,6 +131,10 @@ const styles = StyleSheet.create({
   defaultInput: {
     flex: 1,
     maxHeight: 20,
+  },
+
+  textArea: {
+    minHeight: 48,
   },
 });
 

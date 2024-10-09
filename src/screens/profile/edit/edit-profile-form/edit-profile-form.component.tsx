@@ -30,6 +30,7 @@ export const EditProfileForm = () => {
         name="full_name"
         control={control}
         placeholder="Full name"
+        label="Full name"
       />
 
       <VerticalSpacing size={4} />
@@ -38,6 +39,18 @@ export const EditProfileForm = () => {
         name="username"
         control={control}
         placeholder="Username"
+        label="Username"
+      />
+
+      <VerticalSpacing size={4} />
+
+      <ControlledThemedTextInput
+        name="bio"
+        control={control}
+        placeholder="Bio"
+        label="Bio"
+        multiline
+        numberOfLines={4}
       />
 
       <VerticalSpacing size={4} />
