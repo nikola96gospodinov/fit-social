@@ -10,19 +10,31 @@ import {
 } from "./edit-profile-form.schema";
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { useUpdateProfile } from "@/src/services/profile/update-profile.service";
+import { NetworkError } from "@/src/components/error/network-error/network-error.component";
+import { getOnlyChangedFields } from "@/src/lib/react-hook-form/react-hook-form.utils";
 
 export const EditProfileForm = () => {
   const { data: profile } = useGetProfile();
-  const { mutate: updateProfile, isPending } = useUpdateProfile();
+  const { mutate: updateProfile, isPending, error } = useUpdateProfile();
 
-  const { control, handleSubmit } = useForm<EditProfileFormType>({
+  const {
+    control,
+    handleSubmit,
+    formState: { dirtyFields },
+  } = useForm<EditProfileFormType>({
     defaultValues: {
       full_name: profile?.full_name ?? undefined,
-      username: profile?.username,
+      handle: profile?.handle,
       is_public: profile?.is_public,
+      bio: profile?.bio ?? undefined,
     },
-    resolver: zodResolver(editProfileSchema),
+    resolver: zodResolver(editProfileSchema(profile!.id)),
   });
+
+  const onSubmit = (data: EditProfileFormType) => {
+    const changedFields = getOnlyChangedFields(data, dirtyFields);
+    updateProfile({ data: changedFields, id: profile!.id });
+  };
 
   return (
     <>
@@ -36,10 +48,13 @@ export const EditProfileForm = () => {
       <VerticalSpacing size={4} />
 
       <ControlledThemedTextInput
-        name="username"
+        name="handle"
         control={control}
-        placeholder="Username"
-        label="Username"
+        placeholder="Handle"
+        label="Handle"
+        prefix="@"
+        prefixColor="tintText"
+        autoCapitalize="none"
       />
 
       <VerticalSpacing size={4} />
@@ -67,8 +82,16 @@ export const EditProfileForm = () => {
         text="Save"
         isFullWidth
         isLoading={isPending}
-        onPress={handleSubmit((data) => updateProfile(data))}
+        onPress={handleSubmit(onSubmit)}
       />
+
+      {error && (
+        <>
+          <VerticalSpacing size={4} />
+
+          <NetworkError message={error.message} />
+        </>
+      )}
     </>
   );
 };

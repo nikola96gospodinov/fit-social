@@ -23,7 +23,7 @@ export const ProfileHeader = () => {
           <Flex direction="row" gap={2} align="center">
             <Avatar avatarUrl={profile.avatar_url} />
             <ThemedText type="small" color="default">
-              @{profile.username}
+              @{profile.handle}
             </ThemedText>
           </Flex>
 

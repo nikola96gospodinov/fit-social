@@ -4,12 +4,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEY } from "./profile-keys";
 import type { EditProfileForm } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { router } from "expo-router";
+import { isEmpty } from "lodash";
 
-const updateProfile = async (data: EditProfileForm) => {
+type Props = {
+  data: Partial<EditProfileForm>;
+  id: string;
+};
+
+const updateProfile = async ({ data, id }: Props) => {
+  if (isEmpty(data)) return;
+
   const { data: profile, error } = await supabase
     .from("profiles")
     .update(data)
-    .eq("username", data.username);
+    .eq("id", id);
 
   if (error) {
     throw new Error(error.message);

@@ -50,28 +50,28 @@ export type Database = {
           avatar_url: string | null
           bio: string | null
           full_name: string | null
+          handle: string
           id: string
           is_public: boolean
           updated_at: string | null
-          username: string
         }
         Insert: {
           avatar_url?: string | null
           bio?: string | null
           full_name?: string | null
+          handle: string
           id: string
           is_public?: boolean
           updated_at?: string | null
-          username: string
         }
         Update: {
           avatar_url?: string | null
           bio?: string | null
           full_name?: string | null
+          handle?: string
           id?: string
           is_public?: boolean
           updated_at?: string | null
-          username?: string
         }
         Relationships: [
           {

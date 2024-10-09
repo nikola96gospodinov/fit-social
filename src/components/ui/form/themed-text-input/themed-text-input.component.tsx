@@ -16,7 +16,10 @@ import { IconProps } from "@expo/vector-icons/build/createIconSet";
 import { colors } from "@/src/constants/colors.constants";
 import { FormError } from "@/src/components/error/form-error/form-error.component";
 import { VerticalSpacing } from "../../layout/vertical-spacing/vertical-spacing.component";
-import { ThemedText } from "../../themed-text/themed-text.component";
+import {
+  ThemedText,
+  ThemedTextProps,
+} from "../../themed-text/themed-text.component";
 
 export type ThemedTextInputProps = TextInputProps & {
   size?: Size;
@@ -27,6 +30,8 @@ export type ThemedTextInputProps = TextInputProps & {
   error?: string;
   ref?: React.Ref<TextInput>;
   label?: string;
+  prefix?: string;
+  prefixColor?: ThemedTextProps["color"];
 };
 
 export const ThemedTextInput = ({
@@ -40,6 +45,8 @@ export const ThemedTextInput = ({
   error,
   ref,
   label,
+  prefix,
+  prefixColor,
   ...rest
 }: ThemedTextInputProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -81,6 +88,12 @@ export const ThemedTextInput = ({
           align="center"
           style={[styles.defaultContainer, container, sizeContainer]}>
           {icon && <Ionicons color={colors[theme].icon} {...icon} />}
+
+          {prefix && (
+            <ThemedText style={styles.prefix} type="small" color={prefixColor}>
+              {prefix}
+            </ThemedText>
+          )}
 
           <TextInput
             {...rest}
@@ -135,6 +148,11 @@ const styles = StyleSheet.create({
 
   textArea: {
     minHeight: 48,
+    textAlignVertical: "top",
+  },
+
+  prefix: {
+    marginRight: -spacing[0.5],
   },
 });
 
