@@ -3,7 +3,7 @@ import { ActiveExercise } from "@/src/types/workout.types";
 import { create } from "zustand";
 import { randomUUID } from "expo-crypto";
 
-type State = {
+export type State = {
   started?: Date;
   exercises: ActiveExercise[];
 };

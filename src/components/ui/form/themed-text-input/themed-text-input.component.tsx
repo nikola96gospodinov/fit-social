@@ -165,7 +165,7 @@ const ClearButton = ({ onChangeText }: ClearButtonProps) => {
 
   return (
     <Pressable onPress={() => onChangeText?.("")}>
-      <Ionicons name="close-circle" size={20} color={colors[theme].icon} />
+      <Ionicons name="close-circle" size={18} color={colors[theme].icon} />
     </Pressable>
   );
 };
