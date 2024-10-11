@@ -17,7 +17,9 @@ const getVariantStyles = ({
 
       pressableTap: {},
 
-      text: {},
+      text: {
+        color: themeColors.buttonFillOnTap,
+      },
 
       textTap: {},
     });
@@ -208,6 +210,8 @@ export const getButtonStyles = ({
     pressableTap: variantStyles.pressableTap,
     text: [variantStyles.text, sizeStyles.text],
     textTap: variantStyles.textTap,
+    iconSize: sizeStyles.text.fontSize,
+    iconColor: variantStyles.text.color,
   };
 };
 

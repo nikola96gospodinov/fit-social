@@ -8,6 +8,10 @@ import {
 import { getButtonStyles } from "./themed-button.utils";
 import { Size, Variant } from "./themed-button.types";
 import { ThemedActivityIndicator } from "../themed-activity-indicator/themed-activity-indicator.component";
+import { IconProps } from "@expo/vector-icons/build/createIconSet";
+import { ComponentProps } from "react";
+import { FontAwesome } from "@expo/vector-icons";
+import { Flex } from "../layout/flex/flex.component";
 
 type Props = PressableProps & {
   text: string;
@@ -16,6 +20,8 @@ type Props = PressableProps & {
   isCentered?: boolean;
   isFullWidth?: boolean;
   isLoading?: boolean;
+  icon?: IconProps<ComponentProps<typeof FontAwesome>["name"]>["name"];
+  iconPosition?: "left" | "right";
 };
 
 export const ThemedButton = ({
@@ -27,6 +33,8 @@ export const ThemedButton = ({
   isCentered = false,
   isFullWidth = false,
   isLoading = false,
+  icon,
+  iconPosition = "left",
   ...rest
 }: Props) => {
   const theme = useColorScheme() ?? "light";
@@ -38,7 +46,36 @@ export const ThemedButton = ({
     pressableTap,
     text: textStyle,
     textTap,
+    iconSize,
+    iconColor,
   } = getButtonStyles({ variant, theme, size, isDisabled });
+
+  const content = (pressed: boolean) => {
+    if (isLoading) {
+      return <ThemedActivityIndicator size="small" isNeutral />;
+    }
+
+    if (icon) {
+      return (
+        <Flex
+          direction={iconPosition === "left" ? "row" : "row-reverse"}
+          align="center"
+          gap={2}>
+          {icon && (
+            <FontAwesome name={icon} size={iconSize} color={iconColor} />
+          )}
+
+          <Text style={[textStyle, pressed && textTap, styles.text]}>
+            {text}
+          </Text>
+        </Flex>
+      );
+    }
+
+    return (
+      <Text style={[textStyle, pressed && textTap, styles.text]}>{text}</Text>
+    );
+  };
 
   return (
     <Pressable
@@ -53,17 +90,7 @@ export const ThemedButton = ({
       ]}
       {...rest}
       disabled={isDisabled}
-      children={({ pressed }) => (
-        <>
-          {isLoading ? (
-            <ThemedActivityIndicator size="small" isNeutral />
-          ) : (
-            <Text style={[textStyle, pressed && textTap, styles.text]}>
-              {text}
-            </Text>
-          )}
-        </>
-      )}
+      children={({ pressed }) => content(pressed)}
     />
   );
 };

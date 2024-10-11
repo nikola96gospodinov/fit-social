@@ -1,3 +1,4 @@
+import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { Stack } from "expo-router";
 
 export default function ProfileLayout() {
@@ -8,7 +9,13 @@ export default function ProfileLayout() {
         options={{ headerShown: false, title: "Profile" }}
       />
 
-      <Stack.Screen name="edit" options={{ title: "Edit profile" }} />
+      <Stack.Screen
+        name="edit"
+        options={{
+          title: "Edit profile",
+          headerRight: () => <ProfileEditHeaderRight />,
+        }}
+      />
     </Stack>
   );
 }
