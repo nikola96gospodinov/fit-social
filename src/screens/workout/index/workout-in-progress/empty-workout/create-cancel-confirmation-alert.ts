@@ -1,13 +1,13 @@
 import { Alert, ColorSchemeName } from "react-native";
 
 type Props = {
-  finishWorkout: () => void;
+  cancelWorkout: () => void;
   colorScheme: ColorSchemeName;
 };
 
 export const createCancelConfirmationAlert = ({
   colorScheme,
-  finishWorkout,
+  cancelWorkout,
 }: Props) => {
   Alert.alert(
     "Cancel workout",
@@ -15,7 +15,7 @@ export const createCancelConfirmationAlert = ({
     [
       {
         text: "Yes",
-        onPress: finishWorkout,
+        onPress: cancelWorkout,
         style: "destructive",
         isPreferred: true,
       },

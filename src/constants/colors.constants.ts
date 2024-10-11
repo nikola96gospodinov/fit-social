@@ -87,6 +87,7 @@ export const colors = {
     borderFocused: indigo[500],
 
     success: green[600],
+    successText: green[900],
     successBackground: green[100],
   },
   dark: {
@@ -121,6 +122,7 @@ export const colors = {
     borderFocused: indigo[500],
 
     success: green[500],
+    successText: green[100],
     successBackground: green[950],
   },
 };

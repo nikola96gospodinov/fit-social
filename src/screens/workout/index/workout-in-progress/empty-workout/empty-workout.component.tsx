@@ -8,7 +8,7 @@ import { useColorScheme } from "react-native";
 import { createCancelConfirmationAlert } from "./create-cancel-confirmation-alert";
 
 export const EmptyWorkout = () => {
-  const { finishWorkout } = useActiveWorkoutStore();
+  const { resetWorkout } = useActiveWorkoutStore();
 
   const router = useRouter();
 
@@ -31,7 +31,10 @@ export const EmptyWorkout = () => {
         text="Cancel workout"
         variant="outline"
         onPress={() =>
-          createCancelConfirmationAlert({ colorScheme, finishWorkout })
+          createCancelConfirmationAlert({
+            colorScheme,
+            cancelWorkout: resetWorkout,
+          })
         }
       />
     </FullScreenCenteredView>

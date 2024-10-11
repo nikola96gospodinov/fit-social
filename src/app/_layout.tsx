@@ -10,6 +10,7 @@ import { useColorScheme } from "react-native";
 import "react-native-reanimated";
 import { DevToolsBubble } from "react-native-react-query-devtools";
 import { useEnableLayoutAnimation } from "@/src/hooks/use-enable-layout-animation";
+import { RootSiblingParent as ToastProvider } from "react-native-root-siblings";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -35,12 +36,14 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <QueryClientProvider client={queryClient}>
-        <Stack>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" />
-        </Stack>
-        {/* <DevToolsBubble /> */}
+        <ToastProvider>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" />
+          </Stack>
+          {/* <DevToolsBubble /> */}
+        </ToastProvider>
       </QueryClientProvider>
     </ThemeProvider>
   );

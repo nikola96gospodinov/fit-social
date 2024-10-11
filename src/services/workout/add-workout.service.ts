@@ -1,18 +1,30 @@
 import { supabase } from "@/src/lib/supabase";
-import type { State as Workout } from "@/src/store/active-workout-store";
+import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { getSession } from "../auth/get-session.service";
+import { useMutation } from "@tanstack/react-query";
 
-const addWorkout = async (workout: Workout) => {
+const addWorkout = async () => {
   const session = await getSession();
 
+  const { exercises, started } = useActiveWorkoutStore.getState();
+
   const { data, error } = await supabase.from("workouts").insert({
-    started: workout.started?.toISOString(),
+    started: started?.toISOString(),
     ended: new Date().toISOString(),
-    exercises: workout.exercises,
+    exercises: exercises,
     user_id: session!.user.id,
   });
 
   if (error) throw new Error(error.message);
 
   return data;
+};
+
+export const useAddWorkout = () => {
+  const { resetWorkout } = useActiveWorkoutStore();
+
+  return useMutation({
+    mutationFn: addWorkout,
+    onSuccess: resetWorkout,
+  });
 };
