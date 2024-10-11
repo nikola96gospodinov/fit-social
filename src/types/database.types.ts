@@ -4,134 +4,134 @@ export type Json =
   | boolean
   | null
   | { [key: string]: Json | undefined }
-  | Json[]
+  | Json[];
 
 export type Database = {
   public: {
     Tables: {
       follows: {
         Row: {
-          created_at: string | null
-          followed_id: string
-          follower_id: string
-          status: string | null
-        }
+          created_at: string | null;
+          followed_id: string;
+          follower_id: string;
+          status: string | null;
+        };
         Insert: {
-          created_at?: string | null
-          followed_id: string
-          follower_id: string
-          status?: string | null
-        }
+          created_at?: string | null;
+          followed_id: string;
+          follower_id: string;
+          status?: string | null;
+        };
         Update: {
-          created_at?: string | null
-          followed_id?: string
-          follower_id?: string
-          status?: string | null
-        }
+          created_at?: string | null;
+          followed_id?: string;
+          follower_id?: string;
+          status?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "follows_followed_id_fkey"
-            columns: ["followed_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
+            foreignKeyName: "follows_followed_id_fkey";
+            columns: ["followed_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
           {
-            foreignKeyName: "follows_follower_id_fkey"
-            columns: ["follower_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
+            foreignKeyName: "follows_follower_id_fkey";
+            columns: ["follower_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       profiles: {
         Row: {
-          avatar_url: string | null
-          bio: string | null
-          full_name: string | null
-          handle: string
-          id: string
-          is_public: boolean
-          updated_at: string | null
-        }
+          avatar_url: string | null;
+          bio: string | null;
+          full_name: string | null;
+          handle: string;
+          id: string;
+          is_public: boolean;
+          updated_at: string | null;
+        };
         Insert: {
-          avatar_url?: string | null
-          bio?: string | null
-          full_name?: string | null
-          handle: string
-          id: string
-          is_public?: boolean
-          updated_at?: string | null
-        }
+          avatar_url?: string | null;
+          bio?: string | null;
+          full_name?: string | null;
+          handle: string;
+          id: string;
+          is_public?: boolean;
+          updated_at?: string | null;
+        };
         Update: {
-          avatar_url?: string | null
-          bio?: string | null
-          full_name?: string | null
-          handle?: string
-          id?: string
-          is_public?: boolean
-          updated_at?: string | null
-        }
+          avatar_url?: string | null;
+          bio?: string | null;
+          full_name?: string | null;
+          handle?: string;
+          id?: string;
+          is_public?: boolean;
+          updated_at?: string | null;
+        };
         Relationships: [
           {
-            foreignKeyName: "profiles_id_fkey"
-            columns: ["id"]
-            isOneToOne: true
-            referencedRelation: "users"
-            referencedColumns: ["id"]
+            foreignKeyName: "profiles_id_fkey";
+            columns: ["id"];
+            isOneToOne: true;
+            referencedRelation: "users";
+            referencedColumns: ["id"];
           },
-        ]
-      }
+        ];
+      };
       workouts: {
         Row: {
-          ended: string | null
-          exercises: Json[] | null
-          id: string
-          started: string | null
-          user_id: string
-        }
+          ended: string | null;
+          exercises: Json[] | null;
+          id: string;
+          started: string | null;
+          user_id: string;
+        };
         Insert: {
-          ended?: string | null
-          exercises?: Json[] | null
-          id?: string
-          started?: string | null
-          user_id: string
-        }
+          ended?: string | null;
+          exercises?: Json[] | null;
+          id?: string;
+          started?: string | null;
+          user_id: string;
+        };
         Update: {
-          ended?: string | null
-          exercises?: Json[] | null
-          id?: string
-          started?: string | null
-          user_id?: string
-        }
+          ended?: string | null;
+          exercises?: Json[] | null;
+          id?: string;
+          started?: string | null;
+          user_id?: string;
+        };
         Relationships: [
           {
-            foreignKeyName: "workouts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "profiles"
-            referencedColumns: ["id"]
+            foreignKeyName: "workouts_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "profiles";
+            referencedColumns: ["id"];
           },
-        ]
-      }
-    }
+        ];
+      };
+    };
     Views: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Functions: {
-      [_ in never]: never
-    }
+      [_ in never]: never;
+    };
     Enums: {
-      follow_status: "pending" | "accepted"
-    }
+      follow_status: "pending" | "accepted";
+    };
     CompositeTypes: {
-      [_ in never]: never
-    }
-  }
-}
+      [_ in never]: never;
+    };
+  };
+};
 
-type PublicSchema = Database[Extract<keyof Database, "public">]
+type PublicSchema = Database[Extract<keyof Database, "public">];
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -144,7 +144,7 @@ export type Tables<
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R
+      Row: infer R;
     }
     ? R
     : never
@@ -152,11 +152,11 @@ export type Tables<
         PublicSchema["Views"])
     ? (PublicSchema["Tables"] &
         PublicSchema["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R
+        Row: infer R;
       }
       ? R
       : never
-    : never
+    : never;
 
 export type TablesInsert<
   PublicTableNameOrOptions extends
@@ -167,17 +167,17 @@ export type TablesInsert<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I
+      Insert: infer I;
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I
+        Insert: infer I;
       }
       ? I
       : never
-    : never
+    : never;
 
 export type TablesUpdate<
   PublicTableNameOrOptions extends
@@ -188,17 +188,17 @@ export type TablesUpdate<
     : never = never,
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U
+      Update: infer U;
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof PublicSchema["Tables"]
     ? PublicSchema["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U
+        Update: infer U;
       }
       ? U
       : never
-    : never
+    : never;
 
 export type Enums<
   PublicEnumNameOrOptions extends
@@ -211,4 +211,4 @@ export type Enums<
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof PublicSchema["Enums"]
     ? PublicSchema["Enums"][PublicEnumNameOrOptions]
-    : never
+    : never;

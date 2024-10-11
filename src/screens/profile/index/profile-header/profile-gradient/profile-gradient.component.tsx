@@ -13,9 +13,15 @@ export const ProfileGradient = () => {
   const theme = useColorScheme() ?? "light";
   const inset = useSafeAreaInsets();
 
+  const extraSpacing = (() => {
+    if (inset.top === 0) return spacing[12];
+    if (inset.top < 32) return spacing[10];
+    return spacing[8];
+  })();
+
   return (
     <LinearGradient
-      style={[styles.gradient, { paddingTop: inset.top + spacing[8] }]}
+      style={[styles.gradient, { paddingTop: inset.top + extraSpacing }]}
       colors={profileBackground[theme]}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
