@@ -5,6 +5,7 @@ import { spacing } from "@/src/constants/spacing.constants";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { router } from "expo-router";
+import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 
 type Props = {
   avatarUrl: string | null;
@@ -13,8 +14,7 @@ type Props = {
 export const Avatar = ({ avatarUrl }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  // TODO: Determine later
-  const isYourProfile = true;
+  const isYourProfile = useIsOwnProfile();
 
   return (
     <View

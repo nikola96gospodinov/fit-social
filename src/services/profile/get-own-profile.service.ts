@@ -1,10 +1,9 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEY } from "./profile-keys";
-import { useLocalSearchParams } from "expo-router";
 import { useGetSessionFromQueryClient } from "@/src/hooks/use-get-session-from-query-client";
 
-const getProfile = async (handle?: string) => {
+const getOwnProfile = async () => {
   const { data: user, error: userError } = await supabase.auth.getUser();
 
   if (userError) {
@@ -14,7 +13,7 @@ const getProfile = async (handle?: string) => {
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
-    .eq(handle ? "handle" : "id", handle ?? user.user.id)
+    .eq("id", user.user.id)
     .single();
 
   if (error) {
@@ -24,12 +23,11 @@ const getProfile = async (handle?: string) => {
   return data;
 };
 
-export const useGetProfile = () => {
+export const useGetOwnProfile = () => {
   const session = useGetSessionFromQueryClient();
-  const { handle } = useLocalSearchParams();
 
   return useQuery({
-    queryKey: [PROFILE_QUERY_KEY, session?.user.id, handle],
-    queryFn: () => getProfile(handle as string),
+    queryKey: [PROFILE_QUERY_KEY, session?.user.id],
+    queryFn: getOwnProfile,
   });
 };

@@ -4,12 +4,12 @@ import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 
 export const ProfileAction = () => {
   const theme = useColorScheme() ?? "light";
 
-  // TODO: Determine later
-  const isYourProfile = true;
+  const isYourProfile = useIsOwnProfile();
 
   return (
     <>

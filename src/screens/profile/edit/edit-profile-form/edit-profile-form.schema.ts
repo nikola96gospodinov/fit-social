@@ -10,24 +10,20 @@ export const editProfileSchema = (id: string) =>
       bio: z.string().optional(),
     })
     .superRefine(async ({ handle }, ctx) => {
-      try {
-        const { data, error } = await checkHandleUniqueness(handle);
+      const { isUnique, error } = await checkHandleUniqueness(handle);
 
-        if (error && error.code !== "PGRST116") throw new Error(error.message);
-
-        if (data && data.id !== id) {
-          ctx.addIssue({
-            code: z.ZodIssueCode.custom,
-            message: "Handle is already taken",
-            path: ["handle"],
-          });
-        }
-      } catch (error) {
-        console.error(error);
-
+      if (error) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Error checking handle uniqueness",
+        });
+      }
+
+      if (!isUnique) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Handle is already taken",
+          path: ["handle"],
         });
       }
     });

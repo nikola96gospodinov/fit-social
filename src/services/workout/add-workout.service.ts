@@ -9,10 +9,9 @@ const addWorkout = async () => {
   const { exercises, started } = useActiveWorkoutStore.getState();
 
   const { data, error } = await supabase.from("workouts").insert({
-    started: started?.toISOString(),
-    ended: new Date().toISOString(),
+    started: started?.toISOString() ?? new Date().toISOString(),
     exercises: exercises,
-    user_id: session!.user.id,
+    user_handle: session!.user.id,
   });
 
   if (error) throw new Error(error.message);

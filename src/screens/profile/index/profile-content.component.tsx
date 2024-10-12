@@ -5,11 +5,12 @@ import { FullScreenCenteredView } from "@/src/components/ui/layout/full-screen-c
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { ProfileHeader } from "./profile-header/profile-header.component";
 import { Stats } from "./stats/stats.component";
+import { Workouts } from "./workouts/workouts.component";
 
 export const ProfileContent = () => {
-  const { data: profile, isLoading } = useGetProfile();
+  const { isLoading } = useGetProfile();
 
-  if (isLoading || !profile) {
+  if (isLoading) {
     return (
       <FullScreenCenteredView>
         <ThemedActivityIndicator />
@@ -24,6 +25,10 @@ export const ProfileContent = () => {
       <VerticalSpacing size={3} />
 
       <Stats />
+
+      <VerticalSpacing size={3} />
+
+      <Workouts />
     </View>
   );
 };
