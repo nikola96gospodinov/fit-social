@@ -52,7 +52,12 @@ export const ThemedButton = ({
 
   const content = (pressed: boolean) => {
     if (isLoading) {
-      return <ThemedActivityIndicator size="small" isNeutral />;
+      return (
+        <ThemedActivityIndicator
+          size="small"
+          isNeutral={variant !== "link" && variant !== "flat"}
+        />
+      );
     }
 
     if (icon) {

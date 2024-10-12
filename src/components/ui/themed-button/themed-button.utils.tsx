@@ -12,7 +12,10 @@ const getVariantStyles = ({
   if (isDisabled) {
     return StyleSheet.create({
       pressable: {
-        backgroundColor: themeColors.buttonFillDisabled,
+        backgroundColor:
+          variant === "link" || variant === "flat"
+            ? "transparent"
+            : themeColors.buttonFillDisabled,
       },
 
       pressableTap: {},
