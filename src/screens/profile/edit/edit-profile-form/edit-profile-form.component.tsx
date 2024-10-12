@@ -1,7 +1,6 @@
 import { ControlledThemedSwitch } from "@/src/components/ui/form/themed-switch/controlled-themed-switch.component";
 import { ControlledThemedTextInput } from "@/src/components/ui/form/themed-text-input/controlled-themed-text-input.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
@@ -12,9 +11,10 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { useUpdateProfile } from "@/src/services/profile/update-profile.service";
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { getOnlyChangedFields } from "@/src/lib/react-hook-form/react-hook-form.utils";
+import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
 
 export const EditProfileForm = () => {
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetOwnProfile();
   const { mutate: updateProfile, isPending, error } = useUpdateProfile();
 
   const {
@@ -24,11 +24,11 @@ export const EditProfileForm = () => {
   } = useForm<EditProfileFormType>({
     defaultValues: {
       full_name: profile?.full_name ?? undefined,
-      handle: profile?.handle,
-      is_public: profile?.is_public,
+      handle: profile?.handle ?? undefined,
+      is_public: profile?.is_public ?? undefined,
       bio: profile?.bio ?? undefined,
     },
-    resolver: zodResolver(editProfileSchema(profile!.id)),
+    resolver: zodResolver(editProfileSchema(profile!.handle)),
   });
 
   const onSubmit = (data: EditProfileFormType) => {

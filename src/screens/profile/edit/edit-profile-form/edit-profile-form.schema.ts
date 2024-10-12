@@ -1,7 +1,7 @@
 import { checkHandleUniqueness } from "@/src/services/profile/check-handle-uniqueness.service";
 import { z } from "zod";
 
-export const editProfileSchema = (id: string) =>
+export const editProfileSchema = (originalHandle: string | null) =>
   z
     .object({
       full_name: z.string().optional(),
@@ -10,6 +10,8 @@ export const editProfileSchema = (id: string) =>
       bio: z.string().optional(),
     })
     .superRefine(async ({ handle }, ctx) => {
+      if (handle === originalHandle) return;
+
       const { isUnique, error } = await checkHandleUniqueness(handle);
 
       if (error) {
