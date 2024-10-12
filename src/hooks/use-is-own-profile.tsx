@@ -6,5 +6,7 @@ export const useIsOwnProfile = () => {
 
   const { data: profile } = useGetOwnProfile();
 
+  if (!handle) return true;
+
   return profile?.handle === handle;
 };
