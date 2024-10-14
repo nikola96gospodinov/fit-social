@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEY } from "./profile-keys";
 import { useGetSessionFromQueryClient } from "@/src/hooks/use-get-session-from-query-client";
 
-const getOwnProfile = async () => {
+export const getOwnProfile = async () => {
   const { data: user, error: userError } = await supabase.auth.getUser();
 
   if (userError) {
