@@ -8,6 +8,8 @@ export const editProfileSchema = (originalHandle: string | null) =>
       handle: z.string(),
       is_public: z.boolean(),
       bio: z.string().optional(),
+      home_gym_id: z.string().optional(),
+      home_gym_name: z.string().optional(),
     })
     .superRefine(async ({ handle }, ctx) => {
       if (handle === originalHandle) return;

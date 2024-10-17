@@ -13,19 +13,20 @@ import {
   EQUIPMENT,
   TARGET_MUSCLE,
 } from "@/src/constants/workout.constants";
+import { useDebounce } from "@/src/hooks/use-debounce";
 
 type Props = {
-  search: string;
   selectedExercises: Exercise[];
   setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
 };
 
 export const FoundExercises = ({
-  search,
   selectedExercises,
   setSelectedExercises,
 }: Props) => {
-  const { getFilterValues } = useExerciseFilterStore();
+  const { getFilterValues, activeSearch } = useExerciseFilterStore();
+
+  const debouncedActiveSearch = useDebounce<string>({ value: activeSearch });
 
   const {
     data: exercises,
@@ -37,7 +38,7 @@ export const FoundExercises = ({
     isFetchNextPageError,
     isLoading,
   } = useGetInfiniteExercises({
-    search,
+    search: debouncedActiveSearch,
     bodyPartFilters: getFilterValues(BODY_PART),
     equipmentFilters: getFilterValues(EQUIPMENT),
     targetFilters: getFilterValues(TARGET_MUSCLE),

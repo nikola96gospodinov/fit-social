@@ -12,6 +12,7 @@ import { useUpdateProfile } from "@/src/services/profile/update-profile.service"
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { getOnlyChangedFields } from "@/src/lib/react-hook-form/react-hook-form.utils";
 import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
+import { HomeGym } from "./home-gym/home-gym.component";
 
 export const EditProfileForm = () => {
   const { data: profile } = useGetOwnProfile();
@@ -67,6 +68,10 @@ export const EditProfileForm = () => {
         multiline
         numberOfLines={4}
       />
+
+      <VerticalSpacing size={4} />
+
+      <HomeGym />
 
       <VerticalSpacing size={4} />
 
