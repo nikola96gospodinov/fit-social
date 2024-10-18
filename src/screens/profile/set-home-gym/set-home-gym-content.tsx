@@ -28,6 +28,8 @@ export const SetHomeGymContent = () => {
         value={homeGymSearchQuery}
         onChangeText={setHomeGymSearchQuery}
         autoCapitalize="none"
+        autoComplete="off"
+        autoCorrect={false}
       />
     </View>
   );

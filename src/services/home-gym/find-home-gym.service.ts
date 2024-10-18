@@ -21,7 +21,7 @@ const findHomeGym = async ({
   });
 
   if (!response.ok) {
-    console.error(await response.json());
+    console.error(await response.text());
     throw new Error("Failed to find home gym");
   }
 
