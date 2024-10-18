@@ -5,6 +5,7 @@ import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-ind
 import { EditAvatar } from "./edit-avatar/edit-avatar.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { EditProfileForm } from "./edit-profile-form/edit-profile-form.component";
+import { HomeGym } from "./home-gym/home-gym.component";
 
 export const EditProfileContent = () => {
   const { data: profile, isLoading } = useGetProfile();
@@ -13,6 +14,10 @@ export const EditProfileContent = () => {
 
   return (
     <View style={styles.container}>
+      <HomeGym />
+
+      <VerticalSpacing size={6} />
+
       <EditAvatar />
 
       <VerticalSpacing size={6} />

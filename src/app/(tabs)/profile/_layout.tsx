@@ -16,6 +16,11 @@ export default function ProfileLayout() {
           headerRight: () => <ProfileEditHeaderRight />,
         }}
       />
+
+      <Stack.Screen
+        name="edit-home-gym"
+        options={{ title: "Edit home gym", presentation: "modal" }}
+      />
     </Stack>
   );
 }
