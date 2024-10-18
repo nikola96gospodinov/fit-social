@@ -6,7 +6,7 @@ import { useGetCurrentLocation } from "@/src/services/location/get-current-locat
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
 
-export const EditHomeGymContent = () => {
+export const SetHomeGymContent = () => {
   const [homeGymSearchQuery, setHomeGymSearchQuery] = useState("");
 
   const debouncedHomeGymSearchQuery = useDebounce({

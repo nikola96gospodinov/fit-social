@@ -38,7 +38,7 @@ export const HomeGym = () => {
         <ThemedText type="small">{text}</ThemedText>
       </Flex>
 
-      <Pressable onPress={() => router.push("/profile/edit-home-gym")}>
+      <Pressable onPress={() => router.push("/profile/set-home-gym")}>
         <FontAwesome6 name="pencil" size={14} color={colors[theme].textIcon} />
       </Pressable>
     </Flex>
