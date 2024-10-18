@@ -1,5 +1,5 @@
 import { spacing } from "@/src/constants/spacing.constants";
-import { View, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { EditAvatar } from "./edit-avatar/edit-avatar.component";
@@ -13,7 +13,9 @@ export const EditProfileContent = () => {
   if (isLoading || !profile) return <ThemedActivityIndicator />;
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
+      <VerticalSpacing size={2} />
+
       <HomeGym />
 
       <VerticalSpacing size={6} />
@@ -23,7 +25,7 @@ export const EditProfileContent = () => {
       <VerticalSpacing size={6} />
 
       <EditProfileForm />
-    </View>
+    </ScrollView>
   );
 };
 

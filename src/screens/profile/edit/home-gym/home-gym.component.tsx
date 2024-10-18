@@ -24,8 +24,8 @@ export const HomeGym = () => {
       style={[
         styles.homeGymContainer,
         {
-          backgroundColor: colors[theme].tintActiveBackground,
-          borderColor: colors[theme].borderFocused,
+          backgroundColor: colors[theme].cardBackground,
+          borderColor: colors[theme].tintBackground,
         },
       ]}>
       <Flex direction="row" align="center" gap={2}>
@@ -50,5 +50,6 @@ const styles = StyleSheet.create({
     padding: spacing[4],
     borderRadius: spacing[4],
     borderLeftWidth: 2,
+    borderRightWidth: 2,
   },
 });
