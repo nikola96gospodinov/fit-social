@@ -1,6 +1,12 @@
 import { URL } from "@/src/constants/url.constants";
 import { useQuery } from "@tanstack/react-query";
 
+export type Gym = {
+  id: string;
+  primaryName: string;
+  secondaryName: string;
+};
+
 export const HOME_GYM_QUERY_KEY = "home-gym";
 
 export type FindHomeGymProps = {
@@ -27,7 +33,7 @@ const findHomeGym = async ({
 
   const data = await response.json();
 
-  return data;
+  return data as Gym[];
 };
 
 export const useFindHomeGym = (props: FindHomeGymProps) => {
