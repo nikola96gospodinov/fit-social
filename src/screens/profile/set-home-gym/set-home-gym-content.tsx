@@ -13,9 +13,11 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
+import { HomeGymBox } from "./home-gym-box/home-gym-box.component";
 
 export const SetHomeGymContent = () => {
   const [homeGymSearchQuery, setHomeGymSearchQuery] = useState("");
+  const [selectedHomeGym, setSelectedHomeGym] = useState<Gym>();
 
   const debouncedHomeGymSearchQuery = useDebounce({
     value: homeGymSearchQuery,
@@ -58,7 +60,7 @@ export const SetHomeGymContent = () => {
 
       <FlatList
         keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={() => <VerticalSpacing size={2} />}
+        ItemSeparatorComponent={() => <VerticalSpacing size={3} />}
         ListEmptyComponent={() => (
           <ListEmptyComponent
             isError={isError}
@@ -70,7 +72,11 @@ export const SetHomeGymContent = () => {
         )}
         data={homeGyms}
         renderItem={({ item }) => (
-          <ThemedText>{JSON.stringify(item)}</ThemedText>
+          <HomeGymBox
+            gym={item}
+            isSelected={selectedHomeGym?.id === item.id}
+            setSelectedHomeGym={setSelectedHomeGym}
+          />
         )}
       />
     </View>
