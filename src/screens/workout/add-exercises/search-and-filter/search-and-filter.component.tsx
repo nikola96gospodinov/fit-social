@@ -24,6 +24,9 @@ export const SearchAndFilter = () => {
             icon={{ name: "search", size: 16 }}
             value={activeSearch}
             onChangeText={setActiveSearch}
+            autoCapitalize="none"
+            autoComplete="off"
+            autoCorrect={false}
           />
         </View>
 

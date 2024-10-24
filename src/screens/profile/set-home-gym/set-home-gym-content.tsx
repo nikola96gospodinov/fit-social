@@ -14,6 +14,9 @@ import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-ind
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { HomeGymBox } from "./home-gym-box/home-gym-box.component";
+import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
+import { useUpdateProfile } from "@/src/services/profile/update-profile.service";
+import { useGetSession } from "@/src/services/auth/get-session.service";
 
 export const SetHomeGymContent = () => {
   const [homeGymSearchQuery, setHomeGymSearchQuery] = useState("");
@@ -42,7 +45,10 @@ export const SetHomeGymContent = () => {
       <ThemedTextInput
         label="Start typing your gym name"
         value={homeGymSearchQuery}
-        onChangeText={setHomeGymSearchQuery}
+        onChangeText={(text) => {
+          setHomeGymSearchQuery(text);
+          setSelectedHomeGym(undefined);
+        }}
         autoCapitalize="none"
         autoComplete="off"
         autoCorrect={false}
@@ -78,6 +84,9 @@ export const SetHomeGymContent = () => {
             setSelectedHomeGym={setSelectedHomeGym}
           />
         )}
+        ListFooterComponent={() => (
+          <ListFooterComponent selectedHomeGym={selectedHomeGym} />
+        )}
       />
     </View>
   );
@@ -111,6 +120,39 @@ const ListEmptyComponent = ({
   }
 
   return null;
+};
+
+type ListFooterComponentProps = {
+  selectedHomeGym: Gym | undefined;
+};
+
+const ListFooterComponent = ({ selectedHomeGym }: ListFooterComponentProps) => {
+  const { mutate: updateProfile, isPending } = useUpdateProfile();
+  const session = useGetSession();
+
+  if (!selectedHomeGym) {
+    return null;
+  }
+
+  return (
+    <>
+      <VerticalSpacing size={6} />
+
+      <ThemedButton
+        text="Set home gym"
+        onPress={() => {
+          updateProfile({
+            data: {
+              home_gym_id: selectedHomeGym.id,
+              home_gym_name: selectedHomeGym.primaryName,
+            },
+            id: session.data!.user.id,
+          });
+        }}
+        isLoading={isPending}
+      />
+    </>
+  );
 };
 
 const styles = StyleSheet.create({

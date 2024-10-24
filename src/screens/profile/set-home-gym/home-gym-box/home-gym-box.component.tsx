@@ -14,7 +14,7 @@ export const HomeGymBox = ({ gym, isSelected, setSelectedHomeGym }: Props) => {
 
   return (
     <Pressable
-      onPress={() => setSelectedHomeGym(gym)}
+      onPress={() => setSelectedHomeGym(isSelected ? undefined : gym)}
       style={[
         styles.container,
         {
