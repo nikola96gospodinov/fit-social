@@ -1,7 +1,14 @@
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
+import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { Stack } from "expo-router";
 
 export default function ProfileLayout() {
+  const { data: profile } = useGetProfile();
+
+  const homeGymTitle = profile?.home_gym_name
+    ? "Edit home gym"
+    : "Set home gym";
+
   return (
     <Stack>
       <Stack.Screen
@@ -19,7 +26,7 @@ export default function ProfileLayout() {
 
       <Stack.Screen
         name="set-home-gym"
-        options={{ title: "Set home gym", presentation: "modal" }}
+        options={{ title: homeGymTitle, presentation: "modal" }}
       />
     </Stack>
   );

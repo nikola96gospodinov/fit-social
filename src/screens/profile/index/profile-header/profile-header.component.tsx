@@ -43,7 +43,7 @@ export const ProfileHeader = () => {
 
             <Flex
               direction="row"
-              gap={0.5}
+              gap={1}
               align="center"
               style={styles.homeGymContainer}>
               <Ionicons
