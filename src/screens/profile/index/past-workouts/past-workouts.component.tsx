@@ -21,7 +21,7 @@ export const PastWorkouts = () => {
     <View style={styles.container}>
       <ThemedText type="subtitle">Past Workouts</ThemedText>
 
-      <VerticalSpacing size={2} />
+      <VerticalSpacing size={4} />
 
       <FlashList
         data={workouts.data}
@@ -38,6 +38,7 @@ export const PastWorkouts = () => {
 const styles = StyleSheet.create({
   container: {
     padding: spacing[4],
-    minHeight: 250, // This is needed for the flash list to render
+    flex: 1,
+    minHeight: 350, // This is needed for the flash list to render
   },
 });

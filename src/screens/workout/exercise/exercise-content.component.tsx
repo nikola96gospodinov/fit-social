@@ -10,6 +10,7 @@ import { capitalize } from "lodash";
 import { useEffect } from "react";
 import { Gif } from "./gif/gif.component";
 import { Instructions } from "./instructions/instructions.component";
+import { spacing } from "@/src/constants/spacing.constants";
 
 export const ExerciseContent = () => {
   const { id } = useLocalSearchParams();
@@ -31,11 +32,15 @@ export const ExerciseContent = () => {
   }, [exercise, isLoading, navigation]);
 
   if (isLoading) {
-    return <ThemedActivityIndicator />;
+    return <ThemedActivityIndicator padding={4} />;
   }
 
   if (!exercise) {
-    return <ThemedText>Exercise not found</ThemedText>;
+    return (
+      <ThemedText style={{ paddingTop: spacing[4] }}>
+        Exercise not found
+      </ThemedText>
+    );
   }
 
   return (

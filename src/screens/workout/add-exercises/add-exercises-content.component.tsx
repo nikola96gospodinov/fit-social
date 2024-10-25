@@ -2,7 +2,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { spacing } from "@/src/constants/spacing.constants";
 import { Exercise } from "@/src/types/api/exercise.types";
 import { useState } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { AddIcon } from "./add-icon/add-icon.component";
 import { FoundExercises } from "./found-exercises/found-exercises.component";
 import { SearchAndFilter } from "./search-and-filter/search-and-filter.component";
@@ -11,7 +11,7 @@ export const AddExercisesContent = () => {
   const [selectedExercises, setSelectedExercises] = useState<Exercise[]>([]);
 
   return (
-    <View style={{ padding: spacing[4], flex: 1, paddingBottom: 0 }}>
+    <View style={styles.container}>
       <SearchAndFilter />
 
       <VerticalSpacing size={8} />
@@ -27,3 +27,11 @@ export const AddExercisesContent = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    padding: spacing[4],
+    flex: 1,
+    paddingBottom: 0,
+  },
+});
