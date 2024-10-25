@@ -37,6 +37,8 @@ export const ActiveExercisesFooter = () => {
           })
         }
       />
+
+      <VerticalSpacing size={8} />
     </View>
   );
 };
