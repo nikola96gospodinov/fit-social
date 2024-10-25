@@ -34,9 +34,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
       ]}>
       <Flex justify="space-between" direction="row" gap={2} align="center">
         <View>
-          <ThemedText style={{ fontWeight: "500", fontSize: 18 }}>
-            Chest workout
-          </ThemedText>
+          <ThemedText style={{ fontWeight: "500" }}>Chest workout</ThemedText>
 
           <VerticalSpacing size={0.5} />
 
@@ -52,11 +50,11 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
       </Flex>
 
-      <VerticalSpacing size={6} />
+      <VerticalSpacing size={4} />
 
       <Flex direction="row" gap={4} justify="space-between" align="center">
         <Flex direction="row" gap={2} align="center">
-          <Ionicons name="timer-outline" size={16} color={colors[theme].icon} />
+          <Ionicons name="timer-outline" size={14} color={colors[theme].icon} />
 
           <ThemedText type="extraSmall">{duration.minutes}m</ThemedText>
         </Flex>
@@ -70,7 +68,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <Flex direction="row" gap={2} align="center">
           <Ionicons
             name="trophy-outline"
-            size={16}
+            size={14}
             color={colors[theme].icon}
           />
 
@@ -89,7 +87,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
               direction="row"
               gap={4}>
               <View style={{ flex: 1 }}>
-                <ThemedText type="small" key={exercise.id}>
+                <ThemedText type="extraSmall" key={exercise.id}>
                   {capitalize(exercise.name)}
                 </ThemedText>
 
