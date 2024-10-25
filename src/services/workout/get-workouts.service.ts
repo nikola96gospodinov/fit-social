@@ -8,14 +8,14 @@ type Props = {
 };
 
 const getWorkouts = async ({ handle }: Props) => {
-  const { data, error } = await supabase
+  const { data, error, count } = await supabase
     .from("workouts")
-    .select("*")
+    .select("*", { count: "exact" })
     .eq("user_handle", handle ?? "");
 
   if (error) throw new Error(error.message);
 
-  return data;
+  return { data, count };
 };
 
 export const useGetWorkouts = ({ handle }: Props) => {
