@@ -1,8 +1,6 @@
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { useGetInfiniteExercises } from "@/src/services/exercises/get-all-exercises.service";
-import { groupBy } from "lodash";
-import { FlatList } from "react-native";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 import { ExerciseBox } from "./exercise-box/exercise-box.component";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
@@ -14,7 +12,7 @@ import {
   TARGET_MUSCLE,
 } from "@/src/constants/workout.constants";
 import { useDebounce } from "@/src/hooks/use-debounce";
-
+import { FlashList } from "@shopify/flash-list";
 type Props = {
   selectedExercises: Exercise[];
   setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
@@ -46,8 +44,18 @@ export const FoundExercises = ({
 
   const allExercises = exercises?.pages.flatMap((page) => page.data) || [];
 
-  const groupedAlphabetically = groupBy(allExercises, (exercise) =>
-    exercise.name[0].toUpperCase(),
+  const exercisesWithHeaders = allExercises.reduce(
+    (acc, exercise) => {
+      const letter = exercise.name.charAt(0).toUpperCase();
+
+      // Add letter header if this is the first exercise for this letter
+      if (!acc.some((item) => item === letter)) {
+        acc.push(letter);
+      }
+      acc.push(exercise);
+      return acc;
+    },
+    [] as (string | Exercise)[],
   );
 
   if (isLoading) {
@@ -69,42 +77,19 @@ export const FoundExercises = ({
   }
 
   return (
-    <FlatList
-      data={Object.entries(groupedAlphabetically).map(([key, value]) => ({
-        key,
-        value,
-      }))}
+    <FlashList
+      data={exercisesWithHeaders}
       onEndReached={() => hasNextPage && fetchNextPage()}
-      renderItem={({ item }) => {
+      renderItem={({ item, index }) => {
+        if (typeof item === "string")
+          return <LetterHeader letter={item} index={index} />;
+
         return (
-          <>
-            <FlatList
-              data={item.value}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item: exercise }) => {
-                return (
-                  <ExerciseBox
-                    exercise={exercise}
-                    selectedExercises={selectedExercises}
-                    setSelectedExercises={setSelectedExercises}
-                  />
-                );
-              }}
-              ListHeaderComponent={() => {
-                return (
-                  <>
-                    <ThemedText type="small" color="supporting">
-                      {item.key} {/* this is the letter */}
-                    </ThemedText>
-
-                    <VerticalSpacing size={0.5} />
-                  </>
-                );
-              }}
-            />
-
-            {!isFetchingNextPage && <VerticalSpacing size={6} />}
-          </>
+          <ExerciseBox
+            exercise={item}
+            selectedExercises={selectedExercises}
+            setSelectedExercises={setSelectedExercises}
+          />
         );
       }}
       ListFooterComponent={() => (
@@ -114,6 +99,10 @@ export const FoundExercises = ({
           fetchNextPage={fetchNextPage}
         />
       )}
+      getItemType={(item) => {
+        return typeof item === "string" ? "sectionHeader" : "row";
+      }}
+      estimatedItemSize={1000}
     />
   );
 };
@@ -145,4 +134,16 @@ const ListFooterComponent: React.FC<{
   }
 
   return null;
+};
+
+const LetterHeader = ({ letter, index }: { letter: string; index: number }) => {
+  return (
+    <>
+      {index !== 0 && <VerticalSpacing size={3} />}
+
+      <ThemedText type="small" color="supporting">
+        {letter}
+      </ThemedText>
+    </>
+  );
 };
