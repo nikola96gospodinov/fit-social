@@ -4,7 +4,6 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
-import { ExerciseSet } from "@/src/types/workout.types";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React, { useEffect, useRef } from "react";
 import {
@@ -19,9 +18,10 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 import { useAnimateColor } from "@/src/hooks/use-animate-color";
+import { Tables } from "@/src/types/database.types";
 
 type Props = {
-  set: ExerciseSet;
+  set: Tables<"exercise_sets">;
   index: number;
   exerciseId: string;
   drag: () => void;
@@ -48,7 +48,7 @@ export const SetBox = ({
     colors: [
       colors[theme].cardBackground, // Default
       colors[theme].tintActiveBackground, // isActive || isBoxActive
-      colors[theme].successBackground, // set.isDone
+      colors[theme].successBackground, // set.is_done
     ],
     inputRange: [0, 1, 2],
   });
@@ -56,12 +56,12 @@ export const SetBox = ({
   useEffect(() => {
     const targetValue = (() => {
       if (isBoxActive || isActive) return 1;
-      if (set.isDone) return 2;
+      if (set.is_done) return 2;
       return 0;
     })();
 
     animate(targetValue);
-  }, [animate, isBoxActive, isActive, set.isDone]);
+  }, [animate, isBoxActive, isActive, set.is_done]);
 
   return (
     <SwipeableItem
@@ -115,10 +115,10 @@ export const SetBox = ({
 
           <Pressable
             onPress={() =>
-              updateSet({ exerciseId, setId: set.id, isDone: !set.isDone })
+              updateSet({ exerciseId, setId: set.id, isDone: !set.is_done })
             }>
             {/* For some reason dynamically changing the name and color of one icon is causing huge performance issues */}
-            {set.isDone ? (
+            {set.is_done ? (
               <FontAwesome
                 name="check-square"
                 size={24}

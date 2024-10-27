@@ -44,7 +44,9 @@ export const ExerciseBox = ({
   };
 
   const isSelected = !!selectedExercises.find(({ id }) => id === exercise.id);
-  const isDisabled = !!exercises.find(({ id }) => id === exercise.id);
+  const isDisabled = !!exercises.find(
+    ({ exercise_id }) => exercise_id === exercise.id,
+  );
 
   return (
     <Pressable

@@ -3,15 +3,20 @@ import { create } from "zustand";
 import { randomUUID } from "expo-crypto";
 import { Tables } from "../types/database.types";
 
+export type ActiveExercise = Omit<
+  Tables<"workout_exercises">,
+  "workout_id" | "id"
+>;
+
 export type State = {
   started?: Date;
-  exercises: Omit<Tables<"workout_exercises">, "workout_id" | "id">[];
+  exercises: ActiveExercise[];
   sets: Tables<"exercise_sets">[];
 };
 
 type Action = {
   // This is for reordering exercises
-  setExercises: (exercises: Tables<"workout_exercises">[]) => void;
+  setExercises: (exercises: ActiveExercise[]) => void;
   startWorkout: (started: Date) => void;
   resetWorkout: () => void;
   addExercises: (exercise: Exercise[]) => void;
@@ -39,9 +44,10 @@ type Action = {
     exerciseId: string;
     setId: string;
   }) => void;
+  getSetsForExercise: (exerciseId: string) => Tables<"exercise_sets">[];
 };
 
-export const useActiveWorkoutStore = create<State & Action>((set) => ({
+export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
   exercises: [],
   sets: [],
   startWorkout: (started) => set({ started }),
@@ -123,5 +129,8 @@ export const useActiveWorkoutStore = create<State & Action>((set) => ({
         sets,
       };
     });
+  },
+  getSetsForExercise: (exerciseId) => {
+    return get().sets.filter((set) => set.workout_exercise_id === exerciseId);
   },
 }));

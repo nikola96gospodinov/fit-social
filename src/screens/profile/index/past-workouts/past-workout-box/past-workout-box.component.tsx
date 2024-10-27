@@ -5,13 +5,13 @@ import { Tables } from "@/src/types/database.types";
 import { View, StyleSheet, useColorScheme } from "react-native";
 import { formatDistance, intervalToDuration } from "date-fns";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { ActiveExercise, ExerciseSet } from "@/src/types/workout.types";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { capitalize } from "lodash";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { Divider } from "@/src/components/ui/layout/divider/divider.component";
+import { ActiveExercise } from "@/src/store/active-workout-store";
 
 type Props = {
   workout: Tables<"workouts">;

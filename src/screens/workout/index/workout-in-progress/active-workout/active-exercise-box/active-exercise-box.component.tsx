@@ -3,7 +3,6 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
-import { ActiveExercise } from "@/src/types/workout.types";
 import { capitalize } from "lodash";
 import {
   LayoutAnimation,
@@ -13,7 +12,10 @@ import {
   View,
 } from "react-native";
 import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import {
+  ActiveExercise,
+  useActiveWorkoutStore,
+} from "@/src/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { router } from "expo-router";
@@ -31,7 +33,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
   const handleAddSet = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    addSet(exercise.id);
+    addSet(exercise.exercise_id);
   };
 
   return (
@@ -59,7 +61,9 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
         </Pressable>
 
         <Pressable
-          onPress={() => router.push(`/workout/exercise/${exercise.id}`)}
+          onPress={() =>
+            router.push(`/workout/exercise/${exercise.exercise_id}`)
+          }
           style={[
             {
               backgroundColor: colors[theme].tintBackground,
@@ -87,7 +91,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           />
         </View>
 
-        <DiscardExercise id={exercise.id} />
+        <DiscardExercise id={exercise.exercise_id} />
       </Pressable>
 
       <VerticalSpacing size={4} />

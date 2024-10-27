@@ -17,7 +17,7 @@ export const ActiveWorkout = () => {
       <NestableScrollContainer style={styles.container}>
         <NestableDraggableFlatList
           data={exercises}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item) => item.exercise_id}
           renderItem={({ item: exercise, drag, isActive }) => (
             <ActiveExerciseBox
               exercise={exercise}
