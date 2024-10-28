@@ -96,5 +96,6 @@ const styles = StyleSheet.create({
   container: {
     padding: spacing[4],
     borderRadius: 8,
+    marginHorizontal: spacing[4],
   },
 });

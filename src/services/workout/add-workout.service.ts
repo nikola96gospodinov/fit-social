@@ -4,6 +4,8 @@ import { useMutation } from "@tanstack/react-query";
 import { getOwnProfile } from "../profile/get-own-profile.service";
 
 const addWorkout = async () => {
+  console.log("Adding workout");
+
   const profile = await getOwnProfile();
 
   const { exercises, started, sets } = useActiveWorkoutStore.getState();
@@ -17,7 +19,10 @@ const addWorkout = async () => {
     .select()
     .single();
 
-  if (error) throw new Error(error.message);
+  if (error) {
+    console.error(error);
+    throw new Error(error.message);
+  }
 
   const { data: workoutExercises, error: workoutExercisesError } =
     await supabase
@@ -27,7 +32,10 @@ const addWorkout = async () => {
       )
       .select();
 
-  if (workoutExercisesError) throw new Error(workoutExercisesError.message);
+  if (workoutExercisesError) {
+    console.error(workoutExercisesError);
+    throw new Error(workoutExercisesError.message);
+  }
 
   const { data: workoutSets, error: workoutSetsError } = await supabase
     .from("exercise_sets")
@@ -40,7 +48,10 @@ const addWorkout = async () => {
       })),
     );
 
-  if (workoutSetsError) throw new Error(workoutSetsError.message);
+  if (workoutSetsError) {
+    console.error(workoutSetsError);
+    throw new Error(workoutSetsError.message);
+  }
 
   return workoutSets;
 };

@@ -4,9 +4,8 @@ import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
 import { PastWorkoutBox } from "./past-workout-box/past-workout-box.component";
 import { FlashList } from "@shopify/flash-list";
 import { View, StyleSheet, Dimensions } from "react-native";
-import { spacing } from "@/src/constants/spacing.constants";
-import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ListHeader } from "../list-header/list-header.component";
 
 export const PastWorkouts = () => {
   const { data: profile, isLoading: profileLoading } = useGetProfile();
@@ -19,10 +18,6 @@ export const PastWorkouts = () => {
 
   return (
     <View style={styles.container}>
-      <ThemedText type="subtitle">Past Workouts</ThemedText>
-
-      <VerticalSpacing size={4} />
-
       <FlashList
         data={workouts.data}
         renderItem={({ item }) => {
@@ -31,6 +26,8 @@ export const PastWorkouts = () => {
         keyExtractor={(item) => item.id}
         estimatedItemSize={workouts?.count || 100}
         ItemSeparatorComponent={() => <VerticalSpacing size={4} />}
+        ListFooterComponent={() => <VerticalSpacing size={13} />}
+        ListHeaderComponent={ListHeader}
       />
     </View>
   );
@@ -38,7 +35,6 @@ export const PastWorkouts = () => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing[4],
-    minHeight: Dimensions.get("window").height + 200,
+    minHeight: Dimensions.get("window").height,
   },
 });
