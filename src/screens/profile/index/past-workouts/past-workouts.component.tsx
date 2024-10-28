@@ -3,7 +3,7 @@ import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
 import { PastWorkoutBox } from "./past-workout-box/past-workout-box.component";
 import { FlashList } from "@shopify/flash-list";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Dimensions } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
@@ -29,7 +29,8 @@ export const PastWorkouts = () => {
           return <PastWorkoutBox workout={item} />;
         }}
         keyExtractor={(item) => item.id}
-        estimatedItemSize={workouts?.count ?? 100}
+        estimatedItemSize={workouts?.count || 100}
+        ItemSeparatorComponent={() => <VerticalSpacing size={4} />}
       />
     </View>
   );
@@ -38,7 +39,6 @@ export const PastWorkouts = () => {
 const styles = StyleSheet.create({
   container: {
     padding: spacing[4],
-    flex: 1,
-    minHeight: 350, // This is needed for the flash list to render
+    minHeight: Dimensions.get("window").height + 200,
   },
 });
