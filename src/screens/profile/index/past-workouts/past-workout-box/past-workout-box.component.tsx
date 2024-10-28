@@ -6,12 +6,11 @@ import { View, StyleSheet, useColorScheme } from "react-native";
 import { formatDistance, intervalToDuration } from "date-fns";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { capitalize } from "lodash";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import { Divider } from "@/src/components/ui/layout/divider/divider.component";
-import { ActiveExercise } from "@/src/store/active-workout-store";
+import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
+import { ExerciseRow } from "./exercise-row/exercise-row.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -19,12 +18,13 @@ type Props = {
 
 export const PastWorkoutBox = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
-  const exercises = workout.exercises as ActiveExercise[];
 
   const duration = intervalToDuration({
     start: new Date(workout.started),
     end: new Date(workout.ended ?? workout.started),
   });
+
+  const { data: exercises } = useGetWorkoutExercises(workout.id);
 
   return (
     <View
@@ -80,58 +80,12 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
       {exercises?.map((exercise, index) => {
         return (
-          <View key={exercise.id}>
-            <Flex
-              justify="space-between"
-              align="flex-end"
-              direction="row"
-              gap={4}>
-              <View style={{ flex: 1 }}>
-                <ThemedText type="extraSmall" key={exercise.id}>
-                  {capitalize(exercise.name)}
-                </ThemedText>
-
-                <ThemedText type="extraSmall" color="supporting">
-                  {exercise.sets?.length} sets
-                </ThemedText>
-              </View>
-
-              <Flex
-                direction="row"
-                gap={2}
-                align="center"
-                style={{ flexShrink: 1 }}>
-                <FontAwesome
-                  name="star-o"
-                  size={14}
-                  color={colors[theme].icon}
-                />
-
-                <ThemedText type="extraSmall">
-                  {(() => {
-                    const bestSet = exercise.sets?.reduce(
-                      (prev, current) =>
-                        (current.weight ?? 0) > (prev.weight ?? 0)
-                          ? current
-                          : prev,
-                      { weight: 0, reps: 0 } as ExerciseSet,
-                    );
-                    return `${bestSet?.weight ?? 0} kg x ${bestSet?.reps ?? 0} reps`;
-                  })()}{" "}
-                </ThemedText>
-              </Flex>
-            </Flex>
-
-            {index !== exercises.length - 1 && (
-              <>
-                <VerticalSpacing size={3} />
-
-                <Divider />
-
-                <VerticalSpacing size={3} />
-              </>
-            )}
-          </View>
+          <ExerciseRow
+            key={exercise.id}
+            exercise={exercise}
+            index={index}
+            exercisesLength={exercises.length}
+          />
         );
       })}
     </View>
