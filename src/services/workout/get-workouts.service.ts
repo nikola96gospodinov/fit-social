@@ -11,7 +11,8 @@ const getWorkouts = async ({ handle }: Props) => {
   const { data, error, count } = await supabase
     .from("workouts")
     .select("*", { count: "exact" })
-    .eq("user_handle", handle ?? "");
+    .eq("user_handle", handle ?? "")
+    .order("started", { ascending: false });
 
   if (error) throw new Error(error.message);
 
