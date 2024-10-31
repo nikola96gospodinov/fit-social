@@ -3,7 +3,10 @@ import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/them
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import {
+  ActiveSet,
+  useActiveWorkoutStore,
+} from "@/src/store/active-workout-store";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import React, { useEffect, useRef } from "react";
 import {
@@ -18,10 +21,9 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 import { useAnimateColor } from "@/src/hooks/use-animate-color";
-import { Tables } from "@/src/types/database.types";
 
 type Props = {
-  set: Tables<"exercise_sets">;
+  set: ActiveSet;
   index: number;
   exerciseId: string;
   drag: () => void;

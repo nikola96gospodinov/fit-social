@@ -8,10 +8,14 @@ export type ActiveExercise = Omit<
   "workout_id" | "id"
 >;
 
+export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
+  exercise_id: string;
+};
+
 export type State = {
   started?: Date;
   exercises: ActiveExercise[];
-  sets: Tables<"exercise_sets">[];
+  sets: ActiveSet[];
 };
 
 type Action = {
@@ -22,7 +26,7 @@ type Action = {
   addExercises: (exercise: Exercise[]) => void;
   removeExercise: (id: string) => void;
   // This is for reordering sets
-  setSets: (exerciseId: string, sets: Tables<"exercise_sets">[]) => void;
+  setSets: (exerciseId: string, sets: ActiveSet[]) => void;
   addSet: (exerciseId: string) => void;
   updateSet: ({
     exerciseId,
@@ -44,7 +48,7 @@ type Action = {
     exerciseId: string;
     setId: string;
   }) => void;
-  getSetsForExercise: (exerciseId: string) => Tables<"exercise_sets">[];
+  getSetsForExercise: (exerciseId: string) => ActiveSet[];
 };
 
 export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
@@ -72,7 +76,7 @@ export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
   setSets: (exerciseId, sets) => {
     set((state) => {
       const newSets = state.sets.filter(
-        (set) => set.workout_exercise_id !== exerciseId,
+        (set) => set.exercise_id !== exerciseId,
       );
 
       return {
@@ -95,7 +99,7 @@ export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
         reps: 0,
         weight: 0,
         is_done: false,
-        workout_exercise_id: exerciseId,
+        exercise_id: exerciseId,
       };
 
       return {
@@ -131,6 +135,6 @@ export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
     });
   },
   getSetsForExercise: (exerciseId) => {
-    return get().sets.filter((set) => set.workout_exercise_id === exerciseId);
+    return get().sets.filter((set) => set.exercise_id === exerciseId);
   },
 }));
