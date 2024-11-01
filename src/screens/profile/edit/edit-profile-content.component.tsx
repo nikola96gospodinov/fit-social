@@ -22,7 +22,7 @@ export const EditProfileContent = () => {
 
       <EditAvatar />
 
-      <VerticalSpacing size={6} />
+      <VerticalSpacing size={4} />
 
       <EditProfileForm />
     </ScrollView>

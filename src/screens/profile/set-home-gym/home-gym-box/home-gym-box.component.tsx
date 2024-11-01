@@ -1,7 +1,8 @@
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
+import { spacing } from "@/src/constants/spacing.constants";
 import { Gym } from "@/src/services/home-gym/find-home-gym.service";
-import { StyleSheet, useColorScheme, Pressable } from "react-native";
+import { StyleSheet, useColorScheme, Pressable, View } from "react-native";
 
 type Props = {
   gym: Gym;
@@ -26,10 +27,31 @@ export const HomeGymBox = ({ gym, isSelected, setSelectedHomeGym }: Props) => {
             : colors[theme].border,
         },
       ]}>
-      <ThemedText>{gym.primaryName}</ThemedText>
-      <ThemedText type="extraSmall" color="supporting">
-        {gym.secondaryName}
-      </ThemedText>
+      <View
+        style={[
+          styles.radioOuter,
+          {
+            borderColor: isSelected
+              ? colors[theme].borderFocused
+              : colors[theme].border,
+          },
+        ]}>
+        {isSelected && (
+          <View
+            style={[
+              styles.radioInner,
+              { backgroundColor: colors[theme].borderFocused },
+            ]}
+          />
+        )}
+      </View>
+
+      <View>
+        <ThemedText>{gym.primaryName}</ThemedText>
+        <ThemedText type="extraSmall" color="supporting">
+          {gym.secondaryName}
+        </ThemedText>
+      </View>
     </Pressable>
   );
 };
@@ -39,5 +61,23 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
+    flexDirection: "row",
+    gap: spacing[3],
+    alignItems: "center",
+  },
+
+  radioOuter: {
+    width: 20,
+    height: 20,
+    borderRadius: 100,
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  radioInner: {
+    width: 10,
+    height: 10,
+    borderRadius: 100,
   },
 });
