@@ -14,8 +14,8 @@ export const URL = {
       return `${this.base}/${id}`;
     },
 
-    GET_EXERCISES_BY_IDS(): string {
-      return `${this.base}-by-ids`;
+    GET_EXERCISES_BY_IDS(queryParams: { ids: string }): string {
+      return addQueryParamsToUrl(`${this.base}-by-ids`, queryParams);
     },
   },
 

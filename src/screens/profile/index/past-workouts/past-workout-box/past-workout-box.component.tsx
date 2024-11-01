@@ -12,6 +12,8 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
 import { ExerciseRow } from "./exercise-row/exercise-row.component";
 import { useGetAllExerciseSetsForWorkout } from "@/src/services/workout/get-all-exercise-sets-for-workout.service";
+import { useGetExercisesByMultipleIds } from "@/src/services/exercises/get-exercises-by-multiple-ids.service";
+import { capitalize } from "lodash";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -25,7 +27,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
     end: new Date(workout.ended ?? workout.started),
   });
 
-  const { data: exercises } = useGetWorkoutExercises(workout.id);
+  const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
   const { data: exerciseSets } = useGetAllExerciseSetsForWorkout(workout.id);
 
@@ -33,6 +35,18 @@ export const PastWorkoutBox = ({ workout }: Props) => {
     (acc, set) => acc + (set.weight ?? 0) * (set.reps ?? 0),
     0,
   );
+
+  const exerciseIds = workoutExercises?.map((exercise) => exercise.exercise_id);
+
+  const { data: exercises } = useGetExercisesByMultipleIds(exerciseIds);
+
+  const bodyParts = capitalize(
+    exercises?.map((exercise) => exercise.bodyPart).join(", "),
+  );
+
+  const alternativeTitle = bodyParts
+    ? `${bodyParts} workout`
+    : "Untitled workout";
 
   return (
     <View
@@ -42,7 +56,9 @@ export const PastWorkoutBox = ({ workout }: Props) => {
       ]}>
       <Flex justify="space-between" direction="row" gap={2} align="center">
         <View>
-          <ThemedText style={{ fontWeight: "500" }}>Chest workout</ThemedText>
+          <ThemedText style={{ fontWeight: "500" }}>
+            {workout.title ?? alternativeTitle}
+          </ThemedText>
 
           <VerticalSpacing size={0.5} />
 
@@ -86,13 +102,13 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
       <VerticalSpacing size={6} />
 
-      {exercises?.map((exercise, index) => {
+      {workoutExercises?.map((exercise, index) => {
         return (
           <ExerciseRow
             key={exercise.id}
             exercise={exercise}
             index={index}
-            exercisesLength={exercises.length}
+            exercisesLength={workoutExercises.length}
           />
         );
       })}
