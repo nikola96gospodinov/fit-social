@@ -1,6 +1,9 @@
 import { checkHandleUniqueness } from "@/src/services/profile/check-handle-uniqueness.service";
 import { z } from "zod";
 
+export const METRIC = "metric" as const;
+export const IMPERIAL = "imperial" as const;
+
 export const editProfileSchema = (originalHandle: string | null) =>
   z
     .object({
@@ -8,8 +11,7 @@ export const editProfileSchema = (originalHandle: string | null) =>
       handle: z.string(),
       is_public: z.boolean(),
       bio: z.string().optional(),
-      home_gym_id: z.string().optional(),
-      home_gym_name: z.string().optional(),
+      measurement_system: z.enum([METRIC, IMPERIAL]),
     })
     .superRefine(async ({ handle }, ctx) => {
       if (handle === originalHandle) return;

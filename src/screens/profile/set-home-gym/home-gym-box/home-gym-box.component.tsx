@@ -1,3 +1,4 @@
+import { ThemedRadio } from "@/src/components/ui/form/themed-radio/themed-radio.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
@@ -27,24 +28,7 @@ export const HomeGymBox = ({ gym, isSelected, setSelectedHomeGym }: Props) => {
             : colors[theme].border,
         },
       ]}>
-      <View
-        style={[
-          styles.radioOuter,
-          {
-            borderColor: isSelected
-              ? colors[theme].borderFocused
-              : colors[theme].border,
-          },
-        ]}>
-        {isSelected && (
-          <View
-            style={[
-              styles.radioInner,
-              { backgroundColor: colors[theme].borderFocused },
-            ]}
-          />
-        )}
-      </View>
+      <ThemedRadio isSelected={isSelected} />
 
       <View>
         <ThemedText>{gym.primaryName}</ThemedText>
@@ -64,20 +48,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: spacing[3],
     alignItems: "center",
-  },
-
-  radioOuter: {
-    width: 20,
-    height: 20,
-    borderRadius: 100,
-    borderWidth: 2,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  radioInner: {
-    width: 10,
-    height: 10,
-    borderRadius: 100,
   },
 });

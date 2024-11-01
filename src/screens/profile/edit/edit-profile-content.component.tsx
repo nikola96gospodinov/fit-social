@@ -25,6 +25,8 @@ export const EditProfileContent = () => {
       <VerticalSpacing size={4} />
 
       <EditProfileForm />
+
+      <VerticalSpacing size={10} />
     </ScrollView>
   );
 };

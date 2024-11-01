@@ -12,6 +12,7 @@ import { useUpdateProfile } from "@/src/services/profile/update-profile.service"
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { getOnlyChangedFields } from "@/src/lib/react-hook-form/react-hook-form.utils";
 import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
+import { MeasurementSystemInput } from "./measurement-system-input/measurement-system-input.component";
 
 export const EditProfileForm = () => {
   const { data: profile } = useGetOwnProfile();
@@ -21,12 +22,15 @@ export const EditProfileForm = () => {
     control,
     handleSubmit,
     formState: { dirtyFields },
+    setValue,
+    watch,
   } = useForm<EditProfileFormType>({
     defaultValues: {
       full_name: profile?.full_name ?? undefined,
       handle: profile?.handle ?? undefined,
       is_public: profile?.is_public ?? undefined,
       bio: profile?.bio ?? undefined,
+      measurement_system: profile?.measurement_system ?? undefined,
     },
     resolver: zodResolver(editProfileSchema(profile!.handle)),
   });
@@ -77,6 +81,13 @@ export const EditProfileForm = () => {
       />
 
       <VerticalSpacing size={4} />
+
+      <MeasurementSystemInput
+        setValue={setValue}
+        measurementSystem={watch("measurement_system")}
+      />
+
+      <VerticalSpacing size={6} />
 
       <ThemedButton
         text="Save"
