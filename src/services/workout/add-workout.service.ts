@@ -7,13 +7,14 @@ const addWorkout = async () => {
   console.log("Adding workout");
 
   const profile = await getOwnProfile();
-  const { exercises, started, sets } = useActiveWorkoutStore.getState();
+  const { exercises, started, sets, title } = useActiveWorkoutStore.getState();
 
   const { error } = await supabase.rpc("add_workout_with_exercises_and_sets", {
     p_started: started?.toISOString() ?? new Date().toISOString(),
     p_user_handle: String(profile.handle),
     p_exercises: exercises,
     p_sets: sets,
+    p_title: title,
   });
 
   if (error) {

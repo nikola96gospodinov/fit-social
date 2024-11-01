@@ -73,7 +73,9 @@ export const ThemedTextInput = ({
     <>
       {label && (
         <>
-          <ThemedText type="small" color="supporting">
+          <ThemedText
+            type={size === "small" ? "extraSmall" : "small"}
+            color="supporting">
             {label}
           </ThemedText>
 

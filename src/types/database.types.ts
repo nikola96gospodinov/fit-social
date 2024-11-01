@@ -156,18 +156,21 @@ export type Database = {
           ended: string | null
           id: string
           started: string
+          title: string | null
           user_handle: string
         }
         Insert: {
           ended?: string | null
           id?: string
           started: string
+          title?: string | null
           user_handle: string
         }
         Update: {
           ended?: string | null
           id?: string
           started?: string
+          title?: string | null
           user_handle?: string
         }
         Relationships: [
@@ -185,22 +188,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      add_workout:
-        | {
-            Args: {
-              p_started: string
-              p_user_handle: string
-            }
-            Returns: undefined
-          }
-        | {
-            Args: {
-              p_started: string
-              p_user_handle: string
-              p_exercises: Json[]
-            }
-            Returns: undefined
-          }
+      add_workout_with_exercises_and_sets:
         | {
             Args: {
               p_started: string
@@ -210,15 +198,16 @@ export type Database = {
             }
             Returns: undefined
           }
-      add_workout_with_exercises_and_sets: {
-        Args: {
-          p_started: string
-          p_user_handle: string
-          p_exercises: Json[]
-          p_sets: Json[]
-        }
-        Returns: undefined
-      }
+        | {
+            Args: {
+              p_started: string
+              p_user_handle: string
+              p_title: string
+              p_exercises: Json[]
+              p_sets: Json[]
+            }
+            Returns: undefined
+          }
     }
     Enums: {
       follow_status: "pending" | "accepted"

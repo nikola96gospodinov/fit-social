@@ -8,6 +8,7 @@ import {
   NestableScrollContainer,
 } from "react-native-draggable-flatlist";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { ActiveExercisesHeader } from "./active-exercises-header/active-exercises-header.component";
 
 export const ActiveWorkout = () => {
   const { exercises, setExercises } = useActiveWorkoutStore();
@@ -25,7 +26,8 @@ export const ActiveWorkout = () => {
               isActive={isActive}
             />
           )}
-          ListFooterComponent={() => <ActiveExercisesFooter />}
+          ListFooterComponent={ActiveExercisesFooter}
+          ListHeaderComponent={ActiveExercisesHeader}
           onDragEnd={({ data }) => setExercises(data)}
         />
       </NestableScrollContainer>
