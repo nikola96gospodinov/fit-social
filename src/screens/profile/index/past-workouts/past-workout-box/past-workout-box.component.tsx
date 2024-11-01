@@ -3,7 +3,6 @@ import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Tables } from "@/src/types/database.types";
 import { View, StyleSheet, useColorScheme } from "react-native";
-import { formatDistance, intervalToDuration } from "date-fns";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -11,9 +10,12 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
 import { ExerciseRow } from "./exercise-row/exercise-row.component";
-import { useGetAllExerciseSetsForWorkout } from "@/src/services/workout/get-all-exercise-sets-for-workout.service";
-import { useGetExercisesByMultipleIds } from "@/src/services/exercises/get-exercises-by-multiple-ids.service";
-import { capitalize } from "lodash";
+import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
+import {
+  getWorkoutDistance,
+  getWorkoutDuration,
+} from "./past-workout-box.utils";
+import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -22,31 +24,12 @@ type Props = {
 export const PastWorkoutBox = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const duration = intervalToDuration({
-    start: new Date(workout.started),
-    end: new Date(workout.ended ?? workout.started),
-  });
-
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
-  const { data: exerciseSets } = useGetAllExerciseSetsForWorkout(workout.id);
-
-  const totalWeight = exerciseSets?.reduce(
-    (acc, set) => acc + (set.weight ?? 0) * (set.reps ?? 0),
-    0,
-  );
-
-  const exerciseIds = workoutExercises?.map((exercise) => exercise.exercise_id);
-
-  const { data: exercises } = useGetExercisesByMultipleIds(exerciseIds);
-
-  const bodyParts = capitalize(
-    exercises?.map((exercise) => exercise.bodyPart).join(", "),
-  );
-
-  const alternativeTitle = bodyParts
-    ? `${bodyParts} workout`
-    : "Untitled workout";
+  const alternativeTitle = useGetAlternativeTitle(workoutExercises);
+  const distance = getWorkoutDistance(workout.started, workout.ended);
+  const totalWeight = useGetTotalWeight(workout.id);
+  const duration = getWorkoutDuration(workout.started, workout.ended);
 
   return (
     <View
@@ -63,11 +46,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
           <VerticalSpacing size={0.5} />
 
           <ThemedText type="extraSmall" color="supporting">
-            {formatDistance(
-              new Date(workout.ended ?? workout.started),
-              new Date(),
-            )}{" "}
-            ago
+            {distance}
           </ThemedText>
         </View>
 
@@ -80,7 +59,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <Flex direction="row" gap={2} align="center">
           <Ionicons name="timer-outline" size={14} color={colors[theme].icon} />
 
-          <ThemedText type="extraSmall">{duration.minutes}m</ThemedText>
+          <ThemedText type="extraSmall">{duration}</ThemedText>
         </Flex>
 
         <Flex direction="row" gap={2} align="center">
