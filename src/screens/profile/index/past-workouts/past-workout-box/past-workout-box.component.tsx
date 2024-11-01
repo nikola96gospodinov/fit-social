@@ -11,6 +11,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
 import { ExerciseRow } from "./exercise-row/exercise-row.component";
+import { useGetAllExerciseSetsForWorkout } from "@/src/services/workout/get-all-exercise-sets-for-workout.service";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -25,6 +26,13 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   });
 
   const { data: exercises } = useGetWorkoutExercises(workout.id);
+
+  const { data: exerciseSets } = useGetAllExerciseSetsForWorkout(workout.id);
+
+  const totalWeight = exerciseSets?.reduce(
+    (acc, set) => acc + (set.weight ?? 0) * (set.reps ?? 0),
+    0,
+  );
 
   return (
     <View
@@ -62,7 +70,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <Flex direction="row" gap={2} align="center">
           <FontAwesome6 name="dumbbell" size={14} color={colors[theme].icon} />
 
-          <ThemedText type="extraSmall">10,050 kg</ThemedText>
+          <ThemedText type="extraSmall">{totalWeight} kg</ThemedText>
         </Flex>
 
         <Flex direction="row" gap={2} align="center">
