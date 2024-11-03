@@ -1,7 +1,6 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
-
-const WORKOUT_QUERY_KEY = "workouts";
+import { WORKOUT_QUERY_KEY } from "./profile-keys";
 
 type Props = {
   handle?: string | null;
