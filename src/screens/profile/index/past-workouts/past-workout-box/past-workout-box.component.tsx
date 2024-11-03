@@ -16,6 +16,7 @@ import {
   getWorkoutDuration,
 } from "./past-workout-box.utils";
 import { useGetTotalWeight } from "./hooks/use-get-total-weight";
+import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -30,6 +31,12 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   const distance = getWorkoutDistance(workout.started, workout.ended);
   const totalWeight = useGetTotalWeight(workout.id);
   const duration = getWorkoutDuration(workout.started, workout.ended);
+
+  const { data: workoutPRs } = useGetWorkoutPRs({
+    ended: workout.ended,
+    workoutId: workout.id,
+    handle: workout.user_handle,
+  });
 
   return (
     <View
@@ -75,7 +82,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
             color={colors[theme].icon}
           />
 
-          <ThemedText type="extraSmall">2 PRs</ThemedText>
+          <ThemedText type="extraSmall">{workoutPRs ?? 0} PRs</ThemedText>
         </Flex>
       </Flex>
 

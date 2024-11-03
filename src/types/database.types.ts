@@ -207,6 +207,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      count_workout_prs: {
+        Args: {
+          current_workout_id: string
+          handle: string
+          current_workout_ended: string
+        }
+        Returns: number
+      }
+      get_workout_prs: {
+        Args: {
+          workout_id: string
+        }
+        Returns: number
+      }
     }
     Enums: {
       follow_status: "pending" | "accepted"
