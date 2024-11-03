@@ -47,7 +47,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
       <Flex justify="space-between" direction="row" gap={2} align="center">
         <View>
           <ThemedText style={{ fontWeight: "500" }}>
-            {workout.title ?? alternativeTitle}
+            {workout.title || alternativeTitle}
           </ThemedText>
 
           <VerticalSpacing size={0.5} />
