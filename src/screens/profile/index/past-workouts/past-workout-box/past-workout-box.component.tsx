@@ -2,7 +2,7 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Tables } from "@/src/types/database.types";
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet, useColorScheme, Pressable } from "react-native";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -17,6 +17,7 @@ import {
 } from "./past-workout-box.utils";
 import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
+import { router } from "expo-router";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -57,7 +58,12 @@ export const PastWorkoutBox = ({ workout }: Props) => {
           </ThemedText>
         </View>
 
-        <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
+        <Pressable
+          onPress={() => {
+            router.push(`/profile/edit-workout?workoutId=${workout.id}`);
+          }}>
+          <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
+        </Pressable>
       </Flex>
 
       <VerticalSpacing size={4} />

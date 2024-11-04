@@ -28,6 +28,8 @@ export default function ProfileLayout() {
         name="set-home-gym"
         options={{ title: homeGymTitle, presentation: "modal" }}
       />
+
+      <Stack.Screen name="edit-workout" options={{ title: "Edit workout" }} />
     </Stack>
   );
 }
