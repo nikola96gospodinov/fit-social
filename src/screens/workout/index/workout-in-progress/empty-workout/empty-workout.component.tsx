@@ -12,7 +12,7 @@ export const EmptyWorkout = () => {
 
   const router = useRouter();
 
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() ?? "light";
 
   return (
     <FullScreenCenteredView>

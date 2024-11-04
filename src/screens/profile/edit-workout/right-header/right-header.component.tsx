@@ -2,8 +2,12 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
 import { useDeleteWorkout } from "@/src/services/workout/delete-workout.service";
 import { useGlobalSearchParams } from "expo-router";
+import { createDeleteConfirmation } from "./create-delete-confirmation";
+import { useColorScheme } from "react-native";
 
 export const EditWorkoutRightHeader = () => {
+  const colorScheme = useColorScheme() ?? "light";
+
   const { id } = useGlobalSearchParams();
 
   const { data: profile } = useGetOwnProfile();
@@ -19,7 +23,12 @@ export const EditWorkoutRightHeader = () => {
       icon="trash"
       size="sm"
       disabled={!handle || !id}
-      onPress={() => deleteWorkout(id as string)}
+      onPress={() =>
+        createDeleteConfirmation({
+          onDelete: () => deleteWorkout(id as string),
+          colorScheme: colorScheme,
+        })
+      }
     />
   );
 };
