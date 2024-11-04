@@ -19,6 +19,7 @@ export const EmptyWorkout = () => {
       <ThemedButton
         text="Add exercise(s)"
         onPress={() => router.push("/workout/add-exercise")}
+        isFullWidth
       />
 
       <VerticalSpacing size={4} />
@@ -36,6 +37,7 @@ export const EmptyWorkout = () => {
             cancelWorkout: resetWorkout,
           })
         }
+        isFullWidth
       />
     </FullScreenCenteredView>
   );

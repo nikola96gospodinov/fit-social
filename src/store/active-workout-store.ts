@@ -23,7 +23,7 @@ type Action = {
   setTitle: (title: string) => void;
   // This is for reordering exercises
   setExercises: (exercises: ActiveExercise[]) => void;
-  startWorkout: (started: Date) => void;
+  startWorkout: () => void;
   resetWorkout: () => void;
   addExercises: (exercise: Exercise[]) => void;
   removeExercise: (id: string) => void;
@@ -58,7 +58,7 @@ export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
   sets: [],
   title: "",
   setTitle: (title) => set({ title }),
-  startWorkout: (started) => set({ started }),
+  startWorkout: () => set({ started: new Date() }),
   resetWorkout: () => set({ started: undefined, exercises: [], sets: [] }),
   setExercises: (exercises) => set({ exercises }),
   addExercises: (exercises) => {

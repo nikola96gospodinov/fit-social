@@ -91,6 +91,7 @@ export const ThemedButton = ({
           alignSelf: isCentered ? "center" : "auto",
         },
         isFullWidth && { width: "100%", borderRadius: 24 },
+        !isFullWidth && { alignSelf: "flex-start" },
         style,
       ]}
       {...rest}

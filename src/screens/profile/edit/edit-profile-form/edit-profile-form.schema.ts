@@ -12,6 +12,8 @@ export const editProfileSchema = (originalHandle: string | null) =>
       is_public: z.boolean(),
       bio: z.string().optional(),
       measurement_system: z.enum([METRIC, IMPERIAL]),
+      home_gym_id: z.string().optional(),
+      home_gym_name: z.string().optional(),
     })
     .superRefine(async ({ handle }, ctx) => {
       if (handle === originalHandle) return;

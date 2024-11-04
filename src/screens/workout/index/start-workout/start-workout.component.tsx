@@ -11,7 +11,8 @@ export const StartWorkout = () => {
     <FullScreenCenteredView>
       <ThemedButton
         text="Start an empty workout"
-        onPress={() => startWorkout(new Date())}
+        onPress={() => startWorkout()}
+        isFullWidth
       />
 
       <VerticalSpacing size={4} />
@@ -20,7 +21,11 @@ export const StartWorkout = () => {
 
       <VerticalSpacing size={4} />
 
-      <ThemedButton text="Choose from a template" variant="outline" />
+      <ThemedButton
+        text="Choose from a template"
+        variant="outline"
+        isFullWidth
+      />
     </FullScreenCenteredView>
   );
 };

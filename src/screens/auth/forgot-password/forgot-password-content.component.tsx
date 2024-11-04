@@ -82,6 +82,7 @@ export const ForgotPasswordContent = () => {
         text="Back to login"
         variant="link"
         onPress={() => router.back()}
+        isFullWidth
       />
     </FullScreenCenteredView>
   );

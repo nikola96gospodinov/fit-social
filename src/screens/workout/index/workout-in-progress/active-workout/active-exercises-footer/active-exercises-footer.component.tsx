@@ -18,13 +18,14 @@ export const ActiveExercisesFooter = () => {
         text="Add exercise(s)"
         onPress={() => router.push("/workout/add-exercise")}
         size="sm"
+        isFullWidth
       />
 
-      <VerticalSpacing size={2} />
+      <VerticalSpacing size={3} />
 
       <OrSeparator textType="small" />
 
-      <VerticalSpacing size={2} />
+      <VerticalSpacing size={3} />
 
       <ThemedButton
         text="Cancel workout"
@@ -36,6 +37,7 @@ export const ActiveExercisesFooter = () => {
             colorScheme: theme,
           })
         }
+        isFullWidth
       />
 
       <VerticalSpacing size={8} />

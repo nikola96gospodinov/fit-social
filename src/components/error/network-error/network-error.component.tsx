@@ -1,7 +1,6 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { Pressable, useColorScheme, StyleSheet } from "react-native";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
@@ -23,11 +22,7 @@ export const NetworkError = ({ message, refetch }: Props) => {
         styles.container,
       ]}>
       <Flex direction="row" gap={2} align="center">
-        <MaterialIcons
-          name="error-outline"
-          size={20}
-          color={colors[theme].destructiveIcon}
-        />
+        <ThemedText type="subtitle">🤔</ThemedText>
 
         <ThemedText type="small" color="error">
           {message || "Something went wrong"}
