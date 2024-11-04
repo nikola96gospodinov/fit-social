@@ -5,6 +5,7 @@ import { WORKOUT_QUERY_KEY } from "./profile-keys";
 import { router } from "expo-router";
 
 export const deleteWorkout = async (workoutId: string) => {
+  // Deleting a workout automatically deletes all the exercises and sets
   const { error } = await supabase
     .from("workouts")
     .delete()
