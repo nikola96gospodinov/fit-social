@@ -1,3 +1,4 @@
+import { EditWorkoutRightHeader } from "@/src/screens/profile/edit-workout/right-header/right-header.component";
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { Stack } from "expo-router";
@@ -24,12 +25,12 @@ export default function ProfileLayout() {
         }}
       />
 
-      <Stack.Screen
-        name="set-home-gym"
-        options={{ title: homeGymTitle, presentation: "modal" }}
-      />
+      <Stack.Screen name="set-home-gym" options={{ title: homeGymTitle }} />
 
-      <Stack.Screen name="edit-workout" options={{ title: "Edit workout" }} />
+      <Stack.Screen
+        name="edit-workout/[id]"
+        options={{ title: "Edit workout", headerRight: EditWorkoutRightHeader }}
+      />
     </Stack>
   );
 }

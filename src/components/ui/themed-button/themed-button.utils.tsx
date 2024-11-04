@@ -101,6 +101,22 @@ const getVariantStyles = ({
       });
     }
 
+    case "flatError": {
+      return StyleSheet.create({
+        pressable: {
+          backgroundColor: "transparent",
+        },
+
+        pressableTap: {},
+
+        text: {
+          color: themeColors.destructiveBorder,
+        },
+
+        textTap: {},
+      });
+    }
+
     // case "primary"
     default: {
       return StyleSheet.create({
@@ -199,7 +215,7 @@ export const getButtonStyles = ({
   const variantStyles = getVariantStyles({ variant, theme, isDisabled });
   const sizeStyles = getSizeStyles(size);
 
-  const isFlat = variant === "flat";
+  const isFlat = variant === "flat" || variant === "flatError";
   const isLink = variant === "link";
 
   const pressableSizeStyles = (() => {

@@ -60,7 +60,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
         <Pressable
           onPress={() => {
-            router.push(`/profile/edit-workout?workoutId=${workout.id}`);
+            router.push(`/profile/edit-workout/${workout.id}`);
           }}>
           <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
         </Pressable>
