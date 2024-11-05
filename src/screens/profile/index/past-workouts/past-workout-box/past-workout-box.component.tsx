@@ -91,7 +91,9 @@ export const PastWorkoutBox = ({ workout }: Props) => {
             color={colors[theme].icon}
           />
 
-          <ThemedText type="extraSmall">{workoutPRs ?? 0} PRs</ThemedText>
+          <ThemedText type="extraSmall">
+            {workoutPRs ?? 0} PR{workoutPRs === 1 ? "" : "s"}
+          </ThemedText>
         </Flex>
       </Flex>
 

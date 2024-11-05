@@ -24,5 +24,9 @@ export const getWorkoutDuration = (started: string, ended: string) => {
     time.push(`${duration.minutes}m`);
   }
 
+  if (time.length === 0) {
+    return "<1m";
+  }
+
   return time.join(", ");
 };
