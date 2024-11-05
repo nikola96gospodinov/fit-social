@@ -18,6 +18,7 @@ import {
 import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 import { router } from "expo-router";
+import { useGetProfile } from "@/src/services/profile/get-profile.service";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -28,6 +29,8 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
+  const { data: profile } = useGetProfile();
+
   const alternativeTitle = useGetAlternativeTitle(
     workout.ended,
     workoutExercises,
@@ -35,6 +38,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   const distance = getWorkoutDistance(workout.started, workout.ended);
   const totalWeight = useGetTotalWeight(workout.id);
   const duration = getWorkoutDuration(workout.started, workout.ended);
+  const weightUnit = profile?.measurement_system === "metric" ? "kg" : "lbs";
 
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,
@@ -81,7 +85,9 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <Flex direction="row" gap={2} align="center">
           <FontAwesome6 name="dumbbell" size={14} color={colors[theme].icon} />
 
-          <ThemedText type="extraSmall">{totalWeight} kg</ThemedText>
+          <ThemedText type="extraSmall">
+            {totalWeight} {weightUnit}
+          </ThemedText>
         </Flex>
 
         <Flex direction="row" gap={2} align="center">
