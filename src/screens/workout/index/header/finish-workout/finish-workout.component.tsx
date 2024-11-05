@@ -3,9 +3,12 @@ import { useColorScheme, View } from "react-native";
 import { createFinishConfirmationAlert } from "./create-finish-confirmation-alert";
 import { useAddWorkout } from "@/src/services/workout/add-workout.service";
 import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-toast.component";
+import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 
 export const FinishWorkout = () => {
   const { mutate: addWorkout, isPending, isError, isSuccess } = useAddWorkout();
+
+  const { resetWorkout } = useActiveWorkoutStore();
 
   const theme = useColorScheme() ?? "light";
 
@@ -27,7 +30,11 @@ export const FinishWorkout = () => {
         text="Finish"
         variant="flat"
         onPress={() =>
-          createFinishConfirmationAlert({ finishWorkout: addWorkout, theme })
+          createFinishConfirmationAlert({
+            finishWorkout: addWorkout,
+            theme,
+            resetWorkout,
+          })
         }
       />
 
