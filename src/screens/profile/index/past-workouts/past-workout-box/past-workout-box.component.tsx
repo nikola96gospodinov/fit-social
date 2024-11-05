@@ -28,7 +28,10 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
-  const alternativeTitle = useGetAlternativeTitle(workoutExercises);
+  const alternativeTitle = useGetAlternativeTitle(
+    workout.ended,
+    workoutExercises,
+  );
   const distance = getWorkoutDistance(workout.started, workout.ended);
   const totalWeight = useGetTotalWeight(workout.id);
   const duration = getWorkoutDuration(workout.started, workout.ended);
