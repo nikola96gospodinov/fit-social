@@ -21,6 +21,7 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 import { useAnimateColor } from "@/src/hooks/use-animate-color";
+import { Database } from "@/src/types/database.types";
 
 type Props = {
   set: ActiveSet;
@@ -29,6 +30,7 @@ type Props = {
   drag: () => void;
   isActive: boolean;
   isBoxActive: boolean;
+  previousSet?: Database["public"]["Functions"]["get_previous_sets_for_exercise"]["Returns"][number];
 };
 
 export const SetBox = ({
@@ -38,6 +40,7 @@ export const SetBox = ({
   drag,
   isActive,
   isBoxActive,
+  previousSet,
 }: Props) => {
   const { updateSet } = useActiveWorkoutStore();
 
@@ -65,6 +68,10 @@ export const SetBox = ({
     animate(targetValue);
   }, [animate, isBoxActive, isActive, set.is_done]);
 
+  const previousSetText = previousSet
+    ? `${previousSet.weight} x ${previousSet.reps}`
+    : "-";
+
   return (
     <SwipeableItem
       item={set}
@@ -89,11 +96,17 @@ export const SetBox = ({
             <ThemedText color="tintText">{index + 1}.</ThemedText>
           </View>
 
+          <View style={{ width: 64 }}>
+            <ThemedText type="extraSmall" color="supporting">
+              {previousSetText}
+            </ThemedText>
+          </View>
+
           <Flex direction="row" align="center" gap={2} style={{ flex: 1 }}>
             <ThemedTextInput
               value={set.weight ? set.weight.toString() : ""}
               keyboardType="numeric"
-              width={60}
+              width={64}
               onChangeText={(text) =>
                 updateSet({ exerciseId, setId: set.id, weight: Number(text) })
               }
@@ -106,7 +119,7 @@ export const SetBox = ({
             <ThemedTextInput
               value={set.reps ? set.reps.toString() : ""}
               keyboardType="numeric"
-              width={60}
+              width={64}
               onChangeText={(text) =>
                 updateSet({ exerciseId, setId: set.id, reps: Number(text) })
               }

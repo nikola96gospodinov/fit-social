@@ -25,14 +25,20 @@ export const SetsListHeader = () => {
           </ThemedText>
         </Flex>
 
+        <Flex style={{ width: 64 }}>
+          <ThemedText type="small" color="supporting">
+            Last
+          </ThemedText>
+        </Flex>
+
         <Flex direction="row" align="center" gap={6}>
-          <Flex align="center" style={{ width: 60 }}>
+          <Flex align="center" style={{ width: 64 }}>
             <ThemedText type="small" color="supporting">
               Weight
             </ThemedText>
           </Flex>
 
-          <Flex align="center" style={{ width: 60 }}>
+          <Flex align="center" style={{ width: 64 }}>
             <ThemedText type="small" color="supporting">
               Reps
             </ThemedText>

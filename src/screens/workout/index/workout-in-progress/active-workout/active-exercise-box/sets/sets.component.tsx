@@ -32,17 +32,22 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
       <NestableDraggableFlatList
         data={sets}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, drag, isActive, getIndex }) => (
-          <SetBox
-            key={item.id}
-            set={item}
-            drag={drag}
-            isActive={isActive}
-            index={sets.indexOf(item)}
-            exerciseId={exercise.exercise_id}
-            isBoxActive={isBoxActive}
-          />
-        )}
+        renderItem={({ item, drag, isActive, getIndex }) => {
+          const index = sets.indexOf(item);
+
+          return (
+            <SetBox
+              key={item.id}
+              set={item}
+              drag={drag}
+              isActive={isActive}
+              index={index}
+              exerciseId={exercise.exercise_id}
+              isBoxActive={isBoxActive}
+              previousSet={previousSets?.[index]}
+            />
+          );
+        }}
         onDragEnd={({ data }) => setSets(exercise.exercise_id, data)}
         ListEmptyComponent={() => (
           <ThemedText type="small" color="supporting" isCentered>
