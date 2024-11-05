@@ -19,6 +19,7 @@ import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 import { router } from "expo-router";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
+import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -38,7 +39,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   const distance = getWorkoutDistance(workout.started, workout.ended);
   const totalWeight = useGetTotalWeight(workout.id);
   const duration = getWorkoutDuration(workout.started, workout.ended);
-  const weightUnit = profile?.measurement_system === "metric" ? "kg" : "lbs";
+  const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
 
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,

@@ -8,6 +8,7 @@ import {
 } from "@/src/store/active-workout-store";
 import { SetsListHeader } from "./sets-list-header/sets-list-header.component";
 import { isEmpty } from "lodash";
+import { useGetPreviousSetsForExercise } from "@/src/services/workout/get-previous-sets-for-exercise.service";
 
 type Props = {
   exercise: ActiveExercise;
@@ -19,6 +20,10 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
 
   const sets = getSetsForExercise(exercise.exercise_id);
 
+  const { data: previousSets } = useGetPreviousSetsForExercise(
+    exercise.exercise_id,
+  );
+
   return (
     <View>
       {/* For some reason, when I pass this as a ListHeaderComponent, there is an error */}
@@ -27,7 +32,7 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
       <NestableDraggableFlatList
         data={sets}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, drag, isActive }) => (
+        renderItem={({ item, drag, isActive, getIndex }) => (
           <SetBox
             key={item.id}
             set={item}
