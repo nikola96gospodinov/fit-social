@@ -12,18 +12,27 @@ export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
   exercise_id: string;
 };
 
+const WORKOUT_ACTION = {
+  ADD: "add",
+  EDIT: "edit",
+} as const;
+
+type WorkoutAction = (typeof WORKOUT_ACTION)[keyof typeof WORKOUT_ACTION];
+
 export type State = {
   started?: Date;
+  ended?: Date;
   exercises: ActiveExercise[];
   sets: ActiveSet[];
   title: string;
+  action: WorkoutAction;
 };
 
 type Action = {
   setTitle: (title: string) => void;
   // This is for reordering exercises
   setExercises: (exercises: ActiveExercise[]) => void;
-  startWorkout: () => void;
+  startWorkout: (action?: WorkoutAction) => void;
   resetWorkout: () => void;
   addExercises: (exercise: Exercise[]) => void;
   removeExercise: (id: string) => void;
@@ -51,14 +60,19 @@ type Action = {
     setId: string;
   }) => void;
   getSetsForExercise: (exerciseId: string) => ActiveSet[];
+  // This is for when loading an already existing workout
+  initiateState: (state: State) => void;
+  setStarted: (started: Date) => void;
+  setEnded: (ended: Date) => void;
 };
 
 export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
+  action: "add",
   exercises: [],
   sets: [],
   title: "",
   setTitle: (title) => set({ title }),
-  startWorkout: () => set({ started: new Date() }),
+  startWorkout: (action) => set({ started: new Date(), action }),
   resetWorkout: () => set({ started: undefined, exercises: [], sets: [] }),
   setExercises: (exercises) => set({ exercises }),
   addExercises: (exercises) => {
@@ -141,4 +155,7 @@ export const useActiveWorkoutStore = create<State & Action>((set, get) => ({
   getSetsForExercise: (exerciseId) => {
     return get().sets.filter((set) => set.exercise_id === exerciseId);
   },
+  initiateState: (state) => set(state),
+  setStarted: (started) => set({ started }),
+  setEnded: (ended) => set({ ended }),
 }));
