@@ -3,6 +3,7 @@ import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOwnProfile } from "../profile/get-own-profile.service";
 import { WORKOUT_QUERY_KEY } from "./profile-keys";
+import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 
 const addWorkout = async () => {
   const profile = await getOwnProfile();
@@ -31,6 +32,8 @@ const addWorkout = async () => {
 
 export const useAddWorkout = () => {
   const { resetWorkout } = useActiveWorkoutStore();
+  const { clearFilters } = useExerciseFilterStore();
+
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -41,6 +44,7 @@ export const useAddWorkout = () => {
       });
 
       resetWorkout();
+      clearFilters();
     },
   });
 };
