@@ -7,11 +7,9 @@ type Props = {
 };
 
 export const WorkoutIcon = ({ color, focused }: Props) => {
-  const {
-    store: { started },
-  } = useActiveWorkoutStore();
+  const { addStartedTime } = useActiveWorkoutStore();
 
-  const icon = started ? "barbell" : "add-circle";
+  const icon = addStartedTime ? "barbell" : "add-circle";
 
   return <TabBarIcon name={focused ? icon : `${icon}-outline`} color={color} />;
 };

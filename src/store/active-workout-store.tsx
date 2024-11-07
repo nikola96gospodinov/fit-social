@@ -169,6 +169,7 @@ export const editWorkoutStore = createActiveWorkoutStore(WORKOUT_ACTION.EDIT);
 const ActiveWorkoutContext = createContext<{
   store: State & Action;
   setAction: React.Dispatch<React.SetStateAction<WorkoutAction>>;
+  addStartedTime?: Date; // This is for the add workout tab and to get the right time
 }>({
   store: {} as State & Action,
   setAction: () => {},
@@ -185,6 +186,7 @@ export const ActiveWorkoutProvider = ({ children }: PropsWithChildren) => {
   const value = {
     store,
     setAction,
+    addStartedTime: addStore.started,
   };
 
   return (

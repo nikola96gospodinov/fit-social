@@ -78,14 +78,12 @@ function Layout() {
 }
 
 const useGetWorkoutTabTitle = () => {
-  const {
-    store: { started },
-  } = useActiveWorkoutStore();
+  const { addStartedTime } = useActiveWorkoutStore();
 
   const pathname = usePathname();
 
   const timeSinceStarted = useGetTimer({
-    startTime: started,
+    startTime: addStartedTime,
   });
 
   const formattedTime = getFormattedTimeFromMilliseconds(timeSinceStarted);
@@ -93,9 +91,9 @@ const useGetWorkoutTabTitle = () => {
   const workoutTabTitle = (() => {
     const isPathnameWorkout = pathname.includes("/workout");
 
-    if (started && isPathnameWorkout) return "Workout";
+    if (addStartedTime && isPathnameWorkout) return "Workout";
 
-    return started ? formattedTime : "Add";
+    return addStartedTime ? formattedTime : "Add";
   })();
 
   return workoutTabTitle;
