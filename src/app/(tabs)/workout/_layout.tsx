@@ -1,17 +1,27 @@
 import { ClearFilter } from "@/src/screens/workout/filters/header/clear-filters/clear-filter.component";
 import { FinishWorkout } from "@/src/screens/workout/index/header/finish-workout/finish-workout.component";
 import { WorkoutTimer } from "@/src/screens/workout/index/header/workout-timer/workout-timer.component";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import {
+  useActiveWorkoutStore,
+  WORKOUT_ACTION,
+} from "@/src/store/active-workout-store";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 import { Stack } from "expo-router";
+import { useEffect } from "react";
 
 export default function WorkoutLayout() {
   const {
     store: { started },
+    setAction,
   } = useActiveWorkoutStore();
+
   const { filters } = useExerciseFilterStore();
 
   const totalNumberOfFilters = filters.length;
+
+  useEffect(() => {
+    setAction(WORKOUT_ACTION.ADD);
+  }, [setAction]);
 
   return (
     <Stack

@@ -13,7 +13,7 @@ export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
   exercise_id: string;
 };
 
-const WORKOUT_ACTION = {
+export const WORKOUT_ACTION = {
   ADD: "add",
   EDIT: "edit",
 } as const;
