@@ -13,7 +13,9 @@ type Props = {
 export const AddIcon = ({ selectedExercises }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { addExercises } = useActiveWorkoutStore();
+  const {
+    store: { addExercises },
+  } = useActiveWorkoutStore();
 
   const router = useRouter();
 

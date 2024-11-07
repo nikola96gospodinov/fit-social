@@ -25,7 +25,9 @@ export const ExerciseBox = ({
 
   const router = useRouter();
 
-  const { exercises } = useActiveWorkoutStore();
+  const {
+    store: { exercises },
+  } = useActiveWorkoutStore();
 
   const onExercisePress = (exercise: Exercise) => {
     const isSelected = selectedExercises.find(({ id }) => id === exercise.id);

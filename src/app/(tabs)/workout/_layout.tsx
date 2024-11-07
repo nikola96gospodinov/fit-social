@@ -6,7 +6,9 @@ import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 import { Stack } from "expo-router";
 
 export default function WorkoutLayout() {
-  const { started } = useActiveWorkoutStore();
+  const {
+    store: { started },
+  } = useActiveWorkoutStore();
   const { filters } = useExerciseFilterStore();
 
   const totalNumberOfFilters = filters.length;

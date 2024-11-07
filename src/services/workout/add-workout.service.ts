@@ -1,13 +1,28 @@
 import { supabase } from "@/src/lib/supabase";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import {
+  ActiveExercise,
+  ActiveSet,
+  useActiveWorkoutStore,
+} from "@/src/store/active-workout-store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getOwnProfile } from "../profile/get-own-profile.service";
 import { WORKOUT_QUERY_KEY } from "./profile-keys";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 
-const addWorkout = async () => {
+type AddWorkoutProps = {
+  exercises: ActiveExercise[];
+  started?: Date;
+  sets: ActiveSet[];
+  title: string;
+};
+
+const addWorkout = async ({
+  exercises,
+  started,
+  sets,
+  title,
+}: AddWorkoutProps) => {
   const profile = await getOwnProfile();
-  const { exercises, started, sets, title } = useActiveWorkoutStore.getState();
 
   // We don't want to save sets that have no reps or are not done
   const filteredSets = sets.filter(
@@ -31,7 +46,9 @@ const addWorkout = async () => {
 };
 
 export const useAddWorkout = () => {
-  const { resetWorkout } = useActiveWorkoutStore();
+  const {
+    store: { resetWorkout },
+  } = useActiveWorkoutStore();
   const { clearFilters } = useExerciseFilterStore();
 
   const queryClient = useQueryClient();

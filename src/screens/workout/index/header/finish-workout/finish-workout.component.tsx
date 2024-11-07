@@ -6,9 +6,11 @@ import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-to
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 
 export const FinishWorkout = () => {
-  const { mutate: addWorkout, isPending, isError, isSuccess } = useAddWorkout();
+  const {
+    store: { resetWorkout, sets, exercises, started, title },
+  } = useActiveWorkoutStore();
 
-  const { resetWorkout } = useActiveWorkoutStore();
+  const { mutate: addWorkout, isPending, isError, isSuccess } = useAddWorkout();
 
   const theme = useColorScheme() ?? "light";
 
@@ -31,9 +33,11 @@ export const FinishWorkout = () => {
         variant="flat"
         onPress={() =>
           createFinishConfirmationAlert({
-            finishWorkout: addWorkout,
+            finishWorkout: () =>
+              addWorkout({ exercises, started, sets, title }),
             theme,
             resetWorkout,
+            sets,
           })
         }
       />

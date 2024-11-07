@@ -17,7 +17,9 @@ type Props = {
 export const DiscardExercise = ({ id }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { removeExercise } = useActiveWorkoutStore();
+  const {
+    store: { removeExercise },
+  } = useActiveWorkoutStore();
 
   const handleDiscardExercise = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

@@ -10,7 +10,9 @@ import { createCancelWorkoutAlert } from "./create-cancel-workout-modal";
 export const ActiveExercisesFooter = () => {
   const theme = useColorScheme() ?? "light";
 
-  const { resetWorkout } = useActiveWorkoutStore();
+  const {
+    store: { resetWorkout },
+  } = useActiveWorkoutStore();
 
   return (
     <View style={styles.ctaContainer}>

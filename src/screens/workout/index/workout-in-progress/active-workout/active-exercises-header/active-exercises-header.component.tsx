@@ -4,7 +4,9 @@ import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { View } from "react-native";
 
 export const ActiveExercisesHeader = () => {
-  const { title, setTitle } = useActiveWorkoutStore();
+  const {
+    store: { title, setTitle },
+  } = useActiveWorkoutStore();
 
   return (
     <View>

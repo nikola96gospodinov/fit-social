@@ -29,7 +29,9 @@ type Props = {
 export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { addSet } = useActiveWorkoutStore();
+  const {
+    store: { addSet },
+  } = useActiveWorkoutStore();
 
   const handleAddSet = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);

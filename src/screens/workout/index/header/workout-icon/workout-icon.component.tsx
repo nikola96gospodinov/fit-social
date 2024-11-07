@@ -7,7 +7,9 @@ type Props = {
 };
 
 export const WorkoutIcon = ({ color, focused }: Props) => {
-  const { started } = useActiveWorkoutStore();
+  const {
+    store: { started },
+  } = useActiveWorkoutStore();
 
   const icon = started ? "barbell" : "add-circle";
 

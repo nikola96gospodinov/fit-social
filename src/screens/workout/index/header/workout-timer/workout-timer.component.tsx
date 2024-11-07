@@ -9,7 +9,9 @@ import { useColorScheme } from "react-native";
 export const WorkoutTimer = () => {
   const colorScheme = useColorScheme() ?? "light";
 
-  const { started } = useActiveWorkoutStore();
+  const {
+    store: { started },
+  } = useActiveWorkoutStore();
 
   const timeSinceStarted = useGetTimer({
     startTime: started,

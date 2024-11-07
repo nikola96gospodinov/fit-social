@@ -11,7 +11,9 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ActiveExercisesHeader } from "./active-exercises-header/active-exercises-header.component";
 
 export const ActiveWorkout = () => {
-  const { exercises, setExercises } = useActiveWorkoutStore();
+  const {
+    store: { exercises, setExercises },
+  } = useActiveWorkoutStore();
 
   return (
     <GestureHandlerRootView>

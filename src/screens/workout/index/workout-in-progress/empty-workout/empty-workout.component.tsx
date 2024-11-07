@@ -8,7 +8,9 @@ import { useColorScheme } from "react-native";
 import { createCancelConfirmationAlert } from "./create-cancel-confirmation-alert";
 
 export const EmptyWorkout = () => {
-  const { resetWorkout } = useActiveWorkoutStore();
+  const {
+    store: { resetWorkout },
+  } = useActiveWorkoutStore();
 
   const router = useRouter();
 

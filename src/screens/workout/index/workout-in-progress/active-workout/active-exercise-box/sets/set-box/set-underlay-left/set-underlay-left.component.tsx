@@ -11,7 +11,9 @@ type Props = {
 };
 
 export const SetUnderlayLeft = ({ exerciseId, setId }: Props) => {
-  const { removeSet } = useActiveWorkoutStore();
+  const {
+    store: { removeSet },
+  } = useActiveWorkoutStore();
 
   const theme = useColorScheme() ?? "light";
 

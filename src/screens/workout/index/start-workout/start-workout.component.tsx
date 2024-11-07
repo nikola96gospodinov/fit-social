@@ -5,7 +5,9 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 
 export const StartWorkout = () => {
-  const { startWorkout } = useActiveWorkoutStore();
+  const {
+    store: { startWorkout },
+  } = useActiveWorkoutStore();
 
   return (
     <FullScreenCenteredView>

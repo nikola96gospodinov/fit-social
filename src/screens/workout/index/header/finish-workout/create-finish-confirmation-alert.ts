@@ -1,19 +1,19 @@
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import { ActiveSet } from "@/src/store/active-workout-store";
 import { Alert, ColorSchemeName } from "react-native";
 
 type Props = {
   finishWorkout: () => void;
   theme: ColorSchemeName;
   resetWorkout: () => void;
+  sets: ActiveSet[];
 };
 
 export const createFinishConfirmationAlert = ({
   finishWorkout,
   theme,
   resetWorkout,
+  sets,
 }: Props) => {
-  const { sets } = useActiveWorkoutStore.getState();
-
   const hasSets = sets.some((set) => set.reps && set.reps > 0 && set.is_done);
   const allSetsAreValid =
     sets.every((set) => set.reps && set.reps > 0 && set.is_done) &&

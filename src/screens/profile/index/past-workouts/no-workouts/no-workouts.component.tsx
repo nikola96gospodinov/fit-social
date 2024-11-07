@@ -11,7 +11,9 @@ import { View, StyleSheet } from "react-native";
 export const NoWorkouts = () => {
   const isYourProfile = useIsOwnProfile();
 
-  const { startWorkout } = useActiveWorkoutStore();
+  const {
+    store: { startWorkout },
+  } = useActiveWorkoutStore();
 
   const handleStartWorkout = () => {
     startWorkout();

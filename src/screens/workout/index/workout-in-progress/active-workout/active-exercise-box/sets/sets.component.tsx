@@ -16,7 +16,9 @@ type Props = {
 };
 
 export const Sets = ({ exercise, isBoxActive }: Props) => {
-  const { setSets, getSetsForExercise } = useActiveWorkoutStore();
+  const {
+    store: { setSets, getSetsForExercise },
+  } = useActiveWorkoutStore();
 
   const sets = getSetsForExercise(exercise.exercise_id);
 

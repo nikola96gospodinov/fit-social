@@ -2,14 +2,17 @@ import { Redirect, Tabs, usePathname } from "expo-router";
 import { TabBarIcon } from "@/src/components/navigation/tab-bar-icon.component";
 import { colors } from "@/src/constants/colors.constants";
 import { Platform, useColorScheme } from "react-native";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import {
+  ActiveWorkoutProvider,
+  useActiveWorkoutStore,
+} from "@/src/store/active-workout-store";
 import { WorkoutIcon } from "@/src/screens/workout/index/header/workout-icon/workout-icon.component";
 import { useGetTimer } from "@/src/hooks/use-get-timer";
 import { getFormattedTimeFromMilliseconds } from "@/src/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useGetSession } from "@/src/services/auth/get-session.service";
 
-export default function TabLayout() {
+function Layout() {
   const colorScheme = useColorScheme() ?? "light";
 
   const insets = useSafeAreaInsets();
@@ -75,7 +78,9 @@ export default function TabLayout() {
 }
 
 const useGetWorkoutTabTitle = () => {
-  const { started } = useActiveWorkoutStore();
+  const {
+    store: { started },
+  } = useActiveWorkoutStore();
 
   const pathname = usePathname();
 
@@ -95,3 +100,11 @@ const useGetWorkoutTabTitle = () => {
 
   return workoutTabTitle;
 };
+
+export default function TabLayout() {
+  return (
+    <ActiveWorkoutProvider>
+      <Layout />
+    </ActiveWorkoutProvider>
+  );
+}

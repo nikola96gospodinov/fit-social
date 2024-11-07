@@ -42,7 +42,9 @@ export const SetBox = ({
   isBoxActive,
   previousSet,
 }: Props) => {
-  const { updateSet } = useActiveWorkoutStore();
+  const {
+    store: { updateSet },
+  } = useActiveWorkoutStore();
 
   const itemRef = useRef<SwipeableItemImperativeRef>(null);
 
