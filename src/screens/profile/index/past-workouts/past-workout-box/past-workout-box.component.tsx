@@ -2,10 +2,9 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Tables } from "@/src/types/database.types";
-import { View, StyleSheet, useColorScheme, Pressable } from "react-native";
+import { View, StyleSheet, useColorScheme } from "react-native";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
@@ -17,9 +16,9 @@ import {
 } from "./past-workout-box.utils";
 import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
-import { router } from "expo-router";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
+import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -66,12 +65,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
           </ThemedText>
         </View>
 
-        <Pressable
-          onPress={() => {
-            router.push(`/profile/edit-workout/${workout.id}`);
-          }}>
-          <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
-        </Pressable>
+        <EditWorkoutIcon workout={workout} />
       </Flex>
 
       <VerticalSpacing size={4} />

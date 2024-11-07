@@ -62,7 +62,7 @@ type Action = {
   }) => void;
   getSetsForExercise: (exerciseId: string) => ActiveSet[];
   // This is for when loading an already existing workout
-  initiateState: (state: State) => void;
+  initiateState: (state: Omit<State, "action">) => void;
   setStarted: (started: Date) => void;
   setEnded: (ended: Date) => void;
 };
@@ -91,6 +91,7 @@ const createActiveWorkoutStore = (action: WorkoutAction) =>
         exercises: state.exercises.filter(
           (exercise) => exercise.exercise_id !== id,
         ),
+        sets: state.sets.filter((set) => set.exercise_id !== id),
       }));
     },
     setSets: (exerciseId, sets) => {
@@ -176,8 +177,10 @@ const ActiveWorkoutContext = createContext<{
 export const ActiveWorkoutProvider = ({ children }: PropsWithChildren) => {
   const [action, setAction] = useState<WorkoutAction>(WORKOUT_ACTION.ADD);
 
-  const store =
-    action === WORKOUT_ACTION.EDIT ? editWorkoutStore() : addWorkoutStore();
+  const editStore = editWorkoutStore();
+  const addStore = addWorkoutStore();
+
+  const store = action === WORKOUT_ACTION.EDIT ? editStore : addStore;
 
   const value = {
     store,

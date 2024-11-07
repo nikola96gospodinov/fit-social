@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const WORKOUT_EXERCISES_QUERY_KEY = "workout-exercises";
 
-const getWorkoutExercises = async (workoutId: string) => {
+export const getWorkoutExercises = async (workoutId: string) => {
   const { data, error } = await supabase
     .from("workout_exercises")
     .select("*")

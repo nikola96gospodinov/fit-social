@@ -6,7 +6,7 @@ import {
   WORKOUT_ACTION,
 } from "@/src/store/active-workout-store";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { useEffect } from "react";
 
 export default function WorkoutLayout() {
@@ -15,13 +15,19 @@ export default function WorkoutLayout() {
     setAction,
   } = useActiveWorkoutStore();
 
+  const navigation = useNavigation();
+
   const { filters } = useExerciseFilterStore();
 
   const totalNumberOfFilters = filters.length;
 
   useEffect(() => {
-    setAction(WORKOUT_ACTION.ADD);
-  }, [setAction]);
+    const unsubscribe = navigation.addListener("focus", () => {
+      setAction(WORKOUT_ACTION.ADD);
+    });
+
+    return unsubscribe;
+  }, [setAction, navigation]);
 
   return (
     <Stack

@@ -1,12 +1,7 @@
-import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { View } from "react-native";
+import { EditWorkoutContent } from "@/src/screens/profile/edit-workout/edit-workout-content.component";
 
 const EditWorkout = () => {
-  return (
-    <View>
-      <ThemedText type="title">Edit workout</ThemedText>
-    </View>
-  );
+  return <EditWorkoutContent />;
 };
 
 export default EditWorkout;

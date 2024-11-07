@@ -1,0 +1,37 @@
+import { supabase } from "@/src/lib/supabase";
+import { getWorkoutExercises } from "./get-workout-exercises.service";
+import { useQuery } from "@tanstack/react-query";
+
+const WORKOUT_SETS_QUERY_KEY = "workout-sets";
+
+const getWorkoutSets = async (workoutId: string) => {
+  const exercises = await getWorkoutExercises(workoutId);
+
+  const exerciseIds = exercises.map((exercise) => exercise.id);
+
+  const { data, error } = await supabase
+    .from("exercise_sets")
+    .select("*")
+    .in("workout_exercise_id", exerciseIds);
+
+  if (error) {
+    console.log(error);
+    throw new Error(error.message);
+  }
+
+  const sets = data.map((set) => ({
+    ...set,
+    exercise_id: exercises.find(
+      (exercise) => exercise.id === set.workout_exercise_id,
+    )!.exercise_id,
+  }));
+
+  return sets;
+};
+
+export const useGetWorkoutSets = (workoutId: string) => {
+  return useQuery({
+    queryKey: [WORKOUT_SETS_QUERY_KEY, workoutId],
+    queryFn: () => getWorkoutSets(workoutId),
+  });
+};

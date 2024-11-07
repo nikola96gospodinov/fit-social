@@ -5,7 +5,7 @@ import {
   useActiveWorkoutStore,
   WORKOUT_ACTION,
 } from "@/src/store/active-workout-store";
-import { Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { useEffect } from "react";
 
 export default function ProfileLayout() {
@@ -13,9 +13,15 @@ export default function ProfileLayout() {
 
   const { setAction } = useActiveWorkoutStore();
 
+  const navigation = useNavigation();
+
   useEffect(() => {
-    setAction(WORKOUT_ACTION.EDIT);
-  }, [setAction]);
+    const unsubscribe = navigation.addListener("focus", () => {
+      setAction(WORKOUT_ACTION.EDIT);
+    });
+
+    return unsubscribe;
+  }, [setAction, navigation]);
 
   const homeGymTitle = profile?.home_gym_name
     ? "Edit home gym"
