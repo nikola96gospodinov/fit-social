@@ -65,6 +65,7 @@ export default function WorkoutLayout() {
         }}
       />
 
+      {/* This is duplicate screen. Currently Expo doesn't support a back button when moving from one tab to another hence why it's needed - https://github.com/expo/expo/issues/30141 */}
       <Stack.Screen
         name="exercise/[id]"
         options={{

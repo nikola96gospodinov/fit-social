@@ -15,6 +15,7 @@ import { DiscardExercise } from "./discard-exercise/discard-excercise.component"
 import {
   ActiveExercise,
   useActiveWorkoutStore,
+  WORKOUT_ACTION,
 } from "@/src/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
@@ -30,8 +31,10 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const {
-    store: { addSet },
+    store: { addSet, action },
   } = useActiveWorkoutStore();
+
+  const tab = action === WORKOUT_ACTION.EDIT ? "profile" : "workout";
 
   const handleAddSet = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -64,7 +67,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
         <Pressable
           onPress={() =>
-            router.push(`/workout/exercise/${exercise.exercise_id}`)
+            router.push(`/${tab}/exercise/${exercise.exercise_id}`)
           }
           style={[
             {
