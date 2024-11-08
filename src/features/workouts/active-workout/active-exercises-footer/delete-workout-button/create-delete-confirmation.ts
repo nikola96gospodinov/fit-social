@@ -8,7 +8,7 @@ type Props = {
 export const createDeleteConfirmation = ({ onDelete, colorScheme }: Props) => {
   Alert.alert(
     "Delete workout",
-    "Are you sure you want to delete this workout?",
+    "Are you sure you want to delete this workout? This action cannot be undone.",
     [
       { text: "Cancel", style: "cancel" },
       {

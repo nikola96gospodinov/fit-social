@@ -2,10 +2,10 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
 import { useDeleteWorkout } from "@/src/services/workout/delete-workout.service";
 import { useGlobalSearchParams } from "expo-router";
-import { createDeleteConfirmation } from "../../../../features/workouts/active-workout/active-exercises-footer/delete-workout-button/create-delete-confirmation";
 import { useColorScheme } from "react-native";
+import { createDeleteConfirmation } from "./create-delete-confirmation";
 
-export const EditWorkoutRightHeader = () => {
+export const DeleteWorkoutButton = () => {
   const colorScheme = useColorScheme() ?? "light";
 
   const { id } = useGlobalSearchParams();
@@ -19,9 +19,10 @@ export const EditWorkoutRightHeader = () => {
   return (
     <ThemedButton
       text="Delete"
-      variant="flatError"
+      variant="error"
       icon="trash"
       size="sm"
+      isFullWidth
       disabled={!handle || !id}
       onPress={() =>
         createDeleteConfirmation({

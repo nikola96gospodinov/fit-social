@@ -2,17 +2,21 @@ import { OrSeparator } from "@/src/components/or-separator/or-separator.componen
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { spacing } from "@/src/constants/spacing.constants";
-import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { router } from "expo-router";
-import { View, StyleSheet, useColorScheme } from "react-native";
-import { createCancelWorkoutAlert } from "./create-cancel-workout-modal";
+import { View, StyleSheet } from "react-native";
+import { CancelWorkoutButton } from "./cancel-workout-button/cancel-workout-button.component";
+import {
+  useActiveWorkoutStore,
+  WORKOUT_ACTION,
+} from "@/src/store/active-workout-store";
+import { DeleteWorkoutButton } from "./delete-workout-button/delete-workout-button.component";
 
 export const ActiveExercisesFooter = () => {
-  const theme = useColorScheme() ?? "light";
-
   const {
-    store: { resetWorkout },
+    store: { action },
   } = useActiveWorkoutStore();
+
+  const isEdit = action === WORKOUT_ACTION.EDIT;
 
   return (
     <View style={styles.ctaContainer}>
@@ -29,18 +33,7 @@ export const ActiveExercisesFooter = () => {
 
       <VerticalSpacing size={3} />
 
-      <ThemedButton
-        text="Cancel workout"
-        variant="error"
-        size="sm"
-        onPress={() =>
-          createCancelWorkoutAlert({
-            cancelWorkout: resetWorkout,
-            colorScheme: theme,
-          })
-        }
-        isFullWidth
-      />
+      {isEdit ? <DeleteWorkoutButton /> : <CancelWorkoutButton />}
 
       <VerticalSpacing size={8} />
     </View>
