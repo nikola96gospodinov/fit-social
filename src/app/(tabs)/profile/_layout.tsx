@@ -1,17 +1,14 @@
 import { EditWorkoutRightHeader } from "@/src/screens/profile/edit-workout/right-header/right-header.component";
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
-import {
-  useActiveWorkoutStore,
-  WORKOUT_ACTION,
-} from "@/src/store/active-workout-store";
+import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
 import { Stack, useNavigation } from "expo-router";
 import { useEffect } from "react";
 
 export default function ProfileLayout() {
   const { data: profile } = useGetProfile();
 
-  const { setAction } = useActiveWorkoutStore();
+  const { setAction } = useActionStore();
 
   const navigation = useNavigation();
 

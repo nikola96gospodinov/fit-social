@@ -13,7 +13,7 @@ export const CancelWorkoutButton = () => {
   return (
     <ThemedButton
       text="Cancel workout"
-      variant="error"
+      variant="flatError"
       size="sm"
       onPress={() =>
         createCancelWorkoutAlert({

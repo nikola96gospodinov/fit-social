@@ -15,11 +15,11 @@ import { DiscardExercise } from "./discard-exercise/discard-excercise.component"
 import {
   ActiveExercise,
   useActiveWorkoutStore,
-  WORKOUT_ACTION,
 } from "@/src/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { router } from "expo-router";
+import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
 
 type Props = {
   exercise: ActiveExercise;
@@ -31,8 +31,10 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const {
-    store: { addSet, action },
+    store: { addSet },
   } = useActiveWorkoutStore();
+
+  const { action } = useActionStore();
 
   const tab = action === WORKOUT_ACTION.EDIT ? "profile" : "workout";
 

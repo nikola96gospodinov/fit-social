@@ -2,7 +2,8 @@ import { Exercise } from "@/src/types/api/exercise.types";
 import { create } from "zustand";
 import { randomUUID } from "expo-crypto";
 import { Tables } from "../types/database.types";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
+import { useActionStore, WORKOUT_ACTION, WorkoutAction } from "./action-store";
 
 export type ActiveExercise = Omit<
   Tables<"workout_exercises">,
@@ -13,20 +14,12 @@ export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
   exercise_id: string;
 };
 
-export const WORKOUT_ACTION = {
-  ADD: "add",
-  EDIT: "edit",
-} as const;
-
-type WorkoutAction = (typeof WORKOUT_ACTION)[keyof typeof WORKOUT_ACTION];
-
 export type State = {
   started?: Date;
   ended?: Date;
   exercises: ActiveExercise[];
   sets: ActiveSet[];
   title: string;
-  action: WorkoutAction;
 };
 
 type Action = {
@@ -62,19 +55,18 @@ type Action = {
   }) => void;
   getSetsForExercise: (exerciseId: string) => ActiveSet[];
   // This is for when loading an already existing workout
-  initiateState: (state: Omit<State, "action">) => void;
+  initiateState: (state: State) => void;
   setStarted: (started: Date) => void;
   setEnded: (ended: Date) => void;
 };
 
 const createActiveWorkoutStore = (action: WorkoutAction) =>
   create<State & Action>((set, get) => ({
-    action,
     exercises: [],
     sets: [],
     title: "",
     setTitle: (title) => set({ title }),
-    startWorkout: (action) => set({ started: new Date(), action }),
+    startWorkout: (action) => set({ started: new Date() }),
     resetWorkout: () => set({ started: undefined, exercises: [], sets: [] }),
     setExercises: (exercises) => set({ exercises }),
     addExercises: (exercises) => {
@@ -168,15 +160,13 @@ export const editWorkoutStore = createActiveWorkoutStore(WORKOUT_ACTION.EDIT);
 
 const ActiveWorkoutContext = createContext<{
   store: State & Action;
-  setAction: React.Dispatch<React.SetStateAction<WorkoutAction>>;
   addStartedTime?: Date; // This is for the add workout tab and to get the right time
 }>({
   store: {} as State & Action,
-  setAction: () => {},
 });
 
 export const ActiveWorkoutProvider = ({ children }: PropsWithChildren) => {
-  const [action, setAction] = useState<WorkoutAction>(WORKOUT_ACTION.ADD);
+  const { action } = useActionStore();
 
   const editStore = editWorkoutStore();
   const addStore = addWorkoutStore();
@@ -185,7 +175,6 @@ export const ActiveWorkoutProvider = ({ children }: PropsWithChildren) => {
 
   const value = {
     store,
-    setAction,
     addStartedTime: addStore.started,
   };
 

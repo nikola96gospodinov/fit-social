@@ -5,16 +5,11 @@ import { spacing } from "@/src/constants/spacing.constants";
 import { router } from "expo-router";
 import { View, StyleSheet } from "react-native";
 import { CancelWorkoutButton } from "./cancel-workout-button/cancel-workout-button.component";
-import {
-  useActiveWorkoutStore,
-  WORKOUT_ACTION,
-} from "@/src/store/active-workout-store";
 import { DeleteWorkoutButton } from "./delete-workout-button/delete-workout-button.component";
+import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
 
 export const ActiveExercisesFooter = () => {
-  const {
-    store: { action },
-  } = useActiveWorkoutStore();
+  const { action } = useActionStore();
 
   const isEdit = action === WORKOUT_ACTION.EDIT;
 
