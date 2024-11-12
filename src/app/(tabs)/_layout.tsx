@@ -11,6 +11,7 @@ import { useGetTimer } from "@/src/hooks/use-get-timer";
 import { getFormattedTimeFromMilliseconds } from "@/src/utils/dates.utils";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useGetSession } from "@/src/services/auth/get-session.service";
+import { ExerciseFilterProvider } from "@/src/store/exercise-filter-store";
 
 function Layout() {
   const colorScheme = useColorScheme() ?? "light";
@@ -102,7 +103,9 @@ const useGetWorkoutTabTitle = () => {
 export default function TabLayout() {
   return (
     <ActiveWorkoutProvider>
-      <Layout />
+      <ExerciseFilterProvider>
+        <Layout />
+      </ExerciseFilterProvider>
     </ActiveWorkoutProvider>
   );
 }

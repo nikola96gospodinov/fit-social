@@ -60,7 +60,7 @@ type Action = {
   setEnded: (ended: Date) => void;
 };
 
-const createActiveWorkoutStore = (action: WorkoutAction) =>
+const createActiveWorkoutStore = () =>
   create<State & Action>((set, get) => ({
     exercises: [],
     sets: [],
@@ -155,8 +155,8 @@ const createActiveWorkoutStore = (action: WorkoutAction) =>
     setEnded: (ended) => set({ ended }),
   }));
 
-export const addWorkoutStore = createActiveWorkoutStore(WORKOUT_ACTION.ADD);
-export const editWorkoutStore = createActiveWorkoutStore(WORKOUT_ACTION.EDIT);
+const addWorkoutStore = createActiveWorkoutStore();
+const editWorkoutStore = createActiveWorkoutStore();
 
 const ActiveWorkoutContext = createContext<{
   store: State & Action;
