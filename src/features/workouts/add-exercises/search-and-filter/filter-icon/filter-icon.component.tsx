@@ -1,4 +1,5 @@
 import { colors, indigo } from "@/src/constants/colors.constants";
+import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import {
@@ -16,13 +17,19 @@ type Props = {
 export const FilterIcon = ({ numberOfFilters }: Props) => {
   const colorScheme = useColorScheme() ?? "light";
 
+  const { action } = useActionStore();
+
+  const isEdit = action === WORKOUT_ACTION.EDIT;
+
+  const tab = isEdit ? "profile" : "workout";
+
   const router = useRouter();
 
   const count = numberOfFilters > 9 ? "9+" : numberOfFilters;
 
   return (
     <Pressable
-      onPress={() => router.push("/workout/filters")}
+      onPress={() => router.push(`/${tab}/filters`)}
       style={[
         styles.filterContainer,
         {

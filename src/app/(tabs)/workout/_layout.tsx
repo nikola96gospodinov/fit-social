@@ -1,4 +1,4 @@
-import { ClearFilter } from "@/src/screens/workout/filters/header/clear-filters/clear-filter.component";
+import { ClearFilter } from "@/src/features/workouts/filters/header/clear-filters/clear-filter.component";
 import { FinishWorkout } from "@/src/screens/workout/index/header/finish-workout/finish-workout.component";
 import { WorkoutTimer } from "@/src/screens/workout/index/header/workout-timer/workout-timer.component";
 import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
@@ -46,6 +46,7 @@ export default function WorkoutLayout() {
         }}
       />
 
+      {/* The next 3 screens are duplicates. Currently Expo doesn't support a back button when moving from one tab to another hence why it's needed - https://github.com/expo/expo/issues/30141 */}
       <Stack.Screen
         name="add-exercise"
         options={{
@@ -53,6 +54,7 @@ export default function WorkoutLayout() {
         }}
       />
 
+      {/* Duplicate screen */}
       <Stack.Screen
         name="filters"
         options={{
@@ -64,7 +66,7 @@ export default function WorkoutLayout() {
         }}
       />
 
-      {/* This is duplicate screen. Currently Expo doesn't support a back button when moving from one tab to another hence why it's needed - https://github.com/expo/expo/issues/30141 */}
+      {/* Duplicate screen */}
       <Stack.Screen
         name="exercise/[id]"
         options={{

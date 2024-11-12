@@ -13,11 +13,13 @@ export const ActiveExercisesFooter = () => {
 
   const isEdit = action === WORKOUT_ACTION.EDIT;
 
+  const tab = isEdit ? "profile" : "workout";
+
   return (
     <View style={styles.ctaContainer}>
       <ThemedButton
         text="Add exercise(s)"
-        onPress={() => router.push("/workout/add-exercise")}
+        onPress={() => router.push(`/${tab}/add-exercise`)}
         size="sm"
         isFullWidth
       />
