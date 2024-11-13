@@ -4,6 +4,7 @@ import { createFinishConfirmationAlert } from "./create-finish-confirmation-aler
 import { useAddWorkout } from "@/src/services/workout/add-workout.service";
 import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-toast.component";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
+import { getToastType } from "@/src/utils/toasts.utils";
 
 export const FinishWorkout = () => {
   const {
@@ -14,11 +15,7 @@ export const FinishWorkout = () => {
 
   const theme = useColorScheme() ?? "light";
 
-  const toastType = (() => {
-    if (isError) return "error";
-    if (isSuccess) return "success";
-    return "info";
-  })();
+  const toastType = getToastType(isError, isSuccess);
 
   const toastText = (() => {
     if (isError) return "Error adding workout";
