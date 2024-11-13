@@ -1,6 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
+import { WORKOUT_QUERY_KEY } from "./profile-keys";
 
 type Props = {
   workoutId: string;
@@ -34,10 +35,13 @@ const editWorkout = async ({
   }
 };
 
-export const useEditWorkout = () => {
+export const useEditWorkout = (handle?: string | null) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: editWorkout,
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, handle] });
       router.push("/profile");
     },
   });

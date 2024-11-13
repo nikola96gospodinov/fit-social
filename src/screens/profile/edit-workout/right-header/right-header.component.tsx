@@ -10,7 +10,11 @@ export const EditWorkoutRightHeader = () => {
 
   const { data: profile } = useGetOwnProfile();
 
-  const { mutate: editWorkout, isPending, isError } = useEditWorkout();
+  const {
+    mutate: editWorkout,
+    isPending,
+    isError,
+  } = useEditWorkout(profile?.handle);
 
   const {
     store: { title, started, ended, exercises, sets },
