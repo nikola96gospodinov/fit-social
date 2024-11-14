@@ -1,15 +1,20 @@
 import { supabase } from "@/src/lib/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
-import { WORKOUT_QUERY_KEY } from "./profile-keys";
+import {
+  EXERCISE_SETS_QUERY_KEY,
+  WORKOUT_EXERCISES_QUERY_KEY,
+  WORKOUT_QUERY_KEY,
+} from "./profile-keys";
+import { ActiveExercise, ActiveSet } from "@/src/store/active-workout-store";
 
 type Props = {
   workoutId: string;
   workoutTitle: string;
   workoutStarted: string;
   workoutEnded: string;
-  exercisesData: string;
-  setsData: string;
+  exercisesData: ActiveExercise[];
+  setsData: ActiveSet[];
 };
 
 const editWorkout = async ({
@@ -33,6 +38,11 @@ const editWorkout = async ({
     console.error(error);
     throw new Error("Failed to edit workout");
   }
+
+  return {
+    workoutId,
+    exerciseIds: exercisesData.map((exercise) => exercise.id),
+  };
 };
 
 export const useEditWorkout = (handle?: string | null) => {
@@ -40,8 +50,19 @@ export const useEditWorkout = (handle?: string | null) => {
 
   return useMutation({
     mutationFn: editWorkout,
-    onSuccess: () => {
+    onSuccess: ({ workoutId, exerciseIds }) => {
       queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, handle] });
+
+      queryClient.invalidateQueries({
+        queryKey: [WORKOUT_EXERCISES_QUERY_KEY, workoutId],
+      });
+
+      for (let i = 0; i < exerciseIds.length; i++) {
+        queryClient.invalidateQueries({
+          queryKey: [EXERCISE_SETS_QUERY_KEY, exerciseIds[i]],
+        });
+      }
+
       router.push("/profile");
     },
   });

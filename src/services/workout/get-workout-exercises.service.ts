@@ -1,7 +1,6 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
-
-const WORKOUT_EXERCISES_QUERY_KEY = "workout-exercises";
+import { WORKOUT_EXERCISES_QUERY_KEY } from "./profile-keys";
 
 export const getWorkoutExercises = async (workoutId: string) => {
   const { data, error } = await supabase

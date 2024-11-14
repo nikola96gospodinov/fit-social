@@ -32,8 +32,8 @@ export const EditWorkoutRightHeader = () => {
       workoutTitle: title,
       workoutStarted: started?.toISOString() ?? "",
       workoutEnded: ended?.toISOString() ?? "",
-      exercisesData: JSON.stringify(exercises),
-      setsData: JSON.stringify(sets),
+      exercisesData: exercises,
+      setsData: sets,
     };
 
     if (!allSetsAreValid) {

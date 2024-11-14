@@ -5,10 +5,7 @@ import { Tables } from "../types/database.types";
 import { createContext, PropsWithChildren, useContext } from "react";
 import { useActionStore, WORKOUT_ACTION, WorkoutAction } from "./action-store";
 
-export type ActiveExercise = Omit<
-  Tables<"workout_exercises">,
-  "workout_id" | "id"
->;
+export type ActiveExercise = Omit<Tables<"workout_exercises">, "workout_id">;
 
 export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
   exercise_id: string;
