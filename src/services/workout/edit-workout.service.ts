@@ -51,12 +51,18 @@ export const useEditWorkout = (handle?: string | null) => {
   return useMutation({
     mutationFn: editWorkout,
     onSuccess: ({ workoutId, exerciseIds }) => {
+      // Workout
       queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, handle] });
 
+      // Exercises
       queryClient.invalidateQueries({
         queryKey: [WORKOUT_EXERCISES_QUERY_KEY, workoutId],
       });
 
+      // Sets
+      queryClient.invalidateQueries({
+        queryKey: [EXERCISE_SETS_QUERY_KEY, workoutId],
+      });
       for (let i = 0; i < exerciseIds.length; i++) {
         queryClient.invalidateQueries({
           queryKey: [EXERCISE_SETS_QUERY_KEY, exerciseIds[i]],
