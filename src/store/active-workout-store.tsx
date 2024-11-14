@@ -20,6 +20,7 @@ export type State = {
   exercises: ActiveExercise[];
   sets: ActiveSet[];
   title: string;
+  id?: string;
 };
 
 type Action = {

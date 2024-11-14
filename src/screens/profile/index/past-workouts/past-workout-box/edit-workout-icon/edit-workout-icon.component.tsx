@@ -28,6 +28,7 @@ export const EditWorkoutIcon = ({ workout }: Props) => {
       exercises,
       sets,
       title: workout.title ?? "",
+      id: workout.id,
     });
 
     router.push(`/profile/edit-workout/${workout.id}`);
