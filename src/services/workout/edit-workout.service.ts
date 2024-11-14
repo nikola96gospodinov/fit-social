@@ -5,6 +5,7 @@ import {
   EXERCISE_SETS_QUERY_KEY,
   WORKOUT_EXERCISES_QUERY_KEY,
   WORKOUT_QUERY_KEY,
+  WORKOUT_SETS_QUERY_KEY,
 } from "./profile-keys";
 import { ActiveExercise, ActiveSet } from "@/src/store/active-workout-store";
 
@@ -61,7 +62,7 @@ export const useEditWorkout = (handle?: string | null) => {
 
       // Sets
       queryClient.invalidateQueries({
-        queryKey: [EXERCISE_SETS_QUERY_KEY, workoutId],
+        queryKey: [WORKOUT_SETS_QUERY_KEY, workoutId],
       });
       for (let i = 0; i < exerciseIds.length; i++) {
         queryClient.invalidateQueries({

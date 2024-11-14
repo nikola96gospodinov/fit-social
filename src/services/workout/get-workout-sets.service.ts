@@ -1,8 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { getWorkoutExercises } from "./get-workout-exercises.service";
 import { useQuery } from "@tanstack/react-query";
-
-const WORKOUT_SETS_QUERY_KEY = "workout-sets";
+import { WORKOUT_SETS_QUERY_KEY } from "./profile-keys";
 
 const getWorkoutSets = async (workoutId: string) => {
   const exercises = await getWorkoutExercises(workoutId);
