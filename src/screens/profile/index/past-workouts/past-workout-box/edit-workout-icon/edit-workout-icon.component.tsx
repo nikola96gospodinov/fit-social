@@ -6,6 +6,7 @@ import { Tables } from "@/src/types/database.types";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
 import { useGetWorkoutSets } from "@/src/services/workout/get-workout-sets.service";
+import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -18,8 +19,13 @@ export const EditWorkoutIcon = ({ workout }: Props) => {
     store: { initiateState },
   } = useActiveWorkoutStore();
 
-  const { data: exercises = [] } = useGetWorkoutExercises(workout.id);
-  const { data: sets = [] } = useGetWorkoutSets(workout.id);
+  const { data: exercises = [], isLoading: exercisesLoading } =
+    useGetWorkoutExercises(workout.id);
+  const { data: sets = [], isLoading: setsLoading } = useGetWorkoutSets(
+    workout.id,
+  );
+
+  const isLoading = exercisesLoading || setsLoading;
 
   const handlePress = () => {
     initiateState({
@@ -35,8 +41,12 @@ export const EditWorkoutIcon = ({ workout }: Props) => {
   };
 
   return (
-    <Pressable onPress={handlePress}>
-      <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
+    <Pressable onPress={handlePress} disabled={isLoading}>
+      {isLoading ? (
+        <ThemedActivityIndicator size="small" />
+      ) : (
+        <FontAwesome name="pencil" size={16} color={colors[theme].icon} />
+      )}
     </Pressable>
   );
 };
