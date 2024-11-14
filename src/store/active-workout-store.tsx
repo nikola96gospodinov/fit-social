@@ -111,6 +111,7 @@ const createActiveWorkoutStore = () =>
           weight: 0,
           is_done: false,
           exercise_id: exerciseId,
+          ...(exercise.id && { workout_exercise_id: exercise.id }),
         };
 
         return {
