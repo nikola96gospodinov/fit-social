@@ -19,6 +19,7 @@ import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
+import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -30,6 +31,8 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
   const { data: profile } = useGetProfile();
+
+  const isYourProfile = useIsOwnProfile();
 
   const alternativeTitle = useGetAlternativeTitle(
     workout.ended,
@@ -65,7 +68,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
           </ThemedText>
         </View>
 
-        <EditWorkoutIcon workout={workout} />
+        {isYourProfile && <EditWorkoutIcon workout={workout} />}
       </Flex>
 
       <VerticalSpacing size={4} />

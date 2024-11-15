@@ -29,6 +29,7 @@ export const ProfileHeader = () => {
         <Flex direction="row" justify="space-between" align="center">
           <Flex direction="row" gap={2} align="center">
             <Avatar avatarUrl={profile.avatar_url} />
+
             <ThemedText type="small" color="default">
               @{profile.handle}
             </ThemedText>
