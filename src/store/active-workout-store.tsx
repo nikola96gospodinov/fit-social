@@ -64,7 +64,7 @@ const createActiveWorkoutStore = () =>
     sets: [],
     title: "",
     setTitle: (title) => set({ title }),
-    startWorkout: (action) => set({ started: new Date() }),
+    startWorkout: () => set({ started: new Date() }),
     resetWorkout: () => set({ started: undefined, exercises: [], sets: [] }),
     setExercises: (exercises) => set({ exercises }),
     addExercises: (exercises) => {
