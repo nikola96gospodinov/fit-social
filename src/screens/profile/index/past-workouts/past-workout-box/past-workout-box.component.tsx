@@ -20,6 +20,8 @@ import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
+import { FontAwesome } from "@expo/vector-icons";
+import { Image } from "expo-image";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -55,11 +57,36 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         styles.container,
         { backgroundColor: colors[theme].cardBackground },
       ]}>
-      <Flex justify="space-between" direction="row" gap={2} align="center">
+      <Flex
+        direction="row"
+        align="center"
+        gap={3}
+        style={[
+          styles.userInfoContainer,
+          {
+            backgroundColor: colors[theme].background,
+            borderColor: colors[theme].cardBackground,
+          },
+        ]}>
         <View>
-          <ThemedText style={{ fontWeight: "500" }}>
-            {workout.title || alternativeTitle}
-          </ThemedText>
+          {profile?.avatar_url ? (
+            <Image
+              source={{
+                uri: profile.avatar_url,
+              }}
+              style={styles.image}
+            />
+          ) : (
+            <FontAwesome
+              name="user-circle"
+              size={32}
+              color={colors[theme].icon}
+            />
+          )}
+        </View>
+
+        <View>
+          <ThemedText type="extraSmall">@{profile?.handle}</ThemedText>
 
           <VerticalSpacing size={0.5} />
 
@@ -67,6 +94,12 @@ export const PastWorkoutBox = ({ workout }: Props) => {
             {distance}
           </ThemedText>
         </View>
+      </Flex>
+
+      <Flex justify="space-between" direction="row" gap={2} align="center">
+        <ThemedText style={{ fontWeight: "500" }}>
+          {workout.title || alternativeTitle}
+        </ThemedText>
 
         {isYourProfile && <EditWorkoutIcon workout={workout} />}
       </Flex>
@@ -119,8 +152,23 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing[4],
-    borderRadius: 8,
+    padding: spacing[3],
+    borderRadius: 16,
     marginHorizontal: spacing[4],
+  },
+
+  userInfoContainer: {
+    padding: spacing[3],
+    borderTopLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    borderTopWidth: 2,
+    borderLeftWidth: 2,
+    alignSelf: "flex-start",
+    transform: [{ translateX: -spacing[3] }, { translateY: -spacing[3] }],
+  },
+
+  image: {
+    width: 32,
+    height: 32,
   },
 });
