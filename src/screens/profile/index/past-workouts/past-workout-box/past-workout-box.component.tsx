@@ -57,74 +57,78 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         styles.container,
         { backgroundColor: colors[theme].cardBackground },
       ]}>
-      <Flex
-        direction="row"
-        align="center"
-        gap={3}
-        style={[
-          styles.userInfoContainer,
-          {
-            backgroundColor: colors[theme].background,
-            borderColor: colors[theme].cardBackground,
-          },
-        ]}>
-        <View>
-          {profile?.avatar_url ? (
-            <Image
-              source={{
-                uri: profile.avatar_url,
-              }}
-              style={styles.image}
-            />
-          ) : (
-            <FontAwesome
-              name="user-circle"
-              size={32}
-              color={colors[theme].icon}
-            />
-          )}
-        </View>
+      <Flex direction="row" justify="space-between">
+        <Flex
+          direction="row"
+          align="center"
+          gap={3}
+          style={[
+            styles.userInfoContainer,
+            {
+              backgroundColor: colors[theme].background,
+              borderColor: colors[theme].cardBackground,
+            },
+          ]}>
+          <View>
+            {profile?.avatar_url ? (
+              <Image
+                source={{
+                  uri: profile.avatar_url,
+                }}
+                style={styles.image}
+              />
+            ) : (
+              <FontAwesome
+                name="user-circle"
+                size={32}
+                color={colors[theme].icon}
+              />
+            )}
+          </View>
 
-        <View>
-          <ThemedText type="extraSmall">@{profile?.handle}</ThemedText>
+          <View>
+            <ThemedText type="extraSmall">@{profile?.handle}</ThemedText>
 
-          <VerticalSpacing size={0.5} />
+            <VerticalSpacing size={0.5} />
 
-          <ThemedText type="extraSmall" color="supporting">
-            {distance}
-          </ThemedText>
-        </View>
+            <ThemedText type="extraSmall" color="supporting">
+              {distance}
+            </ThemedText>
+          </View>
+        </Flex>
+
+        {isYourProfile && (
+          <View style={styles.editIconContainer}>
+            <EditWorkoutIcon workout={workout} />
+          </View>
+        )}
       </Flex>
 
-      <Flex justify="space-between" direction="row" gap={2} align="center">
-        <ThemedText style={{ fontWeight: "500" }}>
-          {workout.title || alternativeTitle}
-        </ThemedText>
+      <ThemedText style={{ fontWeight: "500" }}>
+        {workout.title || alternativeTitle}
+      </ThemedText>
 
-        {isYourProfile && <EditWorkoutIcon workout={workout} />}
-      </Flex>
+      <VerticalSpacing size={2} />
 
-      <VerticalSpacing size={4} />
-
-      <Flex direction="row" gap={4} justify="space-between" align="center">
-        <Flex direction="row" gap={2} align="center">
-          <Ionicons name="timer-outline" size={14} color={colors[theme].icon} />
+      <Flex direction="row" gap={6} align="center">
+        <Flex direction="row" gap={1} align="center">
+          <Ionicons name="timer-outline" size={12} color={colors[theme].icon} />
 
           <ThemedText type="extraSmall">{duration}</ThemedText>
         </Flex>
 
-        <Flex direction="row" gap={2} align="center">
-          <FontAwesome6 name="dumbbell" size={14} color={colors[theme].icon} />
+        <Flex direction="row" gap={1} align="center">
+          <FontAwesome6 name="dumbbell" size={12} color={colors[theme].icon} />
 
           <ThemedText type="extraSmall">
             {totalWeight} {weightUnit}
           </ThemedText>
         </Flex>
 
-        <Flex direction="row" gap={2} align="center">
+        <Flex direction="row" gap={1} align="center">
           <Ionicons
             name="trophy-outline"
-            size={14}
+            size={12}
             color={colors[theme].icon}
           />
 
@@ -170,5 +174,9 @@ const styles = StyleSheet.create({
   image: {
     width: 32,
     height: 32,
+  },
+
+  editIconContainer: {
+    transform: [{ translateX: -spacing[1] }, { translateY: spacing[1] }],
   },
 });
