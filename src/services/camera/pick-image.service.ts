@@ -7,10 +7,11 @@ const pickImage = async () => {
     allowsEditing: true,
     aspect: [4, 3],
     quality: 1,
+    base64: true,
   });
 
   if (!result.canceled) {
-    return result.assets[0].uri;
+    return result.assets[0];
   }
 
   throw new Error("No image selected");

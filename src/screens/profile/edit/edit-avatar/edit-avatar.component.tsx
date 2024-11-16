@@ -7,25 +7,43 @@ import { Image } from "expo-image";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
+import { useUpdateProfilePic } from "@/src/services/profile/update-profile-pic.service";
 
 export const EditAvatar = () => {
   const theme = useColorScheme() ?? "light";
 
-  const { mutate: pickImage, data: imageUrl, isPending } = usePickImage();
+  // TODO: Add error handling & policy only for the right user to upload image
+  const {
+    mutate: pickImage,
+    data: image,
+    isPending: isPickingImage,
+  } = usePickImage();
+
+  const { mutate: updateProfilePic, isPending: isUpdatingProfilePic } =
+    useUpdateProfilePic();
 
   const { data: profile } = useGetProfile();
 
+  const onPress = () => {
+    if (image?.base64 && profile?.handle) {
+      updateProfilePic({ imageBase64: image.base64, handle: profile.handle });
+    } else {
+      pickImage();
+    }
+  };
+
   if (!profile) return null;
 
-  const image = profile.avatar_url ?? imageUrl;
+  const imageURL = image?.uri ?? profile.avatar_url;
+  const isPending = isPickingImage || isUpdatingProfilePic;
 
   return (
     <Flex align="center">
-      <Pressable onPress={() => pickImage()}>
-        {image ? (
+      <Pressable onPress={onPress}>
+        {imageURL ? (
           <Image
             source={{
-              uri: image,
+              uri: imageURL,
             }}
             style={styles.image}
           />
@@ -46,7 +64,7 @@ export const EditAvatar = () => {
             borderColor: colors[theme].border,
           },
         ]}
-        onPress={() => pickImage()}>
+        onPress={onPress}>
         {isPending ? (
           <ThemedActivityIndicator size={18} />
         ) : (
