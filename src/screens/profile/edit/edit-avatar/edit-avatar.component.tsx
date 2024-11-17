@@ -25,8 +25,8 @@ export const EditAvatar = () => {
   const { data: profile } = useGetProfile();
 
   const onPress = () => {
-    if (image?.base64 && profile?.handle) {
-      updateProfilePic({ imageBase64: image.base64, handle: profile.handle });
+    if (image && profile?.handle) {
+      updateProfilePic({ imageUri: image, handle: profile.handle });
     } else {
       pickImage();
     }
@@ -34,7 +34,7 @@ export const EditAvatar = () => {
 
   if (!profile) return null;
 
-  const imageURL = image?.uri ?? profile.avatar_url;
+  const imageURL = image ?? profile.avatar_url;
   const isPending = isPickingImage || isUpdatingProfilePic;
 
   return (

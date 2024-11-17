@@ -11,7 +11,7 @@ const pickImage = async () => {
   });
 
   if (!result.canceled) {
-    return result.assets[0];
+    return result.assets[0].uri;
   }
 
   throw new Error("No image selected");

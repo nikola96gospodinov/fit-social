@@ -1,17 +1,24 @@
 import { supabase } from "@/src/lib/supabase";
 import { useMutation } from "@tanstack/react-query";
 import { decode } from "base64-arraybuffer";
+import * as FileSystem from "expo-file-system";
 
 type Props = {
-  imageBase64: string;
+  imageUri: string;
   handle: string;
 };
 
-const updateProfilePic = async ({ imageBase64, handle }: Props) => {
+const updateProfilePic = async ({ imageUri, handle }: Props) => {
+  const base64 = await FileSystem.readAsStringAsync(imageUri, {
+    encoding: FileSystem.EncodingType.Base64,
+  });
+  const filePath = `public/${handle}/${new Date().getTime()}.png`;
+
   const { data, error } = await supabase.storage
     .from("avatars")
-    .upload(`public/${handle}`, decode(imageBase64), {
+    .upload(filePath, decode(base64), {
       upsert: true,
+      contentType: "image/png",
     });
 
   if (error) {
