@@ -8,6 +8,7 @@ import { spacing } from "@/src/constants/spacing.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { useUpdateProfilePic } from "@/src/services/profile/update-profile-pic.service";
+import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 
 export const EditAvatar = () => {
   const theme = useColorScheme() ?? "light";
@@ -23,6 +24,7 @@ export const EditAvatar = () => {
     useUpdateProfilePic();
 
   const { data: profile } = useGetProfile();
+  const { data: profilePic } = useGetProfilePic();
 
   const onPress = () => {
     if (image && profile?.handle) {
@@ -34,7 +36,7 @@ export const EditAvatar = () => {
 
   if (!profile) return null;
 
-  const imageURL = image ?? profile.avatar_url;
+  const imageURL = image ?? profilePic;
   const isPending = isPickingImage || isUpdatingProfilePic;
 
   return (

@@ -12,7 +12,7 @@ const updateProfilePic = async ({ imageUri, handle }: Props) => {
   const base64 = await FileSystem.readAsStringAsync(imageUri, {
     encoding: FileSystem.EncodingType.Base64,
   });
-  const filePath = `public/${handle}/${new Date().getTime()}.png`;
+  const filePath = `public/${handle}/avatar.png`;
 
   const { data, error } = await supabase.storage
     .from("avatars")
@@ -27,7 +27,7 @@ const updateProfilePic = async ({ imageUri, handle }: Props) => {
 
   const { error: profileError } = await supabase
     .from("profiles")
-    .update({ avatar_url: data?.fullPath })
+    .update({ avatar_url: data?.path })
     .eq("handle", handle);
 
   if (profileError) {

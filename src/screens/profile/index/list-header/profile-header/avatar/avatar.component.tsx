@@ -6,15 +6,13 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { router } from "expo-router";
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
+import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 
-type Props = {
-  avatarUrl: string | null;
-};
-
-export const Avatar = ({ avatarUrl }: Props) => {
+export const Avatar = () => {
   const theme = useColorScheme() ?? "light";
 
   const isYourProfile = useIsOwnProfile();
+  const { data: profilePic } = useGetProfilePic();
 
   return (
     <View
@@ -25,10 +23,10 @@ export const Avatar = ({ avatarUrl }: Props) => {
           backgroundColor: colors[theme].background,
         },
       ]}>
-      {avatarUrl ? (
+      {profilePic ? (
         <Image
           source={{
-            uri: avatarUrl,
+            uri: profilePic,
           }}
           style={styles.image}
         />

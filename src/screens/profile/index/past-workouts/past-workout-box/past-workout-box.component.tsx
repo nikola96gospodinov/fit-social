@@ -22,6 +22,7 @@ import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -33,6 +34,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
   const { data: profile } = useGetProfile();
+  const { data: profilePic } = useGetProfilePic();
 
   const isYourProfile = useIsOwnProfile();
 
@@ -70,10 +72,10 @@ export const PastWorkoutBox = ({ workout }: Props) => {
             },
           ]}>
           <View>
-            {profile?.avatar_url ? (
+            {profilePic ? (
               <Image
                 source={{
-                  uri: profile.avatar_url,
+                  uri: profilePic,
                 }}
                 style={styles.image}
               />
@@ -174,6 +176,7 @@ const styles = StyleSheet.create({
   image: {
     width: 32,
     height: 32,
+    borderRadius: 50,
   },
 
   editIconContainer: {

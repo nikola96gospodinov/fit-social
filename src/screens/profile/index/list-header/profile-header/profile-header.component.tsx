@@ -28,7 +28,7 @@ export const ProfileHeader = () => {
       <View style={styles.container}>
         <Flex direction="row" justify="space-between" align="center">
           <Flex direction="row" gap={2} align="center">
-            <Avatar avatarUrl={profile.avatar_url} />
+            <Avatar />
 
             <ThemedText type="small" color="default">
               @{profile.handle}
