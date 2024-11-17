@@ -1,7 +1,9 @@
 import { supabase } from "@/src/lib/supabase";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { decode } from "base64-arraybuffer";
 import * as FileSystem from "expo-file-system";
+import { useGetProfile } from "./get-profile.service";
+import { GET_PROFILE_PIC_QUERY_KEY } from "./profile-keys";
 
 type Props = {
   imageUri: string;
@@ -36,7 +38,16 @@ const updateProfilePic = async ({ imageUri, handle }: Props) => {
 };
 
 export const useUpdateProfilePic = () => {
+  const queryClient = useQueryClient();
+
+  const { data: profile } = useGetProfile();
+
   return useMutation({
     mutationFn: updateProfilePic,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.avatar_url],
+      });
+    },
   });
 };

@@ -1,15 +1,19 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { useGetProfile } from "./get-profile.service";
-
-const GET_PROFILE_PIC_QUERY_KEY = "profile-pic";
+import { GET_PROFILE_PIC_QUERY_KEY } from "./profile-keys";
 
 const getProfilePic = async (avatarUrl?: string | null) => {
   if (!avatarUrl) return null;
 
   const { data, error } = await supabase.storage
     .from("avatars")
-    .download(avatarUrl);
+    .download(avatarUrl, {
+      transform: {
+        width: 200,
+        height: 200,
+      },
+    });
 
   if (error) {
     throw new Error(error.message);
