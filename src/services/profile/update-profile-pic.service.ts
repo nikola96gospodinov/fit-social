@@ -14,16 +14,18 @@ const updateProfilePic = async ({ imageUri, userID }: Props) => {
   const base64 = await FileSystem.readAsStringAsync(imageUri, {
     encoding: FileSystem.EncodingType.Base64,
   });
-  const filePath = `public/${userID}/avatar.png`;
+  const userId = (await supabase.auth.getUser()).data.user?.id;
+  const filePath = `${userId}/avatar.png`;
 
   const { data, error } = await supabase.storage
-    .from("avatars")
+    .from("files")
     .upload(filePath, decode(base64), {
       upsert: true,
       contentType: "image/png",
     });
 
   if (error) {
+    console.error(error);
     throw new Error(error.message);
   }
 
@@ -33,6 +35,7 @@ const updateProfilePic = async ({ imageUri, userID }: Props) => {
     .eq("id", userID);
 
   if (profileError) {
+    console.error(profileError);
     throw new Error(profileError.message);
   }
 };
