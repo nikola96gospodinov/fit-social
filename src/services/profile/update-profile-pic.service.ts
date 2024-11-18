@@ -4,6 +4,7 @@ import { decode } from "base64-arraybuffer";
 import * as FileSystem from "expo-file-system";
 import { useGetProfile } from "./get-profile.service";
 import { GET_PROFILE_PIC_QUERY_KEY } from "./profile-keys";
+import { router } from "expo-router";
 
 type Props = {
   imageUri: string;
@@ -51,6 +52,8 @@ export const useUpdateProfilePic = () => {
       queryClient.invalidateQueries({
         queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.avatar_url],
       });
+
+      router.back();
     },
   });
 };

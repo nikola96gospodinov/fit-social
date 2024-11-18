@@ -1,7 +1,7 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors } from "@/src/constants/colors.constants";
 import { usePickImage } from "@/src/services/camera/pick-image.service";
-import { FontAwesome, FontAwesome6 } from "@expo/vector-icons";
+import { FontAwesome, FontAwesome6, FontAwesome5 } from "@expo/vector-icons";
 import { Pressable, useColorScheme, StyleSheet } from "react-native";
 import { Image } from "expo-image";
 import { spacing } from "@/src/constants/spacing.constants";
@@ -13,11 +13,12 @@ import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service
 export const EditAvatar = () => {
   const theme = useColorScheme() ?? "light";
 
-  // TODO: Add error handling & policy only for the right user to upload image
   const {
     mutate: pickImage,
     data: image,
     isPending: isPickingImage,
+    isError: isPickingImageError,
+    reset: resetPickingImage,
   } = usePickImage();
 
   const { mutate: updateProfilePic, isPending: isUpdatingProfilePic } =
@@ -27,7 +28,9 @@ export const EditAvatar = () => {
   const { data: profilePic } = useGetProfilePic();
 
   const onPress = () => {
-    if (image && profile?.id) {
+    if (isPickingImageError) {
+      resetPickingImage();
+    } else if (image && profile?.id) {
       updateProfilePic({ imageUri: image, userID: profile.id });
     } else {
       pickImage();
@@ -66,12 +69,13 @@ export const EditAvatar = () => {
             borderColor: colors[theme].border,
           },
         ]}
-        onPress={onPress}>
-        {isPending ? (
-          <ThemedActivityIndicator size={18} />
-        ) : (
-          <FontAwesome6 name="pencil" size={18} color={colors[theme].icon} />
-        )}
+        onPress={onPress}
+        disabled={isPending}>
+        <Action
+          isPending={isPending}
+          isNewImage={!!image}
+          isError={isPickingImageError}
+        />
       </Pressable>
     </Flex>
   );
@@ -94,3 +98,29 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 });
+
+const Action = ({
+  isPending,
+  isNewImage,
+  isError,
+}: {
+  isPending: boolean;
+  isNewImage: boolean;
+  isError: boolean;
+}) => {
+  const theme = useColorScheme() ?? "light";
+
+  if (isPending) {
+    return <ThemedActivityIndicator size={18} />;
+  }
+
+  if (isError) {
+    return <FontAwesome5 name="redo" size={18} color={colors[theme].icon} />;
+  }
+
+  if (isNewImage) {
+    return <FontAwesome name="save" size={18} color={colors[theme].icon} />;
+  }
+
+  return <FontAwesome6 name="pencil" size={18} color={colors[theme].icon} />;
+};
