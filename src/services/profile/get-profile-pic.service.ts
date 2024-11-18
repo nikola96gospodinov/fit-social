@@ -8,12 +8,7 @@ const getProfilePic = async (avatarUrl?: string | null) => {
 
   const { data, error } = await supabase.storage
     .from("avatars")
-    .download(avatarUrl, {
-      transform: {
-        width: 200,
-        height: 200,
-      },
-    });
+    .download(avatarUrl);
 
   if (error) {
     throw new Error(error.message);
