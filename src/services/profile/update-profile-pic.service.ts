@@ -7,14 +7,14 @@ import { GET_PROFILE_PIC_QUERY_KEY } from "./profile-keys";
 
 type Props = {
   imageUri: string;
-  handle: string;
+  userID: string;
 };
 
-const updateProfilePic = async ({ imageUri, handle }: Props) => {
+const updateProfilePic = async ({ imageUri, userID }: Props) => {
   const base64 = await FileSystem.readAsStringAsync(imageUri, {
     encoding: FileSystem.EncodingType.Base64,
   });
-  const filePath = `public/${handle}/avatar.png`;
+  const filePath = `public/${userID}/avatar.png`;
 
   const { data, error } = await supabase.storage
     .from("avatars")
@@ -30,7 +30,7 @@ const updateProfilePic = async ({ imageUri, handle }: Props) => {
   const { error: profileError } = await supabase
     .from("profiles")
     .update({ avatar_url: data?.path })
-    .eq("handle", handle);
+    .eq("id", userID);
 
   if (profileError) {
     throw new Error(profileError.message);

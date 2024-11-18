@@ -27,8 +27,8 @@ export const EditAvatar = () => {
   const { data: profilePic } = useGetProfilePic();
 
   const onPress = () => {
-    if (image && profile?.handle) {
-      updateProfilePic({ imageUri: image, handle: profile.handle });
+    if (image && profile?.id) {
+      updateProfilePic({ imageUri: image, userID: profile.id });
     } else {
       pickImage();
     }
