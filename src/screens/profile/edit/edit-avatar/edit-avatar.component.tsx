@@ -32,7 +32,7 @@ export const EditAvatar = () => {
     if (isPickingImageError) {
       resetPickingImage();
     } else if (image && profile?.id) {
-      updateProfilePic({ imageUri: image, userID: profile.id });
+      updateProfilePic({ imageUri: image.uri, userID: profile.id });
     } else {
       pickImage();
     }
@@ -49,7 +49,7 @@ export const EditAvatar = () => {
 
   if (!profile) return null;
 
-  const imageURL = image ?? profilePic;
+  const imageURL = image?.uri ?? profilePic;
 
   return (
     <Flex align="center">

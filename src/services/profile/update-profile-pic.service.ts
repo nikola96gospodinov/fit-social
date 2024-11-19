@@ -1,10 +1,10 @@
 import { supabase } from "@/src/lib/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { decode } from "base64-arraybuffer";
-import * as FileSystem from "expo-file-system";
 import { useGetProfile } from "./get-profile.service";
 import { GET_PROFILE_PIC_QUERY_KEY } from "./profile-keys";
 import { router } from "expo-router";
+import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
 
 type Props = {
   imageUri: string;
@@ -12,15 +12,21 @@ type Props = {
 };
 
 const updateProfilePic = async ({ imageUri, userID }: Props) => {
-  const base64 = await FileSystem.readAsStringAsync(imageUri, {
-    encoding: FileSystem.EncodingType.Base64,
-  });
-  const userId = (await supabase.auth.getUser()).data.user?.id;
-  const filePath = `${userId}/avatar.png`;
+  const compressedImage = await manipulateAsync(
+    imageUri,
+    [{ resize: { width: 684, height: 684 } }],
+    {
+      format: SaveFormat.PNG,
+      compress: 0,
+      base64: true,
+    },
+  );
+
+  const filePath = `${userID}/avatar.png`;
 
   const { data, error } = await supabase.storage
     .from("files")
-    .upload(filePath, decode(base64), {
+    .upload(filePath, decode(compressedImage.base64 ?? ""), {
       upsert: true,
       contentType: "image/png",
     });
