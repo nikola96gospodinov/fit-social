@@ -19,5 +19,31 @@ export const getFormattedTimeFromMilliseconds = (milliseconds: number) => {
 };
 
 export const getFormattedDate = (date: string | Date) => {
-  return format(new Date(date), "dd MMMM yyyy");
+  return format(new Date(date), "dd MMM yyyy");
+};
+
+export const getDurationInHoursAndMinutes = (
+  started: string,
+  ended: string,
+) => {
+  const duration = intervalToDuration({
+    start: new Date(started),
+    end: new Date(ended ?? started),
+  });
+
+  const time: string[] = [];
+
+  if (duration.hours) {
+    time.push(`${duration.hours}h`);
+  }
+
+  if (duration.minutes) {
+    time.push(`${duration.minutes}m`);
+  }
+
+  if (time.length === 0) {
+    return "<1m";
+  }
+
+  return time.join(", ");
 };

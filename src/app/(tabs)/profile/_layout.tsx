@@ -1,4 +1,5 @@
 import { ClearFilter } from "@/src/features/workouts/filters/header/clear-filters/clear-filter.component";
+import { EditWorkoutHeaderTitle } from "@/src/screens/profile/edit-workout/header-title/headet-title.component";
 import { EditWorkoutRightHeader } from "@/src/screens/profile/edit-workout/right-header/right-header.component";
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
@@ -49,7 +50,10 @@ export default function ProfileLayout() {
 
       <Stack.Screen
         name="edit-workout/[id]"
-        options={{ title: "Edit workout", headerRight: EditWorkoutRightHeader }}
+        options={{
+          headerRight: EditWorkoutRightHeader,
+          headerTitle: EditWorkoutHeaderTitle,
+        }}
       />
 
       {/* The next 3 screens are duplicates. Currently Expo doesn't support a back button when moving from one tab to another hence why it's needed - https://github.com/expo/expo/issues/30141 */}

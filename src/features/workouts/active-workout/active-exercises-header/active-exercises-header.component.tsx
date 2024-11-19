@@ -1,7 +1,6 @@
 import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/themed-text-input.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
-import { View } from "react-native";
 
 export const ActiveExercisesHeader = () => {
   const {
@@ -9,7 +8,7 @@ export const ActiveExercisesHeader = () => {
   } = useActiveWorkoutStore();
 
   return (
-    <View>
+    <>
       <ThemedTextInput
         label="Workout title"
         value={title}
@@ -22,6 +21,6 @@ export const ActiveExercisesHeader = () => {
       />
 
       <VerticalSpacing size={8} />
-    </View>
+    </>
   );
 };

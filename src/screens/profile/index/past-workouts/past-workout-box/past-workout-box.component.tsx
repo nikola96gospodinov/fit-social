@@ -10,10 +10,7 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
 import { ExerciseRow } from "./exercise-row/exercise-row.component";
 import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
-import {
-  getWorkoutDistance,
-  getWorkoutDuration,
-} from "./past-workout-box.utils";
+import { getWorkoutDistance } from "./past-workout-box.utils";
 import { useGetTotalWeight } from "./hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
@@ -23,6 +20,7 @@ import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { FontAwesome } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
+import { getDurationInHoursAndMinutes } from "@/src/utils/dates.utils";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -44,7 +42,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   );
   const distance = getWorkoutDistance(workout.started, workout.ended);
   const totalWeight = useGetTotalWeight(workout.id);
-  const duration = getWorkoutDuration(workout.started, workout.ended);
+  const duration = getDurationInHoursAndMinutes(workout.started, workout.ended);
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
 
   const { data: workoutPRs } = useGetWorkoutPRs({
