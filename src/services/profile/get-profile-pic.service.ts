@@ -27,15 +27,14 @@ const getProfilePic = async (avatarUrl?: string | null) => {
   });
 
   fr.readAsDataURL(data);
-  return imagePromise;
+  return await imagePromise;
 };
 
 export const useGetProfilePic = () => {
   const { data: profile } = useGetProfile();
 
   return useQuery({
-    queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.avatar_url],
+    queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.id],
     queryFn: () => getProfilePic(profile?.avatar_url),
-    enabled: !!profile?.avatar_url,
   });
 };

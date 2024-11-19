@@ -56,7 +56,7 @@ export const useUpdateProfilePic = () => {
     mutationFn: updateProfilePic,
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.avatar_url],
+        queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.id],
       });
 
       router.back();

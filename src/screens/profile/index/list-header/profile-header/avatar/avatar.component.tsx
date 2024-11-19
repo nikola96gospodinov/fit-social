@@ -14,6 +14,8 @@ export const Avatar = () => {
   const isYourProfile = useIsOwnProfile();
   const { data: profilePic } = useGetProfilePic();
 
+  console.log(profilePic);
+
   return (
     <View
       style={[
