@@ -14,7 +14,7 @@ const pickImage = async () => {
     return result.assets[0].uri;
   }
 
-  throw new Error("No image selected");
+  return null;
 };
 
 export const usePickImage = () => {
