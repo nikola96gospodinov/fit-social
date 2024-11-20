@@ -8,5 +8,5 @@ export const useGetTotalWeight = (workoutId: string) => {
     0,
   );
 
-  return totalWeight;
+  return totalWeight?.toLocaleString();
 };

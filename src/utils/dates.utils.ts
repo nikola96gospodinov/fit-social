@@ -45,5 +45,5 @@ export const getDurationInHoursAndMinutes = (
     return "<1m";
   }
 
-  return time.join(", ");
+  return time.join(" ");
 };
