@@ -2,7 +2,7 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Tables } from "@/src/types/database.types";
-import { View, StyleSheet, useColorScheme } from "react-native";
+import { View, StyleSheet, useColorScheme, Pressable } from "react-native";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
@@ -12,6 +12,8 @@ import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { Poster } from "./poster/poster.component";
 import { WorkoutStats } from "./workout-stats/workout-stats.component";
+import { router } from "expo-router";
+import { useInitiateWorkoutState } from "./hooks/use-initiate-workout-state";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -19,6 +21,10 @@ type Props = {
 
 export const PastWorkoutBox = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
+
+  const { isLoading, handleInitiateState } = useInitiateWorkoutState({
+    workout,
+  });
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
@@ -30,7 +36,13 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   );
 
   return (
-    <View
+    <Pressable
+      onPress={() => {
+        if (!isLoading) {
+          handleInitiateState();
+          router.push(`/profile/view-workout/${workout.id}`);
+        }
+      }}
       style={[
         styles.container,
         { backgroundColor: colors[theme].cardBackground },
@@ -65,7 +77,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
           />
         );
       })}
-    </View>
+    </Pressable>
   );
 };
 

@@ -32,7 +32,7 @@ export const WorkoutStats = ({ workout }: Props) => {
   return (
     <Flex direction="row" gap={6} align="center">
       <Flex direction="row" gap={1} align="center">
-        <Ionicons name="timer-outline" size={12} color={colors[theme].icon} />
+        <Ionicons name="timer" size={12} color={colors[theme].icon} />
 
         <ThemedText type="extraSmall">{duration}</ThemedText>
       </Flex>
@@ -46,7 +46,7 @@ export const WorkoutStats = ({ workout }: Props) => {
       </Flex>
 
       <Flex direction="row" gap={1} align="center">
-        <Ionicons name="trophy-outline" size={12} color={colors[theme].icon} />
+        <Ionicons name="trophy" size={12} color={colors[theme].icon} />
 
         <ThemedText type="extraSmall">
           {workoutPRs ?? 0} PR{workoutPRs === 1 ? "" : "s"}
