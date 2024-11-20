@@ -60,7 +60,7 @@ export default function ProfileLayout() {
         name="view-workout/[id]"
         options={{
           presentation: "modal",
-          headerTitle: EditWorkoutHeaderTitle,
+          title: "Loading...", // Title is being re-set in the route file once fetch is complete
         }}
       />
 

@@ -11,9 +11,8 @@ import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { Poster } from "./poster/poster.component";
-import { WorkoutStats } from "./workout-stats/workout-stats.component";
 import { router } from "expo-router";
-import { useInitiateWorkoutState } from "./hooks/use-initiate-workout-state";
+import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -21,10 +20,6 @@ type Props = {
 
 export const PastWorkoutBox = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
-
-  const { isLoading, handleInitiateState } = useInitiateWorkoutState({
-    workout,
-  });
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
@@ -38,10 +33,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   return (
     <Pressable
       onPress={() => {
-        if (!isLoading) {
-          handleInitiateState();
-          router.push(`/profile/view-workout/${workout.id}`);
-        }
+        router.push(`/profile/view-workout/${workout.id}`);
       }}
       style={[
         styles.container,

@@ -4,11 +4,11 @@ import { colors } from "@/src/constants/colors.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { Ionicons, FontAwesome6 } from "@expo/vector-icons";
 import { useColorScheme } from "react-native";
-import { useGetTotalWeight } from "../hooks/use-get-total-weight";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 import { getDurationInHoursAndMinutes } from "@/src/utils/dates.utils";
 import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { Tables } from "@/src/types/database.types";
+import { useGetTotalWeight } from "@/src/screens/profile/index/past-workouts/past-workout-box/hooks/use-get-total-weight";
 
 type Props = {
   workout: Tables<"workouts">;
