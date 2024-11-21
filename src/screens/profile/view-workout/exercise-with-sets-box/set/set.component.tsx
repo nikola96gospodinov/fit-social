@@ -5,7 +5,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 
@@ -14,9 +14,10 @@ type Props = {
   index: number;
   isLast: boolean;
   isPR?: boolean;
+  isBestSet?: boolean;
 };
 
-export const Set = ({ set, index, isLast, isPR }: Props) => {
+export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
   const { data: profile } = useGetProfile();
 
   const theme = useColorScheme() ?? "light";
@@ -30,6 +31,23 @@ export const Set = ({ set, index, isLast, isPR }: Props) => {
     return (set.weight * (1 + set.reps / 30)).toFixed();
   })();
 
+  const pillStyle = (() => {
+    if (isPR)
+      return [styles.pill, { backgroundColor: colors[theme].tintBackground }];
+    if (isBestSet)
+      return [
+        styles.pill,
+        { backgroundColor: colors[theme].oppositeBackground },
+      ];
+    return [];
+  })();
+
+  const textColor = (() => {
+    if (isPR) return "default";
+    if (isBestSet) return "inverted";
+    return "supporting";
+  })();
+
   return (
     <View key={set.id}>
       <Flex direction="row" justify="space-between">
@@ -38,17 +56,17 @@ export const Set = ({ set, index, isLast, isPR }: Props) => {
           {set.weight} {measurementSystem} x {set.reps}
         </ThemedText>
 
-        <Flex
-          direction="row"
-          gap={2}
-          style={
-            isPR
-              ? [styles.pill, { backgroundColor: colors[theme].tintBackground }]
-              : []
-          }>
-          {isPR && <PRPill />}
+        <Flex direction="row" gap={1} style={pillStyle} align="center">
+          {isPR && <PersonalRecord />}
 
-          <ThemedText type="extraSmall" color={isPR ? "default" : "supporting"}>
+          <ThemedText type="extraSmall" color={textColor}>
+            {isBestSet && !isPR && (
+              <FontAwesome
+                name="star"
+                size={12}
+                color={colors[theme].invertedText}
+              />
+            )}{" "}
             {oneMaxRep} {measurementSystem}
           </ThemedText>
         </Flex>
@@ -59,7 +77,7 @@ export const Set = ({ set, index, isLast, isPR }: Props) => {
   );
 };
 
-const PRPill = () => {
+const PersonalRecord = () => {
   const theme = useColorScheme() ?? "light";
 
   return (

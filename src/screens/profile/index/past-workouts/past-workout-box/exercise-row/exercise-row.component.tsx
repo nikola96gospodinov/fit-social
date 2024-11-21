@@ -2,6 +2,7 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
+import { getBestSet } from "@/src/features/workouts/utils/get-best-set.utils";
 import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useGetExerciseSets } from "@/src/services/workout/get-exercise-sets.service";
@@ -22,15 +23,7 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
   const { data: sets } = useGetExerciseSets(exercise.id);
   const { data: profile } = useGetProfile();
 
-  const bestSet = sets?.reduce(
-    (prev, current) => {
-      const prevEpley = (prev.weight ?? 0) * (1 + (prev.reps ?? 0) / 30);
-      const currentEpley =
-        (current.weight ?? 0) * (1 + (current.reps ?? 0) / 30);
-      return currentEpley > prevEpley ? current : prev;
-    },
-    { weight: 0, reps: 0 } as Tables<"exercise_sets">,
-  );
+  const bestSet = getBestSet(sets);
 
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
 

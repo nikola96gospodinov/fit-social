@@ -7,6 +7,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { Set } from "./set/set.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
+import { getBestSet } from "@/src/features/workouts/utils/get-best-set.utils";
 
 type Props = {
   exercise: Tables<"workout_exercises">;
@@ -22,6 +23,8 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
     workoutId: workout.id,
     handle: workout.user_handle,
   });
+
+  const bestSet = getBestSet(exerciseSets);
 
   return (
     <View>
@@ -42,6 +45,7 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
           isLast={index === (exerciseSets?.length ?? 0) - 1}
           key={set.id}
           isPR={workoutPRs?.some((pr) => pr.set_id === set.id)}
+          isBestSet={bestSet?.id === set.id}
         />
       ))}
 
