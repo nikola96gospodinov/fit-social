@@ -7,13 +7,16 @@ import { useEffect } from "react";
 import { ViewWorkoutListHeader } from "./list-header/list-header.component";
 import { ExerciseWithSetsBox } from "./exercise-with-sets-box/exercise-with-sets-box.component";
 import { spacing } from "@/src/constants/spacing.constants";
+import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 
 export const ViewWorkoutContent = () => {
   const { id } = useLocalSearchParams();
 
   const navigation = useNavigation();
 
-  const { data: workout } = useGetWorkoutById(id as string);
+  const { data: workout, isLoading: isLoadingWorkout } = useGetWorkoutById(
+    id as string,
+  );
 
   const { data: workoutExercises } = useGetWorkoutExercises(id as string);
 
@@ -28,6 +31,10 @@ export const ViewWorkoutContent = () => {
     });
   }, [alternativeTitle, navigation]);
 
+  if (isLoadingWorkout) return <ThemedActivityIndicator />;
+
+  if (!workout) return null;
+
   return (
     <FlatList
       keyExtractor={(item) => item.id}
@@ -35,6 +42,7 @@ export const ViewWorkoutContent = () => {
       contentContainerStyle={styles.contentContainer}
       renderItem={({ item, index }) => (
         <ExerciseWithSetsBox
+          workout={workout}
           exercise={item}
           isLast={index === (workoutExercises?.length ?? 0) - 1}
         />

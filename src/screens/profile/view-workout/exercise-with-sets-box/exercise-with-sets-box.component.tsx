@@ -6,14 +6,22 @@ import { capitalize } from "lodash";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { Set } from "./set/set.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
+import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service";
 
 type Props = {
   exercise: Tables<"workout_exercises">;
   isLast: boolean;
+  workout: Tables<"workouts">;
 };
 
-export const ExerciseWithSetsBox = ({ exercise, isLast }: Props) => {
+export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
   const { data: exerciseSets } = useGetExerciseSets(exercise.id);
+
+  const { data: workoutPRs } = useGetWorkoutPRs({
+    ended: workout.ended,
+    workoutId: workout.id,
+    handle: workout.user_handle,
+  });
 
   return (
     <View>
@@ -32,6 +40,8 @@ export const ExerciseWithSetsBox = ({ exercise, isLast }: Props) => {
           set={set}
           index={index}
           isLast={index === (exerciseSets?.length ?? 0) - 1}
+          key={set.id}
+          isPR={workoutPRs?.some((pr) => pr.set_id === set.id)}
         />
       ))}
 

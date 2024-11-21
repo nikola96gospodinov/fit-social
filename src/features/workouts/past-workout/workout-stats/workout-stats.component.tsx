@@ -49,7 +49,7 @@ export const WorkoutStats = ({ workout }: Props) => {
         <Ionicons name="trophy" size={12} color={colors[theme].icon} />
 
         <ThemedText type="extraSmall">
-          {workoutPRs ?? 0} PR{workoutPRs === 1 ? "" : "s"}
+          {workoutPRs?.length ?? 0} PR{workoutPRs?.length === 1 ? "" : "s"}
         </ThemedText>
       </Flex>
     </Flex>

@@ -10,7 +10,7 @@ type Props = {
 };
 
 const getWorkoutPRs = async ({ ended, workoutId, handle }: Props) => {
-  const { data, error } = await supabase.rpc("count_workout_prs", {
+  const { data, error } = await supabase.rpc("get_workout_prs", {
     current_workout_id: workoutId,
     handle,
     current_workout_ended: ended,
