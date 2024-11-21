@@ -24,7 +24,7 @@ export const HomeGym = () => {
       style={[
         styles.homeGymContainer,
         {
-          backgroundColor: colors[theme].cardBackground,
+          backgroundColor: colors[theme].tintActiveBackground,
           borderColor: colors[theme].tintBackground,
         },
       ]}>
@@ -47,7 +47,8 @@ export const HomeGym = () => {
 
 const styles = StyleSheet.create({
   homeGymContainer: {
-    padding: spacing[4],
+    paddingVertical: spacing[3],
+    paddingHorizontal: spacing[4],
     borderRadius: spacing[4],
     borderLeftWidth: 2,
   },

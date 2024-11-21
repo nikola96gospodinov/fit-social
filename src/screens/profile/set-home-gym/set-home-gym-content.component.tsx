@@ -150,6 +150,7 @@ const ListFooterComponent = ({ selectedHomeGym }: ListFooterComponentProps) => {
           });
         }}
         isLoading={isPending}
+        isFullWidth
       />
     </>
   );

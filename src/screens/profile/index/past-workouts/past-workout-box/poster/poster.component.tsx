@@ -33,7 +33,7 @@ export const Poster = ({ workout }: Props) => {
         styles.userInfoContainer,
         {
           backgroundColor: colors[theme].background,
-          borderColor: colors[theme].cardBackground,
+          borderColor: colors[theme].sectionBackground,
         },
       ]}>
       <View>

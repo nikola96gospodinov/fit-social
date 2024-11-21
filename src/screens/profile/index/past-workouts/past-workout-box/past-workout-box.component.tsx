@@ -1,5 +1,5 @@
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { colors } from "@/src/constants/colors.constants";
+import { slate } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Tables } from "@/src/types/database.types";
 import { View, StyleSheet, useColorScheme, Pressable } from "react-native";
@@ -13,6 +13,12 @@ import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { Poster } from "./poster/poster.component";
 import { router } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
+import { LinearGradient } from "expo-linear-gradient";
+
+const profileBackground = {
+  light: [slate[200], slate[100]],
+  dark: [slate[800], slate[900]],
+};
 
 type Props = {
   workout: Tables<"workouts">;
@@ -34,41 +40,43 @@ export const PastWorkoutBox = ({ workout }: Props) => {
     <Pressable
       onPress={() => {
         router.push(`/profile/view-workout/${workout.id}`);
-      }}
-      style={[
-        styles.container,
-        { backgroundColor: colors[theme].cardBackground },
-      ]}>
-      <Flex direction="row" justify="space-between">
-        <Poster workout={workout} />
+      }}>
+      <LinearGradient
+        colors={profileBackground[theme]}
+        style={styles.container}
+        start={{ x: 0, y: 1 }}
+        end={{ x: 1, y: 0 }}>
+        <Flex direction="row" justify="space-between">
+          <Poster workout={workout} />
 
-        {isYourProfile && (
-          <View style={styles.editIconContainer}>
-            <EditWorkoutIcon workout={workout} />
-          </View>
-        )}
-      </Flex>
+          {isYourProfile && (
+            <View style={styles.editIconContainer}>
+              <EditWorkoutIcon workout={workout} />
+            </View>
+          )}
+        </Flex>
 
-      <ThemedText style={{ fontWeight: "500" }}>
-        {workout.title || alternativeTitle}
-      </ThemedText>
+        <ThemedText style={{ fontWeight: "500" }}>
+          {workout.title || alternativeTitle}
+        </ThemedText>
 
-      <VerticalSpacing size={2} />
+        <VerticalSpacing size={2} />
 
-      <WorkoutStats workout={workout} />
+        <WorkoutStats workout={workout} />
 
-      <VerticalSpacing size={6} />
+        <VerticalSpacing size={6} />
 
-      {workoutExercises?.map((exercise, index) => {
-        return (
-          <ExerciseRow
-            key={exercise.id}
-            exercise={exercise}
-            index={index}
-            exercisesLength={workoutExercises.length}
-          />
-        );
-      })}
+        {workoutExercises?.map((exercise, index) => {
+          return (
+            <ExerciseRow
+              key={exercise.id}
+              exercise={exercise}
+              index={index}
+              exercisesLength={workoutExercises.length}
+            />
+          );
+        })}
+      </LinearGradient>
     </Pressable>
   );
 };

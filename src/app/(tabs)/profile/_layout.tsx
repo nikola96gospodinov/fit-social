@@ -28,7 +28,7 @@ export default function ProfileLayout() {
   }, [setAction, navigation]);
 
   const homeGymTitle = profile?.home_gym_name
-    ? "Edit home gym"
+    ? "Change home gym"
     : "Set home gym";
 
   return (

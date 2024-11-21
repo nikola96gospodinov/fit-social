@@ -16,11 +16,11 @@ export const EditProfileContent = () => {
     <ScrollView style={styles.container}>
       <VerticalSpacing size={2} />
 
-      <HomeGym />
+      <EditAvatar />
 
       <VerticalSpacing size={6} />
 
-      <EditAvatar />
+      <HomeGym />
 
       <VerticalSpacing size={4} />
 
