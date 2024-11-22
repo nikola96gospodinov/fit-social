@@ -1,33 +1,54 @@
 import { spacing } from "@/src/constants/spacing.constants";
 import { FlashList } from "@shopify/flash-list";
-import { StyleSheet } from "react-native";
-import { HomeGymSuggestionsListHeader } from "./list-header/home-gym-suggestions-list-header.component";
+import { StyleSheet, View } from "react-native";
 import { useGetHomeGymSuggestions } from "@/src/services/suggestions/home-gym-suggestions.service";
 import { HomeGymSuggestionsListEmpty } from "./list-empty/home-gym-suggestions-list-empty.component";
 import { SuggestionBox } from "../suggestion-box/suggestion-box.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 
 export const HomeGymSuggestions = () => {
   const { data: suggestions, isLoading: suggestionsLoading } =
     useGetHomeGymSuggestions();
 
+  if (!suggestions) return null;
+
   return (
-    <FlashList
-      data={suggestions}
-      renderItem={({ item }) => <SuggestionBox profile={item} />}
-      contentContainerStyle={styles.container}
-      ListHeaderComponent={HomeGymSuggestionsListHeader}
-      ListEmptyComponent={() => (
-        <HomeGymSuggestionsListEmpty isLoading={suggestionsLoading} />
-      )}
-      ItemSeparatorComponent={() => <VerticalSpacing size={2} isHorizontal />}
-      estimatedItemSize={100}
-    />
+    <View style={styles.container}>
+      <ThemedText type="small" color="supporting" style={styles.title}>
+        People from your gym
+      </ThemedText>
+
+      <VerticalSpacing size={4} />
+
+      <FlashList
+        data={suggestions}
+        renderItem={({ item, index }) => (
+          <SuggestionBox
+            profile={item}
+            isLast={index === suggestions.length - 1}
+            isFirst={index === 0}
+          />
+        )}
+        ListEmptyComponent={() => (
+          <HomeGymSuggestionsListEmpty isLoading={suggestionsLoading} />
+        )}
+        ItemSeparatorComponent={() => <VerticalSpacing size={4} isHorizontal />}
+        estimatedItemSize={20}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => item.id}
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    padding: spacing[4],
+    paddingVertical: spacing[4],
+  },
+
+  title: {
+    paddingHorizontal: spacing[4],
   },
 });

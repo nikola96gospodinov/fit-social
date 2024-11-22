@@ -11,9 +11,11 @@ import { useFollowAccount } from "@/src/services/follows/follow-account.service"
 
 type Props = {
   profile: Tables<"profiles">;
+  isLast: boolean;
+  isFirst: boolean;
 };
 
-export const SuggestionBox = ({ profile }: Props) => {
+export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const { data: avatarUrl } = useGetProfilePic(
@@ -21,13 +23,15 @@ export const SuggestionBox = ({ profile }: Props) => {
     profile.avatar_url,
   );
 
-  const { mutate: followAccount } = useFollowAccount();
+  const { mutate: followAccount, isPending: isFollowing } = useFollowAccount();
 
   return (
     <View
       style={[
         styles.container,
         { backgroundColor: colors[theme].sectionBackground },
+        isFirst && { marginLeft: spacing[4] },
+        isLast && { marginRight: spacing[4] },
       ]}>
       <Image source={avatarUrl ?? ""} style={styles.avatar} />
 
@@ -44,6 +48,8 @@ export const SuggestionBox = ({ profile }: Props) => {
         size="sm"
         isFullWidth
         onPress={() => followAccount(profile)}
+        isLoading={isFollowing}
+        disabled={isFollowing}
       />
     </View>
   );
@@ -52,7 +58,7 @@ export const SuggestionBox = ({ profile }: Props) => {
 const styles = StyleSheet.create({
   container: {
     padding: spacing[4],
-    width: Dimensions.get("window").width / 2.25,
+    width: Dimensions.get("window").width / 2,
     borderRadius: 12,
   },
 
