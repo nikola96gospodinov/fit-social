@@ -30,11 +30,11 @@ const getProfilePic = async (avatarUrl?: string | null) => {
   return await imagePromise;
 };
 
-export const useGetProfilePic = () => {
+export const useGetProfilePic = (handle?: string, avatarUrl?: string) => {
   const { data: profile } = useGetProfile();
 
   return useQuery({
-    queryKey: [GET_PROFILE_PIC_QUERY_KEY, profile?.id],
-    queryFn: () => getProfilePic(profile?.avatar_url),
+    queryKey: [GET_PROFILE_PIC_QUERY_KEY, handle ?? profile?.handle],
+    queryFn: () => getProfilePic(avatarUrl ?? profile?.avatar_url),
   });
 };

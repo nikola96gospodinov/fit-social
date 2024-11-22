@@ -17,7 +17,7 @@ export const HomeGymSuggestionsListEmpty = ({ isLoading }: Props) => {
   if (isLoading || profileLoading) {
     return (
       <>
-        <VerticalSpacing size={2} />
+        <VerticalSpacing size={4} />
 
         <ThemedActivityIndicator />
       </>
