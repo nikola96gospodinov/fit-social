@@ -4,19 +4,19 @@ import { getProfile } from "../profile/get-profile.service";
 
 const GET_FOLLOWING_QUERY_KEY = "get-following";
 
-export const getFollowing = async (handle?: string | null) => {
-  let followingHandle = handle;
+export const getFollowing = async (id?: string | null) => {
+  let followingId = id;
 
-  if (!followingHandle) {
+  if (!followingId) {
     const data = await getProfile();
 
-    followingHandle = data?.handle;
+    followingId = data?.id;
   }
 
   const { data, error } = await supabase
     .from("follows")
     .select("*")
-    .eq("following_handle", followingHandle!);
+    .eq("following_id", followingId!);
 
   if (error) {
     console.error(error);
@@ -26,9 +26,9 @@ export const getFollowing = async (handle?: string | null) => {
   return data;
 };
 
-export const useGetFollowing = (handle?: string | null) => {
+export const useGetFollowing = (id?: string | null) => {
   return useQuery({
-    queryKey: [GET_FOLLOWING_QUERY_KEY, handle],
-    queryFn: () => getFollowing(handle),
+    queryKey: [GET_FOLLOWING_QUERY_KEY, id],
+    queryFn: () => getFollowing(id),
   });
 };

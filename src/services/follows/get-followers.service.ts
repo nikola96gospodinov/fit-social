@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 
 const GET_FOLLOWERS_QUERY_KEY = "get-followers";
 
-const getFollowers = async (handle: string) => {
+const getFollowers = async (id: string) => {
   const { data, error } = await supabase
     .from("follows")
     .select("*")
-    .eq("followed_handle", handle);
+    .eq("followed_id", id);
 
   if (error) {
     console.error(error);
@@ -17,9 +17,9 @@ const getFollowers = async (handle: string) => {
   return data;
 };
 
-export const useGetFollowers = (handle: string) => {
+export const useGetFollowers = (id: string) => {
   return useQuery({
-    queryKey: [GET_FOLLOWERS_QUERY_KEY, handle],
-    queryFn: () => getFollowers(handle),
+    queryKey: [GET_FOLLOWERS_QUERY_KEY, id],
+    queryFn: () => getFollowers(id),
   });
 };

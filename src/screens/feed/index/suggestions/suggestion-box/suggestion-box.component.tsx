@@ -7,6 +7,7 @@ import { Image } from "expo-image";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
+import { useFollowAccount } from "@/src/services/follows/follow-account.service";
 
 type Props = {
   profile: Tables<"profiles">;
@@ -16,9 +17,11 @@ export const SuggestionBox = ({ profile }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const { data: avatarUrl } = useGetProfilePic(
-    profile.handle ?? undefined,
-    profile.avatar_url ?? undefined,
+    profile.handle,
+    profile.avatar_url,
   );
+
+  const { mutate: followAccount } = useFollowAccount();
 
   return (
     <View
@@ -36,7 +39,12 @@ export const SuggestionBox = ({ profile }: Props) => {
 
       <VerticalSpacing size={3} />
 
-      <ThemedButton text="Follow" size="sm" isFullWidth />
+      <ThemedButton
+        text="Follow"
+        size="sm"
+        isFullWidth
+        onPress={() => followAccount(profile)}
+      />
     </View>
   );
 };

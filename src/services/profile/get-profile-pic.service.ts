@@ -30,7 +30,10 @@ const getProfilePic = async (avatarUrl?: string | null) => {
   return await imagePromise;
 };
 
-export const useGetProfilePic = (handle?: string, avatarUrl?: string) => {
+export const useGetProfilePic = (
+  handle?: string | null,
+  avatarUrl?: string | null,
+) => {
   const { data: profile } = useGetProfile();
 
   return useQuery({
