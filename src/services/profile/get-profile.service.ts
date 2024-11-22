@@ -4,7 +4,7 @@ import { PROFILE_QUERY_KEY } from "./profile-keys";
 import { useLocalSearchParams } from "expo-router";
 import { useGetSessionFromQueryClient } from "@/src/hooks/use-get-session-from-query-client";
 
-const getProfile = async (handle?: string) => {
+export const getProfile = async (handle?: string) => {
   const { data: user, error: userError } = await supabase.auth.getUser();
 
   if (userError) {
