@@ -9,6 +9,8 @@ export default function IndexLayout() {
           title: "",
         }}
       />
+
+      <Stack.Screen name="discover" options={{ title: "Discover" }} />
     </Stack>
   );
 }
