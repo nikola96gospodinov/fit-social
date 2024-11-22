@@ -1,8 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
 import { getProfile } from "../profile/get-profile.service";
-
-const GET_FOLLOWING_QUERY_KEY = "get-following";
+import { GET_FOLLOWING_QUERY_KEY } from "./keys";
 
 export const getFollowing = async (id?: string | null) => {
   let followerId = id;
