@@ -1,6 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { Tables } from "@/src/types/database.types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { IS_ACCOUNT_FOLLOWED_QUERY_KEY } from "./keys";
 
 const followAccount = async (profileToFollow: Tables<"profiles">) => {
   const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -38,8 +39,15 @@ const followAccount = async (profileToFollow: Tables<"profiles">) => {
   }
 };
 
-export const useFollowAccount = () => {
+export const useFollowAccount = (followedId: string) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: followAccount,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+      });
+    },
   });
 };

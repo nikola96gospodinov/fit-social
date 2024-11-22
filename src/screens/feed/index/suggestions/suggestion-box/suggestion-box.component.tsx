@@ -8,6 +8,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 import { useFollowAccount } from "@/src/services/follows/follow-account.service";
+import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
 
 type Props = {
   profile: Tables<"profiles">;
@@ -23,7 +24,11 @@ export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
     profile.avatar_url,
   );
 
-  const { mutate: followAccount, isPending: isFollowing } = useFollowAccount();
+  const { mutate: followAccount, isPending: isFollowing } = useFollowAccount(
+    profile.id,
+  );
+  const { data: isAccountFollowed, isLoading: isAccountFollowedLoading } =
+    useIsAccountFollowed(profile.id);
 
   return (
     <View
@@ -44,12 +49,12 @@ export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
       <VerticalSpacing size={3} />
 
       <ThemedButton
-        text="Follow"
+        text={isAccountFollowed ? "Following" : "Follow"}
         size="sm"
         isFullWidth
         onPress={() => followAccount(profile)}
-        isLoading={isFollowing}
-        disabled={isFollowing}
+        isLoading={isFollowing || isAccountFollowedLoading}
+        disabled={isFollowing || isAccountFollowedLoading}
       />
     </View>
   );
