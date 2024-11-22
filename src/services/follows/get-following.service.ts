@@ -5,18 +5,18 @@ import { getProfile } from "../profile/get-profile.service";
 const GET_FOLLOWING_QUERY_KEY = "get-following";
 
 export const getFollowing = async (id?: string | null) => {
-  let followingId = id;
+  let followerId = id;
 
-  if (!followingId) {
+  if (!followerId) {
     const data = await getProfile();
 
-    followingId = data?.id;
+    followerId = data?.id;
   }
 
   const { data, error } = await supabase
     .from("follows")
     .select("*")
-    .eq("following_id", followingId!);
+    .eq("follower_id", followerId!);
 
   if (error) {
     console.error(error);

@@ -13,7 +13,7 @@ const followAccount = async (profileToFollow: Tables<"profiles">) => {
   if (profileToFollow.is_public) {
     const { error } = await supabase.from("follows").insert({
       follower_id: userData.user?.id,
-      following_id: profileToFollow.id,
+      followed_id: profileToFollow.id,
       status: "accepted",
       accepted_at: new Date().toISOString(),
     });
@@ -28,7 +28,7 @@ const followAccount = async (profileToFollow: Tables<"profiles">) => {
 
   const { error } = await supabase.from("follows").insert({
     follower_id: userData.user?.id,
-    following_id: profileToFollow.id,
+    followed_id: profileToFollow.id,
     status: "pending",
   });
 

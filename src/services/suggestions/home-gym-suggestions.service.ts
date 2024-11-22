@@ -13,7 +13,7 @@ const getHomeGymSuggestions = async () => {
   }
 
   const following = await getFollowing();
-  const followingIds = following.map((f) => f.following_id).join(",");
+  const followingIds = following.map((f) => f.followed_id).join(",");
 
   const { data, error } = await supabase
     .from("profiles")

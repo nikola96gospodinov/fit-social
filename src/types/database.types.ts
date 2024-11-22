@@ -45,38 +45,38 @@ export type Database = {
         Row: {
           accepted_at: string | null
           created_at: string
+          followed_id: string
           follower_id: string
-          following_id: string
           id: string
           status: Database["public"]["Enums"]["follow_status"] | null
         }
         Insert: {
           accepted_at?: string | null
           created_at?: string
+          followed_id: string
           follower_id: string
-          following_id: string
           id?: string
           status?: Database["public"]["Enums"]["follow_status"] | null
         }
         Update: {
           accepted_at?: string | null
           created_at?: string
+          followed_id?: string
           follower_id?: string
-          following_id?: string
           id?: string
           status?: Database["public"]["Enums"]["follow_status"] | null
         }
         Relationships: [
           {
-            foreignKeyName: "follows_follower_id_fkey"
-            columns: ["follower_id"]
+            foreignKeyName: "follows_followed_id_fkey"
+            columns: ["followed_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "follows_following_id_fkey"
-            columns: ["following_id"]
+            foreignKeyName: "follows_follower_id_fkey"
+            columns: ["follower_id"]
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id"]
