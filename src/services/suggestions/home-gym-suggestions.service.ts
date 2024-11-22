@@ -13,17 +13,17 @@ const getHomeGymSuggestions = async () => {
   }
 
   const following = await getFollowing();
-  const followingIds = following.map((f) => f.following_id);
+  const followingIds = following.map((f) => f.following_id).join(",");
 
   const { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("home_gym_id", profile.home_gym_id)
-    .not("id", "eq", profile.id)
-    .not("id", "in", followingIds);
+    .neq("id", profile.id)
+    .not("id", "in", `(${followingIds})`);
 
   if (error) {
-    console.error(error);
+    console.error("getHomeGymSuggestions", error);
     throw new Error("Failed to fetch home gym suggestions");
   }
 
