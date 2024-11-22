@@ -1,21 +1,26 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { spacing } from "@/src/constants/spacing.constants";
+import { useGetFollowers } from "@/src/services/follows/get-followers.service";
+import { useGetFollowing } from "@/src/services/follows/get-following.service";
 import { StyleSheet } from "react-native";
 
 export const Stats = () => {
+  const { data: following } = useGetFollowing();
+  const { data: followers } = useGetFollowers();
+
   return (
     <Flex direction="row" gap={2} style={styles.container}>
       <Flex direction="row" gap={1}>
         <ThemedText type="extraSmall" style={styles.countText}>
-          9999
+          {followers?.length ?? 0}
         </ThemedText>
         <ThemedText type="extraSmall">Followers</ThemedText>
       </Flex>
 
       <Flex direction="row" gap={1}>
         <ThemedText type="extraSmall" style={styles.countText}>
-          9999
+          {following?.length ?? 0}
         </ThemedText>
         <ThemedText type="extraSmall">Following</ThemedText>
       </Flex>

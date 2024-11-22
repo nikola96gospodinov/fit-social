@@ -16,7 +16,7 @@ export const getFollowing = async (id?: string | null) => {
   const { data, error } = await supabase
     .from("follows")
     .select("*")
-    .eq("follower_id", followerId!);
+    .match({ follower_id: followerId!, status: "accepted" });
 
   if (error) {
     console.error(error);
