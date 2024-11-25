@@ -3,11 +3,9 @@ import { StartWorkout } from "./start-workout/start-workout.component";
 import { WorkoutInProgress } from "./workout-in-progress/workout-in-progress.component";
 
 export const WorkoutIndexContent = () => {
-  const {
-    store: { started },
-  } = useActiveWorkoutStore();
+  const { addStartedTime } = useActiveWorkoutStore();
 
-  if (started) {
+  if (addStartedTime) {
     return <WorkoutInProgress />;
   }
 

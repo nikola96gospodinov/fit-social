@@ -8,7 +8,6 @@ import {
   Equipment,
   TargetMuscle,
 } from "@/src/constants/workout.constants";
-import { createContext, PropsWithChildren, useContext } from "react";
 import { create } from "zustand";
 import { WORKOUT_ACTION } from "./action-store";
 import { useActionStore } from "./action-store";
@@ -54,32 +53,11 @@ const createExerciseFilterStore = () =>
 const addExerciseFilterStore = createExerciseFilterStore();
 const editExerciseFilterStore = createExerciseFilterStore();
 
-export const ExerciseFilterContext = createContext<State & Action>(
-  {} as State & Action,
-);
-
-export const ExerciseFilterProvider = ({ children }: PropsWithChildren) => {
+export const useExerciseFilterStore = () => {
   const { action } = useActionStore();
 
-  const store =
-    action === WORKOUT_ACTION.EDIT
-      ? editExerciseFilterStore()
-      : addExerciseFilterStore();
+  const addStore = addExerciseFilterStore();
+  const editStore = editExerciseFilterStore();
 
-  return (
-    <ExerciseFilterContext.Provider value={store}>
-      {children}
-    </ExerciseFilterContext.Provider>
-  );
-};
-export const useExerciseFilterStore = () => {
-  const context = useContext(ExerciseFilterContext);
-
-  if (!context) {
-    throw new Error(
-      "useExerciseFilterStore must be used within an ExerciseFilterProvider",
-    );
-  }
-
-  return context;
+  return action === WORKOUT_ACTION.ADD ? addStore : editStore;
 };

@@ -2,7 +2,6 @@ import { Exercise } from "@/src/types/api/exercise.types";
 import { create } from "zustand";
 import { randomUUID } from "expo-crypto";
 import { Tables } from "../types/database.types";
-import { createContext, PropsWithChildren, useContext } from "react";
 import { useActionStore, WORKOUT_ACTION, WorkoutAction } from "./action-store";
 
 export type ActiveExercise = Omit<Tables<"workout_exercises">, "workout_id">;
@@ -157,41 +156,16 @@ const createActiveWorkoutStore = () =>
 const addWorkoutStore = createActiveWorkoutStore();
 const editWorkoutStore = createActiveWorkoutStore();
 
-const ActiveWorkoutContext = createContext<{
-  store: State & Action;
-  addStartedTime?: Date; // This is for the add workout tab and to get the right time
-}>({
-  store: {} as State & Action,
-});
-
-export const ActiveWorkoutProvider = ({ children }: PropsWithChildren) => {
+export const useActiveWorkoutStore = () => {
   const { action } = useActionStore();
 
   const editStore = editWorkoutStore();
   const addStore = addWorkoutStore();
 
-  const store = action === WORKOUT_ACTION.EDIT ? editStore : addStore;
+  const store = action === WORKOUT_ACTION.ADD ? addStore : editStore;
 
-  const value = {
+  return {
     store,
     addStartedTime: addStore.started,
   };
-
-  return (
-    <ActiveWorkoutContext.Provider value={value}>
-      {children}
-    </ActiveWorkoutContext.Provider>
-  );
-};
-
-export const useActiveWorkoutStore = () => {
-  const context = useContext(ActiveWorkoutContext);
-
-  if (!context) {
-    throw new Error(
-      "useActiveWorkoutStore must be used within a ActiveWorkoutProvider",
-    );
-  }
-
-  return context;
 };
