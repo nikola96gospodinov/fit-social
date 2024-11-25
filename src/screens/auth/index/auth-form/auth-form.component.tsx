@@ -62,7 +62,7 @@ export const AuthForm = ({ activeAction }: Props) => {
         keyboardType="email-address"
         autoCapitalize="none"
         clearButton
-        icon={{ name: "at", size: 20 }}
+        icon={{ name: "mail-outline", size: 20 }}
       />
 
       <VerticalSpacing size={4} />

@@ -8,16 +8,17 @@ import { StyleSheet } from "react-native";
 
 type Props = {
   isLoading: boolean;
+  text: string;
 };
 
-export const EmptyFollowersList = ({ isLoading }: Props) => {
+export const EmptyFollowersList = ({ isLoading, text }: Props) => {
   if (isLoading) {
     return <ThemedActivityIndicator />;
   }
 
   return (
     <Flex justify="center" align="center" style={styles.container}>
-      <ThemedText>No followers 🤔</ThemedText>
+      <ThemedText>{text}</ThemedText>
 
       <VerticalSpacing size={2} />
 
