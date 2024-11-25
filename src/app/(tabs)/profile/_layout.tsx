@@ -64,7 +64,10 @@ export default function ProfileLayout() {
         }}
       />
 
-      <Stack.Screen name="follows" options={{ title: "Loading..." }} />
+      <Stack.Screen
+        name="follows"
+        options={{ title: "Loading...", presentation: "modal" }}
+      />
 
       {/* The next 3 screens are duplicates. Currently Expo doesn't support a back button when moving from one tab to another hence why it's needed - https://github.com/expo/expo/issues/30141 */}
       <Stack.Screen

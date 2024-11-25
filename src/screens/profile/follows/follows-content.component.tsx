@@ -1,31 +1,16 @@
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useNavigation } from "expo-router";
-import { useColorScheme, useWindowDimensions, View } from "react-native";
+import { useColorScheme, useWindowDimensions } from "react-native";
 import { useEffect, useState } from "react";
-import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { TabView, SceneMap, TabBarProps, TabBar } from "react-native-tab-view";
 import { colors } from "@/src/constants/colors.constants";
+import { Followers } from "./followers/followers.component";
+import { Following } from "./following/foloowing.component";
 
 const defaultRoutes = [
   { key: "followers", title: "Followers" },
   { key: "following", title: "Following" },
 ];
-
-const FollowersTabs = () => {
-  return (
-    <View>
-      <ThemedText>Followers</ThemedText>
-    </View>
-  );
-};
-
-const FollowingTabs = () => {
-  return (
-    <View>
-      <ThemedText>Following</ThemedText>
-    </View>
-  );
-};
 
 const FollowingTabBar = (
   props: TabBarProps<(typeof defaultRoutes)[number]>,
@@ -44,8 +29,8 @@ const FollowingTabBar = (
 };
 
 const renderScene = SceneMap({
-  followers: FollowersTabs,
-  following: FollowingTabs,
+  followers: Followers,
+  following: Following,
 });
 
 export const FollowsContent = () => {
