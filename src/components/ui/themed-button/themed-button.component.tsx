@@ -20,6 +20,7 @@ type Props = PressableProps & {
   isCentered?: boolean;
   isFullWidth?: boolean;
   isLoading?: boolean;
+  isRounded?: boolean;
   icon?: IconProps<ComponentProps<typeof FontAwesome>["name"]>["name"];
   iconPosition?: "left" | "right";
 };
@@ -33,6 +34,7 @@ export const ThemedButton = ({
   isCentered = false,
   isFullWidth = false,
   isLoading = false,
+  isRounded = false,
   icon,
   iconPosition = "left",
   ...rest
@@ -94,6 +96,9 @@ export const ThemedButton = ({
           width: "100%",
           borderRadius: 24,
           alignItems: "center",
+        },
+        isRounded && {
+          borderRadius: 24,
         },
         !isFullWidth && { alignSelf: "flex-start" },
         style,
