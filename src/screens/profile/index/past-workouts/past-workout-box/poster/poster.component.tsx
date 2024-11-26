@@ -2,15 +2,13 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors } from "@/src/constants/colors.constants";
 import { useColorScheme, StyleSheet } from "react-native";
 import { View } from "react-native";
-import { Image } from "expo-image";
-import { FontAwesome } from "@expo/vector-icons";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
-import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 import { getWorkoutDistance } from "../past-workout-box.utils";
 import { Tables } from "@/src/types/database.types";
+import { Avatar } from "@/src/components/avatar/avater.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -20,7 +18,6 @@ export const Poster = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const { data: profile } = useGetProfile();
-  const { data: profilePic } = useGetProfilePic();
 
   const distance = getWorkoutDistance(workout.started, workout.ended);
 
@@ -37,20 +34,7 @@ export const Poster = ({ workout }: Props) => {
         },
       ]}>
       <View>
-        {profilePic ? (
-          <Image
-            source={{
-              uri: profilePic,
-            }}
-            style={styles.image}
-          />
-        ) : (
-          <FontAwesome
-            name="user-circle"
-            size={32}
-            color={colors[theme].icon}
-          />
-        )}
+        <Avatar size={32} />
       </View>
 
       <View>
@@ -75,11 +59,5 @@ const styles = StyleSheet.create({
     borderLeftWidth: 2,
     alignSelf: "flex-start",
     transform: [{ translateX: -spacing[3] }, { translateY: -spacing[3] }],
-  },
-
-  image: {
-    width: 32,
-    height: 32,
-    borderRadius: 50,
   },
 });

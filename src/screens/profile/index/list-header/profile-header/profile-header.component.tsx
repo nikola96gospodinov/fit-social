@@ -1,7 +1,7 @@
 import { View, StyleSheet, useColorScheme } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { Avatar } from "./avatar/avatar.component";
+import { ProfilePic } from "./profile-pic/profile-pic.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { ProfileGradient } from "./profile-gradient/profile-gradient.component";
@@ -28,7 +28,7 @@ export const ProfileHeader = () => {
       <View style={styles.container}>
         <Flex direction="row" justify="space-between" align="center">
           <Flex direction="row" gap={2} align="center">
-            <Avatar />
+            <ProfilePic />
 
             <ThemedText type="small" color="default">
               @{profile.handle}

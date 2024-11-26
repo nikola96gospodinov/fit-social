@@ -1,18 +1,15 @@
 import { useColorScheme, View, StyleSheet, Pressable } from "react-native";
-import { Image } from "expo-image";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { router } from "expo-router";
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
-import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
+import { Avatar } from "@/src/components/avatar/avater.component";
 
-export const Avatar = () => {
+export const ProfilePic = () => {
   const theme = useColorScheme() ?? "light";
 
   const isYourProfile = useIsOwnProfile();
-  const { data: profilePic } = useGetProfilePic();
 
   return (
     <View
@@ -23,16 +20,7 @@ export const Avatar = () => {
           backgroundColor: colors[theme].background,
         },
       ]}>
-      {profilePic ? (
-        <Image
-          source={{
-            uri: profilePic,
-          }}
-          style={styles.image}
-        />
-      ) : (
-        <FontAwesome name="user-circle" size={60} color={colors[theme].icon} />
-      )}
+      <Avatar size={60} />
 
       {isYourProfile && (
         <Pressable
@@ -69,11 +57,5 @@ const styles = StyleSheet.create({
     padding: spacing[1],
     borderRadius: 100,
     borderWidth: 1,
-  },
-
-  image: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
   },
 });

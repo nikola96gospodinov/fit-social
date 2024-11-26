@@ -1,23 +1,20 @@
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { View } from "react-native";
-import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors } from "@/src/constants/colors.constants";
 import { useColorScheme, StyleSheet } from "react-native";
-import { Image } from "expo-image";
-import { FontAwesome } from "@expo/vector-icons";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { getWorkoutDistance } from "../../index/past-workouts/past-workout-box/past-workout-box.utils";
 import { useLocalSearchParams } from "expo-router";
 import { useGetWorkoutById } from "@/src/services/workout/get-workout-by-id.service";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
+import { Avatar } from "@/src/components/avatar/avater.component";
 
 export const ViewWorkoutListHeader = () => {
   const theme = useColorScheme() ?? "light";
 
   const { data: profile } = useGetProfile();
-  const { data: profilePic } = useGetProfilePic();
 
   const { id } = useLocalSearchParams();
 
@@ -40,20 +37,7 @@ export const ViewWorkoutListHeader = () => {
           },
         ]}>
         <View>
-          {profilePic ? (
-            <Image
-              source={{
-                uri: profilePic,
-              }}
-              style={styles.image}
-            />
-          ) : (
-            <FontAwesome
-              name="user-circle"
-              size={32}
-              color={colors[theme].icon}
-            />
-          )}
+          <Avatar size={36} />
         </View>
 
         <View>
@@ -78,11 +62,5 @@ const styles = StyleSheet.create({
   userInfoContainer: {
     borderTopLeftRadius: 16,
     borderBottomRightRadius: 16,
-  },
-
-  image: {
-    width: 40,
-    height: 40,
-    borderRadius: 50,
   },
 });

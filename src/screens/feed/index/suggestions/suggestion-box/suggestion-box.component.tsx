@@ -3,12 +3,12 @@ import { View, StyleSheet, useColorScheme, Dimensions } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
-import { Image } from "expo-image";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
-import { useGetProfilePic } from "@/src/services/profile/get-profile-pic.service";
 import { useFollowAccount } from "@/src/services/follows/follow-account.service";
 import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
+import { Avatar } from "@/src/components/avatar/avater.component";
+import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 
 type Props = {
   profile: Tables<"profiles">;
@@ -18,11 +18,6 @@ type Props = {
 
 export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
   const theme = useColorScheme() ?? "light";
-
-  const { data: avatarUrl } = useGetProfilePic(
-    profile.handle,
-    profile.avatar_url,
-  );
 
   const { mutate: followAccount, isPending: isFollowing } = useFollowAccount(
     profile.id,
@@ -38,7 +33,13 @@ export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
         isFirst && { marginLeft: spacing[4] },
         isLast && { marginRight: spacing[4] },
       ]}>
-      <Image source={avatarUrl ?? ""} style={styles.avatar} />
+      <Flex align="center" justify="center">
+        <Avatar
+          size={75}
+          handle={profile.handle}
+          avatarUrl={profile.avatar_url}
+        />
+      </Flex>
 
       <VerticalSpacing size={2} />
 
@@ -69,12 +70,5 @@ const styles = StyleSheet.create({
 
   handle: {
     textAlign: "center",
-  },
-
-  avatar: {
-    width: 75,
-    height: 75,
-    borderRadius: 37.5,
-    alignSelf: "center",
   },
 });
