@@ -2,8 +2,7 @@ import { supabase } from "@/src/lib/supabase";
 import { getProfile } from "../profile/get-profile.service";
 import { useQuery } from "@tanstack/react-query";
 import { getFollowing } from "../follows/get-following.service";
-
-const HOME_GYM_SUGGESTIONS_QUERY_KEY = "home-gym-suggestions";
+import { HOME_GYM_SUGGESTIONS_QUERY_KEY } from "./keys";
 
 const getHomeGymSuggestions = async () => {
   const profile = await getProfile();

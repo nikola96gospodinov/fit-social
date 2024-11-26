@@ -1,6 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IS_ACCOUNT_FOLLOWED_QUERY_KEY, GET_FOLLOWING_QUERY_KEY } from "./keys";
+import { HOME_GYM_SUGGESTIONS_QUERY_KEY } from "../suggestions/keys";
 
 const unfollowAccount = async (followedId: string) => {
   const { data: userData, error: userError } = await supabase.auth.getUser();
@@ -33,6 +34,10 @@ export const useUnfollowAccount = (followedId: string) => {
 
       queryClient.invalidateQueries({
         queryKey: [GET_FOLLOWING_QUERY_KEY, undefined],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [HOME_GYM_SUGGESTIONS_QUERY_KEY],
       });
     },
   });
