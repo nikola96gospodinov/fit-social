@@ -5,9 +5,9 @@ import {
   useActiveWorkoutStore,
 } from "@/src/store/active-workout-store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { getOwnProfile } from "../profile/get-own-profile.service";
 import { WORKOUT_QUERY_KEY } from "./profile-keys";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
+import { getProfile } from "../profile/get-profile.service";
 
 type AddWorkoutProps = {
   exercises: ActiveExercise[];
@@ -22,7 +22,7 @@ const addWorkout = async ({
   sets,
   title,
 }: AddWorkoutProps) => {
-  const profile = await getOwnProfile();
+  const profile = await getProfile();
 
   // We don't want to save sets that have no reps or are not done
   const filteredSets = sets.filter(

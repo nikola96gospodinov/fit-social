@@ -1,10 +1,10 @@
-import { useGetSessionFromQueryClient } from "@/src/hooks/use-get-session-from-query-client";
 import { supabase } from "@/src/lib/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PROFILE_QUERY_KEY } from "./profile-keys";
 import type { EditProfileForm } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { router } from "expo-router";
 import { isEmpty } from "lodash";
+import { useGetSession } from "../auth/get-session.service";
 
 type Props = {
   data: Partial<EditProfileForm>;
@@ -28,7 +28,7 @@ const updateProfile = async ({ data, id }: Props) => {
 
 export const useUpdateProfile = () => {
   const queryClient = useQueryClient();
-  const session = useGetSessionFromQueryClient();
+  const { data: session } = useGetSession();
 
   return useMutation({
     mutationFn: updateProfile,

@@ -1,12 +1,10 @@
-import { useLocalSearchParams } from "expo-router";
-import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
+import { useGetSession } from "../services/auth/get-session.service";
+import { useGetProfile } from "../services/profile/get-profile.service";
 
 export const useIsOwnProfile = () => {
-  const { handle } = useLocalSearchParams();
+  const { data: session } = useGetSession();
 
-  const { data: profile } = useGetOwnProfile();
+  const { data: profile } = useGetProfile();
 
-  if (!handle) return true;
-
-  return profile?.handle === handle;
+  return profile?.id === session?.user.id;
 };

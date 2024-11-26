@@ -1,8 +1,8 @@
 import { spacing } from "@/src/constants/spacing.constants";
 import { useGetFollowing } from "@/src/services/follows/get-following.service";
 import { FlashList } from "@shopify/flash-list";
-import { View } from "react-native";
 import { EmptyFollowersList } from "../empty-followers-list/empty-followers-list.component";
+import { FollowBox } from "../follow-box/follow-box.component";
 
 export const Following = () => {
   const { data, isLoading } = useGetFollowing();
@@ -10,7 +10,7 @@ export const Following = () => {
   return (
     <FlashList
       data={data ?? []}
-      renderItem={({ item }) => <View></View>}
+      renderItem={({ item }) => <FollowBox follow={item} />}
       estimatedItemSize={100}
       contentContainerStyle={{ padding: spacing[4] }}
       ListEmptyComponent={
@@ -19,6 +19,7 @@ export const Following = () => {
           text="You don't follow anyone yet 🤔"
         />
       }
+      keyExtractor={(item) => item.id}
     />
   );
 };

@@ -11,11 +11,11 @@ import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.co
 import { useUpdateProfile } from "@/src/services/profile/update-profile.service";
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { getOnlyChangedFields } from "@/src/lib/react-hook-form/react-hook-form.utils";
-import { useGetOwnProfile } from "@/src/services/profile/get-own-profile.service";
 import { MeasurementSystemInput } from "./measurement-system-input/measurement-system-input.component";
+import { useGetProfile } from "@/src/services/profile/get-profile.service";
 
 export const EditProfileForm = () => {
-  const { data: profile } = useGetOwnProfile();
+  const { data: profile } = useGetProfile();
   const { mutate: updateProfile, isPending, error } = useUpdateProfile();
 
   const {
