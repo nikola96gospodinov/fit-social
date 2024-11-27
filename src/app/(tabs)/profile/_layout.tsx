@@ -1,5 +1,5 @@
 import { ClearFilter } from "@/src/features/workouts/filters/header/clear-filters/clear-filter.component";
-import { EditWorkoutHeaderTitle } from "@/src/screens/profile/edit-workout/header-title/headet-title.component";
+import { EditWorkoutHeaderTitle } from "@/src/screens/profile/edit-workout/header-title/header-title.component";
 import { EditWorkoutRightHeader } from "@/src/screens/profile/edit-workout/right-header/right-header.component";
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";

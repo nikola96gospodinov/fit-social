@@ -13,7 +13,7 @@ export const EditWorkoutHeaderTitle = () => {
     store: { started },
   } = useActiveWorkoutStore();
 
-  const date = getFormattedDate(started ?? "");
+  const date = getFormattedDate(started);
 
   return (
     <Flex direction="row" gap={2} align="center" justify="center">

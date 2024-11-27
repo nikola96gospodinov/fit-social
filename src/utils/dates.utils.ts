@@ -18,7 +18,8 @@ export const getFormattedTimeFromMilliseconds = (milliseconds: number) => {
   return formatted.map(zeroPad).join(":");
 };
 
-export const getFormattedDate = (date: string | Date) => {
+export const getFormattedDate = (date?: string | Date) => {
+  if (!date) return "No Date";
   return format(new Date(date), "dd MMM yyyy");
 };
 
