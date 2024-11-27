@@ -36,7 +36,7 @@ export const Poster = ({ workout }: Props) => {
       <View>
         <Avatar
           size={32}
-          handle={profile?.handle}
+          userId={profile?.id}
           avatarUrl={profile?.avatar_url}
         />
       </View>

@@ -31,13 +31,13 @@ const getProfilePic = async (avatarUrl?: string | null) => {
 };
 
 export const useGetProfilePic = (
-  handle?: string | null,
+  userId?: string | null,
   avatarUrl?: string | null,
 ) => {
   const { data: profile } = useGetProfile();
 
   return useQuery({
-    queryKey: [GET_PROFILE_PIC_QUERY_KEY, handle ?? profile?.handle],
+    queryKey: [GET_PROFILE_PIC_QUERY_KEY, userId ?? profile?.id],
     queryFn: () => getProfilePic(avatarUrl ?? profile?.avatar_url),
   });
 };
