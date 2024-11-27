@@ -14,11 +14,11 @@ import { Avatar } from "@/src/components/avatar/avater.component";
 export const ViewWorkoutListHeader = () => {
   const theme = useColorScheme() ?? "light";
 
-  const { data: profile } = useGetProfile();
-
   const { id } = useLocalSearchParams();
 
   const { data: workout } = useGetWorkoutById(id as string);
+
+  const { data: profile } = useGetProfile(workout?.user_id);
 
   if (!workout) return null;
 
@@ -37,7 +37,11 @@ export const ViewWorkoutListHeader = () => {
           },
         ]}>
         <View>
-          <Avatar size={36} />
+          <Avatar
+            size={36}
+            userId={profile?.id}
+            avatarUrl={profile?.avatar_url}
+          />
         </View>
 
         <View>

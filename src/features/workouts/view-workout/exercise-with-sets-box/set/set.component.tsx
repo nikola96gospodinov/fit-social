@@ -3,7 +3,7 @@ import { Tables } from "@/src/types/database.types";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
-import { METRIC } from "../../../edit/edit-profile-form/edit-profile-form.schema";
+import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { colors } from "@/src/constants/colors.constants";

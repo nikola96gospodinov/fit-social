@@ -1,4 +1,4 @@
-import { ViewWorkoutContent } from "@/src/screens/profile/view-workout/view-workout-content.component";
+import { ViewWorkoutContent } from "@/src/features/workouts/view-workout/view-workout-content.component";
 
 const ViewWorkout = () => {
   return <ViewWorkoutContent />;
