@@ -10,7 +10,7 @@ import { ExerciseRow } from "./exercise-row/exercise-row.component";
 import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
 import { Poster } from "./poster/poster.component";
-import { router } from "expo-router";
+import { router, usePathname } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 import { LinearGradient } from "expo-linear-gradient";
 import { useGetSession } from "@/src/services/auth/get-session.service";
@@ -29,6 +29,9 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
+  const pathname = usePathname();
+  const tab = pathname.includes("profile") ? "profile" : "(index)";
+
   const { data: session } = useGetSession();
   const isYourWorkout = workout.user_id === session?.user.id;
 
@@ -40,7 +43,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   return (
     <Pressable
       onPress={() => {
-        router.push(`/profile/view-workout/${workout.id}`);
+        router.push(`/${tab}/view-workout/${workout.id}`);
       }}>
       <LinearGradient
         colors={profileBackground[theme]}
