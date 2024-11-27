@@ -25,7 +25,7 @@ export const FollowBox = ({ follow }: Props) => {
 
           {follow.profiles?.full_name && (
             <>
-              <VerticalSpacing size={1} />
+              <VerticalSpacing size={0.5} />
 
               <ThemedText type="extraSmall" color="supporting">
                 {follow.profiles?.full_name}

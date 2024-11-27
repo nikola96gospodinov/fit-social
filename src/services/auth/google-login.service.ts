@@ -1,7 +1,8 @@
 import { supabase } from "@/src/lib/supabase";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { router } from "expo-router";
+import { SESSION_QUERY_KEY } from "./auth-keys";
 
 const googleLogin = async () => {
   GoogleSignin.configure({
@@ -27,8 +28,16 @@ const googleLogin = async () => {
 };
 
 export const useGoogleLogin = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: googleLogin,
-    onSuccess: () => router.push("/(tabs)"),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [SESSION_QUERY_KEY],
+      });
+
+      router.push("/(tabs)");
+    },
   });
 };

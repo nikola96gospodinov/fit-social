@@ -1,6 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { AuthFormValues } from "@/src/screens/auth/index/auth-form/auth-form.schema";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SESSION_QUERY_KEY } from "./auth-keys";
 
 const register = async ({ email, password }: AuthFormValues) => {
   const { data, error } = await supabase.auth.signUp({
@@ -16,7 +17,14 @@ const register = async ({ email, password }: AuthFormValues) => {
 };
 
 export const useRegister = () => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: register,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [SESSION_QUERY_KEY],
+      });
+    },
   });
 };
