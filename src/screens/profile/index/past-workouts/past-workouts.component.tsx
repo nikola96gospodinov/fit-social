@@ -12,7 +12,7 @@ import { NoWorkouts } from "./no-workouts/no-workouts.component";
 export const PastWorkouts = () => {
   const { data: profile, isLoading: profileLoading } = useGetProfile();
   const { data: workouts, isLoading: workoutsLoading } = useGetWorkouts({
-    handle: profile?.handle,
+    userId: profile?.id,
   });
 
   if (profileLoading || workoutsLoading || !workouts?.data)

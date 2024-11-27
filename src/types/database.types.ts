@@ -160,29 +160,29 @@ export type Database = {
           id: string;
           started: string;
           title: string | null;
-          user_handle: string;
+          user_id: string;
         };
         Insert: {
           ended?: string;
           id?: string;
           started: string;
           title?: string | null;
-          user_handle: string;
+          user_id: string;
         };
         Update: {
           ended?: string;
           id?: string;
           started?: string;
           title?: string | null;
-          user_handle?: string;
+          user_id?: string;
         };
         Relationships: [
           {
-            foreignKeyName: "workouts_user_handle_fkey";
-            columns: ["user_handle"];
+            foreignKeyName: "workouts_user_id_fkey";
+            columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "profiles";
-            referencedColumns: ["handle"];
+            referencedColumns: ["id"];
           },
         ];
       };
@@ -194,7 +194,7 @@ export type Database = {
       add_workout_with_exercises_and_sets: {
         Args: {
           p_started: string;
-          p_user_handle: string;
+          p_user_id: string;
           p_exercises: Json[];
           p_sets: Json[];
           p_title?: string;
@@ -213,7 +213,7 @@ export type Database = {
       get_workout_prs: {
         Args: {
           current_workout_id: string;
-          handle: string;
+          p_user_id: string;
           current_workout_ended: string;
         };
         Returns: {

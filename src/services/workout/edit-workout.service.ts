@@ -46,14 +46,14 @@ const editWorkout = async ({
   };
 };
 
-export const useEditWorkout = (handle?: string | null) => {
+export const useEditWorkout = (userId?: string | null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: editWorkout,
     onSuccess: ({ workoutId, exerciseIds }) => {
       // Workout
-      queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, handle] });
+      queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, userId] });
 
       // Exercises
       queryClient.invalidateQueries({

@@ -11,8 +11,8 @@ const getWorkoutsForFeed = async () => {
     .from("workouts")
     .select("*")
     .in(
-      "user_handle",
-      following.map((follow) => follow.profiles?.handle),
+      "user_id",
+      following.map((follow) => follow.profiles?.id),
     );
 
   if (error) {

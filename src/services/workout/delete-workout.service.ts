@@ -17,13 +17,13 @@ export const deleteWorkout = async (workoutId: string) => {
   }
 };
 
-export const useDeleteWorkout = (handle?: string | null) => {
+export const useDeleteWorkout = (userId?: string | null) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: deleteWorkout,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, handle] });
+      queryClient.invalidateQueries({ queryKey: [WORKOUT_QUERY_KEY, userId] });
       router.push(`/profile`);
     },
   });

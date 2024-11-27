@@ -21,7 +21,7 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,
     workoutId: workout.id,
-    handle: workout.user_handle,
+    userId: workout.user_id,
   });
 
   const bestSet = getBestSet(exerciseSets);

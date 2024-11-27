@@ -12,9 +12,7 @@ export const DeleteWorkoutButton = () => {
 
   const { data: profile } = useGetProfile();
 
-  const handle = profile?.handle;
-
-  const { mutate: deleteWorkout } = useDeleteWorkout(handle);
+  const { mutate: deleteWorkout } = useDeleteWorkout(profile?.id);
 
   return (
     <ThemedButton
@@ -23,7 +21,7 @@ export const DeleteWorkoutButton = () => {
       icon="trash"
       size="sm"
       isFullWidth
-      disabled={!handle || !id}
+      disabled={!profile?.id || !id}
       onPress={() =>
         createDeleteConfirmation({
           onDelete: () => deleteWorkout(id as string),

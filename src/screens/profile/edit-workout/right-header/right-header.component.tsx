@@ -14,9 +14,11 @@ export const EditWorkoutRightHeader = () => {
 
   const { data: profile } = useGetProfile();
 
-  const handle = profile?.handle;
-
-  const { mutate: editWorkout, isPending, isError } = useEditWorkout(handle);
+  const {
+    mutate: editWorkout,
+    isPending,
+    isError,
+  } = useEditWorkout(profile?.id);
 
   const {
     store: { title, started, ended, exercises, sets },
@@ -50,7 +52,7 @@ export const EditWorkoutRightHeader = () => {
         text="Save"
         variant="flat"
         icon="save"
-        disabled={!handle || !id || isPending}
+        disabled={!profile?.id || !id || isPending}
         isLoading={isPending}
         onPress={onPress}
       />

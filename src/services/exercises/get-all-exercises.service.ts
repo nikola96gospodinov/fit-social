@@ -25,7 +25,7 @@ const getExercises = async (props: GetExercisesProps) => {
   });
 
   if (!response.ok) {
-    console.log(await response.text());
+    console.error(await response.text());
 
     throw new Error("Failed to fetch exercises");
   }

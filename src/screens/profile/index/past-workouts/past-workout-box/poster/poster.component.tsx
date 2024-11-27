@@ -17,7 +17,7 @@ type Props = {
 export const Poster = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile(workout.user_id);
 
   const distance = getWorkoutDistance(workout.started, workout.ended);
 
@@ -34,7 +34,11 @@ export const Poster = ({ workout }: Props) => {
         },
       ]}>
       <View>
-        <Avatar size={32} />
+        <Avatar
+          size={32}
+          handle={profile?.handle}
+          avatarUrl={profile?.avatar_url}
+        />
       </View>
 
       <View>

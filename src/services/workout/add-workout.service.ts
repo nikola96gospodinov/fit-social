@@ -31,7 +31,7 @@ const addWorkout = async ({
 
   const { error } = await supabase.rpc("add_workout_with_exercises_and_sets", {
     p_started: started?.toISOString() ?? new Date().toISOString(),
-    p_user_handle: String(profile.handle),
+    p_user_id: profile.id,
     p_exercises: exercises,
     p_sets: filteredSets,
     p_title: title,
@@ -42,7 +42,7 @@ const addWorkout = async ({
     throw new Error(error.message);
   }
 
-  return profile.handle;
+  return profile.id;
 };
 
 export const useAddWorkout = () => {
@@ -55,9 +55,9 @@ export const useAddWorkout = () => {
 
   return useMutation({
     mutationFn: addWorkout,
-    onSuccess: (handle) => {
+    onSuccess: (id) => {
       queryClient.invalidateQueries({
-        queryKey: [WORKOUT_QUERY_KEY, handle],
+        queryKey: [WORKOUT_QUERY_KEY, id],
       });
 
       resetWorkout();
