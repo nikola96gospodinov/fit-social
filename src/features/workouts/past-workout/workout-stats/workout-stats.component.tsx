@@ -8,7 +8,7 @@ import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service
 import { getDurationInHoursAndMinutes } from "@/src/utils/dates.utils";
 import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { Tables } from "@/src/types/database.types";
-import { useGetTotalWeight } from "@/src/screens/profile/index/past-workouts/past-workout-box/hooks/use-get-total-weight";
+import { useGetTotalWeight } from "@/src/features/workouts/past-workout/past-workout-box/hooks/use-get-total-weight";
 
 type Props = {
   workout: Tables<"workouts">;

@@ -2,7 +2,7 @@ import { FlatList, StyleSheet } from "react-native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useGetWorkoutById } from "@/src/services/workout/get-workout-by-id.service";
 import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exercises.service";
-import { useGetAlternativeTitle } from "../index/past-workouts/past-workout-box/hooks/use-get-alternative-title";
+import { useGetAlternativeTitle } from "../../../features/workouts/past-workout/past-workout-box/hooks/use-get-alternative-title";
 import { useEffect } from "react";
 import { ViewWorkoutListHeader } from "./list-header/list-header.component";
 import { ExerciseWithSetsBox } from "./exercise-with-sets-box/exercise-with-sets-box.component";

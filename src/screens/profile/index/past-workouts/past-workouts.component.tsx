@@ -1,7 +1,7 @@
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
-import { PastWorkoutBox } from "./past-workout-box/past-workout-box.component";
+import { PastWorkoutBox } from "../../../../features/workouts/past-workout/past-workout-box/past-workout-box.component";
 import { FlashList } from "@shopify/flash-list";
 import { View, StyleSheet, Dimensions } from "react-native";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";

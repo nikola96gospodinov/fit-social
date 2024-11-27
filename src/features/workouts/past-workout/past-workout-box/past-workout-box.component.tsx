@@ -9,11 +9,11 @@ import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exerc
 import { ExerciseRow } from "./exercise-row/exercise-row.component";
 import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
-import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { Poster } from "./poster/poster.component";
 import { router } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 import { LinearGradient } from "expo-linear-gradient";
+import { useGetSession } from "@/src/services/auth/get-session.service";
 
 const profileBackground = {
   light: [slate[200], slate[100]],
@@ -29,7 +29,8 @@ export const PastWorkoutBox = ({ workout }: Props) => {
 
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
-  const isYourProfile = useIsOwnProfile();
+  const { data: session } = useGetSession();
+  const isYourWorkout = workout.user_id === session?.user.id;
 
   const alternativeTitle = useGetAlternativeTitle(
     workout.ended,
@@ -49,7 +50,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         <Flex direction="row" justify="space-between">
           <Poster workout={workout} />
 
-          {isYourProfile && (
+          {isYourWorkout && (
             <View style={styles.editIconContainer}>
               <EditWorkoutIcon workout={workout} />
             </View>

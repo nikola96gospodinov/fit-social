@@ -4,7 +4,7 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors } from "@/src/constants/colors.constants";
 import { useColorScheme, StyleSheet } from "react-native";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { getWorkoutDistance } from "../../index/past-workouts/past-workout-box/past-workout-box.utils";
+import { getWorkoutDistance } from "../../../../features/workouts/past-workout/past-workout-box/past-workout-box.utils";
 import { useLocalSearchParams } from "expo-router";
 import { useGetWorkoutById } from "@/src/services/workout/get-workout-by-id.service";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";

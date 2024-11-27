@@ -1,7 +1,7 @@
 import { useGetWorkoutsForFeed } from "@/src/services/workout/get-workouts-for-feed.service";
 import { FlashList } from "@shopify/flash-list";
 import { EmptyList } from "./empty-list/empty-list.component";
-import { PastWorkoutBox } from "@/src/screens/profile/index/past-workouts/past-workout-box/past-workout-box.component";
+import { PastWorkoutBox } from "@/src/features/workouts/past-workout/past-workout-box/past-workout-box.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 
 export const WorkoutsList = () => {
