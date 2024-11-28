@@ -4,7 +4,7 @@ import { spacing } from "@/src/constants/spacing.constants";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { router } from "expo-router";
 import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
-import { Avatar } from "@/src/components/avatar/avater.component";
+import { Avatar } from "@/src/components/avatar/avatar.component";
 
 export const ProfilePic = () => {
   const theme = useColorScheme() ?? "light";

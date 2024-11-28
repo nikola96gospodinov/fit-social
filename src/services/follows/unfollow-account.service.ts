@@ -27,11 +27,39 @@ export const useUnfollowAccount = (followedId: string) => {
 
   return useMutation({
     mutationFn: unfollowAccount,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
+    onMutate: async () => {
+      // We only care about the isAccountFollowed query
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({
         queryKey: [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
       });
 
+      // Snapshot previous values
+      const previousIsAccountFollowed = queryClient.getQueryData<boolean>([
+        IS_ACCOUNT_FOLLOWED_QUERY_KEY,
+        followedId,
+      ]);
+
+      // Optimistically update
+      queryClient.setQueryData(
+        [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        false,
+      );
+
+      return { previousIsAccountFollowed };
+    },
+    onError: (_, __, rollback) => {
+      queryClient.setQueryData(
+        [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        rollback,
+      );
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+      });
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [GET_FOLLOWING_QUERY_KEY, undefined],
       });

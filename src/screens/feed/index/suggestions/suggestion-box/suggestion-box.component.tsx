@@ -7,7 +7,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { useFollowAccount } from "@/src/services/follows/follow-account.service";
 import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
-import { Avatar } from "@/src/components/avatar/avater.component";
+import { Avatar } from "@/src/components/avatar/avatar.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 
 type Props = {

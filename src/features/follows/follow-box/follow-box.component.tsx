@@ -1,4 +1,4 @@
-import { Avatar } from "@/src/components/avatar/avater.component";
+import { Avatar } from "@/src/components/avatar/avatar.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
@@ -7,35 +7,33 @@ import { Tables } from "@/src/types/database.types";
 import { View } from "react-native";
 
 type Props = {
-  follow: Tables<"follows"> & { profiles: Tables<"profiles"> | null };
+  profile: Tables<"profiles"> & { search_rank?: number };
 };
 
-export const FollowBox = ({ follow }: Props) => {
+export const FollowBox = ({ profile }: Props) => {
   return (
-    <Flex align="center" justify="space-between" direction="row">
+    <Flex align="flex-end" justify="space-between" direction="row">
       <Flex align="center" justify="center" direction="row" gap={3}>
-        <Avatar
-          size={32}
-          userId={follow.profiles?.id}
-          avatarUrl={follow.profiles?.avatar_url}
-        />
+        <Avatar size={32} userId={profile.id} avatarUrl={profile.avatar_url} />
 
         <View>
-          <ThemedText type="small">@{follow.profiles?.handle}</ThemedText>
+          <ThemedText type="small">@{profile.handle}</ThemedText>
 
-          {follow.profiles?.full_name && (
+          {profile.full_name && (
             <>
               <VerticalSpacing size={0.5} />
 
               <ThemedText type="extraSmall" color="supporting">
-                {follow.profiles?.full_name}
+                {profile.full_name}
               </ThemedText>
             </>
           )}
         </View>
       </Flex>
 
-      <FollowButton profileToFollow={follow.profiles!} />
+      <View>
+        <FollowButton profileToFollow={profile} />
+      </View>
     </Flex>
   );
 };

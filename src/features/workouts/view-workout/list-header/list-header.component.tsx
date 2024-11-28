@@ -9,7 +9,7 @@ import { useLocalSearchParams } from "expo-router";
 import { useGetWorkoutById } from "@/src/services/workout/get-workout-by-id.service";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
-import { Avatar } from "@/src/components/avatar/avater.component";
+import { Avatar } from "@/src/components/avatar/avatar.component";
 
 export const ViewWorkoutListHeader = () => {
   const theme = useColorScheme() ?? "light";

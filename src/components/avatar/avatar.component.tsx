@@ -15,7 +15,7 @@ export const Avatar = ({ size, userId, avatarUrl }: Props) => {
 
   const { data: profilePic } = useGetProfilePic(userId, avatarUrl);
 
-  if (!profilePic) {
+  if (!avatarUrl || !profilePic) {
     return (
       <FontAwesome name="user-circle" size={size} color={colors[theme].icon} />
     );

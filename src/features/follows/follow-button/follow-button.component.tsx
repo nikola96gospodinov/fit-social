@@ -5,21 +5,17 @@ import { useUnfollowAccount } from "@/src/services/follows/unfollow-account.serv
 import { Tables } from "@/src/types/database.types";
 
 type Props = {
-  profileToFollow: Tables<"profiles">;
+  profileToFollow: Tables<"profiles"> & {
+    search_rank?: number;
+  };
 };
 
 export const FollowButton = ({ profileToFollow }: Props) => {
-  const { mutate: followAccount, isPending: isFollowing } = useFollowAccount(
-    profileToFollow.id,
-  );
+  const { mutate: followAccount } = useFollowAccount(profileToFollow.id);
 
-  const { mutate: unfollowAccount, isPending: isUnfollowing } =
-    useUnfollowAccount(profileToFollow.id);
+  const { mutate: unfollowAccount } = useUnfollowAccount(profileToFollow.id);
 
-  const { data: isAccountFollowed, isLoading: isAccountFollowedLoading } =
-    useIsAccountFollowed(profileToFollow.id);
-
-  const isLoading = isFollowing || isAccountFollowedLoading || isUnfollowing;
+  const { data: isAccountFollowed } = useIsAccountFollowed(profileToFollow.id);
 
   const onPress = () => {
     if (isAccountFollowed) {
@@ -33,8 +29,6 @@ export const FollowButton = ({ profileToFollow }: Props) => {
     <ThemedButton
       text={isAccountFollowed ? "Following" : "Follow"}
       onPress={onPress}
-      isLoading={isLoading}
-      disabled={isLoading}
       size="xs"
       isRounded
       variant={isAccountFollowed ? "outline" : "primary"}

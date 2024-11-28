@@ -10,8 +10,6 @@ export default function IndexLayout() {
         }}
       />
 
-      <Stack.Screen name="discover" options={{ title: "Discover" }} />
-
       <Stack.Screen
         name="view-workout/[id]"
         options={{ presentation: "modal" }}

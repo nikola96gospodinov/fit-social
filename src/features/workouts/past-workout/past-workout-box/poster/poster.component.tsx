@@ -8,7 +8,7 @@ import { spacing } from "@/src/constants/spacing.constants";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { getWorkoutDistance } from "../past-workout-box.utils";
 import { Tables } from "@/src/types/database.types";
-import { Avatar } from "@/src/components/avatar/avater.component";
+import { Avatar } from "@/src/components/avatar/avatar.component";
 
 type Props = {
   workout: Tables<"workouts">;

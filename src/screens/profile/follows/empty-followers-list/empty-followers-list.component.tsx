@@ -4,6 +4,7 @@ import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-ind
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { spacing } from "@/src/constants/spacing.constants";
+import { router } from "expo-router";
 import { StyleSheet } from "react-native";
 
 type Props = {
@@ -28,7 +29,16 @@ export const EmptyFollowersList = ({ isLoading, text }: Props) => {
 
       <VerticalSpacing size={4} />
 
-      <ThemedButton text="Find people to follow" size="sm" isFullWidth />
+      <ThemedButton
+        text="Find people to follow"
+        size="sm"
+        isFullWidth
+        onPress={() => {
+          // This is a workaround due to a bug in expo-router - https://github.com/expo/expo/issues/26922
+          router.back();
+          router.push("/discover");
+        }}
+      />
     </Flex>
   );
 };
