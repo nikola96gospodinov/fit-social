@@ -24,6 +24,9 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
     userId: workout.user_id,
   });
 
+  const hasExercisePRs = workoutPRs?.some((pr) =>
+    exerciseSets?.some((set) => set.id === pr.set_id),
+  );
   const bestSet = getBestSet(exerciseSets);
 
   return (
@@ -38,16 +41,22 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
 
       <VerticalSpacing size={1} />
 
-      {exerciseSets?.map((set, index) => (
-        <Set
-          set={set}
-          index={index}
-          isLast={index === (exerciseSets?.length ?? 0) - 1}
-          key={set.id}
-          isPR={workoutPRs?.some((pr) => pr.set_id === set.id)}
-          isBestSet={bestSet?.id === set.id}
-        />
-      ))}
+      {exerciseSets?.map((set, index) => {
+        const isPR =
+          hasExercisePRs && workoutPRs?.some((pr) => pr.set_id === set.id);
+        const isBestSet = bestSet?.id === set.id;
+
+        return (
+          <Set
+            set={set}
+            index={index}
+            isLast={index === (exerciseSets?.length ?? 0) - 1}
+            key={set.id}
+            isPR={isPR}
+            isBestSet={hasExercisePRs ? false : isBestSet}
+          />
+        );
+      })}
 
       {!isLast && <VerticalSpacing size={3} />}
     </View>
