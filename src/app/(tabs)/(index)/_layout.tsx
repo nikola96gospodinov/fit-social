@@ -1,3 +1,4 @@
+import { FeedHeaderRight } from "@/src/screens/feed/index/header-right/feed-header-right.component";
 import { Stack } from "expo-router";
 
 export default function IndexLayout() {
@@ -6,9 +7,12 @@ export default function IndexLayout() {
       <Stack.Screen
         name="index"
         options={{
-          title: "",
+          title: "Fit Social",
+          headerRight: FeedHeaderRight,
         }}
       />
+
+      <Stack.Screen name="notifications" options={{ title: "Notifications" }} />
 
       <Stack.Screen
         name="view-workout/[id]"
