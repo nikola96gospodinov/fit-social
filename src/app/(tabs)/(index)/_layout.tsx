@@ -12,7 +12,10 @@ export default function IndexLayout() {
         }}
       />
 
-      <Stack.Screen name="notifications" options={{ title: "Notifications" }} />
+      <Stack.Screen
+        name="notifications"
+        options={{ title: "Notifications", headerBackTitle: "Feed" }}
+      />
 
       <Stack.Screen
         name="view-workout/[id]"

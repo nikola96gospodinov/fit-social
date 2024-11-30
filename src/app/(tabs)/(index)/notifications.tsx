@@ -1,5 +1,5 @@
-import { View } from "react-native";
+import { NotificationsContent } from "@/src/screens/feed/notifications/notifications-content.component";
 
 export default function Notifications() {
-  return <View />;
+  return <NotificationsContent />;
 }
