@@ -3,6 +3,7 @@ import { useFollowAccount } from "@/src/services/follows/follow-account.service"
 import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
 import { useUnfollowAccount } from "@/src/services/follows/unfollow-account.service";
 import { Tables } from "@/src/types/database.types";
+import { isBoolean } from "lodash";
 
 type Props = {
   profileToFollow: Tables<"profiles"> & {
@@ -31,6 +32,8 @@ export const FollowButton = ({ profileToFollow }: Props) => {
       onPress={onPress}
       size="xs"
       isRounded
+      disabled={!isBoolean(isAccountFollowed)}
+      isLoading={!isBoolean(isAccountFollowed)}
       variant={isAccountFollowed ? "outline" : "primary"}
       icon={isAccountFollowed ? "check" : undefined}
     />

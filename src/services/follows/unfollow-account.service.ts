@@ -11,10 +11,10 @@ const unfollowAccount = async (followedId: string) => {
     throw new Error(userError.message);
   }
 
-  const { error } = await supabase
-    .from("follows")
-    .delete()
-    .match({ follower_id: userData.user?.id, followed_id: followedId });
+  const { error } = await supabase.rpc("unfollow_account", {
+    p_follower_id: userData.user?.id,
+    p_followed_id: followedId,
+  });
 
   if (error) {
     console.error("unfollowAccount", error);

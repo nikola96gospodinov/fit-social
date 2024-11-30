@@ -7,13 +7,12 @@ import { Image } from "react-native";
 type Props = {
   size: number;
   userId?: string | null;
-  avatarUrl?: string | null;
 };
 
-export const Avatar = ({ size, userId, avatarUrl }: Props) => {
+export const Avatar = ({ size, userId }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { data: profilePic } = useGetProfilePic(userId, avatarUrl);
+  const { data: profilePic } = useGetProfilePic(userId);
 
   if (!profilePic) {
     return (

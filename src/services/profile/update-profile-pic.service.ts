@@ -24,7 +24,7 @@ const updateProfilePic = async ({ imageUri, userID }: Props) => {
 
   const filePath = `${userID}/avatar.png`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from("files")
     .upload(filePath, decode(compressedImage.base64 ?? ""), {
       upsert: true,
@@ -34,16 +34,6 @@ const updateProfilePic = async ({ imageUri, userID }: Props) => {
   if (error) {
     console.error(error);
     throw new Error(error.message);
-  }
-
-  const { error: profileError } = await supabase
-    .from("profiles")
-    .update({ avatar_url: data?.path })
-    .eq("id", userID);
-
-  if (profileError) {
-    console.error(profileError);
-    throw new Error(profileError.message);
   }
 };
 

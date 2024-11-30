@@ -34,7 +34,7 @@ export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
         isLast && { marginRight: spacing[4] },
       ]}>
       <Flex align="center" justify="center">
-        <Avatar size={75} userId={profile.id} avatarUrl={profile.avatar_url} />
+        <Avatar size={75} userId={profile.id} />
       </Flex>
 
       <VerticalSpacing size={2} />

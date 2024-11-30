@@ -14,7 +14,7 @@ export const FollowBox = ({ profile }: Props) => {
   return (
     <Flex align="flex-end" justify="space-between" direction="row">
       <Flex align="center" justify="center" direction="row" gap={3}>
-        <Avatar size={32} userId={profile.id} avatarUrl={profile.avatar_url} />
+        <Avatar size={32} userId={profile.id} />
 
         <View>
           <ThemedText type="small">@{profile.handle}</ThemedText>

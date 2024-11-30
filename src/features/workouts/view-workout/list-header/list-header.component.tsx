@@ -37,11 +37,7 @@ export const ViewWorkoutListHeader = () => {
           },
         ]}>
         <View>
-          <Avatar
-            size={36}
-            userId={profile?.id}
-            avatarUrl={profile?.avatar_url}
-          />
+          <Avatar size={36} userId={profile?.id} />
         </View>
 
         <View>

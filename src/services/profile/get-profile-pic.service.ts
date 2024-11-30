@@ -29,10 +29,7 @@ const getProfilePic = async (userid?: string | null) => {
   return await imagePromise;
 };
 
-export const useGetProfilePic = (
-  userId?: string | null,
-  avatarUrl?: string | null,
-) => {
+export const useGetProfilePic = (userId?: string | null) => {
   return useQuery({
     queryKey: [GET_PROFILE_PIC_QUERY_KEY, userId],
     queryFn: () => getProfilePic(userId),

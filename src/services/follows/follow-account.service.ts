@@ -12,26 +12,9 @@ const followAccount = async (profileToFollow: Tables<"profiles">) => {
     throw new Error(userError.message);
   }
 
-  if (profileToFollow.is_public) {
-    const { error } = await supabase.from("follows").insert({
-      follower_id: userData.user?.id,
-      followed_id: profileToFollow.id,
-      status: "accepted",
-      accepted_at: new Date().toISOString(),
-    });
-
-    if (error) {
-      console.error("followAccount", error);
-      throw new Error(error.message);
-    }
-
-    return;
-  }
-
-  const { error } = await supabase.from("follows").insert({
-    follower_id: userData.user?.id,
-    followed_id: profileToFollow.id,
-    status: "pending",
+  const { error } = await supabase.rpc("follow_account", {
+    p_follower_id: userData.user?.id,
+    p_followed_id: profileToFollow.id,
   });
 
   if (error) {
