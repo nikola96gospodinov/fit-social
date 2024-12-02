@@ -1,8 +1,12 @@
-import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useWindowDimensions } from "react-native";
 import { SceneMap, TabView } from "react-native-tab-view";
 import { StyledTabBar as NotificationsTabBar } from "@/src/components/tab-view/styled-tab-bar.component";
+import { ReadNotifications } from "./read-notifications/read-notifications.component";
+import { UnreadNotifications } from "./unread-notifications/unread-notifications.component";
+import { useNavigation } from "@react-navigation/native";
+import { useQueryClient } from "@tanstack/react-query";
+import { NOTIFICATIONS_QUERY_KEY } from "@/src/services/notifications/keys";
 
 const defaultRoutes = [
   { key: "unread", title: "New" },
@@ -10,8 +14,8 @@ const defaultRoutes = [
 ];
 
 const renderScene = SceneMap({
-  unread: () => <ThemedText>New</ThemedText>,
-  read: () => <ThemedText>Read</ThemedText>,
+  unread: UnreadNotifications,
+  read: ReadNotifications,
 });
 
 export const NotificationsContent = () => {
@@ -19,6 +23,19 @@ export const NotificationsContent = () => {
 
   const [index, setIndex] = useState(0);
   const [routes] = useState(defaultRoutes);
+
+  const navigation = useNavigation();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener("beforeRemove", (e) => {
+      queryClient.invalidateQueries({
+        queryKey: [NOTIFICATIONS_QUERY_KEY],
+      });
+    });
+
+    return unsubscribe;
+  }, [navigation, queryClient]);
 
   return (
     <TabView

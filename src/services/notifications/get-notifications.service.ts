@@ -1,7 +1,6 @@
 import { supabase } from "@/src/lib/supabase";
 import { useQuery } from "@tanstack/react-query";
-
-const NOTIFICATIONS_QUERY_KEY = "notifications";
+import { NOTIFICATIONS_QUERY_KEY } from "./keys";
 
 type Props = {
   isRead: boolean;
@@ -17,8 +16,11 @@ const getNotifications = async ({ isRead }: Props) => {
 
   const { data, error, count } = await supabase
     .from("notifications")
-    .select("*", { count: "exact" })
-    .match({ receiver_id: user.user?.id, is_read: isRead });
+    .select("*, profiles!notifications_sender_id_fkey(*)", {
+      count: "exact",
+    })
+    .match({ receiver_id: user.user?.id, is_read: isRead })
+    .order("created_at", { ascending: false });
 
   if (error) {
     console.error("getNotifications", error);

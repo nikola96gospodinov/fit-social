@@ -1,6 +1,6 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors, red, slate } from "@/src/constants/colors.constants";
-import { useGetNotifications } from "@/src/services/notifications/get-notifications.service";
+import { useGetNumberOfNotifications } from "@/src/services/notifications/get-number-of-notifications.service";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Pressable, useColorScheme, StyleSheet, Text } from "react-native";
@@ -8,11 +8,13 @@ import { Pressable, useColorScheme, StyleSheet, Text } from "react-native";
 export const FeedHeaderRight = () => {
   const theme = useColorScheme() ?? "light";
 
-  const { data } = useGetNotifications({ isRead: false });
+  const { data: count } = useGetNumberOfNotifications({
+    isRead: false,
+  });
 
-  const showNotificationBubble = data?.count && data.count > 0;
+  const showNotificationBubble = count && count > 0;
 
-  const numberOfNotifications = (data?.count ?? 0) ? "9+" : data?.count;
+  const numberOfNotifications = (count ?? 0) > 9 ? "9+" : count;
 
   return (
     <Pressable

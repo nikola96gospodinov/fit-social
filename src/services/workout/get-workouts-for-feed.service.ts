@@ -13,7 +13,8 @@ const getWorkoutsForFeed = async () => {
     .in(
       "user_id",
       following.map((follow) => follow.profiles?.id),
-    );
+    )
+    .order("ended", { ascending: false });
 
   if (error) {
     console.error("getWorkoutsForFeed", error);
