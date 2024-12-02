@@ -21,6 +21,7 @@ export const FeedHeaderRight = () => {
       style={styles.container}
       onPress={() => router.push("/notifications")}>
       <Ionicons name="heart-outline" size={24} color={colors[theme].icon} />
+
       {!!showNotificationBubble && (
         <Flex align="center" justify="center" style={styles.notificationBubble}>
           <Text style={styles.notificationBubbleText}>

@@ -8,6 +8,7 @@ import { ViewWorkoutListHeader } from "./list-header/list-header.component";
 import { ExerciseWithSetsBox } from "./exercise-with-sets-box/exercise-with-sets-box.component";
 import { spacing } from "@/src/constants/spacing.constants";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
+import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 
 export const ViewWorkoutContent = () => {
   const { id } = useLocalSearchParams();
@@ -31,7 +32,15 @@ export const ViewWorkoutContent = () => {
     });
   }, [alternativeTitle, navigation]);
 
-  if (isLoadingWorkout) return <ThemedActivityIndicator />;
+  if (isLoadingWorkout) {
+    return (
+      <>
+        <VerticalSpacing size={4} />
+
+        <ThemedActivityIndicator />
+      </>
+    );
+  }
 
   if (!workout) return null;
 

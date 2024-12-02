@@ -20,7 +20,7 @@ export const ListHeader = () => {
         <ThemedText type="subtitle">Past Workouts</ThemedText>
       </View>
 
-      <VerticalSpacing size={4} />
+      <VerticalSpacing size={6} />
     </>
   );
 };

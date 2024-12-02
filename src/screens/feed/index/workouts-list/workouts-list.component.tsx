@@ -15,7 +15,7 @@ export const WorkoutsList = () => {
       estimatedItemSize={100}
       keyExtractor={(item) => item.id}
       ListEmptyComponent={<EmptyList isLoading={workoutsLoading} />}
-      ItemSeparatorComponent={() => <VerticalSpacing size={4} />}
+      ItemSeparatorComponent={() => <VerticalSpacing size={8} />}
       ListHeaderComponent={() => <VerticalSpacing size={4} />}
     />
   );

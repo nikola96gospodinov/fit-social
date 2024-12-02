@@ -31,7 +31,7 @@ export const PastWorkouts = () => {
         }}
         keyExtractor={(item) => item.id}
         estimatedItemSize={workouts?.count || 100}
-        ItemSeparatorComponent={() => <VerticalSpacing size={4} />}
+        ItemSeparatorComponent={() => <VerticalSpacing size={8} />}
         ListFooterComponent={() => <VerticalSpacing size={13} />}
         ListHeaderComponent={ListHeader}
         ListEmptyComponent={NoWorkouts}
