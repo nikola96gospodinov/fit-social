@@ -123,7 +123,7 @@ export type Database = {
         Row: {
           created_at: string
           id: string
-          is_read: boolean | null
+          is_read: boolean
           notification_type: Database["public"]["Enums"]["notification_type"]
           receiver_id: string
           sender_id: string
@@ -131,7 +131,7 @@ export type Database = {
         Insert: {
           created_at?: string
           id?: string
-          is_read?: boolean | null
+          is_read?: boolean
           notification_type: Database["public"]["Enums"]["notification_type"]
           receiver_id: string
           sender_id: string
@@ -139,7 +139,7 @@ export type Database = {
         Update: {
           created_at?: string
           id?: string
-          is_read?: boolean | null
+          is_read?: boolean
           notification_type?: Database["public"]["Enums"]["notification_type"]
           receiver_id?: string
           sender_id?: string
@@ -346,7 +346,6 @@ export type Database = {
           id: string
           handle: string
           full_name: string
-          avatar_url: string
           bio: string
           is_public: boolean
           home_gym_id: string
