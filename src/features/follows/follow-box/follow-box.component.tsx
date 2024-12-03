@@ -3,6 +3,7 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { FollowButton } from "@/src/features/follows/follow-button/follow-button.component";
+import { useGetSession } from "@/src/services/auth/get-session.service";
 import { Tables } from "@/src/types/database.types";
 import { View } from "react-native";
 
@@ -11,6 +12,9 @@ type Props = {
 };
 
 export const FollowBox = ({ profile }: Props) => {
+  const { data: session } = useGetSession();
+  const isYourProfile = session?.user.id === profile.id;
+
   return (
     <Flex align="flex-end" justify="space-between" direction="row">
       <Flex align="center" justify="center" direction="row" gap={3}>
@@ -31,9 +35,11 @@ export const FollowBox = ({ profile }: Props) => {
         </View>
       </Flex>
 
-      <View>
-        <FollowButton profileToFollow={profile} />
-      </View>
+      {!isYourProfile && (
+        <View>
+          <FollowButton profileToFollow={profile} />
+        </View>
+      )}
     </Flex>
   );
 };

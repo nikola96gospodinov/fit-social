@@ -97,6 +97,11 @@ export default function ProfileLayout() {
           title: "Add exercise(s)",
         }}
       />
+
+      <Stack.Screen
+        name="workout-likes/[id]"
+        options={{ presentation: "modal", title: "Likes" }}
+      />
     </Stack>
   );
 }

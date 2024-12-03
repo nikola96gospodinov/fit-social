@@ -48,7 +48,7 @@ export type Database = {
           followed_id: string
           follower_id: string
           id: string
-          status: Database["public"]["Enums"]["follow_status"] | null
+          status: Database["public"]["Enums"]["follow_status"]
         }
         Insert: {
           accepted_at?: string | null
@@ -56,7 +56,7 @@ export type Database = {
           followed_id: string
           follower_id: string
           id?: string
-          status?: Database["public"]["Enums"]["follow_status"] | null
+          status: Database["public"]["Enums"]["follow_status"]
         }
         Update: {
           accepted_at?: string | null
@@ -64,7 +64,7 @@ export type Database = {
           followed_id?: string
           follower_id?: string
           id?: string
-          status?: Database["public"]["Enums"]["follow_status"] | null
+          status?: Database["public"]["Enums"]["follow_status"]
         }
         Relationships: [
           {
@@ -79,6 +79,42 @@ export type Database = {
             columns: ["follower_id"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      likes: {
+        Row: {
+          created_at: string
+          id: string
+          user_id: string
+          workout_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          user_id: string
+          workout_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          user_id?: string
+          workout_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "likes_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "workouts"
             referencedColumns: ["id"]
           },
         ]
@@ -296,6 +332,12 @@ export type Database = {
         }
         Returns: unknown
       }
+      like_workout: {
+        Args: {
+          p_workout_id: string
+        }
+        Returns: undefined
+      }
       search_profiles: {
         Args: {
           search_query: string
@@ -336,6 +378,12 @@ export type Database = {
         }
         Returns: undefined
       }
+      unlike_workout: {
+        Args: {
+          p_workout_id: string
+        }
+        Returns: undefined
+      }
       update_workout: {
         Args: {
           p_workout_id: string
@@ -355,6 +403,7 @@ export type Database = {
         | "started_following"
         | "follow_request"
         | "follow_request_accepted"
+        | "workout_like"
     }
     CompositeTypes: {
       [_ in never]: never

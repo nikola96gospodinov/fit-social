@@ -1,16 +1,32 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { colors } from "@/src/constants/colors.constants";
-import { useColorScheme } from "react-native";
-import EvilIcons from "@expo/vector-icons/EvilIcons";
+import { useColorScheme, StyleSheet } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { LikeAction } from "./like-action/like-action.component";
 
-export const Actions = () => {
+type Props = {
+  workoutId: string;
+};
+
+export const Actions = ({ workoutId }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   return (
-    <Flex direction="row" gap={2}>
-      <EvilIcons name="heart" size={30} color={colors[theme].icon} />
+    <Flex direction="row" gap={4} align="center">
+      <LikeAction workoutId={workoutId} />
 
-      <EvilIcons name="comment" size={30} color={colors[theme].icon} />
+      <FontAwesome
+        name="comment-o"
+        size={22}
+        color={colors[theme].icon}
+        style={styles.icon}
+      />
     </Flex>
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    transform: [{ translateY: -1 }],
+  },
+});

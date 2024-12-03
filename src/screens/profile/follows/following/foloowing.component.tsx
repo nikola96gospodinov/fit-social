@@ -10,7 +10,7 @@ export const Following = () => {
 
   return (
     <FlashList
-      data={data ?? []}
+      data={data}
       renderItem={({ item }) =>
         item.profiles && <FollowBox profile={item.profiles} />
       }

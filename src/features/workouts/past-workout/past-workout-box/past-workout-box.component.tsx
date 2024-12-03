@@ -13,6 +13,7 @@ import { router, usePathname } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 import { useGetSession } from "@/src/services/auth/get-session.service";
 import { Actions } from "./actions/actions.component";
+import { Likes } from "./likes/likes.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -33,11 +34,11 @@ export const PastWorkoutBox = ({ workout }: Props) => {
   );
 
   return (
-    <Pressable
-      onPress={() => {
-        router.push(`/${tab}/view-workout/${workout.id}`);
-      }}>
-      <View style={styles.container}>
+    <View style={styles.container}>
+      <Pressable
+        onPress={() => {
+          router.push(`/${tab}/view-workout/${workout.id}`);
+        }}>
         <Flex direction="row" justify="space-between">
           <Poster workout={workout} />
 
@@ -72,10 +73,12 @@ export const PastWorkoutBox = ({ workout }: Props) => {
         })}
 
         <VerticalSpacing size={4} />
+      </Pressable>
 
-        <Actions />
-      </View>
-    </Pressable>
+      <Actions workoutId={workout.id} />
+
+      <Likes workoutId={workout.id} />
+    </View>
   );
 };
 
