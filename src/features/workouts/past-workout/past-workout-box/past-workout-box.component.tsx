@@ -12,8 +12,8 @@ import { Poster } from "./poster/poster.component";
 import { router, usePathname } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 import { useGetSession } from "@/src/services/auth/get-session.service";
-import { Actions } from "./actions/actions.component";
-import { Likes } from "./likes/likes.component";
+import { Actions } from "../../actions/actions.component";
+import { Likes } from "../../likes/likes.component";
 
 type Props = {
   workout: Tables<"workouts">;

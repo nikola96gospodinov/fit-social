@@ -9,6 +9,7 @@ import { ExerciseWithSetsBox } from "./exercise-with-sets-box/exercise-with-sets
 import { spacing } from "@/src/constants/spacing.constants";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
+import { ListFooter } from "./list-footer/list-footer.component";
 
 export const ViewWorkoutContent = () => {
   const { id } = useLocalSearchParams();
@@ -57,6 +58,7 @@ export const ViewWorkoutContent = () => {
         />
       )}
       ListHeaderComponent={ViewWorkoutListHeader}
+      ListFooterComponent={ListFooter}
     />
   );
 };
