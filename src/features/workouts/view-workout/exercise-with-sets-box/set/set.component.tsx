@@ -32,18 +32,22 @@ export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
   })();
 
   const pillStyle = (() => {
-    if (isPR)
+    if (isPR) {
       return [styles.pill, { backgroundColor: colors[theme].tintBackground }];
-    if (isBestSet)
+    }
+
+    if (isBestSet) {
       return [
         styles.pill,
         { backgroundColor: colors[theme].oppositeBackground },
       ];
+    }
+
     return [];
   })();
 
   const textColor = (() => {
-    if (isPR) return "default";
+    if (isPR) return theme === "dark" ? "default" : "inverted";
     if (isBestSet) return "inverted";
     return "supporting";
   })();
@@ -80,11 +84,17 @@ export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
 const PersonalRecord = () => {
   const theme = useColorScheme() ?? "light";
 
+  const color = theme === "dark" ? colors.light.textIcon : colors.dark.textIcon;
+
   return (
     <Flex direction="row" gap={1} align="center">
-      <Ionicons name="trophy" size={12} color={colors[theme].textIcon} />
+      <Ionicons name="trophy" size={12} color={color} />
 
-      <ThemedText type="extraSmall">PR</ThemedText>
+      <ThemedText
+        type="extraSmall"
+        color={theme === "dark" ? "default" : "inverted"}>
+        PR
+      </ThemedText>
     </Flex>
   );
 };

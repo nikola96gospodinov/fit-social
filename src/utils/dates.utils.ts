@@ -1,4 +1,4 @@
-import { intervalToDuration, format } from "date-fns";
+import { intervalToDuration, format, formatDistance } from "date-fns";
 
 export const getFormattedTimeFromMilliseconds = (milliseconds: number) => {
   const { hours, minutes, seconds } = intervalToDuration({
@@ -47,4 +47,10 @@ export const getDurationInHoursAndMinutes = (
   }
 
   return time.join(" ");
+};
+
+export const getDistance = (started: string) => {
+  return formatDistance(new Date(started), new Date(), {
+    addSuffix: true,
+  });
 };

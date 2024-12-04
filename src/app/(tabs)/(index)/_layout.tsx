@@ -26,6 +26,11 @@ export default function IndexLayout() {
         name="workout-likes/[id]"
         options={{ presentation: "modal", title: "Likes" }}
       />
+
+      <Stack.Screen
+        name="add-comment/[id]"
+        options={{ presentation: "modal", title: "Add comment" }}
+      />
     </Stack>
   );
 }
