@@ -23,6 +23,8 @@ export const DiscoverContent = () => {
     refetch,
   } = useSearchAccounts(debouncedSearch);
 
+  console.log(accounts);
+
   return (
     <View style={styles.container}>
       <ThemedTextInput

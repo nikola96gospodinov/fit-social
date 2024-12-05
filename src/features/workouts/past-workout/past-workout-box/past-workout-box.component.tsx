@@ -14,6 +14,7 @@ import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats
 import { useGetSession } from "@/src/services/auth/get-session.service";
 import { Actions } from "../../actions/actions.component";
 import { Likes } from "../../likes/likes.component";
+import { CommentsPreview } from "../../comments-preview/comments-preview.component";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -78,6 +79,8 @@ export const PastWorkoutBox = ({ workout }: Props) => {
       <Actions workoutId={workout.id} />
 
       <Likes workoutId={workout.id} />
+
+      <CommentsPreview workoutId={workout.id} />
     </View>
   );
 };

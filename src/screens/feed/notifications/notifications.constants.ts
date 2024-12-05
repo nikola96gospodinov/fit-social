@@ -7,4 +7,6 @@ export const NOTIFICATION_TYPES: Record<NotificationType, string> = {
   follow_request: "Requested to follow you",
   follow_request_accepted: "Accepted your follow request",
   workout_like: "Liked your workout",
+  workout_comment: "Commented on your workout",
+  comment_like: "Liked your comment",
 };

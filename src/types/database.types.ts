@@ -9,6 +9,42 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
+      comment_likes: {
+        Row: {
+          comment_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comment_likes_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comment_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       comments: {
         Row: {
           content: string
@@ -378,6 +414,12 @@ export type Database = {
         }
         Returns: unknown
       }
+      like_comment: {
+        Args: {
+          p_comment_id: string
+        }
+        Returns: undefined
+      }
       like_workout: {
         Args: {
           p_workout_id: string
@@ -429,6 +471,20 @@ export type Database = {
         }
         Returns: undefined
       }
+      unlike_comment:
+        | {
+            Args: {
+              p_comment_id: string
+            }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              p_comment_id: string
+              p_comment_like_id: string
+            }
+            Returns: undefined
+          }
       unlike_workout: {
         Args: {
           p_workout_id: string

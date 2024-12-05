@@ -38,7 +38,7 @@ export const useUnlikeWorkout = () => {
       // Optimistically update
       queryClient.setQueryData([IS_WORKOUT_LIKED_QUERY_KEY, workoutId], false);
 
-      return { previousIsWorkoutLiked };
+      return previousIsWorkoutLiked;
     },
     onError: (_, workoutId, rollback) => {
       queryClient.setQueryData(

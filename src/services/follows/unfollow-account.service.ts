@@ -46,7 +46,7 @@ export const useUnfollowAccount = (followedId: string) => {
         false,
       );
 
-      return { previousIsAccountFollowed };
+      return previousIsAccountFollowed;
     },
     onError: (_, __, rollback) => {
       queryClient.setQueryData(

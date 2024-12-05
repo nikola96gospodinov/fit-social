@@ -10,6 +10,7 @@ const register = async ({ email, password }: AuthFormValues) => {
   });
 
   if (error) {
+    console.error("register", error);
     throw new Error(error.message);
   }
 
