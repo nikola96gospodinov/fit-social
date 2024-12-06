@@ -3,13 +3,10 @@ import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { router } from "expo-router";
-import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
 import { Avatar } from "@/src/components/avatar/avatar.component";
 
 export const ProfilePic = () => {
   const theme = useColorScheme() ?? "light";
-
-  const isYourProfile = useIsOwnProfile();
 
   return (
     <View
@@ -22,19 +19,17 @@ export const ProfilePic = () => {
       ]}>
       <Avatar size={60} />
 
-      {isYourProfile && (
-        <Pressable
-          style={[
-            styles.avatarIcon,
-            {
-              backgroundColor: colors[theme].background,
-              borderColor: colors[theme].border,
-            },
-          ]}
-          onPress={() => router.push("/profile/edit")}>
-          <FontAwesome6 name="pencil" size={12} color={colors[theme].icon} />
-        </Pressable>
-      )}
+      <Pressable
+        style={[
+          styles.avatarIcon,
+          {
+            backgroundColor: colors[theme].background,
+            borderColor: colors[theme].border,
+          },
+        ]}
+        onPress={() => router.push("/profile/edit")}>
+        <FontAwesome6 name="pencil" size={12} color={colors[theme].icon} />
+      </Pressable>
     </View>
   );
 };
