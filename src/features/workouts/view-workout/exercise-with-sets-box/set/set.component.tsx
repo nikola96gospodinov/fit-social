@@ -84,11 +84,9 @@ export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
 const PersonalRecord = () => {
   const theme = useColorScheme() ?? "light";
 
-  const color = theme === "dark" ? colors.light.textIcon : colors.dark.textIcon;
-
   return (
     <Flex direction="row" gap={1} align="center">
-      <Ionicons name="trophy" size={12} color={color} />
+      <Ionicons name="trophy" size={12} color={colors.dark.textIcon} />
 
       <ThemedText
         type="extraSmall"

@@ -107,6 +107,11 @@ export default function ProfileLayout() {
         name="add-comment/[id]"
         options={{ presentation: "modal", title: "Add comment" }}
       />
+
+      <Stack.Screen
+        name="other-profile/[id]"
+        options={{ title: "Loading..." }}
+      />
     </Stack>
   );
 }

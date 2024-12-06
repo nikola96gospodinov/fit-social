@@ -2,11 +2,13 @@ import { Avatar } from "@/src/components/avatar/avatar.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { Tables } from "@/src/types/database.types";
-import { useColorScheme, View } from "react-native";
+import { Pressable, useColorScheme, View } from "react-native";
 import { NOTIFICATION_TYPES } from "../notifications.constants";
 import { FollowButton } from "@/src/features/follows/follow-button/follow-button.component";
 import Octicons from "@expo/vector-icons/Octicons";
 import { colors } from "@/src/constants/colors.constants";
+import { useGetProfileHref } from "@/src/hooks/use-get-profile-href";
+import { router } from "expo-router";
 
 type Props = {
   notification: Tables<"notifications"> & {
@@ -18,6 +20,8 @@ type Props = {
 export const NotificationBox = ({ notification, isRead }: Props) => {
   const theme = useColorScheme() ?? "light";
 
+  const profileHref = useGetProfileHref(notification.profiles?.id);
+
   return (
     <Flex direction="row" justify="space-between" align="flex-end" gap={2}>
       <Flex direction="row" align="center" gap={3}>
@@ -26,12 +30,16 @@ export const NotificationBox = ({ notification, isRead }: Props) => {
         )}
 
         <Flex direction="row" align="center" gap={2}>
-          <Avatar size={36} userId={notification.profiles?.id} />
+          <Pressable onPress={() => router.push(profileHref)}>
+            <Avatar size={36} userId={notification.profiles?.id} />
+          </Pressable>
 
           <View>
-            <ThemedText type="extraSmall" color="supporting">
-              @{notification.profiles?.handle}
-            </ThemedText>
+            <Pressable onPress={() => router.push(profileHref)}>
+              <ThemedText type="extraSmall" color="supporting">
+                @{notification.profiles?.handle}
+              </ThemedText>
+            </Pressable>
 
             <ThemedText type="extraSmall">
               {NOTIFICATION_TYPES[notification.notification_type]}
