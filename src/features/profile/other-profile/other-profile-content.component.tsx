@@ -14,7 +14,7 @@ export const OtherProfileContent = () => {
 
   const { data: profile, isLoading } = useGetProfile(id as string);
 
-  const { data: workouts } = useGetWorkouts({
+  const { data: workouts, isLoading: isWorkoutsLoading } = useGetWorkouts({
     userId: id as string,
   });
 
@@ -36,7 +36,7 @@ export const OtherProfileContent = () => {
       ItemSeparatorComponent={() => <VerticalSpacing size={8} />}
       ListHeaderComponent={OtherProfileListHeader}
       ListFooterComponent={() => <VerticalSpacing size={4} />}
-      ListEmptyComponent={NoWorkouts}
+      ListEmptyComponent={() => <NoWorkouts isLoading={isWorkoutsLoading} />}
     />
   );
 };
