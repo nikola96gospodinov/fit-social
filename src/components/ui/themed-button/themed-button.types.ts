@@ -5,4 +5,5 @@ export type Variant =
   | "error"
   | "link"
   | "flatError";
+
 export type Size = "xs" | "sm" | "md" | "lg";

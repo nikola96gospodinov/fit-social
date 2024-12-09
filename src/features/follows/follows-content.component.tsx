@@ -1,5 +1,5 @@
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
-import { useNavigation } from "expo-router";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useWindowDimensions } from "react-native";
 import { useEffect, useState } from "react";
 import { TabView, SceneMap } from "react-native-tab-view";
@@ -20,11 +20,13 @@ const renderScene = SceneMap({
 export const FollowsContent = () => {
   const layout = useWindowDimensions();
 
+  const { id } = useLocalSearchParams();
+
   const [index, setIndex] = useState(0);
   const [routes] = useState(defaultRoutes);
 
   const navigation = useNavigation();
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile(id as string);
 
   useEffect(() => {
     if (profile?.handle) {

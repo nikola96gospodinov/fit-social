@@ -1,4 +1,5 @@
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
+import { Size } from "@/src/components/ui/themed-button/themed-button.types";
 import { useFollowAccount } from "@/src/services/follows/follow-account.service";
 import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
 import { useUnfollowAccount } from "@/src/services/follows/unfollow-account.service";
@@ -9,9 +10,15 @@ type Props = {
   profileToFollow: Tables<"profiles"> & {
     search_rank?: number;
   };
+  size?: Size;
+  isFullWidth?: boolean;
 };
 
-export const FollowButton = ({ profileToFollow }: Props) => {
+export const FollowButton = ({
+  profileToFollow,
+  size = "xs",
+  isFullWidth = false,
+}: Props) => {
   const { mutate: followAccount } = useFollowAccount(profileToFollow.id);
 
   const { mutate: unfollowAccount } = useUnfollowAccount(profileToFollow.id);
@@ -30,12 +37,13 @@ export const FollowButton = ({ profileToFollow }: Props) => {
     <ThemedButton
       text={isAccountFollowed ? "Following" : "Follow"}
       onPress={onPress}
-      size="xs"
+      size={size}
       isRounded
       disabled={!isBoolean(isAccountFollowed)}
       isLoading={!isBoolean(isAccountFollowed)}
       variant={isAccountFollowed ? "outline" : "primary"}
       icon={isAccountFollowed ? "check" : undefined}
+      isFullWidth={isFullWidth}
     />
   );
 };

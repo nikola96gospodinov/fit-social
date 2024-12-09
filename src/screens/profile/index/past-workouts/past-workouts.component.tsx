@@ -7,7 +7,7 @@ import { View, StyleSheet, Dimensions } from "react-native";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ListHeader } from "../list-header/list-header.component";
 import { FullScreenCenteredView } from "@/src/components/ui/layout/full-screen-centered-view/full-screen-centered-view.component";
-import { NoWorkouts } from "./no-workouts/no-workouts.component";
+import { NoWorkouts } from "../../../../features/workouts/no-workouts/no-workouts.component";
 
 export const PastWorkouts = () => {
   const { data: profile, isLoading: profileLoading } = useGetProfile();

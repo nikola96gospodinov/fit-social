@@ -9,6 +9,11 @@ export default function DiscoverLayout() {
         name="other-profile/[id]"
         options={{ title: "Loading..." }}
       />
+
+      <Stack.Screen
+        name="follows/[id]"
+        options={{ title: "Loading...", presentation: "modal" }}
+      />
     </Stack>
   );
 }

@@ -3,13 +3,17 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { spacing } from "@/src/constants/spacing.constants";
-import { useIsOwnProfile } from "@/src/hooks/use-is-own-profile";
+import { useGetSession } from "@/src/services/auth/get-session.service";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { View, StyleSheet } from "react-native";
 
 export const NoWorkouts = () => {
-  const isYourProfile = useIsOwnProfile();
+  const { id } = useLocalSearchParams();
+
+  const { data: session } = useGetSession();
+
+  const isYourProfile = session?.user.id === id;
 
   const {
     store: { startWorkout },

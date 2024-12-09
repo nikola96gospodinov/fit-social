@@ -3,8 +3,12 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 
-export const Bio = () => {
-  const { data: profile } = useGetProfile();
+type Props = {
+  userId?: string;
+};
+
+export const Bio = ({ userId }: Props) => {
+  const { data: profile } = useGetProfile(userId);
 
   if (!profile?.full_name && !profile?.bio) return null;
 
