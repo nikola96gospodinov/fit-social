@@ -9,6 +9,8 @@ import Octicons from "@expo/vector-icons/Octicons";
 import { colors } from "@/src/constants/colors.constants";
 import { useGetProfileHref } from "@/src/hooks/use-get-profile-href";
 import { router } from "expo-router";
+import { AcceptButton } from "@/src/features/follows/accept-button/accept-button.component";
+import { useGetFollowStatus } from "@/src/services/follows/get-follow-status.service";
 
 type Props = {
   notification: Tables<"notifications"> & {
@@ -49,8 +51,24 @@ export const NotificationBox = ({ notification, isRead }: Props) => {
       </Flex>
 
       <View>
-        <FollowButton profileToFollow={notification.profiles!} />
+        <Action notification={notification} />
       </View>
     </Flex>
   );
+};
+
+const Action = ({ notification }: { notification: Props["notification"] }) => {
+  const { data: followStatus } = useGetFollowStatus({
+    followedId: notification.profiles!.id,
+    isReverse: true,
+  });
+
+  const showAcceptButton =
+    notification.notification_type === "follow_request" &&
+    followStatus === "pending";
+
+  if (showAcceptButton)
+    return <AcceptButton followerId={notification.profiles!.id} />;
+
+  return <FollowButton profileToFollow={notification.profiles!} />;
 };

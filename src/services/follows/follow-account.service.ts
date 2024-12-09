@@ -1,7 +1,10 @@
 import { supabase } from "@/src/lib/supabase";
 import { Tables } from "@/src/types/database.types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { GET_FOLLOWING_QUERY_KEY, IS_ACCOUNT_FOLLOWED_QUERY_KEY } from "./keys";
+import {
+  GET_FOLLOWING_QUERY_KEY,
+  ACCOUNT_FOLLOW_STATUS_QUERY_KEY,
+} from "./keys";
 import { HOME_GYM_SUGGESTIONS_QUERY_KEY } from "../suggestions/keys";
 
 const followAccount = async (profileToFollow: Tables<"profiles">) => {
@@ -32,18 +35,18 @@ export const useFollowAccount = (followedId: string) => {
       // We only care about the isAccountFollowed query
       // Cancel outgoing refetches
       await queryClient.cancelQueries({
-        queryKey: [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        queryKey: [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followedId],
       });
 
       // Snapshot previous values
       const previousIsAccountFollowed = queryClient.getQueryData<boolean>([
-        IS_ACCOUNT_FOLLOWED_QUERY_KEY,
+        ACCOUNT_FOLLOW_STATUS_QUERY_KEY,
         followedId,
       ]);
 
       // Optimistically update
       queryClient.setQueryData(
-        [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followedId],
         true,
       );
 
@@ -51,13 +54,13 @@ export const useFollowAccount = (followedId: string) => {
     },
     onError: (_, __, rollback) => {
       queryClient.setQueryData(
-        [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followedId],
         rollback,
       );
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: [IS_ACCOUNT_FOLLOWED_QUERY_KEY, followedId],
+        queryKey: [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followedId],
       });
     },
     onSuccess: () => {

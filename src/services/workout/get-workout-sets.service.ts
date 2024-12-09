@@ -14,7 +14,7 @@ const getWorkoutSets = async (workoutId: string) => {
     .in("workout_exercise_id", exerciseIds);
 
   if (error) {
-    console.log(error);
+    console.error("getWorkoutSets", error);
     throw new Error(error.message);
   }
 

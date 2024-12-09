@@ -1,10 +1,10 @@
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { Size } from "@/src/components/ui/themed-button/themed-button.types";
 import { useFollowAccount } from "@/src/services/follows/follow-account.service";
-import { useIsAccountFollowed } from "@/src/services/follows/is-account-followed.service";
+import { useGetFollowStatus } from "@/src/services/follows/get-follow-status.service";
 import { useUnfollowAccount } from "@/src/services/follows/unfollow-account.service";
 import { Tables } from "@/src/types/database.types";
-import { isBoolean } from "lodash";
+import { isUndefined } from "lodash";
 
 type Props = {
   profileToFollow: Tables<"profiles"> & {
@@ -23,27 +23,47 @@ export const FollowButton = ({
 
   const { mutate: unfollowAccount } = useUnfollowAccount(profileToFollow.id);
 
-  const { data: isAccountFollowed } = useIsAccountFollowed(profileToFollow.id);
+  const { data: followStatus } = useGetFollowStatus({
+    followedId: profileToFollow.id,
+  });
 
   const onPress = () => {
-    if (isAccountFollowed) {
+    if (followStatus) {
       unfollowAccount(profileToFollow.id);
     } else {
       followAccount(profileToFollow);
     }
   };
 
+  const buttonText = (() => {
+    if (followStatus === "pending") return "Pending";
+    if (followStatus === "accepted") return "Following";
+    return "Follow";
+  })();
+
+  const buttonIcon = (() => {
+    if (followStatus === "pending") return "clock-o";
+    if (followStatus === "accepted") return "check";
+    return undefined;
+  })();
+
+  const variant = (() => {
+    if (followStatus === "pending") return "outline";
+    if (followStatus === "accepted") return "outline";
+    return "primary";
+  })();
+
   return (
     <ThemedButton
-      text={isAccountFollowed ? "Following" : "Follow"}
+      text={buttonText}
       onPress={onPress}
       size={size}
       isRounded
-      disabled={!isBoolean(isAccountFollowed)}
-      isLoading={!isBoolean(isAccountFollowed)}
-      variant={isAccountFollowed ? "outline" : "primary"}
-      icon={isAccountFollowed ? "check" : undefined}
+      variant={variant}
+      icon={buttonIcon}
       isFullWidth={isFullWidth}
+      isLoading={isUndefined(followStatus)}
+      disabled={isUndefined(followStatus)}
     />
   );
 };

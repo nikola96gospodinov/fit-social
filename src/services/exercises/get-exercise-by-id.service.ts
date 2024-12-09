@@ -11,7 +11,7 @@ const getExerciseById = async (id: string) => {
   });
 
   if (!response.ok) {
-    console.log(await response.text());
+    console.error("getExerciseById", await response.text());
 
     throw new Error("Failed to fetch exercise");
   }
