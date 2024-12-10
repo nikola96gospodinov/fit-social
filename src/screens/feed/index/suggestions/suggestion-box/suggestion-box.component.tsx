@@ -1,5 +1,11 @@
 import { Tables } from "@/src/types/database.types";
-import { View, StyleSheet, useColorScheme, Dimensions } from "react-native";
+import {
+  View,
+  StyleSheet,
+  useColorScheme,
+  Dimensions,
+  Pressable,
+} from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
@@ -7,7 +13,8 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { Avatar } from "@/src/components/avatar/avatar.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { FollowButton } from "@/src/features/follows/follow-button/follow-button.component";
-
+import { useGetProfileHref } from "@/src/hooks/use-get-profile-href";
+import { router } from "expo-router";
 type Props = {
   profile: Tables<"profiles">;
   isLast: boolean;
@@ -17,6 +24,8 @@ type Props = {
 export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
   const theme = useColorScheme() ?? "light";
 
+  const href = useGetProfileHref(profile.id);
+
   return (
     <View
       style={[
@@ -25,15 +34,17 @@ export const SuggestionBox = ({ profile, isLast, isFirst }: Props) => {
         isFirst && { marginLeft: spacing[4] },
         isLast && { marginRight: spacing[4] },
       ]}>
-      <Flex align="center" justify="center">
-        <Avatar size={60} userId={profile.id} />
-      </Flex>
+      <Pressable onPress={() => router.push(href)}>
+        <Flex align="center" justify="center">
+          <Avatar size={60} userId={profile.id} />
+        </Flex>
 
-      <VerticalSpacing size={2} />
+        <VerticalSpacing size={2} />
 
-      <ThemedText type="small" style={styles.handle}>
-        @{profile.handle}
-      </ThemedText>
+        <ThemedText type="small" style={styles.handle}>
+          @{profile.handle}
+        </ThemedText>
+      </Pressable>
 
       <VerticalSpacing size={3} />
 

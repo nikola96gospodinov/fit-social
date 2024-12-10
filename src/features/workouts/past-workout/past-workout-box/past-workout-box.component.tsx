@@ -9,7 +9,7 @@ import { ExerciseRow } from "./exercise-row/exercise-row.component";
 import { useGetAlternativeTitle } from "./hooks/use-get-alternative-title";
 import { EditWorkoutIcon } from "./edit-workout-icon/edit-workout-icon.component";
 import { Poster } from "./poster/poster.component";
-import { router, usePathname } from "expo-router";
+import { Href, router, useSegments } from "expo-router";
 import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats/workout-stats.component";
 import { useGetSession } from "@/src/services/auth/get-session.service";
 import { Actions } from "../../actions/actions.component";
@@ -23,8 +23,8 @@ type Props = {
 export const PastWorkoutBox = ({ workout }: Props) => {
   const { data: workoutExercises } = useGetWorkoutExercises(workout.id);
 
-  const pathname = usePathname();
-  const tab = pathname.includes("profile") ? "profile" : "(index)";
+  const segments = useSegments();
+  const tab = segments[1] || "(index)";
 
   const { data: session } = useGetSession();
   const isYourWorkout = workout.user_id === session?.user.id;
@@ -38,7 +38,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
     <View style={styles.container}>
       <Pressable
         onPress={() => {
-          router.push(`/${tab}/view-workout/${workout.id}`);
+          router.push(`/${tab}/view-workout/${workout.id}` as Href);
         }}>
         <Flex direction="row" justify="space-between">
           <Poster workout={workout} />

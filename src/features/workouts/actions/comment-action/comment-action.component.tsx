@@ -1,6 +1,6 @@
 import { colors } from "@/src/constants/colors.constants";
 import { FontAwesome } from "@expo/vector-icons";
-import { router, usePathname } from "expo-router";
+import { Href, router, useSegments } from "expo-router";
 import { Pressable, useColorScheme, StyleSheet } from "react-native";
 
 type Props = {
@@ -10,11 +10,12 @@ type Props = {
 export const CommentAction = ({ workoutId }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const pathname = usePathname();
-  const tab = pathname.includes("profile") ? "profile" : "(index)";
+  const segments = useSegments();
+  const tab = segments[1] || "(index)";
 
   return (
-    <Pressable onPress={() => router.push(`/${tab}/add-comment/${workoutId}`)}>
+    <Pressable
+      onPress={() => router.push(`/${tab}/add-comment/${workoutId}` as Href)}>
       <FontAwesome
         name="comment-o"
         size={22}
