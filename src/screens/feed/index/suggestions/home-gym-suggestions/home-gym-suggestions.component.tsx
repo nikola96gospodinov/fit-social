@@ -1,6 +1,5 @@
 import { spacing } from "@/src/constants/spacing.constants";
-import { FlashList } from "@shopify/flash-list";
-import { StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { useGetHomeGymSuggestions } from "@/src/services/suggestions/home-gym-suggestions.service";
 import { HomeGymSuggestionsListEmpty } from "./list-empty/home-gym-suggestions-list-empty.component";
 import { SuggestionBox } from "../suggestion-box/suggestion-box.component";
@@ -21,7 +20,7 @@ export const HomeGymSuggestions = () => {
 
       <VerticalSpacing size={4} />
 
-      <FlashList
+      <FlatList
         data={suggestions}
         renderItem={({ item, index }) => (
           <SuggestionBox
@@ -34,7 +33,6 @@ export const HomeGymSuggestions = () => {
           <HomeGymSuggestionsListEmpty isLoading={suggestionsLoading} />
         )}
         ItemSeparatorComponent={() => <VerticalSpacing size={4} isHorizontal />}
-        estimatedItemSize={20}
         horizontal
         showsHorizontalScrollIndicator={false}
         keyExtractor={(item) => item.id}

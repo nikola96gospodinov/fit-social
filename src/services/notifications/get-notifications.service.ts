@@ -20,7 +20,7 @@ const getNotifications = async ({ isRead }: Props) => {
       count: "exact",
     })
     .match({ receiver_id: user.user?.id, is_read: isRead })
-    .order("created_at", { ascending: false });
+    .order("created_at");
 
   if (error) {
     console.error("getNotifications", error);

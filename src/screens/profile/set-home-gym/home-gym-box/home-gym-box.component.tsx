@@ -14,9 +14,13 @@ type Props = {
 export const HomeGymBox = ({ gym, isSelected, setSelectedHomeGym }: Props) => {
   const theme = useColorScheme() ?? "light";
 
+  const handlePress = () => {
+    setSelectedHomeGym(isSelected ? undefined : gym);
+  };
+
   return (
     <Pressable
-      onPress={() => setSelectedHomeGym(isSelected ? undefined : gym)}
+      onPress={handlePress}
       style={[
         styles.container,
         {
@@ -28,7 +32,7 @@ export const HomeGymBox = ({ gym, isSelected, setSelectedHomeGym }: Props) => {
             : colors[theme].border,
         },
       ]}>
-      <ThemedRadio isSelected={isSelected} />
+      <ThemedRadio isSelected={isSelected} onPress={handlePress} />
 
       <View>
         <ThemedText>{gym.primaryName}</ThemedText>

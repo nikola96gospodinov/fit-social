@@ -5,6 +5,7 @@ import type { EditProfileForm } from "@/src/screens/profile/edit/edit-profile-fo
 import { router } from "expo-router";
 import { isEmpty } from "lodash";
 import { useGetSession } from "../auth/get-session.service";
+import { HOME_GYM_SUGGESTIONS_QUERY_KEY } from "../suggestions/keys";
 
 type Props = {
   data: Partial<EditProfileForm>;
@@ -35,6 +36,10 @@ export const useUpdateProfile = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: [PROFILE_QUERY_KEY, session?.user.id],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [HOME_GYM_SUGGESTIONS_QUERY_KEY],
       });
 
       router.push("/profile");
