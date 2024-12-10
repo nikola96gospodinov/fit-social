@@ -6,7 +6,11 @@ import { ReadNotifications } from "./read-notifications/read-notifications.compo
 import { UnreadNotifications } from "./unread-notifications/unread-notifications.component";
 import { useNavigation } from "@react-navigation/native";
 import { useQueryClient } from "@tanstack/react-query";
-import { NOTIFICATIONS_QUERY_KEY } from "@/src/services/notifications/keys";
+import {
+  GET_FOLLOW_REQUESTS,
+  NOTIFICATIONS_QUERY_KEY,
+  NUMBER_OF_NOTIFICATIONS_QUERY_KEY,
+} from "@/src/services/notifications/keys";
 
 const defaultRoutes = [
   { key: "unread", title: "New" },
@@ -31,6 +35,14 @@ export const NotificationsContent = () => {
     const unsubscribe = navigation.addListener("beforeRemove", (e) => {
       queryClient.invalidateQueries({
         queryKey: [NOTIFICATIONS_QUERY_KEY],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [NUMBER_OF_NOTIFICATIONS_QUERY_KEY],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [GET_FOLLOW_REQUESTS],
       });
     });
 

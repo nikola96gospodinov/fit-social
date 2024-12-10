@@ -16,10 +16,9 @@ type Props = {
   notification: Tables<"notifications"> & {
     profiles: Tables<"profiles"> | null;
   };
-  isRead: boolean;
 };
 
-export const NotificationBox = ({ notification, isRead }: Props) => {
+export const NotificationBox = ({ notification }: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const profileHref = useGetProfileHref(notification.profiles?.id);
@@ -27,7 +26,7 @@ export const NotificationBox = ({ notification, isRead }: Props) => {
   return (
     <Flex direction="row" justify="space-between" align="flex-end" gap={2}>
       <Flex direction="row" align="center" gap={3}>
-        {!isRead && (
+        {!notification.is_read && (
           <Octicons name="dot-fill" size={20} color={colors[theme].tintText} />
         )}
 

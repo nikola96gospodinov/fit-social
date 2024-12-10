@@ -19,9 +19,7 @@ export const ReadNotifications = () => {
   return (
     <FlashList
       data={notificationsData?.data}
-      renderItem={({ item }) => (
-        <NotificationBox notification={item} isRead={true} />
-      )}
+      renderItem={({ item }) => <NotificationBox notification={item} />}
       estimatedItemSize={20}
       contentContainerStyle={styles.container}
       ItemSeparatorComponent={() => <VerticalSpacing size={4} />}

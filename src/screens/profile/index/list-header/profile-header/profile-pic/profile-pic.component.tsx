@@ -1,7 +1,7 @@
 import { useColorScheme, View, StyleSheet, Pressable } from "react-native";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { router } from "expo-router";
 import { Avatar } from "@/src/components/avatar/avatar.component";
 
@@ -28,7 +28,7 @@ export const ProfilePic = () => {
           },
         ]}
         onPress={() => router.push("/profile/edit")}>
-        <FontAwesome6 name="pencil" size={12} color={colors[theme].icon} />
+        <FontAwesome name="gear" size={14} color={colors[theme].textIcon} />
       </Pressable>
     </View>
   );
@@ -47,9 +47,9 @@ const styles = StyleSheet.create({
 
   avatarIcon: {
     position: "absolute",
-    bottom: 0,
-    right: 0,
-    padding: spacing[1],
+    bottom: -spacing[1],
+    right: -spacing[1],
+    padding: spacing[1] + spacing[0.5],
     borderRadius: 100,
     borderWidth: 1,
   },

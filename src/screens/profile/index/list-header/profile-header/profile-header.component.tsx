@@ -6,9 +6,9 @@ import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { ProfileGradient } from "./profile-gradient/profile-gradient.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { ProfileAction } from "./profile-action/profile-action.component";
 import { Bio } from "../../../../../features/profile/bio/bio.component";
 import { HomeGym } from "../../../../../features/profile/home-gym/home-gym.component";
+import { FollowRequestsIcon } from "./follow-requests-icon/follow-requests-icon.component";
 
 export const ProfileHeader = () => {
   const { data: profile } = useGetProfile();
@@ -33,7 +33,9 @@ export const ProfileHeader = () => {
             </ThemedText>
           </Flex>
 
-          <ProfileAction />
+          <View style={styles.profileActionContainer}>
+            <FollowRequestsIcon />
+          </View>
         </Flex>
 
         {showHomeGym && <HomeGym homeGymName={profile.home_gym_name!} />}
@@ -61,5 +63,10 @@ const styles = StyleSheet.create({
 
   homeGymContainer: {
     transform: [{ translateX: -4 }],
+  },
+
+  profileActionContainer: {
+    marginTop: -spacing[6],
+    marginRight: -spacing[1],
   },
 });

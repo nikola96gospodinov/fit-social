@@ -21,7 +21,7 @@ const getVariantStyles = ({
       pressableTap: {},
 
       text: {
-        color: themeColors.buttonFillOnTap,
+        color: themeColors.invertedText,
       },
 
       textTap: {},

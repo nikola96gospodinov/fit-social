@@ -58,7 +58,7 @@ export const colors = {
   light: {
     text: slate[900],
     invertedText: slate[50],
-    supportingText: slate[600],
+    supportingText: slate[800],
     tintText: indigo[700],
     tintBackgroundText: indigo[50],
 

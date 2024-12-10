@@ -112,6 +112,11 @@ export default function ProfileLayout() {
         name="other-profile/[id]"
         options={{ title: "Loading..." }}
       />
+
+      <Stack.Screen
+        name="follow-requests"
+        options={{ title: "Follow requests", presentation: "modal" }}
+      />
     </Stack>
   );
 }
