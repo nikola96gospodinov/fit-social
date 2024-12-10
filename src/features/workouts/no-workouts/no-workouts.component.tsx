@@ -22,7 +22,7 @@ export const NoWorkouts = ({ isLoading }: Props) => {
 
   const isProfileRestricted = useIsProfileRestricted(id as string);
 
-  const isYourProfile = session?.user.id === id;
+  const isYourProfile = session?.user.id === id || !id;
 
   const {
     store: { startWorkout },
