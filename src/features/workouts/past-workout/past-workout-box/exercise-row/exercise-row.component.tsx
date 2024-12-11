@@ -27,6 +27,12 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
 
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
 
+  const text = (() => {
+    if (bestSet.weight === 0)
+      return `${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+    return `${bestSet.weight} ${weightUnit} x ${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+  })();
+
   return (
     <View>
       <Flex justify="space-between" align="flex-end" direction="row" gap={4}>
@@ -46,9 +52,7 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
         <Flex direction="row" gap={2} align="center" style={{ flexShrink: 1 }}>
           <FontAwesome name="star-o" size={14} color={colors[theme].icon} />
 
-          <ThemedText type="extraSmall">
-            {bestSet?.weight} {weightUnit} x {bestSet?.reps} reps
-          </ThemedText>
+          <ThemedText type="extraSmall">{text}</ThemedText>
         </Flex>
       </Flex>
 

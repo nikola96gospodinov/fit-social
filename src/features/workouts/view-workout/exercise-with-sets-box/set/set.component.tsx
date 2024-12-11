@@ -52,28 +52,39 @@ export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
     return "supporting";
   })();
 
+  const setRepsAndWeight = (() => {
+    if (set.weight === 0) return `${set.reps} rep${set.reps === 1 ? "" : "s"}`;
+    return `${set.weight} ${measurementSystem} x ${set.reps} rep${set.reps === 1 ? "" : "s"}`;
+  })();
+
   return (
     <View key={set.id}>
       <Flex direction="row" justify="space-between">
         <ThemedText type="extraSmall" color="supporting">
           {index + 1}.{"   "}
-          {set.weight} {measurementSystem} x {set.reps}
+          {setRepsAndWeight}
         </ThemedText>
 
-        <Flex direction="row" gap={1} style={pillStyle} align="center">
-          {isPR && <PersonalRecord />}
-
-          <ThemedText type="extraSmall" color={textColor}>
-            {isBestSet && !isPR && (
-              <FontAwesome
-                name="star"
-                size={12}
-                color={colors[theme].invertedText}
-              />
-            )}{" "}
-            {oneMaxRep} {measurementSystem}
+        {set.weight === 0 ? (
+          <ThemedText type="extraSmall" color="supporting">
+            -
           </ThemedText>
-        </Flex>
+        ) : (
+          <Flex direction="row" gap={1} style={pillStyle} align="center">
+            {isPR && <PersonalRecord />}
+
+            <ThemedText type="extraSmall" color={textColor}>
+              {isBestSet && !isPR && (
+                <FontAwesome
+                  name="star"
+                  size={12}
+                  color={colors[theme].invertedText}
+                />
+              )}{" "}
+              {oneMaxRep} {measurementSystem}
+            </ThemedText>
+          </Flex>
+        )}
       </Flex>
 
       {!isLast && <VerticalSpacing size={0.5} />}
