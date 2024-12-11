@@ -1,5 +1,5 @@
 import { spacing } from "@/src/constants/spacing.constants";
-import { useGetLikesForWorkout } from "@/src/services/likes/get-likes-for-workout.service";
+import { useGetInfiniteLikesForWorkout } from "@/src/services/likes/get-likes-for-workout.service";
 import { FlashList } from "@shopify/flash-list";
 import { useLocalSearchParams } from "expo-router";
 import { StyleSheet } from "react-native";
@@ -20,7 +20,7 @@ export const LikesContent = () => {
     refetch,
     isFetchNextPageError,
     isLoading,
-  } = useGetLikesForWorkout(id as string);
+  } = useGetInfiniteLikesForWorkout(id as string);
 
   const likes = useMemo(() => {
     return likesData?.pages.flatMap((page) => page.items) || [];

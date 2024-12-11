@@ -17,8 +17,8 @@ const getLikesForWorkout = async ({
     .from("likes")
     .select("*, profiles(*)")
     .eq("workout_id", workoutId)
-    .range(pageParam * pageSize, (pageParam + 1) * pageSize - 1)
-    .order("created_at", { ascending: false });
+    .order("created_at", { ascending: false })
+    .range(pageParam * pageSize, (pageParam + 1) * pageSize - 1);
 
   if (error) {
     console.error("getLikesForWorkout", error);
@@ -31,7 +31,7 @@ const getLikesForWorkout = async ({
   };
 };
 
-export const useGetLikesForWorkout = (workoutId: string) => {
+export const useGetInfiniteLikesForWorkout = (workoutId: string) => {
   return useInfiniteQuery({
     queryKey: [GET_LIKES_FOR_WORKOUT_QUERY_KEY, workoutId],
     queryFn: ({ pageParam }) => getLikesForWorkout({ workoutId, pageParam }),

@@ -1,6 +1,9 @@
 import { supabase } from "@/src/lib/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { ACCOUNT_FOLLOW_STATUS_QUERY_KEY } from "./keys";
+import {
+  ACCOUNT_FOLLOW_STATUS_QUERY_KEY,
+  GET_NUMBER_OF_FOLLOWING_QUERY_KEY,
+} from "./keys";
 import { Enums } from "@/src/types/database.types";
 
 const acceptFollowRequest = async (followerId: string) => {
@@ -27,6 +30,10 @@ export const useAcceptFollowRequest = () => {
         queryKey: [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followerId],
       });
 
+      await queryClient.cancelQueries({
+        queryKey: [GET_NUMBER_OF_FOLLOWING_QUERY_KEY, followerId],
+      });
+
       // Snapshot the previous value
       const previousFollowStatus = queryClient.getQueryData<
         Enums<"follow_status">
@@ -38,6 +45,11 @@ export const useAcceptFollowRequest = () => {
         "accepted",
       );
 
+      queryClient.setQueryData(
+        [GET_NUMBER_OF_FOLLOWING_QUERY_KEY, followerId],
+        (previousData: number) => previousData + 1,
+      );
+
       return { previousFollowStatus };
     },
     onError: (_, followerId, rollback) => {
@@ -45,10 +57,19 @@ export const useAcceptFollowRequest = () => {
         [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followerId],
         rollback,
       );
+
+      queryClient.setQueryData(
+        [GET_NUMBER_OF_FOLLOWING_QUERY_KEY, followerId],
+        (oldData: number) => oldData - 1,
+      );
     },
     onSettled: (_, followerId) => {
       queryClient.invalidateQueries({
         queryKey: [ACCOUNT_FOLLOW_STATUS_QUERY_KEY, followerId],
+      });
+
+      queryClient.invalidateQueries({
+        queryKey: [GET_NUMBER_OF_FOLLOWING_QUERY_KEY, followerId],
       });
     },
     onSuccess: (_, followerId) => {

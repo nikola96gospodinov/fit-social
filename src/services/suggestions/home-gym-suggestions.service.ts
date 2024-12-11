@@ -1,7 +1,7 @@
 import { supabase } from "@/src/lib/supabase";
 import { getProfile } from "../profile/get-profile.service";
 import { useQuery } from "@tanstack/react-query";
-import { getFollowing } from "../follows/get-following.service";
+import { getAllFollowing } from "../follows/get-following.service";
 import { HOME_GYM_SUGGESTIONS_QUERY_KEY } from "./keys";
 
 const getHomeGymSuggestions = async () => {
@@ -11,7 +11,7 @@ const getHomeGymSuggestions = async () => {
     return [];
   }
 
-  const following = await getFollowing();
+  const following = await getAllFollowing();
   const followingIds = following.map((f) => f.followed_id).join(",");
 
   const { data, error } = await supabase

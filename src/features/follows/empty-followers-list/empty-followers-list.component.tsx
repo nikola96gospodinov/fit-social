@@ -1,3 +1,4 @@
+import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
@@ -10,12 +11,29 @@ import { StyleSheet } from "react-native";
 type Props = {
   isLoading: boolean;
   text: string;
+  isLoadingError?: boolean;
+  refetch: () => void;
+  isFollowers?: boolean;
 };
 
-export const EmptyFollowersList = ({ isLoading, text }: Props) => {
+export const EmptyFollowersList = ({
+  isLoading,
+  text,
+  isLoadingError,
+  refetch,
+  isFollowers,
+}: Props) => {
   if (isLoading) {
     return <ThemedActivityIndicator />;
   }
+
+  if (isLoadingError)
+    return (
+      <NetworkError
+        message={`Failed to fetch ${isFollowers ? "followers" : "following"}`}
+        refetch={refetch}
+      />
+    );
 
   return (
     <Flex justify="center" align="center" style={styles.container}>

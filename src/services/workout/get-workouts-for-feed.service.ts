@@ -1,5 +1,5 @@
 import { supabase } from "@/src/lib/supabase";
-import { getFollowing } from "../follows/get-following.service";
+import { getAllFollowing } from "../follows/get-following.service";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 export const GET_WORKOUTS_FOR_FEED_QUERY_KEY = "getWorkoutsForFeed";
@@ -10,7 +10,7 @@ type Props = {
 };
 
 const getWorkoutsForFeed = async ({ limit, page }: Props) => {
-  const following = await getFollowing();
+  const following = await getAllFollowing();
 
   const { data, error } = await supabase
     .from("workouts")
