@@ -6,20 +6,30 @@ import { StyleSheet } from "react-native";
 import { FollowBox } from "../follows/follow-box/follow-box.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { LikesFooter } from "./footer/likes-footer.component";
+import { useMemo } from "react";
 
 export const LikesContent = () => {
   const { id } = useLocalSearchParams();
 
   const {
-    data: likes,
-    isLoading,
+    data: likesData,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoadingError,
     refetch,
-    isError,
+    isFetchNextPageError,
+    isLoading,
   } = useGetLikesForWorkout(id as string);
+
+  const likes = useMemo(() => {
+    return likesData?.pages.flatMap((page) => page.items) || [];
+  }, [likesData?.pages]);
 
   return (
     <FlashList
       data={likes}
+      onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) =>
         item.profiles && <FollowBox profile={item.profiles} />
       }
@@ -30,9 +40,12 @@ export const LikesContent = () => {
       ListFooterComponent={
         <LikesFooter
           isLoading={isLoading}
-          isError={isError}
+          isError={isLoadingError}
           refetch={refetch}
           count={likes?.length}
+          isFetchNextPageError={isFetchNextPageError}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
         />
       }
     />
