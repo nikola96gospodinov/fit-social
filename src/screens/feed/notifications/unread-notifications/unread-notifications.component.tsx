@@ -1,6 +1,6 @@
 import { FlashList } from "@shopify/flash-list";
 import { NotificationBox } from "../notification-box/notification-box.component";
-import { useGetNotifications } from "@/src/services/notifications/get-notifications.service";
+import { useGetInfiniteNotifications } from "@/src/services/notifications/get-notifications.service";
 import { StyleSheet } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useReadNotifications } from "@/src/services/notifications/read-notifications.service";
@@ -8,7 +8,7 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { NotificationsFooter } from "../notifications-footer/notifications-footer.component";
 import { useNavigation } from "expo-router";
 import { useQueryClient } from "@tanstack/react-query";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   GET_FOLLOW_REQUESTS,
   NOTIFICATIONS_QUERY_KEY,
@@ -18,12 +18,20 @@ import {
 export const UnreadNotifications = () => {
   const {
     data: notificationsData,
-    isLoading,
-    isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoadingError,
     refetch,
-  } = useGetNotifications({
+    isFetchNextPageError,
+    isLoading,
+  } = useGetInfiniteNotifications({
     isRead: false,
   });
+
+  const notifications = useMemo(() => {
+    return notificationsData?.pages.flatMap((page) => page.data) || [];
+  }, [notificationsData?.pages]);
 
   const { mutate: readNotifications } = useReadNotifications();
 
@@ -50,7 +58,8 @@ export const UnreadNotifications = () => {
 
   return (
     <FlashList
-      data={notificationsData?.data}
+      data={notifications}
+      onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) => <NotificationBox notification={item} />}
       estimatedItemSize={20}
       contentContainerStyle={styles.container}
@@ -68,10 +77,13 @@ export const UnreadNotifications = () => {
       ListFooterComponent={() => (
         <NotificationsFooter
           isLoading={isLoading}
-          isError={isError}
+          isError={isLoadingError}
           refetch={refetch}
-          count={notificationsData?.count}
+          count={notificationsData?.pages[0].count}
           emptyStateText="You're all caught up! 🤩"
+          isFetchNextPageError={isFetchNextPageError}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
         />
       )}
     />

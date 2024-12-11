@@ -10,12 +10,15 @@ import { router, useLocalSearchParams } from "expo-router";
 import { View, StyleSheet } from "react-native";
 import { useIsProfileRestricted } from "../../profile/other-profile/use-is-profile-restricted";
 import { LockedProfile } from "../../profile/other-profile/locked-profile/locked-profile.component";
+import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 
 type Props = {
   isLoading?: boolean;
+  isLoadingError?: boolean;
+  refetch: () => void;
 };
 
-export const NoWorkouts = ({ isLoading }: Props) => {
+export const NoWorkouts = ({ isLoading, isLoadingError, refetch }: Props) => {
   const { id } = useLocalSearchParams();
 
   const { data: session } = useGetSession();
@@ -34,6 +37,11 @@ export const NoWorkouts = ({ isLoading }: Props) => {
   };
 
   if (isLoading) return <ThemedActivityIndicator />;
+
+  if (isLoadingError)
+    return (
+      <NetworkError message="Failed to fetch workouts" refetch={refetch} />
+    );
 
   if (isProfileRestricted) return <LockedProfile />;
 

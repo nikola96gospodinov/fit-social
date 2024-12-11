@@ -1,6 +1,6 @@
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
-import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
+import { useGetInfiniteWorkouts } from "@/src/services/workout/get-workouts.service";
 import { PastWorkoutBox } from "../../../../features/workouts/past-workout/past-workout-box/past-workout-box.component";
 import { FlashList } from "@shopify/flash-list";
 import { View, StyleSheet, Dimensions } from "react-native";
@@ -11,18 +11,30 @@ import { NoWorkouts } from "../../../../features/workouts/no-workouts/no-workout
 import { useMemo } from "react";
 import { groupWorkoutsByYearAndMonth } from "@/src/features/workouts/utils/group-workouts-by-year-and-month.utils";
 import { WorkoutPeriodLabel } from "@/src/features/workouts/workout-period-label/workout-period-label.component";
+import { InfiniteScrollFooter } from "@/src/components/infinite-scroll-footer/infinite-scroll-footer.component";
+import { spacing } from "@/src/constants/spacing.constants";
 
 export const PastWorkouts = () => {
   const { data: profile, isLoading: profileLoading } = useGetProfile();
-  const { data: workouts, isLoading: workoutsLoading } = useGetWorkouts({
+  const {
+    data: workouts,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoadingError,
+    refetch,
+    isFetchNextPageError,
+    isLoading: isWorkoutsLoading,
+  } = useGetInfiniteWorkouts({
     userId: profile?.id,
   });
 
   const items = useMemo(() => {
-    return groupWorkoutsByYearAndMonth(workouts?.data);
-  }, [workouts?.data]);
+    const allWorkouts = workouts?.pages.flatMap((page) => page.workouts) || [];
+    return groupWorkoutsByYearAndMonth(allWorkouts);
+  }, [workouts?.pages]);
 
-  if (profileLoading || workoutsLoading || !workouts?.data)
+  if (profileLoading || isWorkoutsLoading || !workouts?.pages)
     return (
       <FullScreenCenteredView>
         <ThemedActivityIndicator />
@@ -33,6 +45,7 @@ export const PastWorkouts = () => {
     <View style={styles.container}>
       <FlashList
         data={items}
+        onEndReached={() => hasNextPage && fetchNextPage()}
         renderItem={({ item }) => {
           if (typeof item === "string")
             return <WorkoutPeriodLabel period={item} />;
@@ -44,9 +57,22 @@ export const PastWorkouts = () => {
           if (typeof item === "string") return null;
           return <VerticalSpacing size={8} />;
         }}
-        ListFooterComponent={() => <VerticalSpacing size={13} />}
+        ListFooterComponent={() => (
+          <InfiniteScrollFooter
+            isFetchNextPageError={isFetchNextPageError}
+            isFetchingNextPage={isFetchingNextPage}
+            fetchNextPage={fetchNextPage}
+            message="Failed to fetch more workouts"
+          />
+        )}
         ListHeaderComponent={ListHeader}
-        ListEmptyComponent={NoWorkouts}
+        ListEmptyComponent={() => (
+          <NoWorkouts
+            isLoading={isWorkoutsLoading}
+            isLoadingError={isLoadingError}
+            refetch={refetch}
+          />
+        )}
         getItemType={(item) => {
           return typeof item === "string" ? "sectionHeader" : "row";
         }}
@@ -58,5 +84,6 @@ export const PastWorkouts = () => {
 const styles = StyleSheet.create({
   container: {
     minHeight: Dimensions.get("window").height,
+    paddingBottom: spacing[13],
   },
 });

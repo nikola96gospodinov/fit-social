@@ -13,6 +13,8 @@ import {
 } from "@/src/constants/workout.constants";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { FlashList } from "@shopify/flash-list";
+import { InfiniteScrollFooter } from "@/src/components/infinite-scroll-footer/infinite-scroll-footer.component";
+
 type Props = {
   selectedExercises: Exercise[];
   setSelectedExercises: React.Dispatch<React.SetStateAction<Exercise[]>>;
@@ -93,10 +95,11 @@ export const FoundExercises = ({
         );
       }}
       ListFooterComponent={() => (
-        <ListFooterComponent
+        <InfiniteScrollFooter
           isFetchNextPageError={isFetchNextPageError}
           isFetchingNextPage={isFetchingNextPage}
           fetchNextPage={fetchNextPage}
+          message="Failed to fetch more exercises"
         />
       )}
       getItemType={(item) => {
@@ -105,35 +108,6 @@ export const FoundExercises = ({
       estimatedItemSize={1000}
     />
   );
-};
-
-const ListFooterComponent: React.FC<{
-  isFetchNextPageError: boolean;
-  isFetchingNextPage: boolean;
-  fetchNextPage: () => void;
-}> = ({ isFetchNextPageError, isFetchingNextPage, fetchNextPage }) => {
-  if (isFetchNextPageError) {
-    return (
-      <>
-        <NetworkError
-          message="Failed to fetch more exercises"
-          refetch={fetchNextPage}
-        />
-        <VerticalSpacing size={4} />
-      </>
-    );
-  }
-
-  if (isFetchingNextPage) {
-    return (
-      <>
-        <ThemedActivityIndicator />
-        <VerticalSpacing size={4} />
-      </>
-    );
-  }
-
-  return null;
 };
 
 const LetterHeader = ({ letter, index }: { letter: string; index: number }) => {

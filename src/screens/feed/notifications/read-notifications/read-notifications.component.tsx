@@ -1,24 +1,34 @@
 import { FlashList } from "@shopify/flash-list";
 import { NotificationBox } from "../notification-box/notification-box.component";
-import { useGetNotifications } from "@/src/services/notifications/get-notifications.service";
+import { useGetInfiniteNotifications } from "@/src/services/notifications/get-notifications.service";
 import { StyleSheet } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { NotificationsFooter } from "../notifications-footer/notifications-footer.component";
+import { useMemo } from "react";
 
 export const ReadNotifications = () => {
   const {
     data: notificationsData,
-    isLoading,
-    isError,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoadingError,
     refetch,
-  } = useGetNotifications({
+    isFetchNextPageError,
+    isLoading,
+  } = useGetInfiniteNotifications({
     isRead: true,
   });
 
+  const notifications = useMemo(() => {
+    return notificationsData?.pages.flatMap((page) => page.data) || [];
+  }, [notificationsData?.pages]);
+
   return (
     <FlashList
-      data={notificationsData?.data}
+      data={notifications}
+      onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) => <NotificationBox notification={item} />}
       estimatedItemSize={20}
       contentContainerStyle={styles.container}
@@ -26,10 +36,13 @@ export const ReadNotifications = () => {
       ListFooterComponent={() => (
         <NotificationsFooter
           isLoading={isLoading}
-          isError={isError}
+          isError={isLoadingError}
           refetch={refetch}
-          count={notificationsData?.count}
+          count={notificationsData?.pages[0].count}
           emptyStateText="No notifications yet 🧐"
+          isFetchNextPageError={isFetchNextPageError}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
         />
       )}
     />

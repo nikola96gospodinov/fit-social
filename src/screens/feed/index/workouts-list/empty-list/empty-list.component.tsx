@@ -4,12 +4,15 @@ import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/ver
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { StyleSheet, View } from "react-native";
 import { spacing } from "@/src/constants/spacing.constants";
+import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 
 type Props = {
   isLoading: boolean;
+  isLoadingError: boolean;
+  refetch: () => void;
 };
 
-export const EmptyList = ({ isLoading }: Props) => {
+export const EmptyList = ({ isLoading, isLoadingError, refetch }: Props) => {
   if (isLoading) {
     return (
       <>
@@ -17,6 +20,12 @@ export const EmptyList = ({ isLoading }: Props) => {
 
         <ThemedActivityIndicator />
       </>
+    );
+  }
+
+  if (isLoadingError) {
+    return (
+      <NetworkError message="Failed to fetch exercises" refetch={refetch} />
     );
   }
 

@@ -5,24 +5,35 @@ import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-ind
 import { FlashList } from "@shopify/flash-list";
 import { PastWorkoutBox } from "../../workouts/past-workout/past-workout-box/past-workout-box.component";
 import { OtherProfileListHeader } from "./list-header/other-profile-list-header.component";
-import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
+import { useGetInfiniteWorkouts } from "@/src/services/workout/get-workouts.service";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { NoWorkouts } from "../../workouts/no-workouts/no-workouts.component";
 import { groupWorkoutsByYearAndMonth } from "../../workouts/utils/group-workouts-by-year-and-month.utils";
 import { WorkoutPeriodLabel } from "../../workouts/workout-period-label/workout-period-label.component";
+import { InfiniteScrollFooter } from "@/src/components/infinite-scroll-footer/infinite-scroll-footer.component";
 
 export const OtherProfileContent = () => {
   const { id } = useLocalSearchParams();
 
   const { data: profile, isLoading } = useGetProfile(id as string);
 
-  const { data: workouts, isLoading: isWorkoutsLoading } = useGetWorkouts({
+  const {
+    data: workouts,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoadingError,
+    refetch,
+    isFetchNextPageError,
+    isLoading: isWorkoutsLoading,
+  } = useGetInfiniteWorkouts({
     userId: id as string,
   });
 
   const items = useMemo(() => {
-    return groupWorkoutsByYearAndMonth(workouts?.data);
-  }, [workouts?.data]);
+    const allWorkouts = workouts?.pages.flatMap((page) => page.workouts) || [];
+    return groupWorkoutsByYearAndMonth(allWorkouts);
+  }, [workouts?.pages]);
 
   const navigation = useNavigation();
 
@@ -37,19 +48,33 @@ export const OtherProfileContent = () => {
   return (
     <FlashList
       data={items}
+      onEndReached={() => hasNextPage && fetchNextPage()}
       renderItem={({ item }) => {
         if (typeof item === "string")
           return <WorkoutPeriodLabel period={item} />;
         return <PastWorkoutBox workout={item} />;
       }}
-      estimatedItemSize={workouts?.count || 100}
+      estimatedItemSize={workouts?.pages[0].count || 100}
       ItemSeparatorComponent={({ item }) => {
         if (typeof item === "string") return null;
         return <VerticalSpacing size={8} />;
       }}
       ListHeaderComponent={OtherProfileListHeader}
-      ListFooterComponent={() => <VerticalSpacing size={4} />}
-      ListEmptyComponent={() => <NoWorkouts isLoading={isWorkoutsLoading} />}
+      ListFooterComponent={() => (
+        <InfiniteScrollFooter
+          isFetchNextPageError={isFetchNextPageError}
+          isFetchingNextPage={isFetchingNextPage}
+          fetchNextPage={fetchNextPage}
+          message="Failed to fetch more workouts"
+        />
+      )}
+      ListEmptyComponent={() => (
+        <NoWorkouts
+          isLoading={isWorkoutsLoading}
+          isLoadingError={isLoadingError}
+          refetch={refetch}
+        />
+      )}
       getItemType={(item) => {
         return typeof item === "string" ? "sectionHeader" : "row";
       }}
