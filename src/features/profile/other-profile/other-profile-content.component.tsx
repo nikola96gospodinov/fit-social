@@ -1,6 +1,6 @@
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { FlashList } from "@shopify/flash-list";
 import { PastWorkoutBox } from "../../workouts/past-workout/past-workout-box/past-workout-box.component";
@@ -8,6 +8,8 @@ import { OtherProfileListHeader } from "./list-header/other-profile-list-header.
 import { useGetWorkouts } from "@/src/services/workout/get-workouts.service";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { NoWorkouts } from "../../workouts/no-workouts/no-workouts.component";
+import { groupWorkoutsByYearAndMonth } from "../../workouts/utils/group-workouts-by-year-and-month.utils";
+import { WorkoutPeriodLabel } from "../../workouts/workout-period-label/workout-period-label.component";
 
 export const OtherProfileContent = () => {
   const { id } = useLocalSearchParams();
@@ -17,6 +19,10 @@ export const OtherProfileContent = () => {
   const { data: workouts, isLoading: isWorkoutsLoading } = useGetWorkouts({
     userId: id as string,
   });
+
+  const items = useMemo(() => {
+    return groupWorkoutsByYearAndMonth(workouts?.data);
+  }, [workouts?.data]);
 
   const navigation = useNavigation();
 
@@ -30,13 +36,23 @@ export const OtherProfileContent = () => {
 
   return (
     <FlashList
-      data={workouts?.data}
-      renderItem={({ item }) => <PastWorkoutBox workout={item} />}
+      data={items}
+      renderItem={({ item }) => {
+        if (typeof item === "string")
+          return <WorkoutPeriodLabel period={item} />;
+        return <PastWorkoutBox workout={item} />;
+      }}
       estimatedItemSize={workouts?.count || 100}
-      ItemSeparatorComponent={() => <VerticalSpacing size={8} />}
+      ItemSeparatorComponent={({ item }) => {
+        if (typeof item === "string") return null;
+        return <VerticalSpacing size={8} />;
+      }}
       ListHeaderComponent={OtherProfileListHeader}
       ListFooterComponent={() => <VerticalSpacing size={4} />}
       ListEmptyComponent={() => <NoWorkouts isLoading={isWorkoutsLoading} />}
+      getItemType={(item) => {
+        return typeof item === "string" ? "sectionHeader" : "row";
+      }}
     />
   );
 };
