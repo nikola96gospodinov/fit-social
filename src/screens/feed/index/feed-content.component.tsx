@@ -18,7 +18,7 @@ export const FeedContent = () => {
     );
   }
 
-  if (following?.length === 0) {
+  if (following?.pages[0].items.length === 0) {
     return <Suggestions />;
   }
 
