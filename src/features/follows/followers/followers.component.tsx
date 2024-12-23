@@ -30,6 +30,7 @@ export const Followers = () => {
     <FlashList
       data={followers}
       onEndReached={() => hasNextPage && fetchNextPage()}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) =>
         item.profiles && <FollowBox profile={item.profiles} />
       }

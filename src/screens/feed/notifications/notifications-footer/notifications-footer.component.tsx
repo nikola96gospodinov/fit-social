@@ -10,9 +10,9 @@ type Props = {
   refetch: () => void;
   count: number | undefined | null;
   emptyStateText: string;
-  isFetchNextPageError: boolean;
-  isFetchingNextPage: boolean;
-  fetchNextPage: () => void;
+  isFetchNextPageError?: boolean;
+  isFetchingNextPage?: boolean;
+  fetchNextPage?: () => void;
 };
 
 export const NotificationsFooter = ({
@@ -28,9 +28,9 @@ export const NotificationsFooter = ({
   if (isFetchNextPageError || isFetchingNextPage) {
     return (
       <InfiniteScrollFooter
-        isFetchNextPageError={isFetchNextPageError}
-        isFetchingNextPage={isFetchingNextPage}
-        fetchNextPage={fetchNextPage}
+        isFetchNextPageError={isFetchNextPageError || false}
+        isFetchingNextPage={isFetchingNextPage || false}
+        fetchNextPage={fetchNextPage || (() => {})}
         message="Failed to fetch more notifications"
       />
     );

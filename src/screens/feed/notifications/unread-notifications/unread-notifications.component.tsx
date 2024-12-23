@@ -60,6 +60,7 @@ export const UnreadNotifications = () => {
     <FlashList
       data={notifications}
       onEndReached={() => hasNextPage && fetchNextPage()}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) => <NotificationBox notification={item} />}
       estimatedItemSize={20}
       contentContainerStyle={styles.container}

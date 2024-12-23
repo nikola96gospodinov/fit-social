@@ -25,6 +25,7 @@ export const WorkoutsList = () => {
     <FlashList
       data={allWorkouts}
       onEndReached={() => hasNextPage && fetchNextPage()}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) => <PastWorkoutBox workout={item} />}
       estimatedItemSize={100}
       keyExtractor={(item) => item.id}

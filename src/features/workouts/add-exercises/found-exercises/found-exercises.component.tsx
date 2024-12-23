@@ -82,6 +82,7 @@ export const FoundExercises = ({
     <FlashList
       data={exercisesWithHeaders}
       onEndReached={() => hasNextPage && fetchNextPage()}
+      onEndReachedThreshold={0.5}
       renderItem={({ item, index }) => {
         if (typeof item === "string")
           return <LetterHeader letter={item} index={index} />;

@@ -46,6 +46,7 @@ export const PastWorkouts = () => {
       <FlashList
         data={items}
         onEndReached={() => hasNextPage && fetchNextPage()}
+        onEndReachedThreshold={0.5}
         renderItem={({ item }) => {
           if (typeof item === "string")
             return <WorkoutPeriodLabel period={item} />;
