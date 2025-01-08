@@ -14,9 +14,10 @@ export const useGetAlternativeTitle = (
   const bodyParts = (() => {
     if (!exercises) return "";
 
-    const bodyParts = uniq(exercises?.map((exercise) => exercise.bodyPart));
+    const bodyParts = uniq(exercises?.map((exercise) => exercise));
 
-    if (bodyParts.length === 1) return capitalize(bodyParts[0]);
+    if (bodyParts.length === 1)
+      return capitalize(bodyParts[0].muscle_group_name);
 
     const firstBodyParts = bodyParts.slice(0, -1);
     const lastBodyPart = bodyParts.slice(-1)[0];

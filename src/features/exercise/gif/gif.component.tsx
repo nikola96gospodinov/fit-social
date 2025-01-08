@@ -28,7 +28,7 @@ export const Gif = ({ exercise }: Props) => {
         },
       ]}>
       <Image
-        source={{ uri: exercise.gifUrl }}
+        source={{ uri: exercise.image_url ?? "" }}
         style={[
           styles.image,
           {
@@ -44,7 +44,7 @@ export const Gif = ({ exercise }: Props) => {
             backgroundColor: colors[theme].border,
           },
         ]}>
-        <ThemedText type="small">{exercise.equipment}</ThemedText>
+        <ThemedText type="small">{exercise.equipment_name}</ThemedText>
       </View>
     </View>
   );

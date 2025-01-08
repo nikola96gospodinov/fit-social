@@ -521,6 +521,27 @@ export type Database = {
         }
         Returns: undefined
       }
+      search_exercises: {
+        Args: {
+          search_query?: string
+          p_equipment?: string[]
+          p_muscle_groups?: string[]
+          p_limit?: number
+          p_offset?: number
+        }
+        Returns: {
+          id: string
+          name: string
+          equipment_id: string
+          equipment_name: string
+          muscle_group_id: string
+          muscle_group_name: string
+          image_url: string
+          instructions: string[]
+          measurement_type: Database["public"]["Enums"]["exercise_measurement_type"]
+          total_count: number
+        }[]
+      }
       search_profiles: {
         Args: {
           search_query: string
@@ -599,6 +620,7 @@ export type Database = {
         | "reps_and_subtracted_weight"
         | "time_only"
         | "time_and_distance"
+        | "time_and_added_weight"
       follow_status: "pending" | "accepted"
       measurement_system: "metric" | "imperial"
       notification_type:

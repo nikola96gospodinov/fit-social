@@ -1,23 +1,6 @@
-import {
-  BodyPart,
-  Equipment,
-  TargetMuscle,
-} from "@/src/constants/workout.constants";
+import { Database } from "../database.types";
 
-export type Exercise = {
-  bodyPart: BodyPart;
-  equipment: Equipment;
-  gifUrl: string;
-  id: string;
-  name: string;
-  target: TargetMuscle;
-  secondaryMuscles: (TargetMuscle | string)[];
-  instructions: string[];
-};
-
-export type ExerciseResponse = {
-  data: Exercise[];
-  total: number;
-  limit: number;
-  offset: number;
+export type Exercise = Database["public"]["Tables"]["exercises"]["Row"] & {
+  equipment_name: string;
+  muscle_group_name: string;
 };

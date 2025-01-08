@@ -1,7 +1,5 @@
-import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { PaddedScrollView } from "@/src/components/ui/layout/padded-scroll-view/padded-scroll-view.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
-import { Pill } from "@/src/components/ui/pill/pill.component";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { useGetExerciseById } from "@/src/services/exercises/get-exercise-by-id.service";
@@ -22,7 +20,7 @@ export const ExerciseContent = () => {
   useEffect(() => {
     if (exercise) {
       navigation.setOptions({
-        title: `${capitalize(exercise.name)} (${exercise.bodyPart})`,
+        title: `${capitalize(exercise.name)} (${exercise.muscle_group_name})`,
       });
     }
 
@@ -48,14 +46,6 @@ export const ExerciseContent = () => {
       <Gif exercise={exercise} />
 
       <VerticalSpacing size={4} />
-
-      <Flex direction="row" gap={2} align="center">
-        <Pill label={exercise.target} isActive />
-
-        {exercise.secondaryMuscles.map((muscle) => (
-          <Pill key={muscle} label={muscle} isActive={false} />
-        ))}
-      </Flex>
 
       <VerticalSpacing size={6} />
 

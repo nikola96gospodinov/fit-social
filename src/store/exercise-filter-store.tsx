@@ -1,21 +1,11 @@
-import {
-  BODY_PART,
-  EQUIPMENT,
-  TARGET_MUSCLE,
-} from "@/src/constants/workout.constants";
-import {
-  BodyPart,
-  Equipment,
-  TargetMuscle,
-} from "@/src/constants/workout.constants";
+import { EQUIPMENT, MUSCLE_GROUP } from "@/src/constants/workout.constants";
 import { create } from "zustand";
 import { WORKOUT_ACTION } from "./action-store";
 import { useActionStore } from "./action-store";
 
 export type Filter =
-  | { type: typeof BODY_PART; value: BodyPart }
-  | { type: typeof EQUIPMENT; value: Equipment }
-  | { type: typeof TARGET_MUSCLE; value: TargetMuscle };
+  | { type: typeof MUSCLE_GROUP; value: string }
+  | { type: typeof EQUIPMENT; value: string };
 
 type State = {
   filters: Filter[];

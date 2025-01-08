@@ -3,6 +3,7 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { ULItem } from "@/src/components/ui/ul-item/ul-item.component";
 import { colors } from "@/src/constants/colors.constants";
 import { Exercise } from "@/src/types/api/exercise.types";
+import { isEmpty } from "lodash";
 import { View, FlatList, useColorScheme, StyleSheet } from "react-native";
 
 type Props = {
@@ -11,6 +12,10 @@ type Props = {
 
 export const Instructions = ({ exercise }: Props) => {
   const theme = useColorScheme() ?? "light";
+
+  if (isEmpty(exercise.instructions)) {
+    return <ThemedText>No instructions found</ThemedText>;
+  }
 
   return (
     <View

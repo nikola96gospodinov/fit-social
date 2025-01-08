@@ -85,13 +85,16 @@ export const ExerciseBox = ({
               />
             </View>
           ) : (
-            <Image source={{ uri: exercise.gifUrl }} style={styles.image} />
+            <Image
+              source={{ uri: exercise.image_url ?? "" }}
+              style={styles.image}
+            />
           )}
 
           <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
             <ThemedText>{capitalize(exercise.name)}</ThemedText>
             <ThemedText type="small" color="supporting">
-              {exercise.bodyPart}
+              {exercise.muscle_group_name}
             </ThemedText>
           </Flex>
         </Flex>

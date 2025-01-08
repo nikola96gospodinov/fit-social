@@ -1,38 +1,35 @@
-import { URL } from "@/src/constants/url.constants";
-import { ExerciseResponse } from "@/src/types/api/exercise.types";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
-import {
-  BodyPart,
-  Equipment,
-  TargetMuscle,
-} from "@/src/constants/workout.constants";
+import { supabase } from "@/src/lib/supabase";
 
 export type GetExercisesProps = {
   limit?: number;
   offset?: number;
   search?: string;
-  targetFilters?: TargetMuscle[];
-  bodyPartFilters?: BodyPart[];
-  equipmentFilters?: Equipment[];
+  muscleGroupFilters?: string[];
+  equipmentFilters?: string[];
 };
 
 const getExercises = async (props: GetExercisesProps) => {
-  const url = URL.EXERCISE.GET_EXERCISES(props);
-
-  const response = await fetch(url, {
-    method: "GET",
+  const { data, error } = await supabase.rpc("search_exercises", {
+    search_query: props.search,
+    p_muscle_groups: props.muscleGroupFilters,
+    p_equipment: props.equipmentFilters,
+    p_limit: props.limit,
+    p_offset: props.offset,
   });
 
-  if (!response.ok) {
-    console.error(await response.text());
-
+  if (error) {
+    console.error("getExercises", error);
     throw new Error("Failed to fetch exercises");
   }
 
-  const data: ExerciseResponse = await response.json();
-
-  return data;
+  return {
+    data,
+    total: data?.[0]?.total_count ?? 0,
+    limit: props.limit ?? 25,
+    offset: props.offset ?? 0,
+  };
 };
 
 export const useGetExercises = (props: GetExercisesProps) => {

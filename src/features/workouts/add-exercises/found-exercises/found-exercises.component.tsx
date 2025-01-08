@@ -6,11 +6,7 @@ import { ExerciseBox } from "./exercise-box/exercise-box.component";
 import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-indicator/themed-activity-indicator.component";
 import { NetworkError } from "@/src/components/error/network-error/network-error.component";
 import { Exercise } from "@/src/types/api/exercise.types";
-import {
-  BODY_PART,
-  EQUIPMENT,
-  TARGET_MUSCLE,
-} from "@/src/constants/workout.constants";
+import { EQUIPMENT, MUSCLE_GROUP } from "@/src/constants/workout.constants";
 import { useDebounce } from "@/src/hooks/use-debounce";
 import { FlashList } from "@shopify/flash-list";
 import { InfiniteScrollFooter } from "@/src/components/infinite-scroll-footer/infinite-scroll-footer.component";
@@ -39,9 +35,8 @@ export const FoundExercises = ({
     isLoading,
   } = useGetInfiniteExercises({
     search: debouncedActiveSearch,
-    bodyPartFilters: getFilterValues(BODY_PART),
+    muscleGroupFilters: getFilterValues(MUSCLE_GROUP),
     equipmentFilters: getFilterValues(EQUIPMENT),
-    targetFilters: getFilterValues(TARGET_MUSCLE),
   });
 
   const allExercises = exercises?.pages.flatMap((page) => page.data) || [];

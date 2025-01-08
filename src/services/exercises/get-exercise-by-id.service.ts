@@ -1,24 +1,24 @@
-import { URL } from "@/src/constants/url.constants";
-import { Exercise } from "@/src/types/api/exercise.types";
 import { useQuery } from "@tanstack/react-query";
 import { EXERCISES_KEY } from "./exercise-keys";
+import { supabase } from "@/src/lib/supabase";
 
 const getExerciseById = async (id: string) => {
-  const url = URL.EXERCISE.GET_EXERCISE_BY_ID(id);
+  const { data, error } = await supabase
+    .from("exercises")
+    .select("*, equipment(name), muscle_groups(name)")
+    .eq("id", id)
+    .single();
 
-  const response = await fetch(url, {
-    method: "GET",
-  });
-
-  if (!response.ok) {
-    console.error("getExerciseById", await response.text());
-
+  if (error) {
+    console.error("getExerciseById", error);
     throw new Error("Failed to fetch exercise");
   }
 
-  const data: Exercise = await response.json();
-
-  return data;
+  return {
+    ...data,
+    equipment_name: data.equipment?.name ?? "",
+    muscle_group_name: data.muscle_groups?.name ?? "",
+  };
 };
 
 export const useGetExerciseById = (id: string) => {
