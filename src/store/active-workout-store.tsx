@@ -3,8 +3,10 @@ import { create } from "zustand";
 import { randomUUID } from "expo-crypto";
 import { Tables } from "../types/database.types";
 import { useActionStore, WORKOUT_ACTION, WorkoutAction } from "./action-store";
+import { MEASUREMENT_TYPE } from "../constants/workout.constants";
 
-export type ActiveExercise = Omit<Tables<"workout_exercises">, "workout_id">;
+export type ActiveExercise = Omit<Tables<"workout_exercises">, "workout_id"> &
+  Pick<Tables<"exercises">, "measurement_type" | "name">;
 
 export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
   exercise_id: string;
@@ -67,11 +69,14 @@ const createActiveWorkoutStore = () =>
     resetWorkout: () => set({ started: undefined, exercises: [], sets: [] }),
     setExercises: (exercises) => set({ exercises }),
     addExercises: (exercises) => {
-      const activeExercises = exercises.map(({ id, name }) => ({
-        id: randomUUID(),
-        exercise_id: id,
-        name,
-      }));
+      const activeExercises = exercises.map(
+        ({ id, name, measurement_type }) => ({
+          id: randomUUID(),
+          exercise_id: id,
+          name,
+          measurement_type,
+        }),
+      );
 
       set((state) => ({ exercises: [...state.exercises, ...activeExercises] }));
     },
@@ -104,10 +109,16 @@ const createActiveWorkoutStore = () =>
           return state;
         }
 
+        const { reps, weight, time, distance } = getWeightRepsTimeAndDistance(
+          exercise.measurement_type,
+        );
+
         const newSet = {
           id: randomUUID(),
-          reps: 0,
-          weight: 0,
+          reps,
+          weight,
+          time,
+          distance,
           is_done: false,
           exercise_id: exerciseId,
           workout_exercise_id: exercise.id,
@@ -168,4 +179,37 @@ export const useActiveWorkoutStore = () => {
     store,
     addStartedTime: addStore.started,
   };
+};
+
+// This is a helper function to get the default values for a new set
+const getWeightRepsTimeAndDistance = (
+  measurementType: Tables<"exercises">["measurement_type"],
+) => {
+  const defaults = {
+    reps: null,
+    weight: null,
+    time: null,
+    distance: null,
+  };
+
+  switch (measurementType) {
+    case MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT:
+    case MEASUREMENT_TYPE.REPS_AND_SUBTRACTED_WEIGHT:
+      return { ...defaults, reps: 0, weight: 0 };
+
+    case MEASUREMENT_TYPE.REPS_ONLY:
+      return { ...defaults, reps: 0 };
+
+    case MEASUREMENT_TYPE.TIME_ONLY:
+      return { ...defaults, time: 0 };
+
+    case MEASUREMENT_TYPE.TIME_AND_DISTANCE:
+      return { ...defaults, time: 0, distance: 0 };
+
+    case MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT:
+      return { ...defaults, time: 0, weight: 0 };
+
+    default:
+      return defaults;
+  }
 };

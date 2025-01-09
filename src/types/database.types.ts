@@ -101,29 +101,42 @@ export type Database = {
       }
       exercise_sets: {
         Row: {
+          distance: number | null
           id: string
-          is_done: boolean | null
+          is_done: boolean
           reps: number | null
+          time: unknown | null
           weight: number | null
-          workout_exercise_id: string | null
+          workout_exercise_id: string
         }
         Insert: {
+          distance?: number | null
           id?: string
-          is_done?: boolean | null
+          is_done?: boolean
           reps?: number | null
+          time?: unknown | null
           weight?: number | null
-          workout_exercise_id?: string | null
+          workout_exercise_id: string
         }
         Update: {
+          distance?: number | null
           id?: string
-          is_done?: boolean | null
+          is_done?: boolean
           reps?: number | null
+          time?: unknown | null
           weight?: number | null
-          workout_exercise_id?: string | null
+          workout_exercise_id?: string
         }
         Relationships: [
           {
             foreignKeyName: "exercise_sets_workout_exercise_id_fkey"
+            columns: ["workout_exercise_id"]
+            isOneToOne: false
+            referencedRelation: "workout_exercises"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exercise_sets_workout_exercise_id_fkey1"
             columns: ["workout_exercise_id"]
             isOneToOne: false
             referencedRelation: "workout_exercises"
@@ -354,22 +367,26 @@ export type Database = {
         Row: {
           exercise_id: string
           id: string
-          name: string
           workout_id: string
         }
         Insert: {
-          exercise_id: string
+          exercise_id?: string
           id?: string
-          name: string
           workout_id: string
         }
         Update: {
           exercise_id?: string
           id?: string
-          name?: string
           workout_id?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "workout_exercises_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "workout_exercises_workout_id_fkey"
             columns: ["workout_id"]
