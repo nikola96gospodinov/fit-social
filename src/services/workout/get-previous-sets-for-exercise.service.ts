@@ -10,7 +10,7 @@ const getPreviousSetsForExercise = async (exercise_id: string) => {
   });
 
   if (error) {
-    console.error(error);
+    console.error("Error getting previous sets for exercise", error);
     throw new Error(error.message);
   }
 

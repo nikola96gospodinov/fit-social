@@ -4,6 +4,7 @@ import { ThemedText } from "@/src/components/ui/themed-text/themed-text.componen
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import {
+  ActiveExercise,
   ActiveSet,
   useActiveWorkoutStore,
 } from "@/src/store/active-workout-store";
@@ -26,7 +27,7 @@ import { Database } from "@/src/types/database.types";
 type Props = {
   set: ActiveSet;
   index: number;
-  exerciseId: string;
+  exercise: ActiveExercise;
   drag: () => void;
   isActive: boolean;
   isBoxActive: boolean;
@@ -36,7 +37,7 @@ type Props = {
 export const SetBox = ({
   set,
   index,
-  exerciseId,
+  exercise,
   drag,
   isActive,
   isBoxActive,
@@ -78,7 +79,7 @@ export const SetBox = ({
     <SwipeableItem
       item={set}
       renderUnderlayLeft={() => (
-        <SetUnderlayLeft exerciseId={exerciseId} setId={set.id} />
+        <SetUnderlayLeft exerciseId={exercise.exercise_id} setId={set.id} />
       )}
       snapPointsLeft={[40]}
       overSwipe={100}
@@ -110,7 +111,11 @@ export const SetBox = ({
               keyboardType="numeric"
               width={64}
               onChangeText={(text) =>
-                updateSet({ exerciseId, setId: set.id, weight: Number(text) })
+                updateSet({
+                  exerciseId: exercise.exercise_id,
+                  setId: set.id,
+                  weight: Number(text),
+                })
               }
               centerContent
               size="small"
@@ -123,7 +128,11 @@ export const SetBox = ({
               keyboardType="numeric"
               width={64}
               onChangeText={(text) =>
-                updateSet({ exerciseId, setId: set.id, reps: Number(text) })
+                updateSet({
+                  exerciseId: exercise.exercise_id,
+                  setId: set.id,
+                  reps: Number(text),
+                })
               }
               centerContent
               size="small"
@@ -132,7 +141,11 @@ export const SetBox = ({
 
           <Pressable
             onPress={() =>
-              updateSet({ exerciseId, setId: set.id, isDone: !set.is_done })
+              updateSet({
+                exerciseId: exercise.exercise_id,
+                setId: set.id,
+                isDone: !set.is_done,
+              })
             }>
             {/* For some reason dynamically changing the name and color of one icon is causing huge performance issues */}
             {set.is_done ? (

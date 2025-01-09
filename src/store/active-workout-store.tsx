@@ -38,12 +38,16 @@ type Action = {
     reps,
     weight,
     isDone,
+    time,
+    distance,
   }: {
     exerciseId: string;
     setId: string;
     reps?: number;
     weight?: number;
     isDone?: boolean;
+    time?: number;
+    distance?: number;
   }) => void;
   removeSet: ({
     exerciseId,
@@ -129,23 +133,20 @@ const createActiveWorkoutStore = () =>
         };
       });
     },
-    updateSet: ({ setId, reps, weight, isDone }) => {
-      set((state) => {
-        const sets = state.sets.map((set) =>
+    updateSet: ({ setId, ...updates }) => {
+      set((state) => ({
+        sets: state.sets.map((set) =>
           set.id === setId
             ? {
                 ...set,
-                reps: reps === undefined ? set.reps : reps,
-                weight: weight === undefined ? set.weight : weight,
-                is_done: isDone ?? set.is_done,
+                ...updates,
+                ...(updates.isDone !== undefined && {
+                  is_done: updates.isDone,
+                }),
               }
             : set,
-        );
-
-        return {
-          sets,
-        };
-      });
+        ),
+      }));
     },
     removeSet: ({ setId }) => {
       set((state) => {

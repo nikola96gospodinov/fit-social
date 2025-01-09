@@ -29,12 +29,14 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
   return (
     <View>
       {/* For some reason, when I pass this as a ListHeaderComponent, there is an error */}
-      {!isEmpty(sets) && <SetsListHeader />}
+      {!isEmpty(sets) && (
+        <SetsListHeader measurementType={exercise.measurement_type} />
+      )}
 
       <NestableDraggableFlatList
         data={sets}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, drag, isActive, getIndex }) => {
+        renderItem={({ item, drag, isActive }) => {
           const index = sets.indexOf(item);
 
           return (
@@ -44,7 +46,7 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
               drag={drag}
               isActive={isActive}
               index={index}
-              exerciseId={exercise.exercise_id}
+              exercise={exercise}
               isBoxActive={isBoxActive}
               previousSet={previousSets?.[index]}
             />
