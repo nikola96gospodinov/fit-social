@@ -54,3 +54,19 @@ export const getDistance = (started: string) => {
     addSuffix: true,
   });
 };
+
+export const convertTimeToSeconds = (timeString: string): number => {
+  const parts = timeString.split(":");
+
+  if (parts.length === 3) {
+    // HH:MM:SS format
+    const [hours, minutes, seconds] = parts.map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
+  } else if (parts.length === 2) {
+    // MM:SS format
+    const [minutes, seconds] = parts.map(Number);
+    return minutes * 60 + seconds;
+  }
+
+  return 0;
+};

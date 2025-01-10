@@ -44,8 +44,8 @@ export const SetTimeInput = ({ set, exercise, isOnlyField }: Props) => {
         setIsVisible={setShowPicker}
         onConfirm={(pickedDuration) => {
           updateSet({
-            exerciseId: exercise.exercise_id,
-            setId: set.id,
+            exercise_id: exercise.exercise_id,
+            set_id: set.id,
             time: formatTime(pickedDuration),
           });
           setShowPicker(false);

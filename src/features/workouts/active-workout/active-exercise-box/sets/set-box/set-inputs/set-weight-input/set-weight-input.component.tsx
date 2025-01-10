@@ -27,8 +27,8 @@ export const SetWeightInput = ({ set, exercise }: Props) => {
         const validText = numericText.replace(/(\..*)\./g, "$1");
 
         updateSet({
-          exerciseId: exercise.exercise_id,
-          setId: set.id,
+          exercise_id: exercise.exercise_id,
+          set_id: set.id,
           weight: validText,
         });
       }}

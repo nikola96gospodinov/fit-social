@@ -24,8 +24,8 @@ export const SetRepsInput = ({ set, exercise, isOnlyField }: Props) => {
       onChangeText={(text) => {
         const wholeNumber = text.replace(/[^0-9]/g, "");
         updateSet({
-          exerciseId: exercise.exercise_id,
-          setId: set.id,
+          exercise_id: exercise.exercise_id,
+          set_id: set.id,
           reps: wholeNumber,
         });
       }}

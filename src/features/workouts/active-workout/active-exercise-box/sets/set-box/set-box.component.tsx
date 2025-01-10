@@ -112,9 +112,9 @@ export const SetBox = ({
           <Pressable
             onPress={() =>
               updateSet({
-                exerciseId: exercise.exercise_id,
-                setId: set.id,
-                isDone: !set.is_done,
+                exercise_id: exercise.exercise_id,
+                set_id: set.id,
+                is_done: !set.is_done,
               })
             }>
             {/* For some reason dynamically changing the name and color of one icon is causing huge performance issues */}

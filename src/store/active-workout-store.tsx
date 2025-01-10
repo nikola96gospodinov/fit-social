@@ -40,29 +40,23 @@ type Action = {
   setSets: (exerciseId: string, sets: ActiveSet[]) => void;
   addSet: (exerciseId: string) => void;
   updateSet: ({
-    exerciseId,
-    setId,
+    exercise_id,
+    set_id,
     reps,
     weight,
-    isDone,
+    is_done,
     time,
     distance,
   }: {
-    exerciseId: string;
-    setId: string;
+    exercise_id: string;
+    set_id: string;
     reps?: string;
     weight?: string;
-    isDone?: boolean;
+    is_done?: boolean;
     time?: string;
     distance?: string;
   }) => void;
-  removeSet: ({
-    exerciseId,
-    setId,
-  }: {
-    exerciseId: string;
-    setId: string;
-  }) => void;
+  removeSet: ({ setId }: { setId: string }) => void;
   getSetsForExercise: (exerciseId: string) => ActiveSet[];
   // This is for when loading an already existing workout
   initiateState: (state: State) => void;
@@ -140,15 +134,15 @@ const createActiveWorkoutStore = () =>
         };
       });
     },
-    updateSet: ({ setId, ...updates }) => {
+    updateSet: ({ set_id, ...updates }) => {
       set((state) => ({
         sets: state.sets.map((set) =>
-          set.id === setId
+          set.id === set_id
             ? {
                 ...set,
                 ...updates,
-                ...(updates.isDone !== undefined && {
-                  is_done: updates.isDone,
+                ...(updates.is_done !== undefined && {
+                  is_done: updates.is_done,
                 }),
               }
             : set,

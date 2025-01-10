@@ -8,6 +8,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { WORKOUT_QUERY_KEY } from "./profile-keys";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
 import { getProfile } from "../profile/get-profile.service";
+import { convertTimeToSeconds } from "@/src/utils/dates.utils";
 
 type AddWorkoutProps = {
   exercises: ActiveExercise[];
@@ -25,9 +26,15 @@ const addWorkout = async ({
   const profile = await getProfile();
 
   // We don't want to save sets that have no reps or are not done
-  const filteredSets = sets.filter(
-    (set) => set.reps && set.reps > 0 && set.is_done,
-  );
+  const filteredSets = sets
+    .filter((set) => set.reps && parseInt(set.reps) > 0 && set.is_done)
+    .map((set) => ({
+      ...set,
+      reps: set.reps ? parseInt(set.reps) : null,
+      weight: set.weight ? parseFloat(set.weight) : null,
+      time: set.time ? convertTimeToSeconds(set.time) : null,
+      distance: set.distance ? parseFloat(set.distance) : null,
+    }));
 
   const { error } = await supabase.rpc("add_workout_with_exercises_and_sets", {
     p_started: started?.toISOString() ?? new Date().toISOString(),
@@ -38,7 +45,7 @@ const addWorkout = async ({
   });
 
   if (error) {
-    console.error(error);
+    console.error("Error adding workout", error);
     throw new Error(error.message);
   }
 
