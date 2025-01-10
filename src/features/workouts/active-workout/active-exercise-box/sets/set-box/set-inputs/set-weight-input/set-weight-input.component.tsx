@@ -34,6 +34,8 @@ export const SetWeightInput = ({ set, exercise }: Props) => {
       }}
       centerContent
       size="small"
+      inputMode="decimal"
+      maxLength={5}
     />
   );
 };

@@ -35,6 +35,7 @@ export const SetDistanceInput = ({ set, exercise }: Props) => {
       centerContent
       size="small"
       inputMode="decimal"
+      maxLength={5}
     />
   );
 };

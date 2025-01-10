@@ -32,7 +32,7 @@ export const SetRepsInput = ({ set, exercise, isOnlyField }: Props) => {
       centerContent
       size="small"
       inputMode="numeric"
-      maxLength={3}
+      maxLength={4}
     />
   );
 };
