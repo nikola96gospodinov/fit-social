@@ -1,5 +1,4 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/themed-text-input.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
@@ -23,6 +22,7 @@ import SwipeableItem, {
 import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 import { useAnimateColor } from "@/src/hooks/use-animate-color";
 import { Database } from "@/src/types/database.types";
+import { AllInputs } from "./set-inputs/all-inputs/all-inputs.component";
 
 type Props = {
   set: ActiveSet;
@@ -106,37 +106,7 @@ export const SetBox = ({
           </View>
 
           <Flex direction="row" align="center" gap={2} style={{ flex: 1 }}>
-            <ThemedTextInput
-              value={set.weight ? set.weight.toString() : ""}
-              keyboardType="numeric"
-              width={64}
-              onChangeText={(text) =>
-                updateSet({
-                  exerciseId: exercise.exercise_id,
-                  setId: set.id,
-                  weight: Number(text),
-                })
-              }
-              centerContent
-              size="small"
-            />
-
-            <ThemedText>x</ThemedText>
-
-            <ThemedTextInput
-              value={set.reps ? set.reps.toString() : ""}
-              keyboardType="numeric"
-              width={64}
-              onChangeText={(text) =>
-                updateSet({
-                  exerciseId: exercise.exercise_id,
-                  setId: set.id,
-                  reps: Number(text),
-                })
-              }
-              centerContent
-              size="small"
-            />
+            <AllInputs set={set} exercise={exercise} />
           </Flex>
 
           <Pressable

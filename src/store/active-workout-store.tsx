@@ -8,8 +8,15 @@ import { MEASUREMENT_TYPE } from "../constants/workout.constants";
 export type ActiveExercise = Omit<Tables<"workout_exercises">, "workout_id"> &
   Pick<Tables<"exercises">, "measurement_type" | "name">;
 
-export type ActiveSet = Omit<Tables<"exercise_sets">, "workout_exercise_id"> & {
+export type ActiveSet = {
+  id: string;
+  reps?: string | null;
+  weight?: string | null;
+  time?: string | null;
+  distance?: string | null;
+  is_done: boolean;
   exercise_id: string;
+  workout_exercise_id: string;
 };
 
 export type State = {
@@ -43,11 +50,11 @@ type Action = {
   }: {
     exerciseId: string;
     setId: string;
-    reps?: number;
-    weight?: number;
+    reps?: string;
+    weight?: string;
     isDone?: boolean;
-    time?: number;
-    distance?: number;
+    time?: string;
+    distance?: string;
   }) => void;
   removeSet: ({
     exerciseId,
@@ -196,19 +203,19 @@ const getWeightRepsTimeAndDistance = (
   switch (measurementType) {
     case MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT:
     case MEASUREMENT_TYPE.REPS_AND_SUBTRACTED_WEIGHT:
-      return { ...defaults, reps: 0, weight: 0 };
+      return { ...defaults, reps: "", weight: "" };
 
     case MEASUREMENT_TYPE.REPS_ONLY:
-      return { ...defaults, reps: 0 };
+      return { ...defaults, reps: "" };
 
     case MEASUREMENT_TYPE.TIME_ONLY:
-      return { ...defaults, time: 0 };
+      return { ...defaults, time: "00:00" };
 
     case MEASUREMENT_TYPE.TIME_AND_DISTANCE:
-      return { ...defaults, time: 0, distance: 0 };
+      return { ...defaults, time: "00:00", distance: "" };
 
     case MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT:
-      return { ...defaults, time: 0, weight: 0 };
+      return { ...defaults, time: "00:00", weight: "" };
 
     default:
       return defaults;

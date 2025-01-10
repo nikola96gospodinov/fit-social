@@ -8,23 +8,16 @@ import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profil
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { ActiveExercise } from "@/src/store/active-workout-store";
 import { StyleSheet, useColorScheme } from "react-native";
+import {
+  DISTANCE_DISPLAY,
+  REPS_DISPLAY,
+  TIME_DISPLAY,
+  WEIGHT_DISPLAY,
+} from "../sets.constants";
+import { MEASUREMENT_TYPE_DISPLAYS } from "../sets.constants";
 
 type Props = {
   measurementType: ActiveExercise["measurement_type"];
-};
-
-const WEIGHT_DISPLAY = "weight";
-const REPS_DISPLAY = "reps";
-const TIME_DISPLAY = "time";
-const DISTANCE_DISPLAY = "distance";
-
-const MEASUREMENT_TYPE_DISPLAYS = {
-  [MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT]: [WEIGHT_DISPLAY, REPS_DISPLAY],
-  [MEASUREMENT_TYPE.REPS_AND_SUBTRACTED_WEIGHT]: [WEIGHT_DISPLAY, REPS_DISPLAY],
-  [MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT]: [WEIGHT_DISPLAY, TIME_DISPLAY],
-  [MEASUREMENT_TYPE.REPS_ONLY]: [REPS_DISPLAY],
-  [MEASUREMENT_TYPE.TIME_ONLY]: [TIME_DISPLAY],
-  [MEASUREMENT_TYPE.TIME_AND_DISTANCE]: [TIME_DISPLAY, DISTANCE_DISPLAY],
 };
 
 export const SetsListHeader = ({ measurementType }: Props) => {
