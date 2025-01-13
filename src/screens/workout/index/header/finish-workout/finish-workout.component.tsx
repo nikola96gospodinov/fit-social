@@ -5,7 +5,6 @@ import { useAddWorkout } from "@/src/services/workout/add-workout.service";
 import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-toast.component";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { getToastType } from "@/src/utils/toasts.utils";
-import { convertTimeToSeconds } from "@/src/utils/dates.utils";
 
 export const FinishWorkout = () => {
   const {
@@ -13,16 +12,6 @@ export const FinishWorkout = () => {
   } = useActiveWorkoutStore();
 
   const { mutate: addWorkout, isPending, isError, isSuccess } = useAddWorkout();
-
-  console.log(
-    sets.map((set) => ({
-      ...set,
-      reps: set.reps ? parseInt(set.reps) : null,
-      weight: set.weight ? parseFloat(set.weight) : null,
-      time: set.time ? convertTimeToSeconds(set.time) : null,
-      distance: set.distance ? parseFloat(set.distance) : null,
-    })),
-  );
 
   const theme = useColorScheme() ?? "light";
 
