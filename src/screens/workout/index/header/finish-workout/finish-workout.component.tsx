@@ -5,6 +5,7 @@ import { useAddWorkout } from "@/src/services/workout/add-workout.service";
 import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-toast.component";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { getToastType } from "@/src/utils/toasts.utils";
+import { isSetUsable } from "@/src/features/workouts/utils/is-set-usable.utils";
 
 export const FinishWorkout = () => {
   const {
@@ -23,6 +24,8 @@ export const FinishWorkout = () => {
     return "Adding workout...";
   })();
 
+  const validSets = sets.filter((set) => isSetUsable({ set, exercises }));
+
   return (
     <View>
       <ThemedButton
@@ -31,10 +34,11 @@ export const FinishWorkout = () => {
         onPress={() =>
           createFinishConfirmationAlert({
             finishWorkout: () =>
-              addWorkout({ exercises, started, sets, title }),
+              addWorkout({ exercises, started, sets: validSets, title }),
             theme,
             resetWorkout,
             sets,
+            exercises,
           })
         }
       />

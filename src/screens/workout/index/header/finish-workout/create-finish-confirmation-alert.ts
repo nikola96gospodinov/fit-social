@@ -1,4 +1,5 @@
-import { ActiveSet } from "@/src/store/active-workout-store";
+import { isSetUsable } from "@/src/features/workouts/utils/is-set-usable.utils";
+import { ActiveExercise, ActiveSet } from "@/src/store/active-workout-store";
 import { Alert, ColorSchemeName } from "react-native";
 
 type Props = {
@@ -6,6 +7,7 @@ type Props = {
   theme: ColorSchemeName;
   resetWorkout: () => void;
   sets: ActiveSet[];
+  exercises: ActiveExercise[];
 };
 
 export const createFinishConfirmationAlert = ({
@@ -13,11 +15,11 @@ export const createFinishConfirmationAlert = ({
   theme,
   resetWorkout,
   sets,
+  exercises,
 }: Props) => {
-  const hasSets = sets.some((set) => set.reps && set.reps > 0 && set.is_done);
+  const hasSets = sets.some((set) => isSetUsable({ set, exercises }));
   const allSetsAreValid =
-    sets.every((set) => set.reps && set.reps > 0 && set.is_done) &&
-    sets.length > 0;
+    sets.every((set) => isSetUsable({ set, exercises })) && sets.length > 0;
 
   const onPress = () => {
     if (hasSets) finishWorkout();

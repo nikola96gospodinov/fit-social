@@ -25,16 +25,13 @@ const addWorkout = async ({
 }: AddWorkoutProps) => {
   const profile = await getProfile();
 
-  // We don't want to save sets that have no reps or are not done
-  const filteredSets = sets
-    .filter((set) => set.reps && parseInt(set.reps) > 0 && set.is_done)
-    .map((set) => ({
-      ...set,
-      reps: set.reps ? parseInt(set.reps) : null,
-      weight: set.weight ? parseFloat(set.weight) : null,
-      time: set.time ? convertTimeToSeconds(set.time) : null,
-      distance: set.distance ? parseFloat(set.distance) : null,
-    }));
+  const filteredSets = sets.map((set) => ({
+    ...set,
+    reps: set.reps ? parseInt(set.reps) : null,
+    weight: set.weight ? parseFloat(set.weight) : null,
+    time: set.time ? convertTimeToSeconds(set.time) : null,
+    distance: set.distance ? parseFloat(set.distance) : null,
+  }));
 
   const { error } = await supabase.rpc("add_workout_with_exercises_and_sets", {
     p_started: started?.toISOString() ?? new Date().toISOString(),
