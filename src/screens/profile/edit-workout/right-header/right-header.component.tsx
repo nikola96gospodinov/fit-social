@@ -26,7 +26,7 @@ export const EditWorkoutRightHeader = () => {
 
   const onPress = () => {
     const allSetsAreValid =
-      sets.every((set) => set.reps && set.reps > 0 && set.is_done) &&
+      sets.every((set) => set.reps && parseInt(set.reps) > 0 && set.is_done) &&
       sets.length > 0;
 
     const args = {
