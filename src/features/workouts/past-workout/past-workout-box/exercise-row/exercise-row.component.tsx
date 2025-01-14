@@ -8,11 +8,12 @@ import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useGetExerciseSets } from "@/src/services/workout/get-exercise-sets.service";
 import { Tables } from "@/src/types/database.types";
 import { FontAwesome } from "@expo/vector-icons";
-import { capitalize } from "lodash";
 import { useColorScheme, View } from "react-native";
 
 type Props = {
-  exercise: Tables<"workout_exercises">;
+  exercise: Tables<"workout_exercises"> & {
+    exercises: Tables<"exercises"> | null;
+  };
   index: number;
   exercisesLength: number;
 };
@@ -26,6 +27,7 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
   const bestSet = getBestSet(sets);
 
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
+  const distanceUnit = profile?.measurement_system === METRIC ? "km" : "mi";
 
   const text = (() => {
     if (bestSet.weight === 0)
@@ -45,7 +47,7 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
             <ThemedText type="extraSmall" color="supporting">
               {sets?.length} x
             </ThemedText>{" "}
-            {capitalize(exercise.name)}
+            {exercise.exercises?.name}
           </ThemedText>
         </View>
 

@@ -5,7 +5,7 @@ import { WORKOUT_EXERCISES_QUERY_KEY } from "./profile-keys";
 export const getWorkoutExercises = async (workoutId: string) => {
   const { data, error } = await supabase
     .from("workout_exercises")
-    .select("*")
+    .select("*, exercises(*)")
     .eq("workout_id", workoutId);
 
   if (error) throw new Error(error.message);
