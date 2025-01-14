@@ -6,6 +6,7 @@ import { ThemedToastComponent } from "@/src/components/ui/themed-toast/themed-to
 import { useColorScheme } from "react-native";
 import { createEditConfirmationAlert } from "./create-edit-confirmation-alert";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
+import { isSetUsable } from "@/src/features/workouts/utils/is-set-usable.utils";
 
 export const EditWorkoutRightHeader = () => {
   const theme = useColorScheme() ?? "light";
@@ -26,8 +27,7 @@ export const EditWorkoutRightHeader = () => {
 
   const onPress = () => {
     const allSetsAreValid =
-      sets.every((set) => set.reps && parseInt(set.reps) > 0 && set.is_done) &&
-      sets.length > 0;
+      sets.every((set) => isSetUsable({ set, exercises })) && sets.length > 0;
 
     const args = {
       workoutId: id as string,
@@ -35,7 +35,7 @@ export const EditWorkoutRightHeader = () => {
       workoutStarted: started?.toISOString() ?? "",
       workoutEnded: ended?.toISOString() ?? "",
       exercisesData: exercises,
-      setsData: sets,
+      setsData: sets.filter((set) => isSetUsable({ set, exercises })),
     };
 
     if (!allSetsAreValid) {
