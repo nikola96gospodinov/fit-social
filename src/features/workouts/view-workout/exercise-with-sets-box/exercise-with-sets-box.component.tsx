@@ -2,7 +2,6 @@ import { View } from "react-native";
 import { Tables } from "@/src/types/database.types";
 import { useGetExerciseSets } from "@/src/services/workout/get-exercise-sets.service";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
-import { capitalize } from "lodash";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { Set } from "./set/set.component";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
@@ -10,7 +9,9 @@ import { useGetWorkoutPRs } from "@/src/services/workout/get-workout-prs.service
 import { getBestSet } from "@/src/features/workouts/utils/get-best-set.utils";
 
 type Props = {
-  exercise: Tables<"workout_exercises">;
+  exercise: Tables<"workout_exercises"> & {
+    exercises: Tables<"exercises"> | null;
+  };
   isLast: boolean;
   workout: Tables<"workouts">;
 };
@@ -27,13 +28,16 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
   const hasExercisePRs = workoutPRs?.some((pr) =>
     exerciseSets?.some((set) => set.id === pr.set_id),
   );
-  const bestSet = getBestSet(exerciseSets);
+  const bestSet = getBestSet({
+    sets: exerciseSets,
+    measurementType: exercise.exercises?.measurement_type,
+  });
 
   return (
     <View>
       <Flex direction="row" justify="space-between">
         <ThemedText type="small" numberOfLines={1} ellipsizeMode="tail">
-          {capitalize(exercise.name)}
+          {exercise.exercises?.name}
         </ThemedText>
 
         <ThemedText type="small">1RM</ThemedText>

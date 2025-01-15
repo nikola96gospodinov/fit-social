@@ -24,7 +24,10 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
   const { data: sets } = useGetExerciseSets(exercise.id);
   const { data: profile } = useGetProfile();
 
-  const bestSet = getBestSet(sets);
+  const bestSet = getBestSet({
+    sets,
+    measurementType: exercise.exercises?.measurement_type,
+  });
 
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
   const distanceUnit = profile?.measurement_system === METRIC ? "km" : "mi";
