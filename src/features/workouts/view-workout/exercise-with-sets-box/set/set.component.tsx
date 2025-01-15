@@ -1,5 +1,5 @@
 import { useColorScheme, View, StyleSheet } from "react-native";
-import { Tables } from "@/src/types/database.types";
+import { Enums, Tables } from "@/src/types/database.types";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
@@ -8,6 +8,7 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
+import { getSummaryTextOfSet } from "../../../utils/get-summary-text-of-set.utils";
 
 type Props = {
   set: Tables<"exercise_sets">;
@@ -15,9 +16,17 @@ type Props = {
   isLast: boolean;
   isPR?: boolean;
   isBestSet?: boolean;
+  measurementType?: Enums<"exercise_measurement_type">;
 };
 
-export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
+export const Set = ({
+  set,
+  index,
+  isLast,
+  isPR,
+  isBestSet,
+  measurementType,
+}: Props) => {
   const { data: profile } = useGetProfile();
 
   const theme = useColorScheme() ?? "light";
@@ -52,17 +61,18 @@ export const Set = ({ set, index, isLast, isPR, isBestSet }: Props) => {
     return "supporting";
   })();
 
-  const setRepsAndWeight = (() => {
-    if (set.weight === 0) return `${set.reps} rep${set.reps === 1 ? "" : "s"}`;
-    return `${set.weight} ${measurementSystem} x ${set.reps} rep${set.reps === 1 ? "" : "s"}`;
-  })();
+  const text = getSummaryTextOfSet({
+    set,
+    measurementSystem: profile?.measurement_system,
+    measurementType,
+  });
 
   return (
     <View key={set.id}>
       <Flex direction="row" justify="space-between">
         <ThemedText type="extraSmall" color="supporting">
           {index + 1}.{"   "}
-          {setRepsAndWeight}
+          {text}
         </ThemedText>
 
         {set.weight === 0 ? (

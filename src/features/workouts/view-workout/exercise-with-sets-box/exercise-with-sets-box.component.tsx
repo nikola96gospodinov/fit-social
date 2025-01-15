@@ -58,6 +58,7 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
             key={set.id}
             isPR={isPR}
             isBestSet={hasExercisePRs ? false : isBestSet}
+            measurementType={exercise.exercises?.measurement_type}
           />
         );
       })}
