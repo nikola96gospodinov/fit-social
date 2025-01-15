@@ -9,6 +9,7 @@ import { getDurationInHoursAndMinutes } from "@/src/utils/dates.utils";
 import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { Tables } from "@/src/types/database.types";
 import { useGetTotalWeight } from "@/src/features/workouts/past-workout/past-workout-box/hooks/use-get-total-weight";
+import { useGetTotalDistance } from "../past-workout-box/hooks/use-get-total-distance";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -20,8 +21,10 @@ export const WorkoutStats = ({ workout }: Props) => {
   const { data: profile } = useGetProfile();
 
   const totalWeight = useGetTotalWeight(workout.id);
+  const totalDistance = useGetTotalDistance(workout.id);
   const duration = getDurationInHoursAndMinutes(workout.started, workout.ended);
   const weightUnit = profile?.measurement_system === METRIC ? "kg" : "lbs";
+  const distanceUnit = profile?.measurement_system === METRIC ? "km" : "mi";
 
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,
@@ -37,13 +40,25 @@ export const WorkoutStats = ({ workout }: Props) => {
         <ThemedText type="extraSmall">{duration}</ThemedText>
       </Flex>
 
-      <Flex direction="row" gap={1} align="center">
-        <FontAwesome6 name="dumbbell" size={12} color={colors[theme].icon} />
+      {Boolean(totalWeight) && (
+        <Flex direction="row" gap={1} align="center">
+          <FontAwesome6 name="dumbbell" size={12} color={colors[theme].icon} />
 
-        <ThemedText type="extraSmall">
-          {totalWeight} {weightUnit}
-        </ThemedText>
-      </Flex>
+          <ThemedText type="extraSmall">
+            {totalWeight?.toLocaleString()} {weightUnit}
+          </ThemedText>
+        </Flex>
+      )}
+
+      {Boolean(totalDistance) && (
+        <Flex direction="row" gap={1} align="center">
+          <FontAwesome6 name="fire" size={12} color={colors[theme].icon} />
+
+          <ThemedText type="extraSmall">
+            {totalDistance?.toLocaleString()} {distanceUnit}
+          </ThemedText>
+        </Flex>
+      )}
 
       <Flex direction="row" gap={1} align="center">
         <Ionicons name="trophy" size={12} color={colors[theme].icon} />
