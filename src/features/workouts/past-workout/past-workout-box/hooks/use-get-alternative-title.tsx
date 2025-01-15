@@ -11,24 +11,25 @@ export const useGetAlternativeTitle = (
 
   const { data: exercises } = useGetExercisesByMultipleIds(exerciseIds);
 
-  const bodyParts = (() => {
+  const muscleGroups = (() => {
     if (!exercises) return "";
 
-    const bodyParts = uniq(exercises?.map((exercise) => exercise));
+    const muscleGroups = uniq(
+      exercises?.map((exercise) => exercise.muscle_group_name),
+    );
 
-    if (bodyParts.length === 1)
-      return capitalize(bodyParts[0].muscle_group_name);
+    if (muscleGroups.length === 1) return capitalize(muscleGroups[0]);
 
-    const firstBodyParts = bodyParts.slice(0, -1);
-    const lastBodyPart = bodyParts.slice(-1)[0];
+    const firstMuscleGroups = muscleGroups.slice(0, -1);
+    const lastMuscleGroup = muscleGroups.slice(-1)[0];
 
-    return `${capitalize(firstBodyParts.join(", "))} & ${lastBodyPart}`;
+    return `${capitalize(firstMuscleGroups.join(", "))} & ${lastMuscleGroup}`;
   })();
 
   const dayOfWeek = format(new Date(ended), "EEEE");
 
-  const alternativeTitle = bodyParts
-    ? `${bodyParts} workout`
+  const alternativeTitle = muscleGroups
+    ? `${muscleGroups} workout`
     : `${dayOfWeek} workout`;
 
   return alternativeTitle;
