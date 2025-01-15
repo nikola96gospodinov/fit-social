@@ -9,6 +9,7 @@ import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { getSummaryTextOfSet } from "../../../utils/get-summary-text-of-set.utils";
+import { MEASUREMENT_TYPE } from "@/src/constants/workout.constants";
 
 type Props = {
   set: Tables<"exercise_sets">;
@@ -33,11 +34,33 @@ export const Set = ({
 
   const measurementSystem =
     profile?.measurement_system === METRIC ? "kg" : "lbs";
+  const distanceUnit = profile?.measurement_system === METRIC ? "km" : "mi";
 
   const oneMaxRep = (() => {
     if (!set.weight || !set.reps) return 0;
     if (set.reps === 1) return set.weight;
     return (set.weight * (1 + set.reps / 30)).toFixed();
+  })();
+
+  const pace = (() => {
+    if (!set.distance || !set.time) return "0:00";
+
+    const secondsPerUnit = set.time / set.distance;
+
+    const minutes = Math.floor(secondsPerUnit / 60);
+    const seconds = Math.floor(secondsPerUnit % 60);
+
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  })();
+
+  const summary = (() => {
+    if (measurementType === MEASUREMENT_TYPE.TIME_AND_DISTANCE)
+      return ` ${pace} / ${distanceUnit}`;
+
+    if (measurementType === MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT)
+      return ` ${oneMaxRep} ${measurementSystem}`;
+
+    return "";
   })();
 
   const pillStyle = (() => {
@@ -90,8 +113,8 @@ export const Set = ({
                   size={12}
                   color={colors[theme].invertedText}
                 />
-              )}{" "}
-              {oneMaxRep} {measurementSystem}
+              )}
+              {summary}
             </ThemedText>
           </Flex>
         )}
