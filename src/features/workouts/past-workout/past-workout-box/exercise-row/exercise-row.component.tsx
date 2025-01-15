@@ -2,11 +2,13 @@ import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { VerticalSpacing } from "@/src/components/ui/layout/vertical-spacing/vertical-spacing.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
+import { MEASUREMENT_TYPE } from "@/src/constants/workout.constants";
 import { getBestSet } from "@/src/features/workouts/utils/get-best-set.utils";
 import { METRIC } from "@/src/screens/profile/edit/edit-profile-form/edit-profile-form.schema";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useGetExerciseSets } from "@/src/services/workout/get-exercise-sets.service";
 import { Tables } from "@/src/types/database.types";
+import { formatTime } from "@/src/utils/dates.utils";
 import { FontAwesome } from "@expo/vector-icons";
 import { useColorScheme, View } from "react-native";
 
@@ -33,9 +35,24 @@ export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
   const distanceUnit = profile?.measurement_system === METRIC ? "km" : "mi";
 
   const text = (() => {
-    if (bestSet.weight === 0)
-      return `${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
-    return `${bestSet.weight} ${weightUnit} x ${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+    switch (exercise.exercises?.measurement_type) {
+      case MEASUREMENT_TYPE.TIME_ONLY:
+        return formatTime(bestSet.time);
+      case MEASUREMENT_TYPE.TIME_AND_DISTANCE:
+        return `${bestSet.distance} ${distanceUnit} x ${formatTime(bestSet.time)}`;
+      case MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT:
+        return `${bestSet.weight} ${weightUnit} x ${formatTime(bestSet.time)}`;
+      case MEASUREMENT_TYPE.REPS_ONLY:
+        return `${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+      case MEASUREMENT_TYPE.REPS_AND_SUBTRACTED_WEIGHT:
+        return `${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"} x -${bestSet.weight} ${weightUnit}`;
+      case MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT:
+      default:
+        if (bestSet.weight === 0) {
+          return `${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+        }
+        return `${bestSet.weight} ${weightUnit} x ${bestSet.reps} rep${bestSet.reps === 1 ? "" : "s"}`;
+    }
   })();
 
   return (

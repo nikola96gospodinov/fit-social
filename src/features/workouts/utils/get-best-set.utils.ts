@@ -1,10 +1,12 @@
 import { MEASUREMENT_TYPE } from "@/src/constants/workout.constants";
 import { Enums, Tables } from "@/src/types/database.types";
 
-export const getBestSet = (
-  sets?: Tables<"exercise_sets">[],
-  measurementType?: Enums<"exercise_measurement_type">,
-) => {
+type Props = {
+  sets?: Tables<"exercise_sets">[];
+  measurementType?: Enums<"exercise_measurement_type">;
+};
+
+export const getBestSet = ({ sets, measurementType }: Props) => {
   switch (measurementType) {
     case MEASUREMENT_TYPE.REPS_ONLY:
       return getBestSetForRepsOnly(sets);
