@@ -8,6 +8,7 @@ import {
   WORKOUT_SETS_QUERY_KEY,
 } from "./profile-keys";
 import { ActiveExercise, ActiveSet } from "@/src/store/active-workout-store";
+import { convertTimeToSeconds } from "@/src/utils/dates.utils";
 
 type Props = {
   workoutId: string;
@@ -26,13 +27,21 @@ const editWorkout = async ({
   exercisesData,
   setsData,
 }: Props) => {
+  const formattedSetsData = setsData.map((set) => ({
+    ...set,
+    reps: set.reps ? parseInt(set.reps) : null,
+    weight: set.weight ? parseFloat(set.weight) : null,
+    time: set.time ? convertTimeToSeconds(set.time) : null,
+    distance: set.distance ? parseFloat(set.distance) : null,
+  }));
+
   const { error } = await supabase.rpc("update_workout", {
     p_workout_id: workoutId,
     p_workout_title: workoutTitle,
     p_workout_started: workoutStarted,
     p_workout_ended: workoutEnded,
     p_exercises_data: exercisesData,
-    p_sets_data: setsData,
+    p_sets_data: formattedSetsData,
   });
 
   if (error) {
