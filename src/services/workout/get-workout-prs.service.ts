@@ -15,7 +15,7 @@ const getWorkoutPRs = async ({ ended, workoutId }: Props) => {
   });
 
   if (error) {
-    console.error(error);
+    console.error("getWorkoutPRs", error);
     throw new Error(error.message);
   }
 
