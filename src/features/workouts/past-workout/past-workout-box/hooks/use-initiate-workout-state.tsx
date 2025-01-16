@@ -20,12 +20,29 @@ export const useInitiateWorkoutState = ({ workout }: Props) => {
 
   const isLoading = exercisesLoading || setsLoading;
 
+  const flatExercises = exercises.map((exercise) => ({
+    exercise_id: exercise.id,
+    id: exercise.id,
+    workout_id: exercise.workout_id,
+    ...exercise.exercises,
+    name: exercise.exercises!.name,
+    measurement_type: exercise.exercises!.measurement_type,
+  }));
+
+  const configuredSets = sets.map((set) => ({
+    ...set,
+    reps: set.reps?.toString() ?? null,
+    weight: set.weight?.toString() ?? null,
+    time: set.time?.toString() ?? null,
+    distance: set.distance?.toString() ?? null,
+  }));
+
   const handleInitiateState = () => {
     initiateState({
       started: new Date(workout.started),
       ended: new Date(workout.ended),
-      exercises,
-      sets,
+      exercises: flatExercises,
+      sets: configuredSets,
       title: workout.title ?? "",
       id: workout.id,
     });

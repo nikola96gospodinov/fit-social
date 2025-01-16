@@ -107,7 +107,7 @@ const createActiveWorkoutStore = () =>
     addSet: (exerciseId) => {
       set((state) => {
         const exercise = state.exercises.find(
-          (exercise) => exercise.exercise_id === exerciseId,
+          (exercise) => exercise.id === exerciseId,
         );
 
         if (!exercise) {

@@ -20,7 +20,7 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
     store: { setSets, getSetsForExercise },
   } = useActiveWorkoutStore();
 
-  const sets = getSetsForExercise(exercise.exercise_id);
+  const sets = getSetsForExercise(exercise.id);
 
   const { data: previousSets } = useGetPreviousSetsForExercise(
     exercise.exercise_id,

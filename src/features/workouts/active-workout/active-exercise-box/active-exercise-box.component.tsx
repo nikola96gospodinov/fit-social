@@ -40,7 +40,7 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
   const handleAddSet = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    addSet(exercise.exercise_id);
+    addSet(exercise.id);
   };
 
   return (
