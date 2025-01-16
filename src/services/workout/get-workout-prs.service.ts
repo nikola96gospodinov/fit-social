@@ -6,13 +6,11 @@ const WORKOUT_PRS_QUERY_KEY = "workout-prs";
 type Props = {
   ended: string;
   workoutId: string;
-  userId: string;
 };
 
-const getWorkoutPRs = async ({ ended, workoutId, userId }: Props) => {
+const getWorkoutPRs = async ({ ended, workoutId }: Props) => {
   const { data, error } = await supabase.rpc("get_workout_prs", {
     current_workout_id: workoutId,
-    p_user_id: userId,
     current_workout_ended: ended,
   });
 
@@ -24,9 +22,9 @@ const getWorkoutPRs = async ({ ended, workoutId, userId }: Props) => {
   return data;
 };
 
-export const useGetWorkoutPRs = ({ ended, workoutId, userId }: Props) => {
+export const useGetWorkoutPRs = ({ ended, workoutId }: Props) => {
   return useQuery({
-    queryKey: [WORKOUT_PRS_QUERY_KEY, ended, workoutId, userId],
-    queryFn: () => getWorkoutPRs({ ended, workoutId, userId }),
+    queryKey: [WORKOUT_PRS_QUERY_KEY, ended, workoutId],
+    queryFn: () => getWorkoutPRs({ ended, workoutId }),
   });
 };

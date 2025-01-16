@@ -23,7 +23,6 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,
     workoutId: workout.id,
-    userId: workout.user_id,
   });
 
   const hasExercisePRs = workoutPRs?.some((pr) =>
@@ -36,11 +35,11 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
 
   const showOneRMorPace =
     exercise.exercises?.measurement_type ===
-      MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT ||
+      MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT ||
     exercise.exercises?.measurement_type === MEASUREMENT_TYPE.TIME_AND_DISTANCE;
   const text =
     exercise.exercises?.measurement_type ===
-    MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT
+    MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT
       ? "1RM"
       : "Pace";
 
