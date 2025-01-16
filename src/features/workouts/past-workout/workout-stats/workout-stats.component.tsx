@@ -29,7 +29,6 @@ export const WorkoutStats = ({ workout }: Props) => {
   const { data: workoutPRs } = useGetWorkoutPRs({
     ended: workout.ended,
     workoutId: workout.id,
-    userId: workout.user_id,
   });
 
   return (

@@ -17,7 +17,7 @@ const getAllExerciseSetsForWorkout = async (workoutId: string) => {
 
   const { data: exerciseSets, error: exerciseSetsError } = await supabase
     .from("exercise_sets")
-    .select("*")
+    .select("*, workout_exercises(id), exercises(measurement_type)")
     .in("workout_exercise_id", exerciseIds);
 
   if (exerciseSetsError) {
