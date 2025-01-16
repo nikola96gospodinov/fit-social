@@ -60,6 +60,8 @@ export const Set = ({
     if (measurementType === MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT)
       return ` ${oneMaxRep} ${measurementSystem}`;
 
+    if (!isPR) return " Best set";
+
     return "";
   })();
 
