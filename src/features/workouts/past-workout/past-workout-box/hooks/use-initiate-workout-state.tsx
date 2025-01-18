@@ -2,6 +2,7 @@ import { useGetWorkoutExercises } from "@/src/services/workout/get-workout-exerc
 import { useGetWorkoutSets } from "@/src/services/workout/get-workout-sets.service";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { Tables } from "@/src/types/database.types";
+import { formatTimeAsDigital } from "@/src/utils/dates.utils";
 
 type Props = {
   workout: Tables<"workouts">;
@@ -22,7 +23,6 @@ export const useInitiateWorkoutState = ({ workout }: Props) => {
 
   const flatExercises = exercises.map((exercise) => ({
     exercise_id: exercise.id,
-    id: exercise.id,
     workout_id: exercise.workout_id,
     ...exercise.exercises,
     name: exercise.exercises!.name,
@@ -33,7 +33,7 @@ export const useInitiateWorkoutState = ({ workout }: Props) => {
     ...set,
     reps: set.reps?.toString() ?? null,
     weight: set.weight?.toString() ?? null,
-    time: set.time?.toString() ?? null,
+    time: formatTimeAsDigital(set.time),
     distance: set.distance?.toString() ?? null,
   }));
 
