@@ -478,6 +478,8 @@ export type Database = {
         Returns: {
           weight: number;
           reps: number;
+          distance: number;
+          time: number;
         }[];
       };
       get_workout_prs:

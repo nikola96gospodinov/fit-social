@@ -21,8 +21,10 @@ import SwipeableItem, {
 } from "react-native-swipeable-item";
 import { SetUnderlayLeft } from "./set-underlay-left/set-underlay-left.component";
 import { useAnimateColor } from "@/src/hooks/use-animate-color";
-import { Database } from "@/src/types/database.types";
 import { AllInputs } from "./set-inputs/all-inputs/all-inputs.component";
+import { MEASUREMENT_TYPE } from "@/src/constants/workout.constants";
+import { Database } from "@/src/types/database.types";
+import { formatTime } from "@/src/utils/dates.utils";
 
 type Props = {
   set: ActiveSet;
@@ -71,9 +73,33 @@ export const SetBox = ({
     animate(targetValue);
   }, [animate, isBoxActive, isActive, set.is_done]);
 
-  const previousSetText = previousSet
-    ? `${previousSet.weight} x ${previousSet.reps}`
-    : "-";
+  const previousSetText = (() => {
+    if (!previousSet) return "-";
+
+    const time = previousSet.time ? formatTime(previousSet.time) : "";
+
+    if (exercise.measurement_type === MEASUREMENT_TYPE.REPS_AND_ADDED_WEIGHT)
+      return `${previousSet.weight} x ${previousSet.reps}`;
+
+    if (exercise.measurement_type === MEASUREMENT_TYPE.TIME_AND_DISTANCE)
+      return `${previousSet.distance} x ${time}`;
+
+    if (exercise.measurement_type === MEASUREMENT_TYPE.TIME_ONLY)
+      return `${time}`;
+
+    if (
+      exercise.measurement_type === MEASUREMENT_TYPE.REPS_AND_SUBTRACTED_WEIGHT
+    )
+      return `-${previousSet.weight} x ${previousSet.reps}`;
+
+    if (exercise.measurement_type === MEASUREMENT_TYPE.REPS_ONLY)
+      return `${previousSet.reps}`;
+
+    if (exercise.measurement_type === MEASUREMENT_TYPE.TIME_AND_ADDED_WEIGHT)
+      return `${previousSet.weight} x ${time}`;
+
+    return "-";
+  })();
 
   return (
     <SwipeableItem

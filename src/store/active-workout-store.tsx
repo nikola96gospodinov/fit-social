@@ -140,9 +140,20 @@ const createActiveWorkoutStore = () =>
           set.id === set_id
             ? {
                 ...set,
-                ...updates,
                 ...(updates.is_done !== undefined && {
                   is_done: updates.is_done,
+                }),
+                ...(updates.reps !== undefined && {
+                  reps: updates.reps,
+                }),
+                ...(updates.weight !== undefined && {
+                  weight: updates.weight,
+                }),
+                ...(updates.time !== undefined && {
+                  time: updates.time,
+                }),
+                ...(updates.distance !== undefined && {
+                  distance: updates.distance,
                 }),
               }
             : set,
