@@ -18,12 +18,16 @@ const getWorkoutSets = async (workoutId: string) => {
     throw new Error(error.message);
   }
 
-  const sets = data.map((set) => ({
-    ...set,
-    exercise_id: exercises.find(
+  const sets = data.map((set) => {
+    const exercise = exercises.find(
       (exercise) => exercise.id === set.workout_exercise_id,
-    )!.exercise_id,
-  }));
+    );
+
+    return {
+      ...set,
+      exercise_id: exercise!.exercise_id,
+    };
+  });
 
   return sets;
 };

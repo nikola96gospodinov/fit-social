@@ -454,16 +454,26 @@ export type Database = {
         };
         Returns: undefined;
       };
-      add_workout_with_exercises_and_sets: {
-        Args: {
-          p_started: string;
-          p_user_id: string;
-          p_exercises: Json[];
-          p_sets: Json[];
-          p_title?: string;
-        };
-        Returns: undefined;
-      };
+      add_workout_with_exercises_and_sets:
+        | {
+            Args: {
+              p_started: string;
+              p_exercises: Json[];
+              p_sets: Json[];
+              p_title?: string;
+            };
+            Returns: undefined;
+          }
+        | {
+            Args: {
+              p_started: string;
+              p_user_id: string;
+              p_exercises: Json[];
+              p_sets: Json[];
+              p_title?: string;
+            };
+            Returns: undefined;
+          };
       follow_account: {
         Args: {
           p_follower_id: string;
@@ -630,17 +640,29 @@ export type Database = {
         };
         Returns: undefined;
       };
-      update_workout: {
-        Args: {
-          p_workout_id: string;
-          p_workout_title: string;
-          p_workout_started: string;
-          p_workout_ended: string;
-          p_exercises_data: Json;
-          p_sets_data: Json;
-        };
-        Returns: undefined;
-      };
+      update_workout:
+        | {
+            Args: {
+              p_workout_id: string;
+              p_workout_title: string;
+              p_workout_started: string;
+              p_workout_ended: string;
+              p_exercises_data: Json;
+              p_sets_data: Json;
+            };
+            Returns: undefined;
+          }
+        | {
+            Args: {
+              p_workout_id: string;
+              p_workout_title: string;
+              p_workout_started: string;
+              p_workout_ended: string;
+              p_exercises_data: Json;
+              p_sets_data: Json;
+            };
+            Returns: undefined;
+          };
     };
     Enums: {
       exercise_measurement_type:

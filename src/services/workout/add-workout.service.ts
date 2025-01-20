@@ -35,7 +35,6 @@ const addWorkout = async ({
 
   const { error } = await supabase.rpc("add_workout_with_exercises_and_sets", {
     p_started: started?.toISOString() ?? new Date().toISOString(),
-    p_user_id: profile.id,
     p_exercises: exercises,
     p_sets: filteredSets,
     p_title: title,

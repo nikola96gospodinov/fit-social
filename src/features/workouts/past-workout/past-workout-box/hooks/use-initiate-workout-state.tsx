@@ -22,9 +22,10 @@ export const useInitiateWorkoutState = ({ workout }: Props) => {
   const isLoading = exercisesLoading || setsLoading;
 
   const flatExercises = exercises.map((exercise) => ({
-    exercise_id: exercise.id,
+    exercise_id: exercise.exercise_id,
     workout_id: exercise.workout_id,
     ...exercise.exercises,
+    id: exercise.id,
     name: exercise.exercises!.name,
     measurement_type: exercise.exercises!.measurement_type,
   }));

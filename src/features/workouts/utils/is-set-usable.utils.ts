@@ -10,7 +10,8 @@ type Props = {
 export const isSetUsable = ({ set, exercises }: Props) => {
   if (!set.is_done) return false;
 
-  const exercise = exercises.find((e) => e.exercise_id === set.exercise_id);
+  const exercise = exercises.find((e) => e.id === set.workout_exercise_id);
+
   const measurementType = exercise?.measurement_type;
 
   switch (measurementType) {

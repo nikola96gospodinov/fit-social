@@ -76,8 +76,8 @@ const createActiveWorkoutStore = () =>
     addExercises: (exercises) => {
       const activeExercises = exercises.map(
         ({ id, name, measurement_type }) => ({
-          id: randomUUID(),
-          exercise_id: id,
+          id: randomUUID(), // Id in the workout_exercises table
+          exercise_id: id, // Id in the exercises table
           name,
           measurement_type,
         }),
@@ -104,10 +104,10 @@ const createActiveWorkoutStore = () =>
         };
       });
     },
-    addSet: (exerciseId) => {
+    addSet: (workoutExerciseId) => {
       set((state) => {
         const exercise = state.exercises.find(
-          (exercise) => exercise.id === exerciseId,
+          (exercise) => exercise.id === workoutExerciseId,
         );
 
         if (!exercise) {
@@ -125,8 +125,8 @@ const createActiveWorkoutStore = () =>
           time,
           distance,
           is_done: false,
-          exercise_id: exerciseId,
-          workout_exercise_id: exercise.id,
+          exercise_id: exercise.exercise_id,
+          workout_exercise_id: workoutExerciseId,
         };
 
         return {
@@ -169,8 +169,10 @@ const createActiveWorkoutStore = () =>
         };
       });
     },
-    getSetsForExercise: (exerciseId) => {
-      return get().sets.filter((set) => set.exercise_id === exerciseId);
+    getSetsForExercise: (workoutExerciseId) => {
+      return get().sets.filter(
+        (set) => set.workout_exercise_id === workoutExerciseId,
+      );
     },
     initiateState: (state) => set(state),
     setStarted: (started) => set({ started }),
