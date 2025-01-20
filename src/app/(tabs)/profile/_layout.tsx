@@ -4,7 +4,9 @@ import { EditWorkoutRightHeader } from "@/src/screens/profile/edit-workout/right
 import { ProfileEditHeaderRight } from "@/src/screens/profile/edit/header-right/header-right.component";
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
+import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
 import { useExerciseFilterStore } from "@/src/store/exercise-filter-store";
+import { getFormattedDate } from "@/src/utils/dates.utils";
 import { Stack, useNavigation } from "expo-router";
 import { useEffect } from "react";
 
@@ -18,6 +20,12 @@ export default function ProfileLayout() {
   const { filters } = useExerciseFilterStore();
 
   const totalNumberOfFilters = filters.length;
+
+  const {
+    store: { started },
+  } = useActiveWorkoutStore();
+
+  const date = getFormattedDate(started);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", () => {
@@ -51,6 +59,7 @@ export default function ProfileLayout() {
       <Stack.Screen
         name="edit-workout/[id]"
         options={{
+          title: date,
           headerRight: EditWorkoutRightHeader,
           headerTitle: EditWorkoutHeaderTitle,
         }}
