@@ -85,10 +85,7 @@ export const ExerciseBox = ({
               />
             </View>
           ) : (
-            <Image
-              source={{ uri: exercise.image_url ?? "" }}
-              style={styles.image}
-            />
+            <ExerciseImage exercise={exercise} />
           )}
 
           <Flex style={{ flexShrink: 1, gap: spacing[0.5] }}>
@@ -116,6 +113,28 @@ export const ExerciseBox = ({
   );
 };
 
+const ExerciseImage = ({ exercise }: { exercise: Exercise }) => {
+  const theme = useColorScheme() ?? "light";
+
+  const imageStyle = [styles.image, { borderColor: colors[theme].border }];
+
+  if (!exercise.image_url) {
+    return (
+      <View
+        style={[
+          imageStyle,
+          { alignItems: "center", justifyContent: "center" },
+        ]}>
+        <ThemedText type="extraSmall" style={{ marginLeft: 2 }}>
+          {exercise.name[0]}
+        </ThemedText>
+      </View>
+    );
+  }
+
+  return <Image source={{ uri: exercise.image_url }} style={imageStyle} />;
+};
+
 const styles = StyleSheet.create({
   container: {
     borderRadius: 16,
@@ -134,6 +153,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 100,
+    borderWidth: 1,
   },
 
   questionIconContainer: {
