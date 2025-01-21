@@ -16,13 +16,19 @@ type Props = {
   };
   index: number;
   exercisesLength: number;
+  userId: string;
 };
 
-export const ExerciseRow = ({ exercise, index, exercisesLength }: Props) => {
+export const ExerciseRow = ({
+  exercise,
+  index,
+  exercisesLength,
+  userId,
+}: Props) => {
   const theme = useColorScheme() ?? "light";
 
   const { data: sets } = useGetExerciseSets(exercise.id);
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile(userId);
 
   const bestSet = getBestSet({
     sets,

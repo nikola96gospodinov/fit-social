@@ -69,6 +69,7 @@ export const ExerciseWithSetsBox = ({ exercise, isLast, workout }: Props) => {
             isPR={isPR}
             isBestSet={hasExercisePRs ? false : isBestSet}
             measurementType={exercise.exercises?.measurement_type}
+            userId={workout.user_id}
           />
         );
       })}

@@ -18,6 +18,7 @@ type Props = {
   isPR?: boolean;
   isBestSet?: boolean;
   measurementType?: Enums<"exercise_measurement_type">;
+  userId: string;
 };
 
 export const Set = ({
@@ -27,8 +28,9 @@ export const Set = ({
   isPR,
   isBestSet,
   measurementType,
+  userId,
 }: Props) => {
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile(userId);
 
   const theme = useColorScheme() ?? "light";
 

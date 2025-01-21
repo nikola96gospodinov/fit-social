@@ -69,6 +69,7 @@ export const PastWorkoutBox = ({ workout }: Props) => {
               exercise={exercise}
               index={index}
               exercisesLength={workoutExercises.length}
+              userId={workout.user_id}
             />
           );
         })}
