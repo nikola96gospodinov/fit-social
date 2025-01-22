@@ -1,3 +1,4 @@
+import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
@@ -40,9 +41,11 @@ export const AddIcon = ({ selectedExercises }: Props) => {
       onPress={onPress}>
       <MaterialCommunityIcons
         name="plus"
-        size={32}
-        color={colors[theme].tintBackgroundText}
+        size={20}
+        color={colors[theme].textIcon}
       />
+
+      <ThemedText>Add</ThemedText>
     </Pressable>
   );
 };
@@ -50,9 +53,15 @@ export const AddIcon = ({ selectedExercises }: Props) => {
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
-    bottom: spacing[4],
+    bottom: spacing[5],
     right: spacing[4],
-    padding: spacing[1],
+    paddingVertical: spacing[2],
+    paddingHorizontal: spacing[4],
     borderRadius: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex",
+    flexDirection: "row",
+    gap: spacing[0.5],
   },
 });
