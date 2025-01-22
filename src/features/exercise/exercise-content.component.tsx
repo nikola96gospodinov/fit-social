@@ -4,7 +4,6 @@ import { ThemedActivityIndicator } from "@/src/components/ui/themed-activity-ind
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { useGetExerciseById } from "@/src/services/exercises/get-exercise-by-id.service";
 import { useLocalSearchParams, useNavigation } from "expo-router";
-import { capitalize } from "lodash";
 import { useEffect } from "react";
 import { Gif } from "./gif/gif.component";
 import { Instructions } from "./instructions/instructions.component";
@@ -20,7 +19,7 @@ export const ExerciseContent = () => {
   useEffect(() => {
     if (exercise) {
       navigation.setOptions({
-        title: `${capitalize(exercise.name)} (${exercise.muscle_group_name})`,
+        title: exercise.name,
       });
     }
 

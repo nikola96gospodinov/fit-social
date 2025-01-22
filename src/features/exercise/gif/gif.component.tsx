@@ -1,3 +1,4 @@
+import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
@@ -20,22 +21,29 @@ export const Gif = ({ exercise }: Props) => {
   const windowWidth = Dimensions.get("window").width;
 
   return (
-    <View
+    <Flex
+      align="center"
+      justify="center"
       style={[
         styles.imageContainer,
         {
           borderColor: colors[theme].border,
+          height: windowWidth - spacing[4] * 2,
         },
       ]}>
-      <Image
-        source={{ uri: exercise.image_url ?? "" }}
-        style={[
-          styles.image,
-          {
-            height: windowWidth - spacing[4] * 2,
-          },
-        ]}
-      />
+      {exercise.image_url ? (
+        <Image
+          source={{ uri: exercise.image_url ?? "" }}
+          style={[
+            styles.image,
+            {
+              height: windowWidth - spacing[4] * 2,
+            },
+          ]}
+        />
+      ) : (
+        <ThemedText>Graphic coming soon!</ThemedText>
+      )}
 
       <View
         style={[
@@ -44,9 +52,9 @@ export const Gif = ({ exercise }: Props) => {
             backgroundColor: colors[theme].border,
           },
         ]}>
-        <ThemedText type="small">{exercise.equipment_name}</ThemedText>
+        <ThemedText type="small">{exercise.muscle_group_name}</ThemedText>
       </View>
-    </View>
+    </Flex>
   );
 };
 
