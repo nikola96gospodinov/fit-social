@@ -34,8 +34,9 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
       <NestableDraggableFlatList
         data={sets}
         keyExtractor={(item) => item.id}
-        renderItem={({ item, drag, isActive }) => {
-          const index = sets.indexOf(item);
+        renderItem={({ item, drag, isActive, getIndex }) => {
+          const index = getIndex() ?? 0;
+          const isLast = index === sets.length - 1;
 
           return (
             <SetBox
@@ -47,6 +48,7 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
               exercise={exercise}
               isBoxActive={isBoxActive}
               previousSet={previousSets?.[index]}
+              isLast={isLast}
             />
           );
         }}

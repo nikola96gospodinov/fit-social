@@ -1,6 +1,4 @@
-import { spacing } from "@/src/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
-import { StyleSheet } from "react-native";
 import { ActiveExercisesFooter } from "./active-exercises-footer/active-exercises-footer.component";
 import { ActiveExerciseBox } from "./active-exercise-box/active-exercise-box.component";
 import {
@@ -17,7 +15,7 @@ export const ActiveWorkout = () => {
 
   return (
     <GestureHandlerRootView>
-      <NestableScrollContainer style={styles.container}>
+      <NestableScrollContainer>
         <NestableDraggableFlatList
           data={exercises}
           keyExtractor={(item) => item.exercise_id}
@@ -36,10 +34,3 @@ export const ActiveWorkout = () => {
     </GestureHandlerRootView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: spacing[4],
-    paddingBottom: 0,
-  },
-});

@@ -39,8 +39,8 @@ export const ActiveExercisesFooter = () => {
 
 const styles = StyleSheet.create({
   ctaContainer: {
-    marginTop: spacing[8],
     justifyContent: "center",
     alignItems: "center",
+    paddingHorizontal: spacing[4],
   },
 });

@@ -11,13 +11,12 @@ import {
   useColorScheme,
   View,
 } from "react-native";
-import { DiscardExercise } from "./discard-exercise/discard-excercise.component";
 import {
   ActiveExercise,
   useActiveWorkoutStore,
 } from "@/src/store/active-workout-store";
 import { Sets } from "./sets/sets.component";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import Entypo from "@expo/vector-icons/Entypo";
 import { router } from "expo-router";
 import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
 
@@ -52,17 +51,21 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
           {
             backgroundColor: isActive
               ? colors[theme].tintActiveBackground
-              : colors[theme].cardBackground,
-            borderColor: isActive
-              ? colors[theme].borderFocused
-              : colors[theme].border,
+              : "transparent",
           },
           styles.container,
         ]}>
-        <Pressable onPressIn={drag} style={styles.dragIndicator}>
-          <MaterialIcons
-            name="drag-indicator"
-            size={20}
+        <Pressable
+          onPressIn={drag}
+          style={[
+            styles.dragIndicator,
+            {
+              backgroundColor: colors[theme].sectionBackground,
+            },
+          ]}>
+          <Entypo
+            name="select-arrows"
+            size={18}
             color={colors[theme].textIcon}
           />
         </Pressable>
@@ -88,46 +91,47 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
         <Sets exercise={exercise} isBoxActive={isActive} />
 
-        <VerticalSpacing size={6} />
+        <VerticalSpacing size={4} />
 
-        <View style={{ alignSelf: "center" }}>
+        <View style={{ marginHorizontal: spacing[2] }}>
           <ThemedButton
             text="Add a set"
             variant="flat"
             onPress={handleAddSet}
+            isFullWidth
+            style={{
+              backgroundColor: colors[theme].cardBackground,
+            }}
           />
         </View>
-
-        <DiscardExercise id={exercise.exercise_id} />
       </Pressable>
 
-      <VerticalSpacing size={4} />
+      <VerticalSpacing size={6} />
     </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 0,
-    borderRadius: spacing[3],
-    borderWidth: 1,
-    paddingBottom: spacing[3],
+    paddingVertical: spacing[4],
   },
 
   exerciseNameContainer: {
     marginLeft: -1,
     marginTop: -1,
-    paddingHorizontal: spacing[3],
-    paddingVertical: spacing[1],
-    borderTopLeftRadius: spacing[3],
-    borderBottomRightRadius: spacing[3],
+    paddingHorizontal: spacing[4],
+    paddingVertical: spacing[1] + spacing[0.5],
+    borderBottomRightRadius: spacing[4],
+    borderTopRightRadius: spacing[4],
     alignSelf: "flex-start",
   },
 
   dragIndicator: {
     position: "absolute",
-    top: 0,
+    top: spacing[4],
     right: 0,
     padding: spacing[2],
+    marginRight: spacing[2],
+    borderRadius: spacing[4],
   },
 });

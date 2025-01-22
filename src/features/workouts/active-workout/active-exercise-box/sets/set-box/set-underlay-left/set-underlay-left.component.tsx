@@ -1,4 +1,5 @@
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
+import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { colors } from "@/src/constants/colors.constants";
 import { spacing } from "@/src/constants/spacing.constants";
 import { useActiveWorkoutStore } from "@/src/store/active-workout-store";
@@ -19,24 +20,34 @@ export const SetUnderlayLeft = ({ exerciseId, setId }: Props) => {
 
   return (
     <Flex
-      align="flex-end"
+      align="center"
       justify="center"
       style={{
         backgroundColor: colors[theme].destructiveBackground,
         padding: spacing[2],
-        width: 40,
         alignSelf: "flex-end",
+        height: "100%",
+        width: 120,
       }}>
       <Pressable
         onPress={() => {
           LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-          removeSet({ exerciseId, setId });
+          removeSet({ setId });
+        }}
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: spacing[1],
         }}>
         <MaterialIcons
           name="delete"
-          size={24}
+          size={16}
           color={colors[theme].destructiveIcon}
         />
+        <ThemedText color="error" type="small">
+          Delete
+        </ThemedText>
       </Pressable>
     </Flex>
   );

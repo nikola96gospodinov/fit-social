@@ -34,6 +34,7 @@ type Props = {
   isActive: boolean;
   isBoxActive: boolean;
   previousSet?: Database["public"]["Functions"]["get_previous_sets_for_exercise"]["Returns"][number];
+  isLast: boolean;
 };
 
 export const SetBox = ({
@@ -44,6 +45,7 @@ export const SetBox = ({
   isActive,
   isBoxActive,
   previousSet,
+  isLast,
 }: Props) => {
   const {
     store: { updateSet },
@@ -107,8 +109,8 @@ export const SetBox = ({
       renderUnderlayLeft={() => (
         <SetUnderlayLeft exerciseId={exercise.exercise_id} setId={set.id} />
       )}
-      snapPointsLeft={[40]}
-      overSwipe={100}
+      snapPointsLeft={[120]}
+      overSwipe={120}
       ref={itemRef}>
       <Pressable onLongPress={drag} disabled={isActive}>
         <Animated.View
@@ -119,6 +121,8 @@ export const SetBox = ({
               borderColor: isActive
                 ? colors[theme].borderFocused
                 : "transparent",
+              paddingTop: index === 0 ? spacing[3] : spacing[1] + spacing[0.5],
+              paddingBottom: isLast ? spacing[3] : spacing[1] + spacing[0.5],
             },
           ]}>
           <View style={{ width: 32 }}>
@@ -168,8 +172,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 6,
-    paddingHorizontal: spacing[3],
+    paddingVertical: spacing[1] + spacing[0.5],
+    paddingHorizontal: spacing[4],
     borderBottomWidth: 1,
     borderTopWidth: 1,
   },

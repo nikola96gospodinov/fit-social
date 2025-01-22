@@ -106,8 +106,6 @@ export const SetsListHeader = ({ measurementType }: Props) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: spacing[3],
-    paddingBottom: spacing[2],
-    borderBottomWidth: 1,
+    paddingHorizontal: spacing[4],
   },
 });
