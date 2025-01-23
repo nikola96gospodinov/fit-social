@@ -19,6 +19,8 @@ import { Sets } from "./sets/sets.component";
 import Entypo from "@expo/vector-icons/Entypo";
 import { router } from "expo-router";
 import { useActionStore, WORKOUT_ACTION } from "@/src/store/action-store";
+import { DiscardExercise } from "./discard-exercise/discard-exercise.component";
+import { Flex } from "@/src/components/ui/layout/flex/flex.component";
 
 type Props = {
   exercise: ActiveExercise;
@@ -93,17 +95,26 @@ export const ActiveExerciseBox = ({ exercise, drag, isActive }: Props) => {
 
         <VerticalSpacing size={4} />
 
-        <View style={{ marginHorizontal: spacing[2] }}>
-          <ThemedButton
-            text="Add a set"
-            variant="flat"
-            onPress={handleAddSet}
-            isFullWidth
-            style={{
-              backgroundColor: colors[theme].cardBackground,
-            }}
-          />
-        </View>
+        <Flex
+          direction="row"
+          justify="space-between"
+          align="center"
+          gap={spacing[1]}
+          style={{ marginHorizontal: spacing[2] }}>
+          <View style={{ flex: 1 }}>
+            <ThemedButton
+              text="Add a set"
+              variant="flat"
+              onPress={handleAddSet}
+              isFullWidth
+              style={{
+                backgroundColor: colors[theme].cardBackground,
+              }}
+            />
+          </View>
+
+          <DiscardExercise id={exercise.id} />
+        </Flex>
       </Pressable>
 
       <VerticalSpacing size={6} />
