@@ -22,7 +22,9 @@ export const Sets = ({ exercise, isBoxActive }: Props) => {
 
   const sets = getSetsForExercise(exercise.id);
 
-  const { data: previousSets } = useGetPreviousSetsForExercise(exercise.id);
+  const { data: previousSets } = useGetPreviousSetsForExercise(
+    exercise.exercise_id,
+  );
 
   return (
     <View>
