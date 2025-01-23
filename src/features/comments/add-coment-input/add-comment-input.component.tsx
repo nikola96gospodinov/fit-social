@@ -2,7 +2,6 @@ import { ThemedTextInput } from "@/src/components/ui/form/themed-text-input/them
 import { spacing } from "@/src/constants/spacing.constants";
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useHeaderHeight } from "@react-navigation/elements";
 import { ThemedButton } from "@/src/components/ui/themed-button/themed-button.component";
 import { useState } from "react";
 import { useAddComment } from "@/src/services/comments/add-comment.service";
@@ -13,7 +12,7 @@ type Props = {
 
 export const AddCommentInput = ({ workoutId }: Props) => {
   const insets = useSafeAreaInsets();
-  const height = useHeaderHeight();
+  const height = 60; // TODO: Figure out how to get a dynamic value
 
   const [comment, setComment] = useState("");
   const { mutate: addComment, isPending } = useAddComment();

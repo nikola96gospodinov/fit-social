@@ -20,7 +20,7 @@ export default function AuthLayout() {
   }
 
   if (session) {
-    return <Redirect href="/(tabs)" />;
+    return <Redirect href="/(tabs)/(index)" />;
   }
 
   return (

@@ -8,7 +8,6 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { useColorScheme } from "react-native";
 import "react-native-reanimated";
-import { DevToolsBubble } from "react-native-react-query-devtools";
 import { useEnableLayoutAnimation } from "@/src/hooks/use-enable-layout-animation";
 import { RootSiblingParent as ToastProvider } from "react-native-root-siblings";
 
@@ -42,7 +41,6 @@ export default function RootLayout() {
             <Stack.Screen name="(auth)" options={{ headerShown: false }} />
             <Stack.Screen name="+not-found" />
           </Stack>
-          {/* <DevToolsBubble /> */}
         </ToastProvider>
       </QueryClientProvider>
     </ThemeProvider>

@@ -1,8 +1,6 @@
 import { useGetProfile } from "@/src/services/profile/get-profile.service";
 import { Pressable, View } from "react-native";
 import { Flex } from "@/src/components/ui/layout/flex/flex.component";
-import { colors } from "@/src/constants/colors.constants";
-import { useColorScheme, StyleSheet } from "react-native";
 import { ThemedText } from "@/src/components/ui/themed-text/themed-text.component";
 import { getWorkoutDistance } from "../../../../features/workouts/past-workout/past-workout-box/past-workout-box.utils";
 import { Href, router, useLocalSearchParams, useSegments } from "expo-router";
@@ -12,8 +10,6 @@ import { WorkoutStats } from "@/src/features/workouts/past-workout/workout-stats
 import { Avatar } from "@/src/components/avatar/avatar.component";
 
 export const ViewWorkoutListHeader = () => {
-  const theme = useColorScheme() ?? "light";
-
   const { id } = useLocalSearchParams();
 
   const { data: workout } = useGetWorkoutById(id as string);
@@ -36,16 +32,7 @@ export const ViewWorkoutListHeader = () => {
             router.push(`/${tab}/other-profile/${profile?.id}` as Href);
           }
         }}>
-        <Flex
-          direction="row"
-          align="center"
-          gap={3}
-          style={[
-            styles.userInfoContainer,
-            {
-              backgroundColor: colors[theme].background,
-            },
-          ]}>
+        <Flex direction="row" align="center" gap={3}>
           <View>
             <Avatar size={36} userId={profile?.id} />
           </View>
@@ -68,10 +55,3 @@ export const ViewWorkoutListHeader = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  userInfoContainer: {
-    borderTopLeftRadius: 16,
-    borderBottomRightRadius: 16,
-  },
-});

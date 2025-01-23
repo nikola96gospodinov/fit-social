@@ -87,10 +87,8 @@ const createActiveWorkoutStore = () =>
     },
     removeExercise: (id) => {
       set((state) => ({
-        exercises: state.exercises.filter(
-          (exercise) => exercise.exercise_id !== id,
-        ),
-        sets: state.sets.filter((set) => set.exercise_id !== id),
+        exercises: state.exercises.filter((exercise) => exercise.id !== id),
+        sets: state.sets.filter((set) => set.workout_exercise_id !== id),
       }));
     },
     setSets: (exerciseId, sets) => {
