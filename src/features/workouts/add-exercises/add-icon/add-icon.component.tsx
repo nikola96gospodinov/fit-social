@@ -23,7 +23,7 @@ export const AddIcon = ({ selectedExercises }: Props) => {
 
   const tab =
     action === WORKOUT_ACTION.EDIT
-      ? (`/profile/edit-workout/${id}` as Href<string>)
+      ? (`/profile/edit-workout/${id}` as Href)
       : "/workout";
   const onPress = () => {
     addExercises(selectedExercises);
@@ -42,10 +42,16 @@ export const AddIcon = ({ selectedExercises }: Props) => {
       <MaterialCommunityIcons
         name="plus"
         size={20}
-        color={colors[theme].textIcon}
+        color={
+          theme === "dark" ? colors[theme].textIcon : colors[theme].invertedText
+        }
       />
 
-      <ThemedText>Add</ThemedText>
+      <ThemedText
+        type="small"
+        color={theme === "dark" ? "default" : "inverted"}>
+        Add
+      </ThemedText>
     </Pressable>
   );
 };
