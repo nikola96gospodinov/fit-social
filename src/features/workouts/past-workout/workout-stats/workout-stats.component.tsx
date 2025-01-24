@@ -18,7 +18,7 @@ type Props = {
 export const WorkoutStats = ({ workout }: Props) => {
   const theme = useColorScheme() ?? "light";
 
-  const { data: profile } = useGetProfile();
+  const { data: profile } = useGetProfile(workout.user_id);
 
   const totalWeight = useGetTotalWeight(workout.id);
   const totalDistance = useGetTotalDistance(workout.id);
